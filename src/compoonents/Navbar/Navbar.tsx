@@ -13,7 +13,7 @@ const link: LinkProps[] = [
 
 ]
 const Navbar = () => {
-  const links = link.map((item: LinkProps) => <Navbutton link={item.link} name={item.name} Icon={item.Icon}/>) 
+  const links = link.map((item: LinkProps) => <Navbutton link={item.link} name={item.name} Icon={item.Icon} key={item.name}/>) 
   return (
     <div className="w-2/12 font-mono  md:pt-5 bg-slate-100 min-h-full border-left-2 ">
       <header className="py-5">

@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-export interface User {
+export interface UserProps {
     id: string,
     first_name: string,
     email: string,
@@ -8,7 +8,7 @@ export interface User {
     status: string
 }
 
-function createRandomUser(): User {
+function createRandomUser(): UserProps {
     return {
         id: faker.string.uuid(),
         avatar: faker.image.avatar(),
@@ -18,17 +18,17 @@ function createRandomUser(): User {
         status: faker.lorem.sentence({min: 3, max: 7})
     }
 }
-export interface Conversation {
+export interface ConversationProps {
     id: string,
-    messages: Message[]
-    sender: User,
-    receiver: User,
+    messages: MessageProps[]
+    sender: UserProps,
+    receiver: UserProps,
 }
 
 type MessageState = {
     status: 'sent' | 'received';
 }
-export interface Message {
+export interface MessageProps {
     id: string,
     message: string,
     time: string,
@@ -41,20 +41,20 @@ function getRandomMessageState(): MessageState {
     return { status: isSent ? 'sent' : 'received' };
 }
 
-function createRandomMessage(conversation_id: string): Message {
+function createRandomMessage(conversation_id: string): MessageProps {
     return {
         id: faker.string.uuid(),
-        message: faker.lorem.sentence({ min: 3, max: 10 }),
+        message: faker.lorem.sentence({ min: 3, max: 100 }),
         time: faker.date.between({ from: '2020-01-01T00:00:00.000Z', to: '2030-01-01T00:00:00.000Z' }).toDateString(),
         state: getRandomMessageState(),
         conversation_id: conversation_id
     }
 }
 
-function createRandomConversation(receiver: User): Conversation {
-    const sender: User = createRandomUser();
+function createRandomConversation(receiver: UserProps): ConversationProps {
+    const sender: UserProps = createRandomUser();
     const id: string = faker.string.uuid();
-    const messages: Message[] = [];
+    const messages: MessageProps[] = [];
     for (let i = 0; i < 10; i++) {
         messages.push(createRandomMessage(id))
     }
@@ -67,7 +67,7 @@ function createRandomConversation(receiver: User): Conversation {
 
 }
 
-const chats: Conversation[] = [];
+const chats: ConversationProps[] = [];
 const receiver = createRandomUser();
 
 for (let i = 0; i < 10; i++) {

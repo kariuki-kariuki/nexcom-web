@@ -1,5 +1,5 @@
 import './App.css'
-import Chat from './chat/Chat'
+import Chat from './apps/chat/Chat'
 import Navbar from './compoonents/Navbar/Navbar'
 
 function App() {
