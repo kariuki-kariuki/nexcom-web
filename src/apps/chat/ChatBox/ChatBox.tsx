@@ -13,6 +13,7 @@ function ChatBox({ conversation }: Props) {
       <Bar
         name={conversation?.sender.first_name}
         image={conversation?.sender.avatar}
+        status={conversation?.sender.status}
       />
       {messages}
     </div>

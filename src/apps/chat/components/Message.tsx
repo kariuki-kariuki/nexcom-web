@@ -1,17 +1,21 @@
 import { MessageProps } from "../../../data/data";
-import "./style.css"
-interface Props{
-  message: MessageProps
+import "./style.css";
+interface Props {
+  message: MessageProps;
 }
-const MessageCard = ({message}:Props) => {
-  const if_sent = "float-right bg-blue-500 w-2/3 m-3 p-5 right";
-  const if_received = "float-left bg-slate-300 w-2/3 m-2 p-5 left"
+
+// Sent and received message card
+const MessageCard = ({ message }: Props) => {
+  const status = message.state.status === 'sent';
   return (
-    <div className={message.state.status === 'sent' ? if_sent : if_received } >
-      <p className="font-serif">
-        {message?.message}
-      </p>
-      <p>{message.time}</p>
+    <div className={`${status ? "float-right " : "float-left "} w-2/3 my-5`}>
+      <div className={`${status ?  'bg-blue-300': 'bg-slate-200'} p-5 rounded-xl`} >
+        <p className="font-serif">{message?.message}</p>
+      </div>
+      <div className="px-5 float-right">
+        <p className="text-sm text-slate-700">{message.time}</p>
+
+      </div>
     </div>
   );
 };

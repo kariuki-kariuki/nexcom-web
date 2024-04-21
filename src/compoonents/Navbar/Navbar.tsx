@@ -1,15 +1,12 @@
+import { IconBrandShopee, IconHome, IconMessageCircle, IconUserCircle } from "@tabler/icons-react";
 import Navbutton, { LinkProps } from "./Navbutton";
-import { FaRocketchat } from "react-icons/fa";
-import { FaShopify } from "react-icons/fa";
-import { IoHome } from "react-icons/io5";
-import { FaRegCircleUser } from "react-icons/fa6";
 
 
 const link: LinkProps[] = [
-  {name: "Chat", link: "/", Icon: FaRocketchat},
-  {name: "Shop", link: "/", Icon: FaShopify},
-  {name: "Home", link: "/", Icon: IoHome},
-  {name: "Profile", link: "/", Icon: FaRegCircleUser},
+  {name: "Chat", link: "/", Icon: <IconHome size={24}/>},
+  {name: "Shop", link: "/", Icon: <IconBrandShopee size={24}/>},
+  {name: "Home", link: "/", Icon: <IconMessageCircle size={24}/>},
+  {name: "Profile", link: "/", Icon: <IconUserCircle size={24}/>},
 
 ]
 const Navbar = () => {

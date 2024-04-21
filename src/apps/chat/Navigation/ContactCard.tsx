@@ -1,24 +1,38 @@
 import { ConversationProps } from "../../../data/data";
-import MiniProfile from "../components/MiniProfile";
 
 interface Props {
-  conversation: ConversationProps
+  conversation: ConversationProps;
   set_active: (arg: ConversationProps) => void;
-  active_id: string
+  active_id: string;
 }
+/// Information on card for conversation 
 const ContactCard = ({ conversation, set_active, active_id }: Props) => {
-  const active: boolean = active_id == conversation.id
-  console.log(active)
+  const active: boolean = active_id == conversation.id;
   return (
-    <div className={`max-w-full p-5 ${ active ? "bg-blue-300":"bg-white" } border-b-2 border-gray-300 text-sm  min-h-32`}
+    <div
+      className={`max-w-full p-5 my-2 ${
+        active ? "bg-blue-300 border-b-2 shadow-md rounded-md" : "bg-white"
+      }  border-gray-300 text-sm  min-h-32`}
       onClick={() => set_active(conversation)}
     >
-      <div className="flex justify-between">
-        <MiniProfile image={conversation.sender.avatar} name={conversation.sender.first_name} height="h-5"/>
-        <p className="text-slate-500">4h ago</p>
-      </div>
-      <div className="font-serif py-5">
-        <p>{conversation.sender.status}</p>
+      <div className="flex items-center">
+        <div className="h-20 w-20 rounded-full bg-black">
+          <img
+            src={conversation?.sender.avatar}
+            alt={`${conversation.sender.last_name} profile`}
+            className={`h-20 min-w-20 bg-black rounded-full`}
+          />
+        </div>
+
+        <div className="font-serif text-2l px-5">
+          <div className="font-mono ">
+            <p className="float-left ">{conversation.sender.first_name}</p>
+            <p className="text-slate-500 float-right">4h ago</p>
+          </div>
+
+          <br />
+          <p>{conversation.sender.status}</p>
+        </div>
       </div>
     </div>
   );

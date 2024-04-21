@@ -1,18 +1,16 @@
-import { FaVideo } from "react-icons/fa";
-import { MdAddIcCall } from "react-icons/md";
-import { CiMenuKebab } from "react-icons/ci";
+import { IconDotsVertical, IconPhoneCalling, IconVideo } from "@tabler/icons-react";
 
 function Miscelenious() {
   return (
     <div className="flex justify-around">
       <div className="p-3">
-        <FaVideo />
+        <IconVideo />
       </div>
       <div className="p-3">
-        <MdAddIcCall />
+        <IconPhoneCalling />
       </div>
       <div className="p-3">
-        <CiMenuKebab />
+        <IconDotsVertical />
       </div>
     </div>
   );

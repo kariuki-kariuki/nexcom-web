@@ -1,20 +1,23 @@
-
-export interface MiniProfileProps{
-    image: string;
-    name: string;
-    height: string
+export interface MiniProfileProps {
+  image: string;
+  name: string;
+  height: string;
+  status: string;
 }
-const MiniProfile = ({name, image, height}: MiniProfileProps) => {
+const MiniProfile = ({ name, image, height, status }: MiniProfileProps) => {
   return (
-    <div className="flex justify-between content-center">
-          <img
-            src={image}
-            alt={`${name} profile`}
-            className={`${height} rounded-full`}
-          />
-          <p className="px-5 text-slate-500">{name}</p>
-        </div>
-  )
-}
+    <div className="flex justify-between items-center">
+      <img
+        src={image}
+        alt={`${name} profile`}
+        className={`${height} rounded-full`}
+      />
+      <div className="px-5">
+        <p className="  text-white">{name}</p>
+        <p className="text-slate-400">{status}</p>
+      </div>
+    </div>
+  );
+};
 
-export default MiniProfile
+export default MiniProfile;
