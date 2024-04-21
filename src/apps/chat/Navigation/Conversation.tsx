@@ -6,7 +6,7 @@ interface Props {
   active_id: string;
 }
 /// Information on card for conversation 
-const ContactCard = ({ conversation, set_active, active_id }: Props) => {
+const Conversation = ({ conversation, set_active, active_id }: Props) => {
   const active: boolean = active_id == conversation.id;
   return (
     <div
@@ -38,4 +38,4 @@ const ContactCard = ({ conversation, set_active, active_id }: Props) => {
   );
 };
 
-export default ContactCard;
+export default Conversation;
