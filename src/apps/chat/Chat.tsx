@@ -14,7 +14,7 @@ function Chat() {
   }, [])
   
   return (
-    <div className='bg-slate-300 w-10/12  min-h-full  flex '>
+    <div className='bg-slate-300 sm:w-10/12  min-h-full  sm:flex '>
       <Navigation conversations = { conversations } set_active = {setActive} active_id={active?.id}/>
       <ChatBox conversation = {active}/>
     </div>

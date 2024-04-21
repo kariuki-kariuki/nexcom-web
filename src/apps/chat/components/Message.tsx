@@ -8,13 +8,12 @@ interface Props {
 const MessageCard = ({ message }: Props) => {
   const status = message.state.status === 'sent';
   return (
-    <div className={`${status ? "float-right " : "float-left "} w-2/3 my-5`}>
-      <div className={`${status ?  'bg-blue-300': 'bg-slate-200'} p-5 rounded-xl`} >
+    <div className={`${status ? "float-right " : "float-left "} w-10/12 sm:w-2/3 my-5 px-3`}>
+      <div className={`${status ?  'bg-blue-500 text-white': 'bg-slate-800 text-white'} p-5 rounded-xl`} >
         <p className="font-serif">{message?.message}</p>
       </div>
       <div className="px-5 float-right">
-        <p className="text-sm text-slate-700">{message.time}</p>
-
+        <p className="text-sm text-slate-300">{message.time}</p>
       </div>
     </div>
   );

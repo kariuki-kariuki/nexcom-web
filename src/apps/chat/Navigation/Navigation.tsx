@@ -17,11 +17,11 @@ const Navigation = ({conversations, set_active, active_id}: Props ) => {
   ));
 
   return (
-    <div className="w-2/5 bg-white h-full overflow-y-scroll">
-      <header className="font-mono p-5">
-        <p>Chats</p>
+    <div className="w-3/5 hidden bg-slate-900 h-full overflow-y-scroll sm:block">
+      <header className="font-mono p-5 min-h-24">
+        <p className="text-white">Chats</p>
       </header>
-      <hr />
+      {/* <hr /> */}
       <div className="chats">{conversation}</div>
     </div>
   );

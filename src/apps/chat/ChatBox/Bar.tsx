@@ -10,7 +10,7 @@ interface Iprops {
 // Top Bar on the Chatbox Area
 const Bar = ({name, image, status} : Iprops) => {
   return (
-    <div className="bg-gray-700 text-white flex justify-between p-5 sticky top-0 ">
+    <div className="bg-gray-700 h-auto sm:min-h-24 text-white flex justify-between p-3 sm:p-5 fixed top-0 right-0 left-0 md:sticky md:top-0">
         <MiniProfile name={name} image={image} height="h-10" status = {status}/>
         <Miscelenious />
     </div>

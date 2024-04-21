@@ -14,7 +14,7 @@ const MiniProfile = ({ name, image, height, status }: MiniProfileProps) => {
       />
       <div className="px-5">
         <p className="  text-white">{name}</p>
-        <p className="text-slate-400">{status}</p>
+        <p className="text-slate-400 hidden lg:block md:text-sm">{status}</p>
       </div>
     </div>
   );

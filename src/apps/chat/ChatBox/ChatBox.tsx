@@ -9,7 +9,7 @@ interface Props {
 function ChatBox({ conversation }: Props) {
   const messages = conversation?.messages.map((message) => <Message message ={ message} key={message.id}/>)
   return (
-    <div className="w-4/5 bg-slate-100 overflow-y-auto relative">
+    <div className="w-full md:w-4/5 bg-slate-900 overflow-y-auto relative">
       <Bar
         name={conversation?.sender.first_name}
         image={conversation?.sender.avatar}
