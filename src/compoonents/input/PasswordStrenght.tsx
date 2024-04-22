@@ -79,6 +79,7 @@ export default function PasswordStrength() {
         value={value}
         onChange={setValue}
         placeholder="Your password"
+        c={"white"}
         label="Password"
         required
       />
