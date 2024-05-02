@@ -57,12 +57,15 @@ const jobColors: Record<string, string> = {
   0: "blue",
   1: "pink",
 };
+interface Props {
+  activePage: number
+}
 
-export function UsersTable() {
+export function UsersTable({activePage}: Props) {
   const [user_data, setUserData] = useState<Person[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/db_user/2", {
+    fetch(`http://localhost:8000/db_user/${activePage}`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -77,7 +80,7 @@ export function UsersTable() {
       }
     });
     // console.log(user_data);
-  }, []);
+  }, [activePage]);
   const rows = user_data.map((item, index) => (
     <Table.Tr key={index}>
       <Table.Td>
