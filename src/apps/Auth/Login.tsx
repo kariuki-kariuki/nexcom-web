@@ -37,7 +37,7 @@ export default function Login(props: PaperProps) {
 
   function handleSubmit(values: typeof form.values) {
     console.log(values);
-    fetch("http://localhost:3000/api/auth/login", {
+    fetch("http://localhost:8000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export default function Login(props: PaperProps) {
         if (res.ok) {
           res.json().then((res) => {
             console.log(res);
-            localStorage.setItem("token", res.token);
+            localStorage.setItem("token", res.access_token);
           });
         } else {
           throw res.statusText;

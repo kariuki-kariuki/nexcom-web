@@ -70,6 +70,7 @@ function Comms() {
 
     socket.on("message", (msg) => {
       console.log("Message received", msg);
+      alert(`Message receved , ${msg}`);
       msg.date = new Date(msg.date);
       setMessages((messages): any => [...messages, msg]);
     });
