@@ -1,5 +1,6 @@
 import { IconBrandShopee, IconHome, IconMessageCircle, IconUserCircle } from "@tabler/icons-react";
 import Navbutton, { LinkProps } from "./Navbutton";
+import { UserButton } from "./UserButton";
 
 
 const link: LinkProps[] = [
@@ -19,6 +20,7 @@ const Navbar = () => {
       <div className="flex flex-col">
         {links}
       </div>
+      <UserButton />
     </div>
   );
 };
