@@ -6,11 +6,14 @@ import { router } from "./routes/Routes.tsx";
 import "@mantine/core/styles.css";
 
 import { MantineProvider } from "@mantine/core";
+import AppProvider from "./context/appContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <MantineProvider>
-      <RouterProvider router={router} />
+      <AppProvider>
+        <RouterProvider router={router} />
+      </AppProvider>
     </MantineProvider>
   </React.StrictMode>
 );

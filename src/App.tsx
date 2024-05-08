@@ -1,16 +1,19 @@
-import { useEffect} from 'react'
+import { useContext, useEffect} from 'react'
 import './App.css'
 import Chat from './apps/chat/Chat'
 import Navbar from './compoonents/Navbar/Navbar'
+import { AppContext } from './context/appContext'
+import { UserContextType } from './@types/app'
 //  interface userProps {
 //   user_name: string
 //   user_id: string
 //  }
 function App() {
-  // const [user, setUser] = useState("")
+  const {user, updateUser} = useContext(AppContext) as UserContextType;
   const token = localStorage.getItem("token")
+  console.log(token);
   useEffect(() => {
-    fetch("http://localhost:3000/api/user/current", {
+    fetch("http://localhost:8000/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       }
@@ -18,7 +21,8 @@ function App() {
     .then((res) => {
       if(res.ok){
         res.json().then(res => {
-          console.log(res)
+          console.log(res);
+          updateUser(res[0]);
         })
       }
     })
