@@ -4,10 +4,14 @@ import Login from "../apps/Auth/Login";
 import Register from "../apps/Auth/Register";
 import Admin from "../apps/Admin/Admin";
 import Comms from "../apps/comms/Comms";
-import Shop from "../apps/Admin/Shop/Shop";
+import Shop from "../apps/Shop/Shop";
 export const router = createBrowserRouter([
   {
     path: "/",
+    element: <App />,
+  },
+  {
+    path: "/home",
     element: <App />,
   },
   {
@@ -20,14 +24,14 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Admin />
-  }, 
+    element: <Admin />,
+  },
   {
-    path: "/comms", 
-    element: <Comms />
+    path: "/comms",
+    element: <Comms />,
   },
   {
     path: "/shop",
-    element: <Shop />
-  }
+    element: <Shop />,
+  },
 ]);

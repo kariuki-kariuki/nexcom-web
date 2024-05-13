@@ -1,6 +1,6 @@
 import { useContext, useEffect} from 'react'
 import './App.css'
-import Chat from './apps/chat/Chat'
+import Chat from './apps/Chat/Chat'
 import Navbar from './compoonents/Navbar/Navbar'
 import { AppContext } from './context/appContext'
 import { UserContextType } from './@types/app'
@@ -9,7 +9,7 @@ import { UserContextType } from './@types/app'
 //   user_id: string
 //  }
 function App() {
-  const {user, updateUser} = useContext(AppContext) as UserContextType;
+  const { updateUser} = useContext(AppContext) as UserContextType;
   const token = localStorage.getItem("token")
   console.log(token);
   useEffect(() => {

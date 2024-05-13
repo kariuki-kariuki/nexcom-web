@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { io } from "socket.io-client";
 import { Bars3Icon } from "@heroicons/react/24/outline";
-import { rooms } from "./utils/rooms.ts";
+// import { rooms } from "./utils/rooms.ts";
 import TransitiveSidebar from "./components/sidebar/transitive/TransitiveSidebar.tsx";
 import Sidebar from "./components/sidebar/normal/Sidebar.tsx";
 import MsgSubmitBox from "./components/MsgSubmitBox.tsx";

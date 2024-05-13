@@ -1,5 +1,4 @@
 import { Pagination } from '@mantine/core'
-import React from 'react'
 
 interface Props {
     setPage: (arg: number) => void;
@@ -7,7 +6,7 @@ interface Props {
 }
 function Demo({setPage, activePage}: Props) {
   return (
-    <Pagination total= {10} onChange={setPage} mt="sm"/>
+    <Pagination total= {10} onChange={setPage} value={activePage} mt="sm"/>
   )
 }
 

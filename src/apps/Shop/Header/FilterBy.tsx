@@ -1,5 +1,5 @@
-import { Button, Menu, rem } from "@mantine/core";
-import { IconSearch } from "@tabler/icons-react";
+import { Button, Menu  } from "@mantine/core";
+// import { IconSearch } from "@tabler/icons-react";
 
 const ProductCategories = [
   "Electronics",

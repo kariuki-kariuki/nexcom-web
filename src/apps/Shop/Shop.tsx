@@ -1,5 +1,3 @@
-import { Group, Input, Text } from "@mantine/core";
-import React from "react";
 // import CreateNewShop from "./CreateNewShop";
 import Shopnav from "./ShopNav/Shopnav";
 import HeroPage from "./Products/HeroPage";

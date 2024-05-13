@@ -1,28 +1,87 @@
-import { IconBrandShopee, IconHome, IconMessageCircle, IconUserCircle } from "@tabler/icons-react";
-import Navbutton, { LinkProps } from "./Navbutton";
-import { UserButton } from "./UserButton";
+import { useState } from "react";
+import {
+  Center,
+  Tooltip,
+  UnstyledButton,
+  Stack,
+  rem,
+  Image,
+} from "@mantine/core";
+import {
+  IconHome2,
+  // IconDeviceDesktopAnalytics,
+  IconFingerprint,
+  IconCalendarStats,
+  IconUser,
+  IconSettings,
+  IconLogout,
+  IconSwitchHorizontal,
+  IconMessageCircle,
+  IconTrolley,
+} from "@tabler/icons-react";
+import classes from "./NavbarMinimal.module.css";
+import logo from "../../assets/mklogo.png";
+interface NavbarLinkProps {
+  icon: typeof IconHome2;
+  label: string;
+  active?: boolean;
+  onClick?(): void;
+}
 
-
-const link: LinkProps[] = [
-  {name: "Chat", link: "/", Icon: <IconHome size={24} color="white"/>},
-  {name: "Shop", link: "/", Icon: <IconBrandShopee size={24} color="white"/>},
-  {name: "Home", link: "/", Icon: <IconMessageCircle size={24} color="white"/>},
-  {name: "Profile", link: "/", Icon: <IconUserCircle size={24} color="white"/>},
-
-]
-const Navbar = () => {
-  const links = link.map((item: LinkProps) => <Navbutton link={item.link} name={item.name} Icon={item.Icon} key={item.name}/>) 
+function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
   return (
-    <div className="hidden sm:w-1/12  lg:w-2/12 font-mono md:pt-5 bg-slate-800 min-h-full border-left-2 sm:block">
-      <header className="py-5">
-        <h1 className="text-center text-white">X</h1>
-      </header>
-      <div className="flex flex-col">
-        {links}
-      </div>
-      <UserButton />
-    </div>
+    <Tooltip label={label} position="right" transitionProps={{ duration: 0 }}>
+      <UnstyledButton
+        onClick={onClick}
+        className={classes.link}
+        data-active={active || undefined}
+      >
+        <Icon style={{ width: rem(20), height: rem(20) }} stroke={1.5} />
+      </UnstyledButton>
+    </Tooltip>
   );
-};
+}
 
-export default Navbar;
+const mockdata = [
+  { icon: IconHome2, label: "Home" },
+  { icon: IconMessageCircle, label: "Chat" },
+  { icon: IconTrolley, label: "Shop" },
+  { icon: IconCalendarStats, label: "Releases" },
+  { icon: IconUser, label: "Account" },
+  { icon: IconFingerprint, label: "Security" },
+  { icon: IconSettings, label: "Settings" },
+];
+
+export default function Navbar() {
+  const [active, setActive] = useState(2);
+
+  const links = mockdata.map((link, index) => (
+    <a href={`/${link.label.toLowerCase()}`}>
+      <NavbarLink
+        {...link}
+        key={link.label}
+        active={index === active}
+        onClick={() => setActive(index)}
+      />
+    </a>
+  ));
+
+  return (
+    <nav className={classes.navbar}>
+      <Center>
+        <Image src={logo} radius={"xl"} width={"auto"} />
+      </Center>
+
+      <div className={classes.navbarMain}>
+        <Stack justify="center" gap={0}>
+          {links}
+        </Stack>
+      </div>
+
+      <Stack justify="center" gap={0}>
+        <NavbarLink icon={IconSwitchHorizontal} label="Change account" />
+        <NavbarLink icon={IconLogout} label="Logout" />
+      </Stack>
+    </nav>
+  );
+}
