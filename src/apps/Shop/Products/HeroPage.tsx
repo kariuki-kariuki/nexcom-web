@@ -1,12 +1,18 @@
-import { Container, Input, Text } from "@mantine/core";
+import { Container,  Text } from "@mantine/core";
 import ProductCard from "./ProductCard";
 import { IProduct } from "../../../@types/shop";
 import { GetProducts } from "../../../data/shop";
 import Headers from "../Header/Headers";
+import { useDisclosure } from "@mantine/hooks";
+import { useState } from "react";
+import ProductModal from "./ProductModal";
 
 function HeroPage() {
-  let products = GetProducts()?.map((product: IProduct) => (
-    <ProductCard product={product} />
+  const [opened, {open, close}] = useDisclosure(false)
+  const MockProducts = GetProducts();
+  const [viewing, setVeiwing] = useState<IProduct>(MockProducts[0])
+  let products = MockProducts?.map((product: IProduct) => (
+    <ProductCard product={product} setViewing={setVeiwing} open={open}/>
   ));
 
   return (
@@ -16,6 +22,7 @@ function HeroPage() {
       <Container fluid className="grid grid-cols-2 md:grid-cols-4  lg:grid-cols-5 gap-4 content-start">
         {products}
       </Container>
+      <ProductModal opened={opened} close={close} product={viewing}/>
     </div>
   );
 }

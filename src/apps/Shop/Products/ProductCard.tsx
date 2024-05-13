@@ -2,13 +2,24 @@ import { Button, Card, Group, Image, Text } from "@mantine/core";
 import { IProduct } from "../../../@types/shop";
 
 interface Iprops {
-    product: IProduct
+  product: IProduct;
+  setViewing: (item: IProduct) => void;
+  open: () => void;
 }
 
-function ProductCard({product}: Iprops) {
+function ProductCard({ product, open, setViewing }: Iprops) {
   return (
-    <Card withBorder shadow="sm" radius={"md"} className="" m={5}>
-      
+    <Card
+      withBorder
+      shadow="sm"
+      radius={"md"}
+      className=""
+      m={5}
+      onClick={() => {
+        open();
+        setViewing(product);
+      }}
+    >
       <Card.Section>
         <Image src={product.image} />
       </Card.Section>
@@ -19,10 +30,12 @@ function ProductCard({product}: Iprops) {
       </Card.Section>
       <Card.Section p={"sm"}>
         <Group>
-          <Button radius={"xl"}>Buy</Button>
-          <Button radius={"xl"} bg={"pink"}>
-            <Text className="font-mono text-sm">${product.price}</Text>
-          </Button>
+          <Group>
+            <Button radius={"xl"}>Buy</Button>
+            <Button radius={"xl"} bg={"pink"}>
+              <Text className="font-mono text-sm">${product.price}</Text>
+            </Button>
+          </Group>
         </Group>
       </Card.Section>
     </Card>
