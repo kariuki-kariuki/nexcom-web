@@ -10,7 +10,7 @@ import AppProvider from "./context/appContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <MantineProvider>
+    <MantineProvider defaultColorScheme="dark">
       <AppProvider>
         <RouterProvider router={router} />
       </AppProvider>
