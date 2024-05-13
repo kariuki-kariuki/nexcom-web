@@ -3,7 +3,7 @@ import App from "../App";
 import Login from "../apps/Auth/Login";
 import Register from "../apps/Auth/Register";
 import Admin from "../apps/Admin/Admin";
-import Comms from "../apps/comms/Comms";
+import Comms from "../apps/Comms/Comms";
 import Shop from "../apps/Shop/Shop";
 export const router = createBrowserRouter([
   {
