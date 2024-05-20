@@ -1,0 +1,14 @@
+.control {
+    &[data-inactive] {
+      opacity: 0;
+      cursor: default;
+    }
+    height: 20px;
+  }
+
+.indicators {
+    &[data-active] {
+        background-color: blue;
+    }
+}
+

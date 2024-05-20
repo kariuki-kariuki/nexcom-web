@@ -7,7 +7,10 @@ import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import ProductModal from "./ProductModal";
 
-function HeroPage() {
+interface IProps {
+  root: string
+}
+function HeroPage({root}: IProps) {
   const [opened, {open, close}] = useDisclosure(false)
   const MockProducts = GetProducts();
   const [viewing, setVeiwing] = useState<IProduct>(MockProducts[0])
@@ -19,7 +22,7 @@ function HeroPage() {
     <div className="p-5">
       <Text className="text-center" component="h1"> REINVENTING YOUR SHOPING EXPERINSE SHOP </Text>
       <Headers />
-      <Container fluid className="grid grid-cols-2 md:grid-cols-4  lg:grid-cols-5 gap-4 content-start">
+      <Container fluid className={`${root}  content-start`}>
         {products}
       </Container>
       <ProductModal opened={opened} close={close} product={viewing}/>

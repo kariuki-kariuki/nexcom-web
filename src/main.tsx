@@ -4,7 +4,7 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/Routes.tsx";
 import "@mantine/core/styles.css";
-
+import '@mantine/carousel/styles.css';
 import { MantineProvider } from "@mantine/core";
 import AppProvider from "./context/appContext.tsx";
 

@@ -9,10 +9,14 @@ function Shop() {
         <Shopnav />
       </div>
       <div className="md:w-11/12 h-screen  overflow-scroll">
-        <HeroPage />
+        <HeroPage root={ClassNames.root}/>
       </div>
     </div>
   );
+}
+
+const ClassNames: any = {
+  root: "grid grid-cols-1 md:grid-cols-4  lg:grid-cols-5 gap-4"
 }
 
 export default Shop;

@@ -67,7 +67,7 @@ export default function Navbar() {
   ));
 
   return (
-    <nav className={classes.navbar}>
+    <nav className={`${classes.navbar} hidden md:block`} >
       <Center>
         <Image src={logo} radius={"xl"} width={"auto"} />
       </Center>

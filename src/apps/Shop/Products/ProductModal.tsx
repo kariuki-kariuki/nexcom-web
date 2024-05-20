@@ -1,6 +1,8 @@
 import { Badge, Button, Card, Group, Image, Modal, Text } from "@mantine/core";
-import  { useState } from "react";
+import { useState } from "react";
 import { IProduct } from "../../../@types/shop";
+import ImageCarousel from "../shopcomponents/ImageCarousel";
+import { IconBasket, IconBasketPlus } from "@tabler/icons-react";
 
 interface Iprops {
   opened: boolean;
@@ -18,16 +20,12 @@ function ProductModal({ opened, close, product }: Iprops) {
       className="p-5"
       size={"auto"}
     >
-      <div className="grid grid-cols-2 p-5 h-full">
+      <div className=" md:grid grid-cols-2 p-5 h-full">
         <Card p={"xl"}>
           <Card.Section className="flex content-center">
-            <Image
-              src={product.image}
-              h={"70%"}
-              w={"100%"}
-              fit="contain"
-              radius={"20px"}
-            />
+            <div>
+              <ImageCarousel images={[product.image, product.image]} />
+            </div>
           </Card.Section>
         </Card>
         <Card className="p-5 h-full flex content-center" p={"xl"}>
@@ -35,9 +33,7 @@ function ProductModal({ opened, close, product }: Iprops) {
             <Text className="text-center">{product.name}</Text>
           </Card.Section>
           <Card.Section py={"xl"}>
-          <p  className="text-slate-200 font-mono">
-              Product Description
-            </p>
+            <p className="text-slate-200 font-mono">Product Description</p>
             <Text fz={"sm"} className="text-slate-500 font-serif">
               {product.description}
             </Text>
@@ -80,6 +76,15 @@ function ProductModal({ opened, close, product }: Iprops) {
                 </Button>
               </Button.Group>
               <Text>Total {parseInt(product.price) * quantity}</Text>
+            </Group>
+            <Group justify="center">
+              <Button
+                leftSection={<IconBasketPlus size={14} />}
+                onClick={() => setQuantity(1)}
+                variant="outline"
+              >
+                Add To Cart
+              </Button>
             </Group>
           </Card.Section>
         </Card>
