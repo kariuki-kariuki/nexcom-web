@@ -1,24 +1,17 @@
+import { useContext } from "react";
 import { ConversationProps } from "../../../@types/chat";
 import Conversation from "./Conversation";
+import { AppContext } from "../../../context/appContext";
+import { UserContextType } from "../../../@types/app";
 
 interface Props {
   conversations: ConversationProps[];
   set_active: (arg: ConversationProps) => void;
   active_id: string;
-  activeChat: string;
-  setActiveChat: (arg: string) => void;
 }
 
-
-
-const Navigation = ({
-  conversations,
-  set_active,
-  active_id,
-  activeChat,
-}: Props) => {
+const Navigation = ({ conversations, set_active, active_id }: Props) => {
   const conversation = conversations?.map((convo: ConversationProps) => (
-    
     <Conversation
       conversation={convo}
       key={convo.id.id.id}
@@ -26,19 +19,14 @@ const Navigation = ({
       active_id={active_id}
     />
   ));
-  const active = activeChat == "main";
-  const token = localStorage.getItem("token")
-  
+  // const token = localStorage.getItem("token")
+  const { user } = useContext(AppContext) as UserContextType;
   return (
-    <div
-      className={`md:w-2/5 lg:w-3/12 ${
-        active ? "block " : "hidden"
-      } bg-slate-900 h-full overflow-y-scroll sm:block relative`}
-    >
-      <header className="font-mono p-5 sm:min-h-24 fixed top-0 left-0 right-0 sm:relative bg-slate-900">
+    <div className={``}>
+      <header className="font-mono p-5 sm:min-h-24 fixed top-0 left-0 right-0 sm:relative bg-slate-700 mb-1">
+        <p>{user.name}</p>
         <p className="text-white">Chats</p>
       </header>
-      {/* <hr /> */}
       <div className="mt-20 sm:mt-0">{conversation}</div>
     </div>
   );

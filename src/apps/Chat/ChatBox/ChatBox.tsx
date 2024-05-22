@@ -1,20 +1,29 @@
 import Bar from "./Bar";
 import Message from "../components/Message";
-import { ConversationProps } from "../../../@types/chat";
+import { ConversationProps, UserProps } from "../../../@types/chat";
+import { useContext } from "react";
+import { AppContext } from "../../../context/appContext";
+import { UserContextType } from "../../../@types/app";
 
 interface Props {
   conversation: ConversationProps;
-  activeChat: string
 }
 
-function ChatBox({ conversation, activeChat }: Props) {
-  const active_chat = activeChat == "main";
+function ChatBox({ conversation}: Props) {
   const messages = conversation?.messages.map((message) => <Message message ={ message} key={message?.msg}/>)
+  const {user} = useContext(AppContext) as UserContextType;
+  let sender: UserProps;
+  if (conversation?.user_1.email == user.email){
+    sender = conversation?.user_2;
+  } else {
+    sender = conversation?.user_1;
+  }
+  console.log("Loged in user is: ", user)
   return (
-    <div className={`w-full ${ active_chat ? "hidden": "block" } md:w-3/5 lg:w-2/5  bg-slate-900 overflow-y-auto sm:block relative`}>
+    <div className={`w-full`}>
       <Bar
-        name={conversation?.user_1.name}
-        image={conversation?.user_1.avatar}
+        name={sender?.name}
+        image={sender?.avatar}
         status={"Hello World"}
       />
       {messages}

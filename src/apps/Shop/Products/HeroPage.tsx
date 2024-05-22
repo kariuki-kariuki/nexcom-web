@@ -8,9 +8,10 @@ import { useState } from "react";
 import ProductModal from "./ProductModal";
 
 interface IProps {
-  root: string
+  root: string,
+  headerText: string,
 }
-function HeroPage({root}: IProps) {
+function HeroPage({root, headerText}: IProps) {
   const [opened, {open, close}] = useDisclosure(false)
   const MockProducts = GetProducts();
   const [viewing, setVeiwing] = useState<IProduct>(MockProducts[0])
@@ -19,9 +20,8 @@ function HeroPage({root}: IProps) {
   ));
 
   return (
-    <div className="p-5">
-      <Text className="text-center" component="h1"> REINVENTING YOUR SHOPING EXPERINSE SHOP </Text>
-      <Headers />
+    <div className="bg-slate-900 relative ">
+      <Headers text = {headerText}/>
       <Container fluid className={`${root}  content-start`}>
         {products}
       </Container>

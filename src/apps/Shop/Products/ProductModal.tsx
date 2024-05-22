@@ -16,11 +16,10 @@ function ProductModal({ opened, close, product }: Iprops) {
     <Modal
       opened={opened}
       onClose={close}
-      withCloseButton={false}
-      className="p-5"
+      withCloseButton={true}
       size={"auto"}
     >
-      <div className=" md:grid grid-cols-2 p-5 h-full">
+      <div className=" md:grid grid-cols-2  p-5 h-full">
         <Card p={"xl"}>
           <Card.Section className="flex content-center">
             <div>

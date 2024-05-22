@@ -1,12 +1,12 @@
 import { faker } from "@faker-js/faker";
 import { IProduct } from "../@types/shop";
-
+import bf from "../assets/bf.jpg" 
 function createProduct(): IProduct {
     return {
         name: faker.commerce.product(),
         description: faker.commerce.productDescription(),
         price: faker.commerce.price(),
-        image: faker.image.food(600, 600, true),
+        image: bf,
     }
 
 }

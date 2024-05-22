@@ -2,7 +2,6 @@
   width: rem(80px);
   height: 100vh;
   padding: var(--mantine-spacing-md);
-  border-right: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 }
 
 .navbarMain {

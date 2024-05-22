@@ -9,7 +9,7 @@ function ImageCarousel({ images }: Iprops) {
   const slides = images.map((image: string, index: number) => (
     <Carousel.Slide key={index}>
       <div className="flex items-center justify-center h-full ">
-        <Image  src={image} h={"70%"} w={"100%"} radius="xl" />
+        <Image  src={image} h={"70%"} w={"100%"} radius="md" />
       </div>
     </Carousel.Slide>
   ));

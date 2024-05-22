@@ -9,7 +9,7 @@ function Shop() {
         <Shopnav />
       </div>
       <div className="md:w-11/12 h-screen  overflow-scroll">
-        <HeroPage root={ClassNames.root}/>
+        <HeroPage root={ClassNames.root} headerText="A new way to Shops"/>
       </div>
     </div>
   );

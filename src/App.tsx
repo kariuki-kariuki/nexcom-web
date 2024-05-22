@@ -13,7 +13,7 @@ function App() {
   const token = localStorage.getItem("token")
   console.log(token);
   useEffect(() => {
-    fetch("http://localhost:8000/me", {
+    fetch("http://192.168.100.4:8000/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       }
