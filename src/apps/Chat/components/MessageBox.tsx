@@ -41,9 +41,7 @@ interface IProps {
   updateActiveConver: (c: ConversationProps) => void;
 }
 
-interface Props {
-  props: IProps;
-}
+
 
 const handleSubmit = ({message, user, conversation, updateActiveConver}: IProps) => {
   if (message != "") {

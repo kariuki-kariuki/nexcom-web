@@ -1,6 +1,6 @@
 import Bar from "./Bar";
 import Message from "../components/Message";
-import { ConversationProps, UserProps } from "../../../@types/chat";
+import { UserProps } from "../../../@types/chat";
 import { useContext } from "react";
 import { AppContext } from "../../../context/appContext";
 import { UserContextType } from "../../../@types/app";
