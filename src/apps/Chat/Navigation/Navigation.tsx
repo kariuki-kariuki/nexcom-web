@@ -6,17 +6,13 @@ import { UserContextType } from "../../../@types/app";
 
 interface Props {
   conversations: ConversationProps[];
-  set_active: (arg: ConversationProps) => void;
-  active_id: string;
 }
 
-const Navigation = ({ conversations, set_active, active_id }: Props) => {
+const Navigation = ({ conversations }: Props) => {
   const conversation = conversations?.map((convo: ConversationProps) => (
     <Conversation
       conversation={convo}
       key={convo.id.id.id}
-      set_active={set_active}
-      active_id={active_id}
     />
   ));
   // const token = localStorage.getItem("token")

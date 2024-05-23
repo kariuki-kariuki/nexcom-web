@@ -31,5 +31,5 @@ export interface ConversationProps {
 export interface Message {
   id: NestedId,
   msg: string,
-  sender_id: IdProp
+  sender_id: NestedId
 }
