@@ -1,6 +1,6 @@
 
 interface IdString {
-  id: string;
+  String: string;
 }
 
 // Define the interface for the nested id object

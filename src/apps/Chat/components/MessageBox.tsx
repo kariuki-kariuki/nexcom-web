@@ -16,7 +16,7 @@ const MessageBox = () => {
   let { user } = useContext(AppContext) as UserContextType;
 
   return (
-    <div className="bottom-0 left-0 right-0 p-2 sticky">
+    <div className="bottom-0 left-0 right-0 p-2 sticky bg-blue-200 ">
       <Input
         placeholder="message"
         value={message}
@@ -50,13 +50,13 @@ const handleSubmit = ({ message, user, activeConversation }: IProps) => {
     let new_message: Message = {
       sender_id: {
         id: {
-          id: `${user.email}`,
+          String: `${user.email}`,
         },
       },
       msg: message,
       id: {
         id: {
-          id: `${Math.random()}`,
+          String: `${Math.random()}`,
         },
       },
     };
