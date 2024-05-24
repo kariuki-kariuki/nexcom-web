@@ -9,10 +9,10 @@ interface Props {
 }
 
 const Navigation = ({ conversations }: Props) => {
-  const conversation = conversations?.map((convo: ConversationProps) => (
+  const conversation = conversations?.map((convo: ConversationProps, index) => (
     <Conversation
       conversation={convo}
-      key={convo.id.id.id}
+      key={index}
     />
   ));
   // const token = localStorage.getItem("token")
@@ -21,7 +21,7 @@ const Navigation = ({ conversations }: Props) => {
     <div className={``}>
       <header className="font-mono p-5 sm:min-h-24 fixed top-0 left-0 right-0 sm:relative bg-slate-700 mb-1">
         <p>{user.name}</p>
-        <p className="text-white">Chats</p>
+        <p className="text-white" onClick={() => console.log(user?.name)}>Chats</p>
       </header>
       <div className="mt-20 sm:mt-0">{conversation}</div>
     </div>

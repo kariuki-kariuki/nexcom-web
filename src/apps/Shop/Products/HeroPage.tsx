@@ -15,8 +15,8 @@ function HeroPage({root, headerText}: IProps) {
   const [opened, {open, close}] = useDisclosure(false)
   const MockProducts = GetProducts();
   const [viewing, setVeiwing] = useState<IProduct>(MockProducts[0])
-  let products = MockProducts?.map((product: IProduct) => (
-    <ProductCard product={product} setViewing={setVeiwing} open={open}/>
+  let products = MockProducts?.map((product: IProduct, index) => (
+    <ProductCard product={product} setViewing={setVeiwing} open={open} key={index}/>
   ));
 
   return (

@@ -2,20 +2,25 @@ import React, { createContext, useState } from "react";
 import { ConversationProps } from "../@types/chat"
 
 export type activeConversatonType = {
-    conversation: ConversationProps | null,
-    updateActiveConver: (convo: ConversationProps) => void;
+    activeConversation: ConversationProps | null,
+    setActiveConversation: (convo: ConversationProps) => void;
 }
 
 export const ConversationContext = createContext<activeConversatonType | null>(null) 
 
 const ConversationProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
-    const [conversation, setActiveConversation] = useState<ConversationProps | null>(null)
+    const [activeConversation, setActiveConversation] = useState<ConversationProps >({
+        id: null,
+        user_1: null,
+        user_2: null,
+        messages: null
+    })
     
-    const updateActiveConver = (active: ConversationProps) => {
-        setActiveConversation(active);
-    }
+    // const updateActiveConver = (active: ConversationProps) => {
+    //     setActiveConversation(active);
+    // }
     return (
-        <ConversationContext.Provider value={{conversation, updateActiveConver}}>
+        <ConversationContext.Provider value={{activeConversation, setActiveConversation}}>
             {children}
         </ConversationContext.Provider>
     )

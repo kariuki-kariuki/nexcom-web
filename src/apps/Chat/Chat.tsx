@@ -10,7 +10,7 @@ function Chat() {
   const token = localStorage.getItem("token");
   const [conversations, setConversation] = useState<ConversationProps[]>([]);
   const {activeScreen } = useContext(ScreenContext) as screenContextType;
-  const {conversation} = useContext(ConversationContext) as activeConversatonType;
+  const {activeConversation} = useContext(ConversationContext) as activeConversatonType;
   useEffect(() => {
     fetch("http://192.168.100.4:8000/conversation", {
       headers: {
@@ -33,7 +33,7 @@ function Chat() {
       </div>
       <div
         className={`${
-          activeScreen === "chat" ? "block" : "hidden"
+          activeScreen == "chat" ? "block" : "hidden"
         } md:w-3/5 lg:w-2/5  bg-slate-900 overflow-y-auto sm:block relative h-full`}
       >
         <ChatBox  />
@@ -45,7 +45,7 @@ function Chat() {
       >
         <HeroPage
           root={StyleClass.root}
-          headerText={`${conversation?.user_1.name}'s Shop`}
+          headerText={`${activeConversation?.user_1?.name}'s Shop`}
         />
       </div>
     </div>

@@ -56,7 +56,7 @@ export default function Navbar() {
   const [active, setActive] = useState(2);
 
   const links = mockdata.map((link, index) => (
-    <a href={`/${link.label.toLowerCase()}`}>
+    <a href={`/${link.label.toLowerCase()}`} key={index}>
       <NavbarLink
         {...link}
         key={link.label}

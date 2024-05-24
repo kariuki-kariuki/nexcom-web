@@ -22,10 +22,10 @@ export interface UserProps {
 }
 
 export interface ConversationProps {
-  id: NestedId,
-  user_1: UserProps,
-  user_2: UserProps,
-  messages: Message[]
+  id: NestedId | null,
+  user_1: UserProps | null,
+  user_2: UserProps | null,
+  messages: Message[] | null
 }
 
 export interface Message {

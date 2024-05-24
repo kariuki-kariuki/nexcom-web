@@ -15,7 +15,7 @@ import {
 } from "@mantine/core";
 import { GoogleButton } from "./GoogleButton";
 import { TwitterButton } from "./TwitterButton";
-import PasswordStrength from "../../compoonents/input/PasswordStrenght";
+import PasswordStrength from "../../components/input/PasswordStrenght";
 
 export default function Register(props: PaperProps) {
   const  type = "register";

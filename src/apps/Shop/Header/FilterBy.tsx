@@ -14,8 +14,8 @@ const ProductCategories = [
 ];
 
 function FilterBy() {
-  let Categores = ProductCategories.map((product: string) => (
-    <Menu.Item>{product}</Menu.Item>
+  let Categores = ProductCategories.map((product: string, index) => (
+    <Menu.Item key={index}>{product}</Menu.Item>
   ));
   return (
     <Menu trigger="hover">

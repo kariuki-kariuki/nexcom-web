@@ -1,4 +1,4 @@
-import { Button, Input} from "@mantine/core";
+import { Button, Input } from "@mantine/core";
 import { useContext, useState } from "react";
 import {
   ConversationContext,
@@ -10,7 +10,7 @@ import { IUser, UserContextType } from "../../../@types/app";
 
 const MessageBox = () => {
   const [message, setMessage] = useState("");
-  let { conversation, updateActiveConver } = useContext(
+  let { activeConversation, setActiveConversation } = useContext(
     ConversationContext
   ) as activeConversatonType;
   let { user } = useContext(AppContext) as UserContextType;
@@ -24,9 +24,13 @@ const MessageBox = () => {
         w={"80%"}
       />
       <Button
-        onClick={() =>
-          handleSubmit({message, user, conversation, updateActiveConver})
-        }
+        onClick={() => {
+          const convo: ConversationProps | null = handleSubmit({ message, user, activeConversation });
+          if(convo) {
+            setActiveConversation(convo);
+
+          }
+        }}
       >
         Send
       </Button>
@@ -37,13 +41,11 @@ const MessageBox = () => {
 interface IProps {
   message: string;
   user: IUser;
-  conversation: ConversationProps | null;
-  updateActiveConver: (c: ConversationProps) => void;
+  activeConversation: ConversationProps | null;
+  //   setActiveConversation: (c: ConversationProps) => void;
 }
 
-
-
-const handleSubmit = ({message, user, conversation, updateActiveConver}: IProps) => {
+const handleSubmit = ({ message, user, activeConversation }: IProps) => {
   if (message != "") {
     let new_message: Message = {
       sender_id: {
@@ -58,12 +60,11 @@ const handleSubmit = ({message, user, conversation, updateActiveConver}: IProps)
         },
       },
     };
-    conversation?.messages.push(new_message);
-    if (conversation) {
-      updateActiveConver(conversation);
-      alert("Sent");
-      console.log(conversation);
+    activeConversation?.messages?.push(new_message);
+    if (activeConversation) {
+      return activeConversation;
     }
   }
+  return activeConversation;
 };
 export default MessageBox;

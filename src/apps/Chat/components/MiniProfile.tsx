@@ -1,6 +1,13 @@
 import { IconArrowLeft } from "@tabler/icons-react";
 import { useContext } from "react";
-import { ScreenContext, screenContextType } from "../../../context/screenContext";
+import {
+  ScreenContext,
+  screenContextType,
+} from "../../../context/screenContext";
+import { AppContext } from "../../../context/appContext";
+import { UserContextType } from "../../../@types/app";
+import { ConversationContext, activeConversatonType } from "../../../context/activeConversation";
+import { UserProps } from "../../../@types/chat";
 
 export interface MiniProfileProps {
   image: string;
@@ -8,24 +15,31 @@ export interface MiniProfileProps {
   height: string;
   status: string;
 }
-const MiniProfile = ({ name, image, height, status }: MiniProfileProps) => {
-  const {updateActiveScreen} = useContext(ScreenContext) as screenContextType;
+const MiniProfile = () => {
+  const { user } = useContext(AppContext) as UserContextType;
+  const { activeConversation, setActiveConversation } = useContext(
+    ConversationContext
+  ) as activeConversatonType;
+
+  let sender: UserProps | null;
+  if (activeConversation?.user_1?.email === user.email) {
+    sender = activeConversation?.user_2;
+  } else if (activeConversation){
+    sender = activeConversation?.user_1;
+  } else {
+    sender = null;
+  }
   return (
     <div className="flex justify-between items-center">
-      <div className="flex content-center justify-center al">
-        <div className="sm:hidden">
-          <IconArrowLeft width={14}  onClick={() => updateActiveScreen('nav')}/>
-        </div>
         <img
-          src={image}
-          alt={`${name}'s profile`}
-          className={`${height} rounded-full`}
+          src={sender?.avatar}
+          // alt={`${sender?.name}'s profile`}
+          className={`h-10 w-10 rounded-full`}
         />
-      </div>
 
       <div className="px-5">
-        <p className="  text-white">{name}</p>
-        <p className="text-slate-400 hidden lg:block md:text-sm">{status}</p>
+        <p className="  text-white">{sender?.name}</p>
+        <p className="text-slate-400 hidden lg:block md:text-sm">"Hello World"</p>
       </div>
     </div>
   );
