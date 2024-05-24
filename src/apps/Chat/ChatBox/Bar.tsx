@@ -12,7 +12,7 @@ import {
 const Bar = () => {
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
   return (
-    <div className="bg-gray-700  sm:min-h-24 text-white flex justify-between  items-center p-3 sm:p-5 fixed top-0 right-0 left-0 md:sticky  md:top-0">
+    <div className="bg-slate-800  sm:min-h-24 text-white flex justify-between  items-center p-3 sm:p-5 fixed top-0 right-0 left-0 md:sticky  md:top-0 border-b-2 border-gray-700">
       <div className="sm:hidden">
         <IconArrowLeftCircle
           size={20}

@@ -1,4 +1,4 @@
-import { Container,  Text } from "@mantine/core";
+import { Container} from "@mantine/core";
 import ProductCard from "./ProductCard";
 import { IProduct } from "../../../@types/shop";
 import { GetProducts } from "../../../data/shop";
@@ -22,7 +22,7 @@ function HeroPage({root, headerText}: IProps) {
   return (
     <div className="bg-slate-900 relative ">
       <Headers text = {headerText}/>
-      <Container fluid className={`${root}  content-start`}>
+      <Container fluid className={`${root}  content-start`} p={"sm"}>
         {products}
       </Container>
       <ProductModal opened={opened} close={close} product={viewing}/>

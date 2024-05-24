@@ -5,10 +5,11 @@ import Register from "../apps/Auth/Register";
 import Admin from "../apps/Admin/Admin";
 import Comms from "../apps/Comms/Comms";
 import Shop from "../apps/Shop/Shop";
+import Index from "../index/Index";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Index />,
   },
   {
     path: "/home",

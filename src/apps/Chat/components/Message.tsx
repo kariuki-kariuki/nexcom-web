@@ -13,7 +13,7 @@ const MessageCard = ({ message, sender }: Props) => {
   console.log(`${message.sender_id.id.String}, status:${status}, ${sender?.id.id.String}`);
   console.log("Sender Id", sender?.id)
   return (
-    <div className={`${status ? "float-right " : "float-left "} w-10/12 sm:w-2/3 my-5 px-3`} >
+    <div className={`${status ? "float-right " : "float-left "} w-10/12 sm:w-2/3 my-1 px-3`} >
       <div className={`${status ?  'bg-blue-500 text-white': 'bg-slate-800 text-white'} p-5 rounded-xl`} >
         <p className="font-serif">{message?.msg}</p>
       </div>

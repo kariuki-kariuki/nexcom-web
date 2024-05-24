@@ -1,7 +1,6 @@
-import { Button, Card, Group, Image, Text } from "@mantine/core";
+import { Card, Group, Image, Text } from "@mantine/core";
 import { IProduct } from "../../../@types/shop";
 import { IconBasketPlus, IconHeartPlus } from "@tabler/icons-react";
-
 interface Iprops {
   product: IProduct;
   setViewing: (item: IProduct) => void;
@@ -10,19 +9,21 @@ interface Iprops {
 
 function ProductCard({ product, open, setViewing }: Iprops) {
   return (
-    <Card withBorder shadow="sm" radius={"md"} className="" m={5}>
+    <Card withBorder shadow="sm" radius={"md"} component="div"  m={5} styles={{root: { opacity: 1,
+      backgroundColor: 'rgb(15 23 43 / var(--tw-bg-opacity))',
+      }}}>
       <Card.Section>
         <Image src={product.image} />
       </Card.Section>
-      <Card.Section withBorder inheritPadding py={"xs"}>
+      <Card.Section withBorder inheritPadding py={"xs"} className="bg-slate-800">
         <Group justify="space-between">
           <Text>{product.name}</Text>
           <IconHeartPlus size={14} color="red" />
         </Group>
       </Card.Section>
-      <Card.Section inheritPadding py={"sm"}>
+      <Card.Section inheritPadding py={"sm"} className="bg-slate-900">
         <Group justify="space-between">
-          <Text>Price: ${product.price}</Text>
+          <Text ><span className="hidden sm:block">Price:</span> ${product.price}</Text>
 
           <IconBasketPlus
             size={20}

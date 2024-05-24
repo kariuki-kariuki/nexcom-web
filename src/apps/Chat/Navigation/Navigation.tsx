@@ -19,7 +19,7 @@ const Navigation = ({ conversations }: Props) => {
   const { user } = useContext(AppContext) as UserContextType;
   return (
     <div className={``}>
-      <header className="font-mono p-5 sm:min-h-24 fixed top-0 left-0 right-0 sm:relative bg-slate-700 mb-1">
+      <header className="font-mono p-5 sm:min-h-24 fixed top-0 left-0 right-0 sm:relative bg-slate-800 border-b-2 border-gray-700">
         <p>{user.name}</p>
         <p className="text-white" onClick={() => console.log(user?.name)}>Chats</p>
       </header>

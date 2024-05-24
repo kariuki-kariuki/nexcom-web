@@ -2,7 +2,7 @@ import { Badge, Button, Card, Group, Image, Modal, Text } from "@mantine/core";
 import { useState } from "react";
 import { IProduct } from "../../../@types/shop";
 import ImageCarousel from "../shopcomponents/ImageCarousel";
-import { IconBasket, IconBasketPlus } from "@tabler/icons-react";
+import {  IconBasketPlus } from "@tabler/icons-react";
 
 interface Iprops {
   opened: boolean;
@@ -19,7 +19,7 @@ function ProductModal({ opened, close, product }: Iprops) {
       withCloseButton={true}
       size={"auto"}
     >
-      <div className=" md:grid grid-cols-2  p-5 h-full">
+      <div className=" md:grid grid-cols-2  md:p-5 h-full">
         <Card p={"xl"}>
           <Card.Section className="flex content-center">
             <div>
@@ -27,8 +27,8 @@ function ProductModal({ opened, close, product }: Iprops) {
             </div>
           </Card.Section>
         </Card>
-        <Card className="p-5 h-full flex content-center" p={"xl"}>
-          <Card.Section className="p-5">
+        <Card className="md:p-5 h-full flex content-center" p={"xl"}>
+          <Card.Section className="md:p-5">
             <Text className="text-center">{product.name}</Text>
           </Card.Section>
           <Card.Section py={"xl"}>
@@ -38,7 +38,7 @@ function ProductModal({ opened, close, product }: Iprops) {
             </Text>
             <Text> Price: ${product.price}</Text>
           </Card.Section>
-          <Card.Section py={"xl"}>
+          <Card.Section >
             <Group>
               <Badge color="pink.4" variant="filled">
                 Lime filled

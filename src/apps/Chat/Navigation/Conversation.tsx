@@ -32,8 +32,8 @@ const Conversation = ({ conversation }: Props) => {
   }
   return (
     <div
-      className={`max-w-full p-5 mb-2 ${
-        active ? "bg-blue-800 border-b-2 shadow-md rounded-md" : "bg-slate-700"
+      className={`max-w-full p-5 ${
+        active ? "bg-slate-600  shadow-md " : "bg-slate-900"
       }  border-gray-300 text-sm  `}
       onClick={() => {
         updateActiveScreen("chat");
@@ -50,7 +50,7 @@ const Conversation = ({ conversation }: Props) => {
         </div>
 
         <div className="font-serif text-2l px-5 w-full">
-          <div className="font-mono">
+          <div className="font-mono flex justify-between" >
             <p className="float-left text-slate-200">{sender?.name}</p>
             <p className="text-slate-400 float-right">4h ago</p>
           </div>

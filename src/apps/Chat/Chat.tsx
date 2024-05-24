@@ -26,7 +26,7 @@ function Chat() {
   }, [setConversation]);
   return (
     <div className={` w-full sm:w-full h-full   min-h-full  sm:flex`}>
-      <div className={`${activeScreen == "nav" ? "block" : "hidden"} w-full h-full md:w-2/5 lg:w-3/12  bg-slate-900 overflow-y-scroll sm:border-r-2 border-gray-500 sm:block relative`}>
+      <div className={`${activeScreen == "nav" ? "block" : "hidden"} w-full h-full md:w-2/5 lg:w-3/12  bg-slate-900 overflow-y-scroll sm:border-r-2 border-gray-700 sm:block relative`}>
         <Navigation
           conversations={conversations}
         />
@@ -41,7 +41,7 @@ function Chat() {
       <div
         className={`${
           activeScreen == "shop" ? "block w-full" : "hidden"
-        } sm:block w-2/5 h-full overflow-y-auto border-l-2  border-gray-500  `}
+        } sm:block w-2/5 h-full overflow-y-auto border-l-2  border-gray-700  `}
       >
         <HeroPage
           root={StyleClass.root}
@@ -52,6 +52,6 @@ function Chat() {
   );
 }
 const StyleClass = {
-  root: "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-2",
+  root: "grid grid-cols-2 md:grid-cols-2  lg:grid-cols-2 ",
 };
 export default Chat;
