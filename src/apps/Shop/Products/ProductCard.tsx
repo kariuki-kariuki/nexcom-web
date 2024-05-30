@@ -9,33 +9,27 @@ interface Iprops {
 
 function ProductCard({ product, open, setViewing }: Iprops) {
   return (
-    <Card withBorder shadow="sm" radius={"md"} component="div"  m={5} styles={{root: { opacity: 1,
-      backgroundColor: 'rgb(15 23 43 / var(--tw-bg-opacity))',
-      }}}>
-      <Card.Section>
-        <Image src={product.image} />
-      </Card.Section>
-      <Card.Section withBorder inheritPadding py={"xs"} className="bg-slate-800">
-        <Group justify="space-between">
-          <Text>{product.name}</Text>
-          <IconHeartPlus size={14} color="red" />
-        </Group>
-      </Card.Section>
-      <Card.Section inheritPadding py={"sm"} className="bg-slate-900">
-        <Group justify="space-between">
-          <Text ><span className="hidden sm:block">Price:</span> ${product.price}</Text>
+    <div className="rounded-lg outline-2 outline outline-slate-800	overflow-hidden bg-gray-900 my-3 font-serif">
+      <Image src={product.image} />
+      <div className="flex align-center justify-between px-2 py-3 border-b border-slate-800  ">
+        <p>{product.name}</p>
+        <IconHeartPlus size={14} color="red" />
+      </div>
+      <div className="flex align-center justify-between px-2 py-3">
+      <p>
+        <span className="hidden sm:inline">Price:</span> ${product.price}
+      </p>
 
-          <IconBasketPlus
-            size={20}
-            color="blue"
-            onClick={() => {
-              open();
-              setViewing(product);
-            }}
-          />
-        </Group>
-      </Card.Section>
-    </Card>
+      <IconBasketPlus
+        size={20}
+        color="blue"
+        onClick={() => {
+          open();
+          setViewing(product);
+        }}
+      />
+      </div>
+    </div>
   );
 }
 
