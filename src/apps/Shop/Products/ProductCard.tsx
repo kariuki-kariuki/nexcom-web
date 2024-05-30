@@ -1,4 +1,4 @@
-import { Card, Group, Image, Text } from "@mantine/core";
+import { Image } from "@mantine/core";
 import { IProduct } from "../../../@types/shop";
 import { IconBasketPlus, IconHeartPlus } from "@tabler/icons-react";
 interface Iprops {
