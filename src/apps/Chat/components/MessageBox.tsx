@@ -1,4 +1,4 @@
-import { Button, Input } from "@mantine/core";
+import { Button, Input, Textarea } from "@mantine/core";
 import { useContext, useState } from "react";
 import {
   ConversationContext,
@@ -16,12 +16,14 @@ const MessageBox = () => {
   let { user } = useContext(AppContext) as UserContextType;
 
   return (
-    <div className="bottom-0 left-0 right-0 p-2 sticky bg-blue-200 ">
-      <Input
+    <div className="fixed w-inherit bottom-0 p-2 object-cover   object-bottom	w-auto  ">
+      <div className="flex w-full">
+
+      <textarea
         placeholder="message"
         value={message}
         onChange={(event) => setMessage(event.currentTarget.value)}
-        w={"80%"}
+        className="w-96 bg-black border-spacing-1 border  border-slate-800 rounded-lg h-10 p-2"
       />
       <Button
         onClick={() => {
@@ -35,6 +37,8 @@ const MessageBox = () => {
         Send
       </Button>
     </div>
+    </div>
+
   );
 };
 

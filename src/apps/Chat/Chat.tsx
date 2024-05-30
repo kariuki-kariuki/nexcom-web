@@ -5,6 +5,7 @@ import { ConversationProps } from "../../@types/chat";
 import HeroPage from "../Shop/Products/HeroPage";
 import { ScreenContext, screenContextType } from "../../context/screenContext";
 import { ConversationContext, activeConversatonType } from "../../context/activeConversation";
+import { url } from "../../data/url";
 
 function Chat() {
   const token = localStorage.getItem("token");
@@ -12,7 +13,8 @@ function Chat() {
   const {activeScreen } = useContext(ScreenContext) as screenContextType;
   const {activeConversation} = useContext(ConversationContext) as activeConversatonType;
   useEffect(() => {
-    fetch("http://192.168.100.4:8000/conversation", {
+    fetch(`${url}/conversation`
+    , {
       headers: {
         Authorization: `Bearer ${token}`,
       },

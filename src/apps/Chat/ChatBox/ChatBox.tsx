@@ -1,6 +1,6 @@
 import Message from "../components/Message";
 import { useContext } from "react";
-// import MessageBox from "../components/MessageBox";
+import MessageBox from "../components/MessageBox";
 import {
   ConversationContext,
   activeConversatonType,
@@ -18,22 +18,25 @@ function ChatBox() {
   let sender: UserProps | null;
   if (activeConversation?.user_1?.email === user.email) {
     sender = activeConversation?.user_2;
-  } else if (activeConversation){
+  } else if (activeConversation) {
     sender = activeConversation?.user_1;
   } else {
     sender = null;
   }
   const messages = activeConversation?.messages?.map((message) => (
-    <Message message={message} key={message?.msg} sender = {sender}/>
+    <Message message={message} key={message?.msg} sender={sender} />
   ));
 
   return (
-    <div className={`w-full h-full`}>
+    <div className={`w-full h-full relative overflow-auto`}>
       <Bar />
-      <div>
+      <div className="h-5/6 overflow-scroll mb-5">
         {messages}
-        {/* <MessageBox /> */}
+        {messages}
+        
       </div>
+
+      <MessageBox />
     </div>
   );
 }
