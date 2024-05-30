@@ -4,6 +4,7 @@ import Chat from './apps/Chat/Chat'
 import Navbar from './components/Navbar/Navbar'
 import { AppContext } from './context/appContext'
 import { UserContextType } from './@types/app'
+import { url } from './data/url'
 //  interface userProps {
 //   user_name: string
 //   user_id: string
@@ -11,8 +12,9 @@ import { UserContextType } from './@types/app'
 function App() {
   const { updateUser} = useContext(AppContext) as UserContextType;
   const token = localStorage.getItem("token")
+
   useEffect(() => {
-    fetch("http://192.168.100.4:8000/me", {
+    fetch(`${url}/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       }
@@ -24,7 +26,7 @@ function App() {
         })
       }
     })
-  }, [])
+  }, []);
   return (
      <div className='min-h-full main flex flex-row'>
       <Navbar />

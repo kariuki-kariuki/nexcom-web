@@ -6,18 +6,27 @@ import Admin from "../apps/Admin/Admin";
 import Comms from "../apps/Comms/Comms";
 import Shop from "../apps/Shop/Shop";
 import Index from "../index/Index";
+// import { useContext } from "react";
+// import { AppContext } from "../context/appContext";
+// import { UserContextType } from "../@types/app";
+
+// export const  {user} = useContext(AppContext) as UserContextType
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Index />,
+    element:  <Index />,
   },
   {
     path: "/home",
-    element: <App />,
+    element: <Index />,
   },
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/chat",
+    element: <App />
   },
   {
     path: "/register",

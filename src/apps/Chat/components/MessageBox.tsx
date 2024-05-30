@@ -1,4 +1,4 @@
-import { Button, Input, Textarea } from "@mantine/core";
+import { Button } from "@mantine/core";
 import { useContext, useState } from "react";
 import {
   ConversationContext,

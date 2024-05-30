@@ -16,7 +16,7 @@ function Shop() {
 }
 
 const ClassNames: any = {
-  root: "grid grid-cols-1 md:grid-cols-4  lg:grid-cols-5 gap-4"
+  root: "grid grid-cols-2 md:grid-cols-4  lg:grid-cols-5 gap-4"
 }
 
 export default Shop;
