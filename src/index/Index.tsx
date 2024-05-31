@@ -1,7 +1,7 @@
 import { Button, Image, Text, TextInput } from "@mantine/core";
 import logo from "../assets/mklogo.png";
 import { GithubIcon } from "@mantinex/dev-icons";
-import { IconArrowRight, IconKeyboard, IconSearch } from "@tabler/icons-react";
+import { IconArrowRight,  IconSearch } from "@tabler/icons-react";
 import { useContext } from "react";
 import { AppContext } from "../context/appContext";
 import { UserContextType } from "../@types/app";
@@ -33,7 +33,7 @@ function Index() {
             <GithubIcon size={30} />
           </div>
         </div>
-        <div className="flex items-center h-3/5 p-5">
+        <div className="flex items-center justify-between h-3/5 p-5">
           <div>
             <p className="my-5 text-md sm:font-black antialiased leading-4 font-mono md:text-4xl  ">
               Bringing You a <br />
@@ -53,6 +53,10 @@ function Index() {
             >
               Get Started
             </Button>
+          </div>
+          <div className="">
+            <p className="text-8xl">CO</p>
+            <p className="text-8xl">CO</p>
           </div>
         </div>
       </div>
