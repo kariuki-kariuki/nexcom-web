@@ -7,7 +7,8 @@ const AppProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     const [user, setUser] = React.useState<IUser>({
         name: null,
         email: null,
-        avatar: null
+        avatar: null,
+        apiKey: null,
     });
 
     const updateUser =(user: IUser) => {

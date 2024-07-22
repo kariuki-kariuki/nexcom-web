@@ -7,6 +7,7 @@ import { AppContext } from "../context/appContext";
 import { UserContextType } from "../@types/app";
 function Index() {
   const { user } = useContext(AppContext) as UserContextType;
+  console.log(user);
   return (
     <div className="h-screen bg-hero-pattern overflow-hidden bg-cover bg-center">
       <div style={{backgroundColor: "rgba(0, 0, 0, .7)"}} className=" sm:px-20 h-full">
@@ -30,7 +31,8 @@ function Index() {
                 </Text>
               }
             />
-            <GithubIcon size={30} />
+            {user.avatar ? <Image src={user.avatar}/>: <GithubIcon size={30} />}
+            
           </div>
         </div>
         <div className="flex items-center justify-between h-3/5 p-5">
@@ -48,7 +50,7 @@ function Index() {
             <Button
               variant="outline"
               component="a"
-              href={user ? "/shop" : "/login"}
+              href={user.name ? "/shop" : "/login"}
               rightSection={<IconArrowRight size={20} />}
             >
               Get Started

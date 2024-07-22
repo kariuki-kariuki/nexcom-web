@@ -2,7 +2,7 @@
 import Shopnav from "./ShopNav/Shopnav";
 import HeroPage from "./Products/HeroPage";
 // import ProductCard from "./Products/ProductCard";
-import NewProduct from "./Products/NewProduct";
+// import NewProduct from "./Products/NewProduct";
 
 function Shop() {
   return (
@@ -11,8 +11,8 @@ function Shop() {
         <Shopnav />
       </div>
       <div className="md:w-11/12 h-screen  overflow-scroll">
-        {/* <HeroPage root={ClassNames.root} headerText="A new way to Shops"/> */}
-        <NewProduct />
+        <HeroPage root={ClassNames.root} headerText="A new way to Shops"/>
+        {/* <NewProduct /> */}
       </div>
     </div>
   );

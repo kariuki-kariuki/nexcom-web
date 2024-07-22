@@ -15,6 +15,7 @@ import {
 } from "@mantine/core";
 import { GoogleButton } from "./GoogleButton";
 import { TwitterButton } from "./TwitterButton";
+import { url } from '../../data/url';
 
 export default function Login(props: PaperProps) {
   const [type, toggle] = useToggle(["login", "register"]);
@@ -37,7 +38,7 @@ export default function Login(props: PaperProps) {
 
   function handleSubmit(values: typeof form.values) {
     console.log(values);
-    fetch("http://192.168.100.4:8000/login", {
+    fetch(`${url}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,8 +51,7 @@ export default function Login(props: PaperProps) {
       .then((res) => {
         if (res.ok) {
           res.json().then((res) => {
-            console.log(res);
-            localStorage.setItem("token", res.access_token);
+            localStorage.setItem("token", res.token);
           });
         } else {
           throw res.statusText;
@@ -61,7 +61,7 @@ export default function Login(props: PaperProps) {
   }
 
   return (
-    <div className="bg-slate-800">
+    <div className="bg-slate-800 px-2">
       <div className="md:w-6/12 m-auto flex items-center main justify-center ">
         <Paper
           radius="md"

@@ -1,7 +1,7 @@
 import { useContext, useEffect} from 'react'
 import './App.css'
-import Chat from './apps/Chat/Chat'
-import Navbar from './components/Navbar/Navbar'
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/Routes.tsx";
 import { AppContext } from './context/appContext'
 import { UserContextType } from './@types/app'
 import { url } from './data/url'
@@ -14,7 +14,7 @@ function App() {
   const token = localStorage.getItem("token")
 
   useEffect(() => {
-    fetch(`${url}/me`, {
+    fetch(`${url}/auth/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       }
@@ -22,16 +22,14 @@ function App() {
     .then((res) => {
       if(res.ok){
         res.json().then(res => {
-          updateUser(res[0]);
+          updateUser(res);
+          console.log(res)
         })
       }
     })
   }, []);
   return (
-     <div className='min-h-full main flex flex-row'>
-      <Navbar />
-      <Chat />
-     </div>
+    <RouterProvider router={router} />
   )
 }
 
