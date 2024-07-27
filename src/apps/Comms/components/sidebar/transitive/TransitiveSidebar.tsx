@@ -1,10 +1,10 @@
-import {Fragment} from "react";
-import {Dialog, Transition} from "@headlessui/react";
-import {XMarkIcon} from "@heroicons/react/24/outline/index.js";
-import TransitiveSidebarRoomsList from "./TransitiveSidebarRoomsList.tsx";
+import { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline/index.js';
+import TransitiveSidebarRoomsList from './TransitiveSidebarRoomsList.tsx';
 
 export default function TransitiveSidebar(props: any) {
-  const {sidebarOpen, setSidebarOpen, currentRoom, setCurrentRoom} = props;
+  const { sidebarOpen, setSidebarOpen, currentRoom, setCurrentRoom } = props;
   return (
     <Transition.Root show={sidebarOpen} as={Fragment}>
       <Dialog
@@ -21,7 +21,7 @@ export default function TransitiveSidebar(props: any) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-900/80"/>
+          <div className="fixed inset-0 bg-gray-900/80" />
         </Transition.Child>
 
         <div className="fixed inset-0 flex">
@@ -60,9 +60,7 @@ export default function TransitiveSidebar(props: any) {
               </Transition.Child>
               <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-ctp-base px-6 pb-4">
                 <div className="flex h-16 shrink-0 items-center">
-                  <h1 className="text-2xl text-white font-bold py-4">
-                    Rooms
-                  </h1>
+                  <h1 className="text-2xl text-white font-bold py-4">Rooms</h1>
                 </div>
                 <TransitiveSidebarRoomsList
                   currentRoom={currentRoom}
@@ -74,5 +72,5 @@ export default function TransitiveSidebar(props: any) {
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }

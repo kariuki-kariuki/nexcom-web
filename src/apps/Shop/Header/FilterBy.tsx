@@ -1,20 +1,20 @@
-import { Button, Menu  } from "@mantine/core";
+import { Button, Menu } from '@mantine/core';
 // import { IconSearch } from "@tabler/icons-react";
 
 const ProductCategories = [
-  "Electronics",
-  "Apparel and Fashion",
-  "Home and Kitchen Appliances",
-  "Beauty and Personal Care",
-  "Automotive",
-  "Sports and Outdoors",
-  "Books and Stationery",
-  "Health and Wellness",
-  "Toys and Games",
+  'Electronics',
+  'Apparel and Fashion',
+  'Home and Kitchen Appliances',
+  'Beauty and Personal Care',
+  'Automotive',
+  'Sports and Outdoors',
+  'Books and Stationery',
+  'Health and Wellness',
+  'Toys and Games',
 ];
 
 function FilterBy() {
-  let Categores = ProductCategories.map((product: string, index) => (
+  const Categores = ProductCategories.map((product: string, index) => (
     <Menu.Item key={index}>{product}</Menu.Item>
   ));
   return (

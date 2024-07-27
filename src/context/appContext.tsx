@@ -1,25 +1,25 @@
-import React from "react";
-import { IUser, UserContextType } from "../@types/app";
+import React from 'react';
+import { IUser, UserContextType } from '../@types/app';
 
-export const AppContext = React.createContext<UserContextType | null> ( null) ;
+export const AppContext = React.createContext<UserContextType | null>(null);
 
-const AppProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
-    const [user, setUser] = React.useState<IUser>({
-        name: null,
-        email: null,
-        avatar: null,
-        apiKey: null,
-    });
+const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = React.useState<IUser>({
+    name: null,
+    email: null,
+    avatar: null,
+    apiKey: null,
+  });
 
-    const updateUser =(user: IUser) => {
-        setUser(user)
-    }
+  const updateUser = (user: IUser) => {
+    setUser(user);
+  };
 
-    return (
-        <AppContext.Provider value={{user, updateUser}}>
-            {children}
-        </AppContext.Provider>
-    )
-}
+  return (
+    <AppContext.Provider value={{ user, updateUser }}>
+      {children}
+    </AppContext.Provider>
+  );
+};
 
 export default AppProvider;

@@ -1,12 +1,13 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import { AppContext } from "../../../context/appContext";
-import { UserContextType } from "../../../@types/app";
+import { AppContext } from '../../../context/appContext';
+import { UserContextType } from '../../../@types/app';
 import {
   ConversationContext,
   activeConversatonType,
-} from "../../../context/activeConversation";
-import { UserProps } from "../../../@types/chat";
+} from '../../../context/activeConversation';
+import { UserProps } from '../../../@types/chat';
+import { Avatar } from '@mantine/core';
 
 export interface MiniProfileProps {
   image: string;
@@ -17,7 +18,7 @@ export interface MiniProfileProps {
 const MiniProfile = () => {
   const { user } = useContext(AppContext) as UserContextType;
   const { activeConversation } = useContext(
-    ConversationContext
+    ConversationContext,
   ) as activeConversatonType;
 
   let sender: UserProps | null;
@@ -30,7 +31,7 @@ const MiniProfile = () => {
   }
   return (
     <div className="flex justify-between items-center">
-      <img
+      <Avatar
         src={sender?.avatar}
         // alt={`${sender?.name}'s profile`}
         className={`h-10 w-10 rounded-full`}

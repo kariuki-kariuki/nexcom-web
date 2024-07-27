@@ -1,0 +1,16 @@
+.float_left{
+    float: left;
+}
+
+.float_right{
+    float: right;
+}
+
+/* .textarea {
+    padding: 10;
+    background-color: wheat;
+} */
+
+.send{
+    padding: 10;
+}

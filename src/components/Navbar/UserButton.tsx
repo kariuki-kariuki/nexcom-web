@@ -5,10 +5,9 @@ import { useContext } from 'react';
 import { AppContext } from '../../context/appContext';
 import { UserContextType } from '../../@types/app';
 
-
 export function UserButton() {
-  const {user} = useContext(AppContext) as UserContextType;
-  console.log(user)
+  const { user } = useContext(AppContext) as UserContextType;
+  console.log(user);
   return (
     <UnstyledButton className={classes.user} py={'md'}>
       <Group>
@@ -19,7 +18,7 @@ export function UserButton() {
 
         <div style={{ flex: 1 }}>
           <Text size="sm" fw={500}>
-           {user?.name}
+            {user?.name}
           </Text>
 
           <Text c="dimmed" size="xs">
@@ -27,7 +26,10 @@ export function UserButton() {
           </Text>
         </div>
 
-        <IconChevronRight style={{ width: rem(14), height: rem(14) }} stroke={1.5} />
+        <IconChevronRight
+          style={{ width: rem(14), height: rem(14) }}
+          stroke={1.5}
+        />
       </Group>
     </UnstyledButton>
   );

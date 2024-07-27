@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Center,
   Tooltip,
@@ -6,7 +6,7 @@ import {
   Stack,
   rem,
   Image,
-} from "@mantine/core";
+} from '@mantine/core';
 import {
   IconHome2,
   // IconDeviceDesktopAnalytics,
@@ -18,9 +18,9 @@ import {
   IconSwitchHorizontal,
   IconMessageCircle,
   IconTrolley,
-} from "@tabler/icons-react";
-import classes from "./NavbarMinimal.module.css";
-import logo from "../../assets/mklogo.png";
+} from '@tabler/icons-react';
+import classes from './NavbarMinimal.module.css';
+import logo from '../../assets/mklogo.png';
 interface NavbarLinkProps {
   icon: typeof IconHome2;
   label: string;
@@ -43,13 +43,13 @@ function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
 }
 
 const mockdata = [
-  { icon: IconHome2, label: "Home" },
-  { icon: IconMessageCircle, label: "Chat" },
-  { icon: IconTrolley, label: "Shop" },
-  { icon: IconCalendarStats, label: "Releases" },
-  { icon: IconUser, label: "Account" },
-  { icon: IconFingerprint, label: "Security" },
-  { icon: IconSettings, label: "Settings" },
+  { icon: IconHome2, label: 'Home' },
+  { icon: IconMessageCircle, label: 'Chat' },
+  { icon: IconTrolley, label: 'Shop' },
+  { icon: IconCalendarStats, label: 'Releases' },
+  { icon: IconUser, label: 'Account' },
+  { icon: IconFingerprint, label: 'Security' },
+  { icon: IconSettings, label: 'Settings' },
 ];
 
 export default function Navbar() {
@@ -67,9 +67,11 @@ export default function Navbar() {
   ));
 
   return (
-    <nav className={`${classes.navbar}  hidden md:block dark:bg-slate-700 border-r-2 border-gray-500`} >
+    <nav
+      className={`${classes.navbar}  hidden md:block dark:bg-slate-700 border-r-2 border-gray-500`}
+    >
       <Center>
-        <Image src={logo} radius={"xl"} width={"auto"} />
+        <Image src={logo} radius={'xl'} width={'auto'} />
       </Center>
 
       <div className={classes.navbarMain}>

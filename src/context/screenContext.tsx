@@ -1,24 +1,27 @@
-import React from "react";
-
+import React from 'react';
 
 export type screenContextType = {
-    activeScreen: string,
-    updateActiveScreen: (active: string) => void;
-}
-export const ScreenContext = React.createContext<screenContextType | null> ( null) ;
+  activeScreen: string;
+  updateActiveScreen: (active: string) => void;
+};
+export const ScreenContext = React.createContext<screenContextType | null>(
+  null,
+);
 
-const ScreenProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
-    const [activeScreen, setActiveScreen] = React.useState<string>("nav");
+const ScreenProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [activeScreen, setActiveScreen] = React.useState<string>('nav');
 
-    const updateActiveScreen =(active: string) => {
-        setActiveScreen(active)
-    }
+  const updateActiveScreen = (active: string) => {
+    setActiveScreen(active);
+  };
 
-    return (
-        <ScreenContext.Provider value={{activeScreen, updateActiveScreen}}>
-            {children}
-        </ScreenContext.Provider>
-    )
-}
+  return (
+    <ScreenContext.Provider value={{ activeScreen, updateActiveScreen }}>
+      {children}
+    </ScreenContext.Provider>
+  );
+};
 
 export default ScreenProvider;

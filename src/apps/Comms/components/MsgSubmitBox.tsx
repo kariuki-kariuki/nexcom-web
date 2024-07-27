@@ -1,18 +1,18 @@
-import {useState} from "react";
+import { useState } from 'react';
 
 export default function MsgSubmitBox(props: any) {
-  const {socket, currentRoom} = props;
-  const [input, setInput] = useState("");
-  
+  const { socket, currentRoom } = props;
+  const [input, setInput] = useState('');
+
   const sendMessage = (e: any) => {
     e.preventDefault();
-    socket?.emit("message", {
+    socket?.emit('message', {
       text: input,
       room: currentRoom,
     });
-    setInput("");
+    setInput('');
   };
-  
+
   return (
     <form className="flex h-11" onSubmit={sendMessage}>
       <input
@@ -29,5 +29,5 @@ export default function MsgSubmitBox(props: any) {
         Send
       </button>
     </form>
-  )
+  );
 }

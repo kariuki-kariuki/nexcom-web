@@ -1,6 +1,13 @@
-import { Box, Center, Group, PasswordInput, Progress, Text } from "@mantine/core";
-import { useInputState } from "@mantine/hooks";
-import { IconCheck, IconX } from "@tabler/icons-react";
+import {
+  Box,
+  Center,
+  Group,
+  PasswordInput,
+  Progress,
+  Text,
+} from '@mantine/core';
+import { useInputState } from '@mantine/hooks';
+import { IconCheck, IconX } from '@tabler/icons-react';
 
 function PasswordRequirement({
   meets,
@@ -10,10 +17,10 @@ function PasswordRequirement({
   label: string;
 }) {
   return (
-    <Text component="div" c={meets ? "teal" : "red"} mt={5} size="sm">
+    <Text component="div" c={meets ? 'teal' : 'red'} mt={5} size="sm">
       <Center inline>
         {meets ? (
-          <IconCheck size={"0.9rem"} stroke={1.5} />
+          <IconCheck size={'0.9rem'} stroke={1.5} />
         ) : (
           <IconX size="0.9rem" stroke={1.5} />
         )}
@@ -24,10 +31,10 @@ function PasswordRequirement({
 }
 
 const requirements = [
-  { re: /[0-9]/, label: "Inclides number" },
-  { re: /[a-z]/, label: "Inludes lowercase letter" },
-  { re: /[A-Z]/, label: "Includes uppercase letter" },
-  { re: /[$&+,:;=?@#|'<>.^*()%!-']/, label: "Includes special symbol" },
+  { re: /[0-9]/, label: 'Inclides number' },
+  { re: /[a-z]/, label: 'Inludes lowercase letter' },
+  { re: /[A-Z]/, label: 'Includes uppercase letter' },
+  { re: /[$&+,:;=?@#|'<>.^*()%!-']/, label: 'Includes special symbol' },
 ];
 
 function getStrength(password: string) {
@@ -43,7 +50,7 @@ function getStrength(password: string) {
 }
 
 export default function PasswordStrength() {
-  const [value, setValue] = useInputState("");
+  const [value, setValue] = useInputState('');
 
   const strength = getStrength(value);
 
@@ -59,27 +66,27 @@ export default function PasswordStrength() {
     .fill(0)
     .map((_, index) => (
       <Progress
-        style={{ section: { transitionDuration: "0ms" } }}
+        style={{ section: { transitionDuration: '0ms' } }}
         value={
           value.length > 0 && index === 0
             ? 100
             : strength >= ((index + 1) / 4) * 100
-            ? 100
-            : 0
+              ? 100
+              : 0
         }
-        color={strength > 80 ? "teal" : strength > 50 ? "yellow" : "red"}
+        color={strength > 80 ? 'teal' : strength > 50 ? 'yellow' : 'red'}
         key={index}
         size={4}
       />
     ));
 
-    return (
-      <div>
+  return (
+    <div>
       <PasswordInput
         value={value}
         onChange={setValue}
         placeholder="Your password"
-        c={"white"}
+        c={'white'}
         label="Password"
         required
       />
@@ -88,7 +95,11 @@ export default function PasswordStrength() {
         {bars}
       </Group>
 
-      <PasswordRequirement label="Has at least 6 characters" meets={value.length > 5} />
+      <PasswordRequirement
+        label="Has at least 6 characters"
+        meets={value.length > 5}
+      />
       {checks}
-    </div>)
+    </div>
+  );
 }

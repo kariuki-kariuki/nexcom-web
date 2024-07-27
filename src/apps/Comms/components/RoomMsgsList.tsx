@@ -1,9 +1,9 @@
-import {classNames} from "../utils/class-names.js";
-import {colorForName} from "../utils/color-for-name.js";
+import { classNames } from '../utils/class-names.js';
+import { colorForName } from '../utils/color-for-name.js';
 
 export default function RoomMsgsList(props: any) {
-  const {messages} = props
-  
+  const { messages } = props;
+
   return (
     <ul className="p-4">
       {messages?.map((msg: any, index: number) => (
@@ -15,7 +15,7 @@ export default function RoomMsgsList(props: any) {
             <div className="flex flex-row gap-x-6 items-center">
               <p
                 className={classNames(
-                  "text-sm font-semibold",
+                  'text-sm font-semibold',
                   `text-${colorForName(msg.user)}`,
                 )}
               >
@@ -30,5 +30,5 @@ export default function RoomMsgsList(props: any) {
         </li>
       ))}
     </ul>
-  )
+  );
 }

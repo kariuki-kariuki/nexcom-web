@@ -1,55 +1,24 @@
-import { useState, useRef, useEffect } from "react";
-import { io } from "socket.io-client";
-import { Bars3Icon } from "@heroicons/react/24/outline";
+import { useState, useRef, useEffect } from 'react';
+import { io, Socket } from 'socket.io-client';
+import { Bars3Icon } from '@heroicons/react/24/outline';
 // import { rooms } from "./utils/rooms.ts";
-import TransitiveSidebar from "./components/sidebar/transitive/TransitiveSidebar.tsx";
-import Sidebar from "./components/sidebar/normal/Sidebar.tsx";
-import MsgSubmitBox from "./components/MsgSubmitBox.tsx";
-import RoomMsgsList from "./components/RoomMsgsList.tsx";
-
-interface Id {
-  id: string
-  tb: string
-}
-
-interface User {
-  avatar: string,
-    created_at: string,
-    email: string,
-    id: Id,
-    login_attempts: number,
-    name: string,
-    updated_at: string,
-}
-
-interface Conversation {
-  id : Id,
-  user_1: User,
-  user_2: User
-}
+import TransitiveSidebar from './components/sidebar/transitive/TransitiveSidebar.tsx';
+import Sidebar from './components/sidebar/normal/Sidebar.tsx';
+import MsgSubmitBox from './components/MsgSubmitBox.tsx';
+import RoomMsgsList from './components/RoomMsgsList.tsx';
+import { rooms } from './utils/rooms.ts';
 
 function Comms() {
   const [messages, setMessages] = useState([]);
-  const [conversation, setConversation] = useState<Conversation[]>([]);
-  const [currentRoom, setCurrentRoom] = useState<string | null>(conversation[0]?.id.tb);
-  const [socket, setSocket] = useState<any>(null);
+  const [currentRoom, setCurrentRoom] = useState(rooms[0]);
+  const [socket, setSocket] = useState<Socket | null>(null);
   const onceRef = useRef(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8000/convo")
-    .then((res: any) => {
-      if(res.ok){
-        res.json()
-        .then((res: any) => {
-          console.log(res);
-          setConversation(res)
-        })
-      }
-    })
     setMessages([]);
-    socket?.emit("join", currentRoom);
-  }, [currentRoom, socket, setConversation]);
+    socket?.emit('join', currentRoom);
+  }, [currentRoom, socket]);
 
   useEffect(() => {
     if (onceRef.current) {
@@ -57,31 +26,22 @@ function Comms() {
     }
 
     onceRef.current = true;
-
-    const socket = io("ws://localhost:8000");
+    const url1 = 'ws://192.168.100.4:3000';
+    const url2 = 'ws://localhost:3002';
+    const socket = io(url2);
     setSocket(socket);
 
-    socket.on("connect", () => {
-      console.log("Connected to socket server");
-      console.log("joining room", currentRoom);
+    socket.on('join', () => {
+      console.log('Connected to socket server');
+      console.log('joining room', currentRoom);
 
-      socket.emit("join", currentRoom);
+      socket.emit('join', currentRoom);
     });
 
-    socket.on("message", (msg) => {
-      console.log("Message received", msg);
-      alert(`Message receved , ${msg}`);
+    socket.on('message', (msg) => {
+      console.log('Message received', msg);
       msg.date = new Date(msg.date);
       setMessages((messages): any => [...messages, msg]);
-    });
-
-    socket.on("messages", (msgs) => {
-      console.log("Messages received", msgs);
-      let messages = msgs.messages.map((msg: any) => {
-        msg.date = new Date(msg.date);
-        return msg;
-      });
-      setMessages(messages);
     });
   }, []);
 

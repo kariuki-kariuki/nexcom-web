@@ -1,5 +1,9 @@
-import { IconDotsVertical, IconPhoneCalling, IconVideo } from "@tabler/icons-react";
-import PopMenu from "./PopMenu";
+import {
+  IconDotsVertical,
+  IconPhoneCalling,
+  IconVideo,
+} from '@tabler/icons-react';
+import PopMenu from './PopMenu';
 
 function Miscelenious() {
   return (
@@ -11,8 +15,12 @@ function Miscelenious() {
         <IconPhoneCalling />
       </div>
       <div className="p-3">
-        <div className="hidden sm:block"><IconDotsVertical/></div>
-        <div className="sm:hidden"><PopMenu /></div>
+        <div className="hidden sm:block">
+          <IconDotsVertical />
+        </div>
+        <div className="sm:hidden">
+          <PopMenu />
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
-import { Input, Textarea } from "@mantine/core";
-import { useState } from "react";
+import { Input, Textarea } from '@mantine/core';
+import { useState } from 'react';
 
 type productColor = {
   name: string;
@@ -17,15 +17,17 @@ type Product = {
 
 function NewProduct() {
   const [product, setProduct] = useState<Product>({
-    name: "",
-    description: "",
-    image: "",
+    name: '',
+    description: '',
+    image: '',
     colors: [],
     quantity: 0,
     sizes: [],
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { id, value } = e.target;
     setProduct((prevProduct) => ({
       ...prevProduct,
@@ -34,7 +36,7 @@ function NewProduct() {
   };
 
   const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const sizes = e.target.value.split(",").map(size => size.trim());
+    const sizes = e.target.value.split(',').map((size) => size.trim());
     setProduct((prevProduct) => ({
       ...prevProduct,
       sizes,
@@ -49,8 +51,8 @@ function NewProduct() {
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files !== null ) {
-        let file = e.target.files[0]; 
+    if (e.target.files !== null) {
+      const file = e.target.files[0];
       setProduct((prevProduct) => ({
         ...prevProduct,
         image: URL.createObjectURL(file),
@@ -70,7 +72,7 @@ function NewProduct() {
   const addColor = () => {
     setProduct((prevProduct) => ({
       ...prevProduct,
-      colors: [...prevProduct.colors, { name: "", image: "" }],
+      colors: [...prevProduct.colors, { name: '', image: '' }],
     }));
   };
 
@@ -79,7 +81,10 @@ function NewProduct() {
       <form className="w-3/6 border h-full overflow-scroll p-3 bg-slate-800 rounded-lg">
         <header className="font-sans font-black font-xs">New Product</header>
         <div className="mb-4">
-          <label htmlFor="name" className="block text-white-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="name"
+            className="block text-white-700 text-sm font-bold mb-2"
+          >
             Product Name
           </label>
           <Input
@@ -93,7 +98,10 @@ function NewProduct() {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="description" className="block text-white-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="description"
+            className="block text-white-700 text-sm font-bold mb-2"
+          >
             Description
           </label>
           <Textarea
@@ -106,7 +114,10 @@ function NewProduct() {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="image" className="block text-white-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="image"
+            className="block text-white-700 text-sm font-bold mb-2"
+          >
             Product Image
           </label>
           <input
@@ -117,12 +128,19 @@ function NewProduct() {
             className="w-full border rounded"
           />
           {product.image && (
-            <img src={product.image} alt="Product" className="mt-4 max-w-full h-20 rounded-md shadow-md" />
+            <img
+              src={product.image}
+              alt="Product"
+              className="mt-4 max-w-full h-20 rounded-md shadow-md"
+            />
           )}
         </div>
 
         <div className="mb-4">
-          <label htmlFor="quantity" className="block text-white-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="quantity"
+            className="block text-white-700 text-sm font-bold mb-2"
+          >
             Quantity
           </label>
           <Input
@@ -136,14 +154,17 @@ function NewProduct() {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="sizes" className="block text-white-700 text-sm font-bold mb-2">
+          <label
+            htmlFor="sizes"
+            className="block text-white-700 text-sm font-bold mb-2"
+          >
             Sizes (comma separated)
           </label>
           <Input
             type="text"
             id="sizes"
             required
-            value={product.sizes.join(", ")}
+            value={product.sizes.join(', ')}
             onChange={handleSizeChange}
             className="w-full  border rounded"
           />
@@ -160,17 +181,32 @@ function NewProduct() {
                 placeholder="Color Name"
                 required
                 value={color.name}
-                onChange={(e) => handleColorChange(index, "name", e.target.value)}
+                onChange={(e) =>
+                  handleColorChange(index, 'name', e.target.value)
+                }
                 className="w-full border rounded mb-1"
-              /> <br />
+              />{' '}
+              <br />
               <Input
                 type="file"
                 required
-                onChange={(e:  React.ChangeEvent<HTMLInputElement>) => handleColorChange(index, "image", URL.createObjectURL(e.target.files[0]))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleColorChange(
+                    index,
+                    'image',
+                    URL.createObjectURL(e.target.files[0]),
+                  )
+                }
                 className="w-full border rounded"
               />
               {color.image && (
-                <img src={color.image} alt="Color" className="mt-2 max-w-full h-auto rounded-md shadow-md" width={20} height={20}/>
+                <img
+                  src={color.image}
+                  alt="Color"
+                  className="mt-2 max-w-full h-auto rounded-md shadow-md"
+                  width={20}
+                  height={20}
+                />
               )}
             </div>
           ))}

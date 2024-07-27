@@ -1,29 +1,31 @@
-import React, { createContext, useState } from "react";
-import { ConversationProps } from "../@types/chat"
+import React, { createContext, useState } from 'react';
+import { ConversationProps } from '../@types/chat';
 
 export type activeConversatonType = {
-    activeConversation: ConversationProps | null,
-    setActiveConversation: (convo: ConversationProps) => void;
-}
+  activeConversation: ConversationProps | null;
+  setActiveConversation: (convo: ConversationProps) => void;
+};
 
-export const ConversationContext = createContext<activeConversatonType | null>(null) 
+export const ConversationContext = createContext<activeConversatonType | null>(
+  null,
+);
 
-const ConversationProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
-    const [activeConversation, setActiveConversation] = useState<ConversationProps >({
-        id: null,
-        user_1: null,
-        user_2: null,
-        messages: null
-    })
-    
-    // const updateActiveConver = (active: ConversationProps) => {
-    //     setActiveConversation(active);
-    // }
-    return (
-        <ConversationContext.Provider value={{activeConversation, setActiveConversation}}>
-            {children}
-        </ConversationContext.Provider>
-    )
-}
+const ConversationProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [activeConversation, setActiveConversation] =
+    useState<ConversationProps | null>(null);
 
-export default ConversationProvider
+  // const updateActiveConver = (active: ConversationProps) => {
+  //     setActiveConversation(active);
+  // }
+  return (
+    <ConversationContext.Provider
+      value={{ activeConversation, setActiveConversation }}
+    >
+      {children}
+    </ConversationContext.Provider>
+  );
+};
+
+export default ConversationProvider;

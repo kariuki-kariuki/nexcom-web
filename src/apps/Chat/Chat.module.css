@@ -1,0 +1,29 @@
+.overflow {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.nav {
+  
+}
+
+.chatArea {
+  display: none;
+
+  @media (min-width: $mantine-breakpoint-sm) {
+    /* font-size: rem(50px); */
+    display: block;
+  }
+}
+
+.modal{
+  padding: 0;
+}

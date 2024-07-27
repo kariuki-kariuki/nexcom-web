@@ -1,5 +1,5 @@
-import { upperFirst } from "@mantine/hooks";
-import { useForm } from "@mantine/form";
+import { upperFirst } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
 import {
   TextInput,
   // PasswordInput,
@@ -12,26 +12,26 @@ import {
   Checkbox,
   Anchor,
   Stack,
-} from "@mantine/core";
-import { GoogleButton } from "./GoogleButton";
-import { TwitterButton } from "./TwitterButton";
-import PasswordStrength from "../../components/input/PasswordStrenght";
+} from '@mantine/core';
+import { GoogleButton } from './GoogleButton';
+import { TwitterButton } from './TwitterButton';
+import PasswordStrength from '../../components/input/PasswordStrenght';
 
 export default function Register(props: PaperProps) {
-  const  type = "register";
+  const type = 'register';
   const form = useForm({
     initialValues: {
-      email: "",
-      name: "",
-      password: "",
+      email: '',
+      name: '',
+      password: '',
       terms: true,
     },
 
     validate: {
-      email: (val) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
+      email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
       password: (val) =>
         val.length <= 6
-          ? "Password should include at least 6 characters"
+          ? 'Password should include at least 6 characters'
           : null,
     },
   });
@@ -42,12 +42,12 @@ export default function Register(props: PaperProps) {
         <Paper
           radius="md"
           p="xl"
-          bg={"rgb(30 41 59 / var(--tw-bg-opacity))"}
+          bg={'rgb(30 41 59 / var(--tw-bg-opacity))'}
           withBorder
           {...props}
           className="dark:bg-slate-800"
         >
-          <Text size="lg" c={"white"} fw={500}>
+          <Text size="lg" c={'white'} fw={500}>
             Welcome to Mantine, {type} with
           </Text>
 
@@ -84,21 +84,21 @@ export default function Register(props: PaperProps) {
                 placeholder="hello@mantine.dev"
                 value={form.values.email}
                 onChange={(event) =>
-                  form.setFieldValue("email", event.currentTarget.value)
+                  form.setFieldValue('email', event.currentTarget.value)
                 }
-                error={form.errors.email && "Invalid email"}
+                error={form.errors.email && 'Invalid email'}
                 radius="md"
               />
 
               <PasswordStrength />
 
-              {type === "register" && (
+              {type === 'register' && (
                 <Checkbox
-                c={'white'}
+                  c={'white'}
                   label="I accept terms and conditions"
                   checked={form.values.terms}
                   onChange={(event) =>
-                    form.setFieldValue("terms", event.currentTarget.checked)
+                    form.setFieldValue('terms', event.currentTarget.checked)
                   }
                 />
               )}
@@ -112,8 +112,8 @@ export default function Register(props: PaperProps) {
                 // onClick={() => toggle()}
                 size="xs"
               >
-                {type === "register"
-                  ? "Already have an account? Login"
+                {type === 'register'
+                  ? 'Already have an account? Login'
                   : "Don't have an account? Register"}
               </Anchor>
               <Button type="submit" radius="xl">

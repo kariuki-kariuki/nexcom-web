@@ -1,8 +1,8 @@
-import { Badge, Button, Card, Group, Image, Modal, Text } from "@mantine/core";
-import { useState } from "react";
-import { IProduct } from "../../../@types/shop";
-import ImageCarousel from "../shopcomponents/ImageCarousel";
-import {  IconBasketPlus } from "@tabler/icons-react";
+import { Badge, Button, Card, Group, Image, Modal, Text } from '@mantine/core';
+import { useState } from 'react';
+import { IProduct } from '../../../@types/shop';
+import ImageCarousel from '../shopcomponents/ImageCarousel';
+import { IconBasketPlus } from '@tabler/icons-react';
 
 interface Iprops {
   opened: boolean;
@@ -13,32 +13,27 @@ interface Iprops {
 function ProductModal({ opened, close, product }: Iprops) {
   const [quantity, setQuantity] = useState(1);
   return (
-    <Modal
-      opened={opened}
-      onClose={close}
-      withCloseButton={true}
-      size={"auto"}
-    >
+    <Modal opened={opened} onClose={close} withCloseButton={true} size={'auto'}>
       <div className=" md:grid grid-cols-2  md:p-5 h-full">
-        <Card p={"xl"}>
+        <Card p={'xl'}>
           <Card.Section className="flex content-center">
             <div>
               <ImageCarousel images={[product.image, product.image]} />
             </div>
           </Card.Section>
         </Card>
-        <Card className="md:p-5 h-full flex content-center" p={"xl"}>
+        <Card className="md:p-5 h-full flex content-center" p={'xl'}>
           <Card.Section className="md:p-5">
             <Text className="text-center">{product.name}</Text>
           </Card.Section>
-          <Card.Section py={"xl"}>
+          <Card.Section py={'xl'}>
             <p className="text-slate-200 font-mono">Product Description</p>
-            <Text fz={"sm"} className="text-slate-500 font-serif">
+            <Text fz={'sm'} className="text-slate-500 font-serif">
               {product.description}
             </Text>
             <Text> Price: ${product.price}</Text>
           </Card.Section>
-          <Card.Section >
+          <Card.Section>
             <Group>
               <Badge color="pink.4" variant="filled">
                 Lime filled
@@ -52,8 +47,8 @@ function ProductModal({ opened, close, product }: Iprops) {
             </Group>
           </Card.Section>
           <Card.Section>
-            <Group justify="space-between" pr={"xl"}>
-              <Button.Group py={"xl"}>
+            <Group justify="space-between" pr={'xl'}>
+              <Button.Group py={'xl'}>
                 <Button
                   variant="default"
                   bg="pink"
