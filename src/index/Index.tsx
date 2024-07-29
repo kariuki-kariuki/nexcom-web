@@ -1,17 +1,15 @@
-import { Avatar, Button, Group, rem, Text, TextInput } from '@mantine/core';
+import { Avatar, Button, Group, Text, TextInput } from '@mantine/core';
 import logo from '../assets/mklogo.png';
-import { GithubIcon } from '@mantinex/dev-icons';
-import {
-  IconArrowRight,
-  IconChevronRight,
-  IconSearch,
-} from '@tabler/icons-react';
+import { IconArrowRight, IconSearch } from '@tabler/icons-react';
 import { useContext } from 'react';
 import { AppContext } from '../context/appContext';
 import { UserContextType } from '../@types/app';
+import MenuDrop from './MenuDrop';
+import { useNavigate } from 'react-router-dom';
 function Index() {
   const { user } = useContext(AppContext) as UserContextType;
   console.log(user);
+  const navigate = useNavigate();
   return (
     <div className="h-screen bg-hero-pattern overflow-hidden bg-cover bg-center">
       <div
@@ -40,15 +38,11 @@ function Index() {
                 </Text>
               }
             />
-            {user.avatar ? (
-              <Avatar src={user.avatar} className="h-10 md:h-10" />
+            {user.name ? (
+              <MenuDrop />
             ) : (
-              <GithubIcon size={30} />
+              <Button onClick={() => navigate('/login')}>Login</Button>
             )}
-            <IconChevronRight
-              style={{ width: rem(14), height: rem(14) }}
-              stroke={1.5}
-            />
           </Group>
         </div>
         <div className="flex items-center justify-between h-3/5 p-5">

@@ -1,12 +1,10 @@
-import { Group, Paper, Textarea, TextInput } from '@mantine/core';
+import { Group, TextInput } from '@mantine/core';
 import { useContext, useState } from 'react';
 import {
   ConversationContext,
   activeConversatonType,
 } from '../../../context/activeConversation';
 import { ConversationProps, Message } from '../../../@types/chat';
-import { AppContext } from '../../../context/appContext';
-import { IUser, UserContextType } from '../../../@types/app';
 import classes from './style.module.css';
 import { IconSend } from '@tabler/icons-react';
 const NewMessageBox = () => {
@@ -14,7 +12,7 @@ const NewMessageBox = () => {
   const { activeConversation, setActiveConversation } = useContext(
     ConversationContext,
   ) as activeConversatonType;
-  const { user } = useContext(AppContext) as UserContextType;
+  // const { user } = useContext(AppContext) as UserContextType;
   const handleSubmit = () => {
     if (message != '') {
       const new_message: Message = {
@@ -32,7 +30,7 @@ const NewMessageBox = () => {
     return activeConversation;
   };
   return (
-    <Group pt={10} variant="div" justify='space-between'>
+    <Group pt={10} variant="div" justify="space-between">
       <TextInput
         placeholder="message"
         value={message}
@@ -56,12 +54,5 @@ const NewMessageBox = () => {
     </Group>
   );
 };
-
-interface IProps {
-  message: string;
-  user: IUser;
-  activeConversation: ConversationProps | null;
-  //   setActiveConversation: (c: ConversationProps) => void;
-}
 
 export default NewMessageBox;

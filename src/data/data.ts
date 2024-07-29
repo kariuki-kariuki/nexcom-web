@@ -85,7 +85,7 @@ function createRandomConversation(receiver: UserProps): ConversationProps {
 const chats: ConversationProps[] = [];
 const receiver = createRandomUser();
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 3; i++) {
   chats.push(createRandomConversation(receiver));
 }
 

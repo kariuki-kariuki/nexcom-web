@@ -1,4 +1,4 @@
-import { UnstyledButton, Group, Avatar, Text, rem, Card } from '@mantine/core';
+import { Group, Avatar, Text, Card } from '@mantine/core';
 import classes from './UserButton.module.css';
 import { useContext } from 'react';
 import { UserContextType } from '../../../@types/app';
@@ -36,13 +36,12 @@ export function ConversationButton({ conversation, open }: Props) {
   return (
     <Card
       className={classes.user}
-      // py={'md'}
-      bg={active ? 'black' : 'dark'}
+      bg={active ? 'black' : ''}
       onClick={() => {
         setActiveConversation(conversation);
         updateActiveScreen('chat');
       }}
-      radius={active ? 'sm' : '0'}
+      radius={active ? 'md' : '0'}
     >
       <Group onClick={open}>
         <Avatar src={sender?.avatar} radius="xl" />

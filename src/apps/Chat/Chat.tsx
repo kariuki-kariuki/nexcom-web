@@ -1,22 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
 import Navigation from './Navigation/Navigation';
 import { ConversationProps } from '../../@types/chat';
-import { ScreenContext, screenContextType } from '../../context/screenContext';
 import chats from '../../data/data';
-import {
-  Card,
-  Drawer,
-  Group,
-  Modal,
-  useMantineColorScheme,
-} from '@mantine/core';
+import { Card, Flex, Modal, useMantineColorScheme } from '@mantine/core';
 import classes from './Chat.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import ChatArea from './ChatBox/ChatArea';
 function Chat() {
   // const token = localStorage.getItem("token");
   // const [conversations, setConversation] = useState<ConversationProps[]>([]);
-  const { activeScreen } = useContext(ScreenContext) as screenContextType;
   // const {activeConversation} = useContext(ConversationContext) as activeConversatonType;
   // useEffect(() => {
   //   fetch(`${url}/conversation`
@@ -35,12 +26,12 @@ function Chat() {
   const conversations: ConversationProps[] = chats;
   const [opened, { open, close }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();
-  const bgColor = colorScheme === 'dark' ? 'black' : 'gray';
+  const bgColor = colorScheme === 'dark' ? 'gray.8' : 'gray';
   return (
-    <Group wrap="nowrap" gap={5} p={{md: 'sm'}} h="100vh" bg={bgColor}>
+    <Flex wrap="nowrap" gap={5} p={{ md: 'sm' }} h="100vh" bg={bgColor}>
       <Card
         className={classes.overflow}
-        h="98%"
+        h="100%"
         w={{ sm: '40%', md: '30%' }}
         bg={bgColor}
         radius={'lg'}
@@ -54,10 +45,10 @@ function Chat() {
         p={2}
         w={{ sm: '60%', md: '70%' }}
         bg={colorScheme == 'dark' ? 'dark' : 'black'}
-        h="98%"
+        h="`100%"
         radius={'lg'}
       >
-        <ChatArea close={close}/>
+        <ChatArea close={close} />
       </Card>
       <Modal
         radius="md"
@@ -67,7 +58,7 @@ function Chat() {
         withCloseButton={false}
         p={'0px'}
         m={0}
-        size={'100%'}
+        size={'100vh'}
         fullScreen
         className={classes.modal}
       >
@@ -75,12 +66,13 @@ function Chat() {
           className={`${classes.overflow}`}
           padding={'0px'}
           m={'0px'}
+          h={'97vh'}
           bg={colorScheme == 'dark' ? 'dark' : 'teal'}
         >
-          <ChatArea close={close}/>
+          <ChatArea close={close} />
         </Card>
       </Modal>
-    </Group>
+    </Flex>
   );
 }
 

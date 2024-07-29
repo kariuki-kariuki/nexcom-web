@@ -13,7 +13,7 @@ import NewMessageBox from '../components/NewMessageBox';
 export interface CloseProps {
   close: () => void;
 }
-function ChatArea({close}: CloseProps) {
+function ChatArea({ close }: CloseProps) {
   const { activeConversation } = useContext(
     ConversationContext,
   ) as activeConversatonType;
@@ -31,13 +31,19 @@ function ChatArea({close}: CloseProps) {
   ));
 
   return (
-    <Paper h={'100%'} radius={"md"} p={'0px'} m={'0px'}>
-      <Flex bg={'dark'} pos={'relative'} direction={'column'} h={'100%'} p={0} m={0} >
-        <Bar close={close}/>
-        <ScrollArea h={'90%'} p={0}>
+    <Paper h={'100%'} radius={'md'} p={'0px'} m={'0px'}>
+      <Flex
+        bg={'dark'}
+        pos={'relative'}
+        direction={'column'}
+        h={'100%'}
+        p={'0px'}
+        m={'0px'}
+      >
+        <Bar close={close} />
+        <ScrollArea h={'100%'} p={0}>
           {messages}
         </ScrollArea>
-        {/* <div className="overflow-scroll">{messages}</div> */}
         <NewMessageBox />
       </Flex>
     </Paper>

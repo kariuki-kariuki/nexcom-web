@@ -16,9 +16,11 @@ import {
 import { GoogleButton } from './GoogleButton';
 import { TwitterButton } from './TwitterButton';
 import { url } from '../../data/url';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login(props: PaperProps) {
   const [type, toggle] = useToggle(['login', 'register']);
+  const navigate = useNavigate();
   const form = useForm({
     initialValues: {
       email: '',
@@ -52,6 +54,7 @@ export default function Login(props: PaperProps) {
         if (res.ok) {
           res.json().then((res) => {
             localStorage.setItem('token', res.token);
+            navigate('/chat', { replace: true });
           });
         } else {
           throw res.statusText;
@@ -104,7 +107,7 @@ export default function Login(props: PaperProps) {
                 c="white"
                 required
                 label="Email"
-                placeholder="hello@mantine.dev"
+                placeholder="hello@example.dev"
                 value={form.values.email}
                 onChange={(event) =>
                   form.setFieldValue('email', event.currentTarget.value)

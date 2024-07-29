@@ -3,7 +3,7 @@ import { ConversationProps } from '../../../@types/chat';
 import { AppContext } from '../../../context/appContext';
 import { UserContextType } from '../../../@types/app';
 import { ConversationButton } from './ConversationButton';
-import { Avatar, Card, Flex, Group, Paper, ScrollArea, Text } from '@mantine/core';
+import { Avatar, Flex, Group, Paper, ScrollArea, Text } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 
 interface Props {
@@ -41,7 +41,7 @@ const Navigation = ({ conversations, open }: Props) => {
 
           <IconSearch size={18} />
         </Group>
-        <ScrollArea p={'5px'} bg={'dark'} type='never'>
+        <ScrollArea p={'5px'} bg={'dark'} type="never">
           {conversation}
         </ScrollArea>
       </Flex>

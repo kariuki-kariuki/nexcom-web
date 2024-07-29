@@ -26,9 +26,9 @@ function Comms() {
     }
 
     onceRef.current = true;
-    const url1 = 'ws://192.168.100.4:3000';
-    const url2 = 'ws://localhost:3002';
-    const socket = io(url2);
+    const url1 = 'ws://192.168.100.16:3002';
+    // const url2 = 'ws://localhost:3002';
+    const socket = io(url1);
     setSocket(socket);
 
     socket.on('join', () => {
