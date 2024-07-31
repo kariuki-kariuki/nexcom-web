@@ -12,23 +12,28 @@
 export interface UserProps {
   id: number;
   created_at: string;
-  login_attempts: number;
   name: string;
   avatar: string;
-  // updated_at: string,
   email: string;
+}
+
+export interface GlobalUser {
+  id: number;
+  email: string;
+  photo: string;
+  firstName: string;
+  lastName: string;
 }
 
 export interface ConversationProps {
   id: number;
-  user_1: UserProps;
-  user_2: UserProps;
+  users: GlobalUser[];
   messages: Message[];
 }
 
 export interface Message {
-  id: number;
+  id?: number;
   message: string;
   time: string;
-  sender_id: number;
+  sender_id?: number;
 }
