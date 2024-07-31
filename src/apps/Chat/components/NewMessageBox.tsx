@@ -12,13 +12,10 @@ const NewMessageBox = () => {
   const { activeConversation, setActiveConversation } = useContext(
     ConversationContext,
   ) as activeConversatonType;
-  // const { user } = useContext(AppContext) as UserContextType;
   const handleSubmit = () => {
     if (message != '') {
       const new_message: Message = {
-        sender_id: 1,
         message,
-        id: 2,
         time: new Date().toDateString(),
       };
       activeConversation?.messages?.push(new_message);

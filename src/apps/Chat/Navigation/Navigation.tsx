@@ -12,11 +12,12 @@ interface Props {
 }
 
 const Navigation = ({ conversations, open }: Props) => {
-  const conversation = conversations?.map((convo: ConversationProps, index) => (
-    <ConversationButton conversation={convo} key={index} open={open} />
+  const conversation = conversations?.map((convo: ConversationProps) => (
+    <ConversationButton conversation={convo} key={convo.id} open={open} />
   ));
   // const token = localStorage.getItem("token")
   const { user } = useContext(AppContext) as UserContextType;
+  console.log(user);
   return (
     <Paper h="100%" bg={'dark'} p={0}>
       <Flex
@@ -35,8 +36,8 @@ const Navigation = ({ conversations, open }: Props) => {
           align="center"
         >
           <Group>
-            <Avatar src={user.avatar} />
-            <Text>{user.name}</Text>
+            <Avatar src={user.photo} />
+            <Text>{user.firstName}</Text>
           </Group>
 
           <IconSearch size={18} />

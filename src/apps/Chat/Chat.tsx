@@ -1,29 +1,29 @@
 import Navigation from './Navigation/Navigation';
 import { ConversationProps } from '../../@types/chat';
-import chats from '../../data/data';
+// import chats from '../../data/data';
 import { Card, Flex, Modal, useMantineColorScheme } from '@mantine/core';
 import classes from './Chat.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import ChatArea from './ChatBox/ChatArea';
+import { useEffect, useState } from 'react';
+import { url } from '../../data/url';
 function Chat() {
-  // const token = localStorage.getItem("token");
-  // const [conversations, setConversation] = useState<ConversationProps[]>([]);
-  // const {activeConversation} = useContext(ConversationContext) as activeConversatonType;
-  // useEffect(() => {
-  //   fetch(`${url}/conversation`
-  //   , {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   }).then((res: any) => {
-  //     if (res.ok) {
-  //       res.json().then((res: ConversationProps[]) => {
-  //         setConversation(res);
-  //       });
-  //     }
-  //   });
-  // }, [setConversation]);
-  const conversations: ConversationProps[] = chats;
+  const token = localStorage.getItem('token');
+  const [conversations, setConversation] = useState<ConversationProps[]>([]);
+  useEffect(() => {
+    fetch(`${url}/conversations`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res: any) => {
+      if (res.ok) {
+        res.json().then((res: any) => {
+          setConversation(res);
+        });
+      }
+    });
+  }, [setConversation]);
+  console.log(conversations);
   const [opened, { open, close }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();
   const bgColor = colorScheme === 'dark' ? 'gray.8' : 'gray';
@@ -60,7 +60,8 @@ function Chat() {
         m={0}
         size={'100vh'}
         fullScreen
-        className={classes.modal}
+        classNames={{ root: classes.root }}
+        padding={'0px'}
       >
         <Card
           className={`${classes.overflow}`}
