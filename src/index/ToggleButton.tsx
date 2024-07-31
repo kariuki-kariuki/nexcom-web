@@ -10,13 +10,13 @@ const ToggleButton = () => {
   return (
     <UnstyledButton>
       <Group>
-        {user.avatar ? (
-          <Avatar src={user.avatar} className="h-full" />
+        {user.photo ? (
+          <Avatar src={user.photo} className="h-full" />
         ) : (
           <GithubIcon size={30} />
         )}
         <div style={{ flex: 1 }}>
-          <Text size="sm">{user.name}</Text>
+          <Text size="sm">{user.firstName}</Text>
           <Text size="xs">{user.email}</Text>
         </div>
         <IconChevronRight

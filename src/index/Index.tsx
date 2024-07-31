@@ -8,7 +8,7 @@ import MenuDrop from './MenuDrop';
 import { useNavigate } from 'react-router-dom';
 function Index() {
   const { user } = useContext(AppContext) as UserContextType;
-  console.log(user);
+  console.log('Index', user);
   const navigate = useNavigate();
   return (
     <div className="h-screen bg-hero-pattern overflow-hidden bg-cover bg-center">
@@ -38,7 +38,7 @@ function Index() {
                 </Text>
               }
             />
-            {user.name ? (
+            {user.firstName ? (
               <MenuDrop />
             ) : (
               <Button onClick={() => navigate('/login')}>Login</Button>
@@ -60,7 +60,7 @@ function Index() {
             <Button
               variant="outline"
               component="a"
-              href={user.name ? '/shop' : '/login'}
+              href={user.firstName ? '/shop' : '/login'}
               rightSection={<IconArrowRight size={20} />}
             >
               Get Started

@@ -1,10 +1,10 @@
 import { Menu, rem } from '@mantine/core';
 import {
-  IconSettings,
   IconMessageCircle,
   IconTrash,
   IconArrowsLeftRight,
   IconLogout,
+  IconLayoutDashboardFilled,
 } from '@tabler/icons-react';
 import ToggleButton from './ToggleButton';
 import { useNavigate } from 'react-router-dom';
@@ -26,11 +26,15 @@ export default function MenuDrop() {
       <Menu.Dropdown>
         <Menu.Label>Application</Menu.Label>
         <Menu.Item
+          component="a"
+          href="/dashboard"
           leftSection={
-            <IconSettings style={{ width: rem(14), height: rem(14) }} />
+            <IconLayoutDashboardFilled
+              style={{ width: rem(14), height: rem(14) }}
+            />
           }
         >
-          Settings
+          Dashboard
         </Menu.Item>
         <Menu.Item
           leftSection={
@@ -46,7 +50,13 @@ export default function MenuDrop() {
           onClick={() => {
             localStorage.removeItem('token');
             navigate('/', { replace: false });
-            updateUser({ name: null, email: null, avatar: null, apiKey: null });
+            updateUser({
+              firstName: null,
+              email: null,
+              photo: null,
+              apiKey: null,
+              id: null,
+            });
           }}
           leftSection={
             <IconLogout style={{ width: rem(14), height: rem(14) }} />
