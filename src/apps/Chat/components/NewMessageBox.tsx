@@ -4,7 +4,7 @@ import {
   ConversationContext,
   activeConversatonType,
 } from '../../../context/activeConversation';
-import { ConversationProps, Message } from '../../../@types/chat';
+import { ConversationProps } from '../../../@types/chat';
 import classes from './style.module.css';
 import { IconSend } from '@tabler/icons-react';
 const NewMessageBox = () => {
@@ -13,17 +13,6 @@ const NewMessageBox = () => {
     ConversationContext,
   ) as activeConversatonType;
   const handleSubmit = () => {
-    if (message != '') {
-      const new_message: Message = {
-        message,
-        time: new Date().toDateString(),
-      };
-      activeConversation?.messages?.push(new_message);
-      if (activeConversation) {
-        setActiveConversation(activeConversation);
-        setMessage('');
-      }
-    }
     return activeConversation;
   };
   return (

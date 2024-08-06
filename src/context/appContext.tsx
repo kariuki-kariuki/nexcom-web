@@ -5,9 +5,10 @@ export const AppContext = React.createContext<UserContextType | null>(null);
 
 const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = React.useState<IUser>({
-    name: null,
+    id: null,
+    firstName: null,
     email: null,
-    avatar: null,
+    photo: null,
     apiKey: null,
   });
 

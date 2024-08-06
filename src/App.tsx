@@ -10,9 +10,9 @@ import { UserContextType } from './@types/app';
 //  }
 function App() {
   const { updateUser } = useContext(AppContext) as UserContextType;
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
     fetch(`http://192.168.100.16:3000/auth/me`, {
       headers: {
         Authorization: `Bearer ${token}`,

@@ -18,7 +18,7 @@ export function UserButton() {
 
         <div style={{ flex: 1 }}>
           <Text size="sm" fw={500}>
-            {user?.name}
+            {user.firstName}
           </Text>
 
           <Text c="dimmed" size="xs">

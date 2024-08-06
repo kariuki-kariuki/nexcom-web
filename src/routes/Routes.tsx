@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom';
 import Login from '../apps/Auth/Login';
 import Register from '../apps/Auth/Register';
 import Admin from '../apps/Admin/Admin';
-import Comms from '../apps/Comms/Comms';
 import Shop from '../apps/Shop/Shop';
 import Index from '../index/Index';
 import Chat from '../apps/Chat/Chat';
@@ -26,10 +25,6 @@ export const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
-  },
-  {
-    path: '/comms',
-    element: <Comms />,
   },
   { path: '/callback/:token', element: <Callback /> },
   {

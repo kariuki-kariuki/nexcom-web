@@ -1,6 +1,6 @@
-import { faker } from '@faker-js/faker';
+// import { faker } from '@faker-js/faker';
 
-interface IProduct {
+export interface IProduct {
   name: string;
   description: string;
   price: string;

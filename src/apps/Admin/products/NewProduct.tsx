@@ -190,13 +190,15 @@ function NewProduct() {
               <Input
                 type="file"
                 required
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleColorChange(
-                    index,
-                    'image',
-                    URL.createObjectURL(e.target.files[0]),
-                  )
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  if (e.target.files) {
+                    handleColorChange(
+                      index,
+                      'image',
+                      URL.createObjectURL(e.target.files[0]),
+                    );
+                  }
+                }}
                 className="w-full border rounded"
               />
               {color.image && (
