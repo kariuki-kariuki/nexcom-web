@@ -35,5 +35,5 @@ export interface Message {
   id?: number;
   message: string;
   time: string;
-  sender_id?: number;
+  sender: UserProps;
 }

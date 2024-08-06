@@ -5,7 +5,7 @@ import { UserContextType } from '../../../@types/app';
 import { ConversationButton } from './ConversationButton';
 import { Avatar, Flex, Group, Paper, ScrollArea, Text } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
-
+import classes from './Navigation.module.css';
 interface Props {
   conversations: ConversationProps[];
   open: () => void;
@@ -15,34 +15,32 @@ const Navigation = ({ conversations, open }: Props) => {
   const conversation = conversations?.map((convo: ConversationProps) => (
     <ConversationButton conversation={convo} key={convo.id} open={open} />
   ));
-  // const token = localStorage.getItem("token")
   const { user } = useContext(AppContext) as UserContextType;
-  console.log(user);
   return (
-    <Paper h="100%" bg={'dark'} p={0}>
+    <Paper h="100%" className={classes.nav}>
       <Flex
-        bg={'dark'}
         pos={'relative'}
         direction={'column'}
         h={'100%'}
         p={0}
         m={0}
+        className={classes.flex}
       >
         <Group
-          h={'90'}
+          h={'80'}
           p="lg"
           justify="space-between"
-          bg={'purple'}
           align="center"
+          classNames={{ root: classes.group }}
         >
-          <Group>
+          <Group bg={'none'}>
             <Avatar src={user.photo} />
-            <Text>{user.firstName}</Text>
+            <Text className={classes.navText}>{user.firstName}</Text>
           </Group>
 
           <IconSearch size={18} />
         </Group>
-        <ScrollArea p={'5px'} bg={'dark'} type="never">
+        <ScrollArea p={'5px'} bg={'none'} type="never">
           {conversation}
         </ScrollArea>
       </Flex>

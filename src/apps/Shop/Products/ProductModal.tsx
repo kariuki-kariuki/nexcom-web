@@ -1,4 +1,4 @@
-import { Badge, Button, Card, Group, Image, Modal, Text } from '@mantine/core';
+import { Badge, Button, Card, Group, Modal, Text } from '@mantine/core';
 import { useState } from 'react';
 import { IProduct } from '../../../@types/shop';
 import ImageCarousel from '../shopcomponents/ImageCarousel';

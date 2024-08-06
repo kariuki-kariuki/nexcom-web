@@ -1,15 +1,18 @@
 import classes from './style.module.css';
-import { Message, UserProps } from '../../../@types/chat';
+import { Message } from '../../../@types/chat';
 import { Card } from '@mantine/core';
+import { useContext } from 'react';
+import { AppContext } from '../../../context/appContext';
+import { UserContextType } from '../../../@types/app';
 
 interface Props {
   message: Message;
-  sender: UserProps | null;
 }
 
 // Sent and received message card
-const MessageCard = ({ message, sender }: Props) => {
-  const status = message.sender_id === sender?.id;
+const MessageCard = ({ message }: Props) => {
+  const { user } = useContext(AppContext) as UserContextType;
+  const status = message.sender.id !== user.id;
   return (
     <div
       className={`${status ? classes.float_right : classes.float_left} w-10/12 sm:w-2/3 my-1 px-3`}

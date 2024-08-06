@@ -1,0 +1,31 @@
+.nav {
+  border: 2px solid;
+  border-color: light-dark(
+    var(--mantine-color-gray-3),
+    #06141B
+  );
+  border-radius: var(--mantine-spacing-md);
+}
+
+.navText{
+  color: light-dark(
+    #06141B,
+    var(--mantine-color-white)
+  );
+}
+
+.flex {
+  border-radius: var(--mantine-spacing-md);
+  background-color: light-dark(
+    var(--mantine-color-gray-2),
+    #06141B
+  );
+}
+
+.group {
+  border-radius: var(--mantine-spacing-md)  var(--mantine-spacing-md) 0px 0px;
+  background-color: light-dark(
+    var(--mantine-color-gray-2),
+    #06141B
+  );
+}

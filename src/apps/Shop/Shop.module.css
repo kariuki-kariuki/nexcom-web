@@ -1,0 +1,24 @@
+.shop {
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-black)
+  );
+  height: rem(100vh);
+  width: 100%;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  @media (min-width: $mantine-breakpoint-md) {
+    /* font-size: rem(50px); */
+    padding: var(--mantine-spacing-md);
+  }
+}
+
+.sections {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  height: 88vh;
+}

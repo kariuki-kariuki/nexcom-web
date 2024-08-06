@@ -7,6 +7,8 @@ import Comms from '../apps/Comms/Comms';
 import Shop from '../apps/Shop/Shop';
 import Index from '../index/Index';
 import Chat from '../apps/Chat/Chat';
+import Dashboard from '../apps/Dashboard/Dashboard';
+import Callback from '../apps/Auth/Callback';
 // import { useContext } from "react";
 // import { AppContext } from "../context/appContext";
 // import { UserContextType } from "../@types/app";
@@ -29,9 +31,14 @@ export const router = createBrowserRouter([
     path: '/comms',
     element: <Comms />,
   },
+  { path: '/callback/:token', element: <Callback /> },
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/dashboard',
+    element: <Dashboard />,
   },
   {
     path: '/admin',

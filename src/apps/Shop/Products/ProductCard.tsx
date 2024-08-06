@@ -1,6 +1,6 @@
 import { Image, Card, Grid } from '@mantine/core';
 import { IProduct } from '../../../@types/shop';
-import { IconBasketPlus, IconHeartPlus } from '@tabler/icons-react';
+import classes from './ProductCard.module.css';
 interface Iprops {
   product: IProduct;
   setViewing: (item: IProduct) => void;
@@ -9,27 +9,25 @@ interface Iprops {
 
 function ProductCard({ product, open, setViewing }: Iprops) {
   return (
-    <Grid.Col span={{ base: 6, md: 6, lg: 2 }}>
-      <Card p={0}>
-        <Image src={product.image} />
-        <div className="flex align-center justify-between px-2 py-3">
+    <Grid.Col span={{ base: 6, md: 6, lg: 3 }} p={'sm'}>
+      <Card
+        className={classes.card}
+        onClick={() => {
+          setViewing(product);
+          open();
+        }}
+      >
+        <Card.Section h={150}>
+          <Image src={product.image} h={'100%'} />
+        </Card.Section>
+        <Card.Section p={'md'}>
           <p>{product.name}</p>
-          <IconHeartPlus size={14} color="red" />
-        </div>
-        <div className="flex align-center justify-between px-2 py-3">
+        </Card.Section>
+        <Card.Section px={'md'}>
           <p>
             <span className="hidden sm:inline">Price:</span> ${product.price}
           </p>
-
-          <IconBasketPlus
-            size={20}
-            color="blue"
-            onClick={() => {
-              open();
-              setViewing(product);
-            }}
-          />
-        </div>
+        </Card.Section>
       </Card>
     </Grid.Col>
   );

@@ -1,25 +1,25 @@
 // import CreateNewShop from "./CreateNewShop";
-import Shopnav from './ShopNav/Shopnav';
 import HeroPage from './Products/HeroPage';
+import { Box, Paper } from '@mantine/core';
+import { NavbarNested } from './ShopNav/NavbarNested';
 // import ProductCard from "./Products/ProductCard";
 // import NewProduct from "./Products/NewProduct";
-
+import classes from './Shop.module.css';
+import { HeaderSearch } from '../../components/Navbar/HeaderSearch/HeaderSearch';
 function Shop() {
   return (
-    <div className="flex flex-row ">
-      <div className="w-1/12 hidden md:block">
-        <Shopnav />
-      </div>
-      <div className="md:w-11/12 h-screen  overflow-scroll">
-        <HeroPage root={ClassNames.root} headerText="A new way to Shops" />
-        {/* <NewProduct /> */}
-      </div>
-    </div>
+    <Box className={classes.shop}>
+      <HeaderSearch />
+      <Box className={classes.sections} bg={'none'}>
+        <Paper w={'25%'} visibleFrom="sm" p={0} bg={'none'}>
+          <NavbarNested />
+        </Paper>
+        <Paper w={{ sm: '75%' }} p={0} bg={'none'}>
+          <HeroPage />
+        </Paper>
+      </Box>
+    </Box>
   );
 }
-
-const ClassNames: any = {
-  root: 'grid grid-cols-2 md:grid-cols-4  lg:grid-cols-5 gap-4',
-};
 
 export default Shop;

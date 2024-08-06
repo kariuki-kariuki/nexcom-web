@@ -5,7 +5,7 @@ import {
   activeConversatonType,
 } from '../../../context/activeConversation';
 import { Avatar } from '@mantine/core';
-
+import classes from './MiniProfile.module.css';
 export interface MiniProfileProps {
   image: string;
   name: string;
@@ -27,7 +27,7 @@ const MiniProfile = () => {
       />
 
       <div className="px-5">
-        <p className="  text-white">{sender?.firstName}</p>
+        <p className={classes.text}>{sender?.firstName}</p>
         <p className="text-slate-400 hidden lg:block md:text-sm">
           "Hello World"
         </p>

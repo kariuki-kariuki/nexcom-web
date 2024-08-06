@@ -1,0 +1,14 @@
+.card {
+  width: 100%;
+  border-radius: var(--mantine-spacing-md);
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-8));
+  border: 1px solid;
+  border-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-gray-7));;
+  height: rem(250px);
+
+  @media (min-width: $mantine-breakpoint-md) {
+    padding: var(--mantine-spacing-md);
+    /* width: 30%; */
+  }
+}
+

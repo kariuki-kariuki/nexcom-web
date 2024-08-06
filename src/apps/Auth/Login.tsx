@@ -12,11 +12,14 @@ import {
   Checkbox,
   Anchor,
   Stack,
+  Box,
+  Flex,
 } from '@mantine/core';
 import { GoogleButton } from './GoogleButton';
-import { TwitterButton } from './TwitterButton';
 import { url } from '../../data/url';
 import { useNavigate } from 'react-router-dom';
+import { HeaderSearch } from '../../components/Navbar/HeaderSearch/HeaderSearch';
+import classes from './Login.module.css';
 
 export default function Login(props: PaperProps) {
   const [type, toggle] = useToggle(['login', 'register']);
@@ -64,8 +67,15 @@ export default function Login(props: PaperProps) {
   }
 
   return (
-    <div className="bg-slate-800 px-2">
-      <div className="md:w-6/12 m-auto flex items-center main justify-center ">
+    <Box h={'100vh'}>
+      <HeaderSearch />
+      <Flex
+        justify="center"
+        direction={'column'}
+        align="center"
+        w={'100%'}
+        classNames={{ root: classes.flex }}
+      >
         <Paper
           radius="md"
           p="xl"
@@ -74,13 +84,17 @@ export default function Login(props: PaperProps) {
           {...props}
           className="bg-slate-900 "
         >
-          <Text size="lg" fw={500} c="white">
-            Welcome to X, {type} with
+          <Text size="lg" fw={500} c="white" ta={'center'}>
+            Welcome to COCO, {type} with
           </Text>
 
           <Group grow mb="md" mt="md">
-            <GoogleButton radius="xl">Google</GoogleButton>
-            <TwitterButton radius="xl">Twitter</TwitterButton>
+            <GoogleButton
+              radius="xl"
+              onClick={() => window.location.replace(`${url}/auth/google`)}
+            >
+              Google
+            </GoogleButton>
           </Group>
 
           <Divider
@@ -161,7 +175,7 @@ export default function Login(props: PaperProps) {
             </Group>
           </form>
         </Paper>
-      </div>
-    </div>
+      </Flex>
+    </Box>
   );
 }

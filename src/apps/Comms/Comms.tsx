@@ -24,11 +24,15 @@ function Comms() {
     if (onceRef.current) {
       return;
     }
-
+    const token = localStorage.getItem('token');
     onceRef.current = true;
     const url1 = 'ws://192.168.100.16:3002';
     // const url2 = 'ws://localhost:3002';
-    const socket = io(url1);
+    const socket = io(url1, {
+      extraHeaders: {
+        authorization: `Bearer ${token}`,
+      },
+    });
     setSocket(socket);
 
     socket.on('join', () => {

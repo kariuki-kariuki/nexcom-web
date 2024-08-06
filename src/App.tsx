@@ -11,9 +11,9 @@ import { url } from './data/url';
 //  }
 function App() {
   const { updateUser } = useContext(AppContext) as UserContextType;
-  const token = localStorage.getItem('token');
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
     fetch(`${url}/auth/me`, {
       headers: {
         Authorization: `Bearer ${token}`,

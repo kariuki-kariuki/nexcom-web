@@ -23,12 +23,17 @@ function Chat() {
       }
     });
   }, [setConversation]);
-  console.log(conversations);
   const [opened, { open, close }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();
   const bgColor = colorScheme === 'dark' ? 'gray.8' : 'gray';
   return (
-    <Flex wrap="nowrap" gap={5} p={{ md: 'sm' }} h="100vh" bg={bgColor}>
+    <Flex
+      wrap="nowrap"
+      gap={5}
+      p={{ base: 'md', md: 'sm' }}
+      h="100vh"
+      bg={bgColor}
+    >
       <Card
         className={classes.overflow}
         h="100%"

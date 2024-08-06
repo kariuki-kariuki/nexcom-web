@@ -27,16 +27,23 @@ export function ConversationButton({ conversation, open }: Props) {
   const lastMessage = messages ? messages[messages.length - 1] : null;
   const user: GlobalUser = conversation.users[0];
   const [socket, setSocket] = useState<Socket | null>(null);
+  const url1 = 'ws://192.168.100.16:3002';
   useEffect(() => {
-    const url1 = 'ws://192.168.100.16:3002';
     // const url2 = 'ws://localhost:3002';
     // const socket = io(url1);
-    setSocket(io(url1));
+    const token = localStorage.getItem('token');
+    console.log(token);
+    setSocket(
+      io(url1, {
+        extraHeaders: {
+          authorization: `Bearer ${token}`,
+        },
+      }),
+    );
 
     socket?.on('join', () => {
       console.log('Connected to socket server');
       console.log('joining room', conversation.id);
-
       socket.emit('join', conversation.id);
     });
 

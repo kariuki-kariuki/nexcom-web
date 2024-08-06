@@ -1,0 +1,6 @@
+.bar {
+  background-color: light-dark(
+    var(--mantine-color-gray-9),
+    #06141B
+  );
+}
