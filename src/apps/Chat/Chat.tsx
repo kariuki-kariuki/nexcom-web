@@ -6,11 +6,23 @@ import classes from './Chat.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import ChatArea from './ChatBox/ChatArea';
 import { useEffect, useState } from 'react';
-import { url } from '../../data/url';
+import { url, url1 } from '../../data/url';
+import { io, Socket } from 'socket.io-client';
+export type SocketType = Socket | null;
+export type activeType = (active: any) => void;
+
 function Chat() {
   const token = localStorage.getItem('token');
   const [conversations, setConversation] = useState<ConversationProps[]>([]);
+  const [socket, setSocket] = useState<SocketType>(null)
   useEffect(() => {
+    setSocket(
+      io(url1, {
+        extraHeaders: {
+          authorization: `Bearer ${token}`,
+        },
+      }),
+    );
     fetch(`${url}/conversations`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -23,6 +35,7 @@ function Chat() {
       }
     });
   }, [setConversation]);
+  const [activeConvo, setActiveConvo] = useState<ConversationProps | null>(null)
   const [opened, { open, close }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();
   const bgColor = colorScheme === 'dark' ? 'gray.8' : 'gray';
@@ -42,7 +55,7 @@ function Chat() {
         radius={'lg'}
         padding={2}
       >
-        <Navigation conversations={conversations} open={open} />
+        <Navigation conversations={conversations} setActiveConvo={setActiveConvo} open={open} socket={socket}/>
       </Card>
       <Card
         visibleFrom="sm"
@@ -53,7 +66,7 @@ function Chat() {
         h="`100%"
         radius={'lg'}
       >
-        <ChatArea close={close} />
+        <ChatArea close={close} activeConvo={activeConvo} />
       </Card>
       <Modal
         radius="md"

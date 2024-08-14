@@ -12,7 +12,7 @@ interface Props {
 // Sent and received message card
 const MessageCard = ({ message }: Props) => {
   const { user } = useContext(AppContext) as UserContextType;
-  const status = message.sender.id !== user.id;
+  const status = message.user.id === user.id;
   return (
     <div
       className={`${status ? classes.float_right : classes.float_left} w-10/12 sm:w-2/3 my-1 px-3`}

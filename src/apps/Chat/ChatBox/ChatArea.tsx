@@ -8,18 +8,20 @@ import Bar from './Bar';
 import { Flex, Paper, ScrollArea } from '@mantine/core';
 import NewMessageBox from '../components/NewMessageBox';
 import classes from './ChatArea.module.css';
+import { ConversationProps } from '../../../@types/chat';
 export interface CloseProps {
   close: () => void;
+  activeConvo?: ConversationProps | null;
 }
-function ChatArea({ close }: CloseProps) {
-  const { activeConversation } = useContext(
-    ConversationContext,
-  ) as activeConversatonType;
-
-  const messages = activeConversation?.messages?.map((message) => (
+function ChatArea({ close, activeConvo }: CloseProps) {
+  // const { activeConversation } = useContext(
+  //   ConversationContext,
+  // ) as activeConversatonType;
+  
+  const messages = activeConvo?.messages?.map((message) => (
     <Message message={message} key={message?.id} />
   ));
-
+  console.log(activeConvo);
   return (
     <Paper h={'100%'} radius={'md'} p={'0px'} m={'0px'}>
       <Flex

@@ -6,14 +6,17 @@ import { ConversationButton } from './ConversationButton';
 import { Avatar, Flex, Group, Paper, ScrollArea, Text } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import classes from './Navigation.module.css';
+import { SocketType } from '../Chat';
 interface Props {
   conversations: ConversationProps[];
   open: () => void;
+  socket: SocketType
+  setActiveConvo: (convo: ConversationProps) => void
 }
 
-const Navigation = ({ conversations, open }: Props) => {
+const Navigation = ({ conversations, open, socket, setActiveConvo }: Props) => {
   const conversation = conversations?.map((convo: ConversationProps) => (
-    <ConversationButton conversation={convo} key={convo.id} open={open} />
+    <ConversationButton conversation={convo} key={convo.id} socket={socket} open={open} setActiveConvo={setActiveConvo}/>
   ));
   const { user } = useContext(AppContext) as UserContextType;
   return (
