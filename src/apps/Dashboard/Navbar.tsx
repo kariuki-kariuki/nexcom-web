@@ -8,8 +8,8 @@ import {
   IconUser,
   IconX,
 } from '@tabler/icons-react';
-import UserButton from './DashComponents/UserButton';
-
+import MenuDrop from '../../index/MenuDrop';
+import classes from "./Dashboard.module.css";
 const links = [
   { name: 'Accounts', icon: IconUser },
   { name: 'Payments', icon: IconCoin },
@@ -23,7 +23,7 @@ export interface ActiveProps {
 const Navbar = ({ setActive }: ActiveProps) => {
   const navList = links.map((link) => (
     <Group py={'lg'}>
-      {<link.icon color="purple" />}
+      {<link.icon color="white" />}
       <Text fz="xs" ff={'monospace'}>
         {link.name}
       </Text>
@@ -33,7 +33,7 @@ const Navbar = ({ setActive }: ActiveProps) => {
     <Paper bg={'none'} radius={'sm'}>
       <Flex
         h={'100vh'}
-        bg={'black'}
+        bg={'none'}
         p={'lg'}
         direction={'column'}
         align={'center'}
@@ -65,7 +65,7 @@ const Navbar = ({ setActive }: ActiveProps) => {
           <IconX />
         </Paper>
         <Paper hiddenFrom="sm" bg={'none'}>
-          <UserButton />
+          <MenuDrop />
         </Paper>
       </Flex>
     </Paper>

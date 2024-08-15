@@ -2,14 +2,14 @@ import { Paper, useMantineColorScheme } from '@mantine/core';
 import Header from './DashComponents/Header';
 import Profile from './DashComponents/Profile';
 import { ActiveProps } from './Navbar';
-
+import classes from './Dashboard.module.css';
 const Hero = ({ setActive }: ActiveProps) => {
   const { colorScheme } = useMantineColorScheme();
   return (
     <Paper
       w={'100%'}
-      bg={colorScheme == 'dark' ? 'black' : 'white'}
       style={{ overflow: 'hidden' }}
+      className={classes.hero}
     >
       <Header setActive={setActive} />
       <Paper
