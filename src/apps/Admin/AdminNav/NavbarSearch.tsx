@@ -18,7 +18,7 @@ import {
   IconHome,
 } from '@tabler/icons-react';
 import classes from './NavbarSearch.module.css';
-import { UserButton } from './UserButton';
+import MenuDrop from '../../../index/MenuDrop';
 
 const links = [
   { icon: IconHome, label: 'Home' },
@@ -75,7 +75,7 @@ export function NavbarSearch({ active, setActive }: Props) {
   return (
     <nav className={`${classes.navbar} bg-slate-800 relative`}>
       <div className={classes.section}>
-        <UserButton />
+        <MenuDrop />
       </div>
       <div
         className="sm:hidden fixed top-0 right-5"

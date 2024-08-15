@@ -1,4 +1,4 @@
-import { Pagination } from '@mantine/core';
+import { Flex, Pagination } from '@mantine/core';
 
 interface Props {
   setPage: (arg: number) => void;
@@ -6,7 +6,9 @@ interface Props {
 }
 function Demo({ setPage, activePage }: Props) {
   return (
-    <Pagination total={10} onChange={setPage} value={activePage} mt="sm" />
+    <Flex align={"center"} justify={"center"}>
+      <Pagination total={10} onChange={setPage} value={activePage} mt='sm' />
+    </Flex>
   );
 }
 

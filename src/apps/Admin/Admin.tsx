@@ -2,28 +2,40 @@ import { useState } from 'react';
 import { NavbarSearch } from './AdminNav/NavbarSearch';
 import Demo from './Tables/Pagination';
 import { UsersTable } from './Tables/UserTable';
-import { IconBurger } from '@tabler/icons-react';
+import { Box, Flex, Grid, Group, ScrollArea } from '@mantine/core';
+import { StatsGrid } from './components/StatsGrid';
+import Header from './components/Header';
+import StatsChart from './components/StatsChart';
 
 function Admin() {
   const [activePage, setPage] = useState<number>(1);
   const [active, setActive] = useState(false);
   return (
-    <div className="sm:flex">
-      <div
-        className={`${active ? 'block' : 'hidden'} sm:block fixed top-0 left-0 right-0 z-50`}
-      >
-        <NavbarSearch active={active} setActive={setActive} />
-      </div>
-      <div className="sm:hidden">
-        <IconBurger onClick={() => setActive(!active)} />
-      </div>
-      <div className="w-full">
-        <UsersTable activePage={activePage} />
-        <div className="flex justify-around">
-          <Demo setPage={setPage} activePage={activePage} />
-        </div>
-      </div>
-    </div>
+    <Box bg={'coco.1'} h={'100vh'}>
+      <Flex h={'100%'}>
+        <Box w={{ base: '100%', sm: '30%', md: '25%' }} visibleFrom="sm">
+          <NavbarSearch active={active} setActive={setActive} />
+        </Box>
+        <Box w={{ base: '100%', sm: '70%', md: '75%' }} p={'md'}>
+          <Header />
+          <ScrollArea h={'100%'} p={'md'}>
+            <Grid>
+              <Grid.Col span={6}>
+                <StatsGrid />
+              </Grid.Col>
+              <Grid.Col span={6} h={"rem(100%)"} p={"md"}>
+                <Group grow  h={"100%"}>
+                  <StatsChart />
+                  <StatsChart />
+                </Group>
+              </Grid.Col>
+            </Grid>
+            <UsersTable activePage={activePage} />
+            <Demo setPage={setPage} activePage={activePage} />
+          </ScrollArea>
+        </Box>
+      </Flex>
+    </Box>
   );
 }
 
