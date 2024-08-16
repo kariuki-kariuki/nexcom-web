@@ -1,32 +1,60 @@
-import { Badge, Grid, Paper, Text } from '@mantine/core';
+import { Badge, Box, Grid, Group, Paper, Text } from '@mantine/core';
 import { DonutChart } from '@mantine/charts';
+import { IconUserBolt, IconUserCheck } from '@tabler/icons-react';
 export const data = [
-  { name: 'USA', value: 400, color: 'indigo.6' },
-  { name: 'India', value: 300, color: 'yellow.6' },
+  { name: 'Kenya', value: 400, color: 'purple' },
+  { name: 'India', value: 300, color: 'orange.6' },
   { name: 'Japan', value: 100, color: 'teal.6' },
   { name: 'Other', value: 200, color: 'gray.6' },
 ];
+
+export const data2 = [
+  { name: 'Kenya', value: 300, color: 'purple' },
+  { name: 'India', value: 200, color: 'orange.6' },
+  { name: 'Japan', value: 100, color: 'teal.6' },
+  { name: 'Other', value: 180, color: 'gray.6' },
+];
+
+const userData = [
+  {
+    label: 'Users',
+    desc: 'Total Users',
+    icon: IconUserCheck,
+    data,
+  },
+  {
+    label: 'Active',
+    desc: 'Active Users',
+    icon: IconUserBolt,
+    data: data2,
+  },
+];
 const StatsChart = () => {
-  return (
-    <Paper h={"100%"} p={"md"} bg={"black"} bd={"1px solid gray"}>
+  const stats = userData.map((data) => (
+    <Paper p={'md'} bg={'coco.2'} bd={'1px solid gray'}>
       <div>
-        <Text fz={"sm"}>Users</Text>
-        <Text fz={"h1"}>12K</Text>
-        <Text fz={"xs"}>Total users</Text>
+        <Group justify="space-between" mb={'md'}>
+          <Text fz={'sm'}>{data.label}</Text>
+          <data.icon size={18} />
+        </Group>
+        <Group>
+          <div>
+            <Text fz={'h1'} ff={'serif'}>
+              {data.data.reduce((acc, curr) => {
+                return acc + curr.value;
+              }, 0) / 100}K
+            </Text>
+            <Text fz={'xs'}>{data.desc}</Text>
+          </div>
+          <DonutChart data={data.data} size={100} />
+        </Group>
       </div>
-      <Grid py={'md'}>
-        <Grid.Col span={6}>
-          <Badge color="blue">USA</Badge>
-          <br />
-          <Badge color="blue">India</Badge>
-          <br />
-          <Badge color="blue">Kenya</Badge>
-        </Grid.Col>
-        <Grid.Col span={6} >
-          <DonutChart data={data} size={100}/>
-        </Grid.Col>
-      </Grid>
     </Paper>
+  ));
+  return (
+    <Group grow py={'sm'}>
+      {stats}
+    </Group>
   );
 };
 
