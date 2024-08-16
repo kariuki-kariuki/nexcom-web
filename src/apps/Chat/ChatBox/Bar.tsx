@@ -9,7 +9,7 @@ import { activeConversatonType, ConversationContext } from '../../../context/act
 
 // Top Bar on the Chatbox Area
 const Bar = ({ close }: CloseProps) => {
-  const { activeConversation } = useContext(
+  const { activeConversation, setActiveConversation } = useContext(
     ConversationContext,
   ) as activeConversatonType;
   return (
@@ -23,7 +23,7 @@ const Bar = ({ close }: CloseProps) => {
     >
       <Group bg={'none'}>
         <Button variant='outline' hiddenFrom='sm' bd={'none'}>
-          <IconArrowLeftCircle size={20} onClick={close} />
+          <IconArrowLeftCircle size={20} onClick={() => {close(); setActiveConversation(null)}} />
         </Button>
         <Group>
           <Avatar src={activeConversation?.users[0].photo}/>

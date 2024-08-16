@@ -55,7 +55,7 @@ function Chat() {
         radius={'lg'}
         padding={2}
       >
-        <Navigation conversations={conversations} setActiveConvo={setActiveConvo} open={open} socket={socket}/>
+        <Navigation conversations={conversations} setActiveConvo={setActiveConvo} open={open} socket={socket} opened={opened}/>
       </Card>
       <Card
         visibleFrom="sm"
@@ -88,7 +88,7 @@ function Chat() {
           h={'97vh'}
           bg={colorScheme == 'dark' ? 'dark' : 'teal'}
         >
-          <ChatArea close={close} />
+          <ChatArea close={close} activeConvo={activeConvo}/>
         </Card>
       </Modal>
     </Flex>

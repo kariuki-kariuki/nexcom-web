@@ -1,6 +1,6 @@
 import classes from './style.module.css';
 import { Message } from '../../../@types/chat';
-import { Card } from '@mantine/core';
+import { Box, Card, Paper, Text } from '@mantine/core';
 import { useContext } from 'react';
 import { AppContext } from '../../../context/appContext';
 import { UserContextType } from '../../../@types/app';
@@ -13,17 +13,28 @@ interface Props {
 const MessageCard = ({ message }: Props) => {
   const { user } = useContext(AppContext) as UserContextType;
   const status = message.user.id === user.id;
+  const date = new Date(message.updated_at);
   return (
-    <div
-      className={`${status ? classes.float_right : classes.float_left} w-10/12 sm:w-2/3 my-1 px-3`}
+    <Paper
+      className={`${status ? classes.float_right : classes.float_left}`}
+      bg={'none'}
+      mt={'xs'}
+      mx={'md'}
+      p={0}
     >
-      <Card bg={status ? 'blue' : 'grey.9'}>
-        <p className="font-serif">{message?.message}</p>
+      <Card bg={'none'} className={status ? classes.right : classes.left}>
+        <Box className={status ? classes.box_right : classes.box_left} m={0}>
+          <p className='font-serif'>{message?.message}</p>
+        </Box>
+        <Text fs={'dimmed'} c={'teal'} ff={'monospace'} fz={'xs'} p={'3px'}>
+          {`${date?.toLocaleString('en-US', {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+          })}`}
+        </Text>
       </Card>
-      <div className="px-5 float-right">
-        <p className="text-sm text-slate-300">"2hrs ago"</p>
-      </div>
-    </div>
+    </Paper>
   );
 };
 

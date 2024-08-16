@@ -1,4 +1,4 @@
-import { Group, Avatar, Text, Card } from '@mantine/core';
+import { Group, Avatar, Text, Card, Badge, Flex } from '@mantine/core';
 import classes from './UserButton.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { ConversationProps, GlobalUser, Message } from '../../../@types/chat';
@@ -18,16 +18,23 @@ interface Props {
   socket: SocketType;
   setActiveConvo: activeType;
 }
-export function ConversationButton({ conversation, open, socket, setActiveConvo }: Props) {
+export function ConversationButton({
+  conversation,
+  open,
+  socket,
+  setActiveConvo,
+}: Props) {
   // const { user } = useContext(AppContext) as UserContextType;
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
   const { activeConversation, setActiveConversation } = useContext(
     ConversationContext
   ) as activeConversatonType;
-  const active: boolean = conversation.id == activeConversation?.id;
+  const active: boolean = conversation.id === activeConversation?.id;
   const [messages, setMessages] = useState(conversation.messages);
   const lastMessage = messages ? messages[messages.length - 1] : null;
   const user: GlobalUser = conversation.users[0];
+  const [count, setCount] = useState(0);
+  const date = lastMessage ? new Date(lastMessage?.updated_at) : null;
   useEffect(() => {
     const handleMessage = (msg: any) => {
       if (msg.conversation.id === conversation.id) {
@@ -35,15 +42,20 @@ export function ConversationButton({ conversation, open, socket, setActiveConvo 
           message: msg.message,
           user: msg.user,
           files: msg.files,
+          updated_at: msg.updated_at,
         };
         setMessages((messages): any => [...messages, message]);
         if (msg.conversation.id === activeConversation?.id) {
           conversation.messages.push(message);
           setActiveConversation(conversation);
-          setActiveConvo((conversation: any) => ({...conversation, conversation}));
+          setActiveConvo((conversation: any) => ({
+            ...conversation,
+            conversation,
+          }));
+        } else {
+          setCount((prev) => prev + 1);
         }
       }
-
     };
 
     socket?.on('message', handleMessage);
@@ -52,6 +64,7 @@ export function ConversationButton({ conversation, open, socket, setActiveConvo 
       socket?.off('message', handleMessage);
     };
   }, [socket, conversation, activeConversation, messages]);
+  console.log(count);
   return (
     <Card
       className={classes.user}
@@ -60,6 +73,7 @@ export function ConversationButton({ conversation, open, socket, setActiveConvo 
         setActiveConversation(conversation);
         setActiveConvo(conversation);
         updateActiveScreen('chat');
+        setCount(0);
       }}
       radius={active ? 'md' : '0'}
     >
@@ -74,12 +88,23 @@ export function ConversationButton({ conversation, open, socket, setActiveConvo 
           <Text c='dimmed' size='xs' lineClamp={1}>
             {lastMessage?.message}
           </Text>
-          <Group justify='flex-end'>
-            <Text c='teal' size='xs'>
-              {/* {lastMessage?.time} */}
-            </Text>
-          </Group>
         </div>
+        <Flex direction={"column"} justify={"center"} align={"center"}>
+          <Text c='lime' size='xs'>
+            {`${date?.toLocaleString('en-US', {
+              hour: 'numeric',
+              minute: 'numeric',
+              hour12: true,
+            })}`}
+          </Text>
+          {count > 0 ? (
+            <Badge size='md' circle color='teal'>
+              {count}
+            </Badge>
+          ) : (
+            <Text c={active ? "purple" : "coco.0" }>--</Text>
+          )}
+        </Flex>
       </Group>
     </Card>
   );

@@ -1,9 +1,5 @@
 import Message from '../components/MessageCard';
 import { useContext } from 'react';
-import {
-  ConversationContext,
-  activeConversatonType,
-} from '../../../context/activeConversation';
 import Bar from './Bar';
 import { Flex, Paper, ScrollArea } from '@mantine/core';
 import NewMessageBox from '../components/NewMessageBox';
@@ -17,11 +13,10 @@ function ChatArea({ close, activeConvo }: CloseProps) {
   // const { activeConversation } = useContext(
   //   ConversationContext,
   // ) as activeConversatonType;
-  
-  const messages = activeConvo?.messages?.map((message) => (
-    <Message message={message} key={message?.id} />
+
+  const messages = activeConvo?.messages?.map((message, idx) => (
+    <Message message={message} key={idx} />
   ));
-  console.log(activeConvo);
   return (
     <Paper h={'100%'} radius={'md'} p={'0px'} m={'0px'}>
       <Flex

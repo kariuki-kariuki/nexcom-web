@@ -1,9 +1,41 @@
-.float_left{
-    float: left;
+.float_left {
+  float: left;
+  width: 75%;
+  display: block;
 }
 
-.float_right{
-    float: right;
+/* .float_left::after {
+    content: "";
+    clear: both;
+    display: table;
+} */
+
+.float_right {
+  float: right;
+  width: 75%;
+}
+
+.right {
+  width: fit-content;
+  float: right;
+  padding: 0;
+}
+
+.box_right {
+  background-color: purple;
+  border-radius: 10px 0px 10px 10px;
+  padding: 5px 10px;
+}
+
+.box_left {
+  border-radius: 0px 10px 10px 10px;
+  padding: 5px 10px;
+  background-color: var(--mantine-color-coco-0);
+}
+
+.left {
+  width: fit-content;
+  padding: 0;
 }
 
 /* .textarea {
@@ -11,6 +43,6 @@
     background-color: wheat;
 } */
 
-.send{
-    padding: 10;
+.send {
+  padding: 10;
 }
