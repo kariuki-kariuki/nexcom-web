@@ -9,4 +9,7 @@ export const theme = createTheme({
     lg: '74em',
     xl: '90em',
   },
+  colors: {
+    coco: ['#06141B', '#11212D', '#121212', '', '', '', '', '', '', ''],
+  },
 });

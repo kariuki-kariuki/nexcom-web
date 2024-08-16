@@ -1,6 +1,6 @@
-import { Avatar, Button, Group, Text, TextInput } from '@mantine/core';
+import { Avatar, Button, Group, Text } from '@mantine/core';
 import logo from '../assets/mklogo.png';
-import { IconArrowRight, IconSearch } from '@tabler/icons-react';
+import { IconArrowRight } from '@tabler/icons-react';
 import { useContext } from 'react';
 import { AppContext } from '../context/appContext';
 import { UserContextType } from '../@types/app';
@@ -8,7 +8,6 @@ import MenuDrop from './MenuDrop';
 import { useNavigate } from 'react-router-dom';
 function Index() {
   const { user } = useContext(AppContext) as UserContextType;
-  console.log('Index', user);
   const navigate = useNavigate();
   return (
     <div className="h-screen bg-hero-pattern overflow-hidden bg-cover bg-center">
@@ -27,7 +26,7 @@ function Index() {
             </Text>
           </Group>
           <Group>
-            <TextInput
+            {/* <TextInput
               placeholder="search"
               pr={10}
               visibleFrom="sm"
@@ -37,7 +36,7 @@ function Index() {
                   ⌘K
                 </Text>
               }
-            />
+            /> */}
             {user.firstName ? (
               <MenuDrop />
             ) : (

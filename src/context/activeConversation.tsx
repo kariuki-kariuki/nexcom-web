@@ -3,7 +3,7 @@ import { ConversationProps } from '../@types/chat';
 
 export type activeConversatonType = {
   activeConversation: ConversationProps | null;
-  setActiveConversation: (convo: ConversationProps) => void;
+  setActiveConversation: (convo: any) => void;
 };
 
 export const ConversationContext = createContext<activeConversatonType | null>(

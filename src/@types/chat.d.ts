@@ -23,17 +23,20 @@ export interface GlobalUser {
   photo: string;
   firstName: string;
   lastName: string;
+  updated_at: string;
 }
 
 export interface ConversationProps {
   id: number;
   users: GlobalUser[];
   messages: Message[];
+  updated_at: string;
 }
 
 export interface Message {
   id?: number;
   message: string;
-  time: string;
-  sender: UserProps;
+  user: GlobalUser;
+  files: string[] | null;
+  updated_at: string;
 }

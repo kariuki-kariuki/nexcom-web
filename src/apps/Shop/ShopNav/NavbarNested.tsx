@@ -11,6 +11,7 @@ import {
 import classes from './NavbarNested.module.css';
 import { UserButton } from '../../Admin/AdminNav/UserButton';
 import { LinksGroup } from './NavbarLinksGroup';
+import MenuDrop from '../../../index/MenuDrop';
 
 const mockdata = [
   { label: 'Dashboard', icon: IconGauge },
@@ -66,7 +67,7 @@ export function NavbarNested() {
       </ScrollArea>
 
       <div className={classes.footer}>
-        <UserButton />
+        <MenuDrop />
       </div>
     </nav>
   );

@@ -21,7 +21,6 @@ function App() {
       if (res.ok) {
         res.json().then((res) => {
           updateUser(res);
-          console.log(res);
         });
       }
     });

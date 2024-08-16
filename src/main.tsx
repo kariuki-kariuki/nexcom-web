@@ -10,10 +10,12 @@ import ScreenProvider from './context/screenContext.tsx';
 import ConversationProvider from './context/activeConversation.tsx';
 import App from './App.tsx';
 import { theme } from './theme.ts';
+import '@mantine/charts/styles.css';
+import '@mantine/dates/styles.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <MantineProvider theme={theme}>
+    <MantineProvider theme={theme} defaultColorScheme='dark'>
       <AppProvider>
         <ScreenProvider>
           <ConversationProvider>

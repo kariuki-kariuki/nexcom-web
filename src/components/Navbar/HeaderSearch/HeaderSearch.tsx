@@ -3,22 +3,24 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import classes from './HeaderSearch.module.css';
 import logo from '../../../assets/mklogo.png';
+import { useNavigate }  from 'react-router-dom';
 const links = [
-  { link: '/about', label: 'Features' },
-  { link: '/pricing', label: 'Pricing' },
-  { link: '/learn', label: 'Learn' },
-  { link: '/community', label: 'Community' },
+  { link: '/', label: "Home" },
+  { link: '/chat', label: 'Chat' },
+  { link: '/shop', label: 'Shop' },
+  { link: '/admin', label: 'Admin' },
+  { link: '/dashboard', label: 'Dashboard' },
 ];
 
 export function HeaderSearch() {
   const [opened, { toggle }] = useDisclosure(false);
-
+   const navigate = useNavigate();
   const items = links.map((link) => (
     <a
       key={link.label}
       href={link.link}
       className={classes.link}
-      onClick={(event) => event.preventDefault()}
+      onClick={() => navigate(link.link)}
     >
       {link.label}
     </a>
