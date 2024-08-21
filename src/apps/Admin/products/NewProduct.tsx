@@ -5,10 +5,8 @@ import {
   Group,
   Image,
   Input,
-  Paper,
   SimpleGrid,
   Text,
-  Textarea,
 } from '@mantine/core';
 import { useState } from 'react';
 import { FileWithPath } from '@mantine/dropzone';
@@ -19,21 +17,9 @@ import {
   IconUpload,
 } from '@tabler/icons-react';
 import { url } from '../../../data/url';
+import { Product } from '../../../@types/shop';
 
-type productColor = {
-  name: string;
-  image: string;
-};
 
-type Product = {
-  name: string;
-  description: string;
-  image: string;
-  colors: string;
-  quantity: number;
-  sizes: string;
-  files: any;
-};
 
 function NewProduct() {
   const [product, setProduct] = useState<Product>({
@@ -44,6 +30,7 @@ function NewProduct() {
     quantity: 0,
     sizes: '',
     files: [],
+    price: 0.0
   });
 
   const [files, setFiles] = useState<FileWithPath[]>([]);
@@ -63,49 +50,39 @@ function NewProduct() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Create a new FormData object
-  const formData = new FormData();
+    product.files = files;
+    const formData = new FormData();
 
-  // Append product fields to FormData
-  formData.append('name', product.name);
-  formData.append('description', product.description);
-  formData.append('image', product.image);
-  formData.append('colors', product.colors);
-  formData.append('quantity', product.quantity.toString());
-  formData.append('sizes', product.sizes);
+    formData.append('name', product.name);
+    formData.append('description', product.description);
+    formData.append('image', product.image);
+    formData.append('colors', product.colors);
+    formData.append('quantity', product.quantity.toString());
+    formData.append('sizes', product.sizes);
 
-  // Append each file to FormData
-  files.forEach((file, index) => {
-    formData.append(`files[${index}]`, file);
-  });
-
-  console.log(files)
-  const token = localStorage.getItem('token')
-  try {
-    // Send the form data using fetch or axios
-    const response = await fetch(`${url}/products`, {
-      
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
-        "Accept": "application/json",
-        "type": "formData"
-      },
-      body: formData,
+    // Append each file to FormData
+    files.forEach((file) => {
+      formData.append(`files`, file);
     });
 
-    if (response.ok) {
-      // Handle successful response
-      console.log('Product submitted successfully');
-    } else {
-      // Handle error response
-      console.error('Product submission failed', response);
+    // console.log(files)
+    const token = localStorage.getItem('token');
+    try {
+      // Send the form data using fetch or axios
+      fetch(`${url}/products`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((r) => console.log(r))
+        .catch((e) => console.log(e));
+    } catch (error) {
+      // Handle network error
+      console.error('An error occurred:', error);
     }
-  } catch (error) {
-    // Handle network error
-    console.error('An error occurred:', error);
-  }
-
   };
 
   return (
@@ -151,6 +128,27 @@ function NewProduct() {
                   setProduct((prevProduct) => ({
                     ...prevProduct,
                     description: e.target.value,
+                  }))
+                }
+              />
+            </Input.Wrapper>
+          </div>
+          <div className="mb-4">
+            <Input.Wrapper
+              label="Price"
+              withAsterisk
+              // error="Input error"
+            >
+              <Input
+                placeholder="0.0"
+                type="number"
+                required
+                id="price"
+                value={product.price}
+                onChange={(e) =>
+                  setProduct((prevProduct) => ({
+                    ...prevProduct,
+                    price: parseFloat(e.target.value),
                   }))
                 }
               />
