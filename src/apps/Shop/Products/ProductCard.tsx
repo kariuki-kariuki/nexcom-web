@@ -1,9 +1,9 @@
 import { Image, Card, Grid } from '@mantine/core';
-import { IProduct } from '../../../@types/shop';
+import { ProductWithShop } from '../../../@types/shop';
 import classes from './ProductCard.module.css';
 interface Iprops {
-  product: IProduct;
-  setViewing: (item: IProduct) => void;
+  product: ProductWithShop;
+  setViewing: (item: ProductWithShop) => void;
   open: () => void;
 }
 
@@ -18,7 +18,7 @@ function ProductCard({ product, open, setViewing }: Iprops) {
         }}
       >
         <Card.Section h={150}>
-          <Image src={product.image} h={'100%'} />
+          <Image src={product.images[0]} h={'100%'} />
         </Card.Section>
         <Card.Section p={'md'}>
           <p>{product.name}</p>
