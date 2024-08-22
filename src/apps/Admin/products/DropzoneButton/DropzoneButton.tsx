@@ -11,7 +11,6 @@ export function DropzoneButton({ setFiles }: Props) {
   const theme = useMantineTheme();
   const openRef = useRef<() => void>(null);
 
-  
   return (
     <div className={classes.wrapper}>
       <Dropzone
@@ -39,7 +38,10 @@ export function DropzoneButton({ setFiles }: Props) {
               />
             </Dropzone.Reject>
             <Dropzone.Idle>
-              <IconCloudUpload style={{ width: rem(50), height: rem(50) }} stroke={1.5} />
+              <IconCloudUpload
+                style={{ width: rem(50), height: rem(50) }}
+                stroke={1.5}
+              />
             </Dropzone.Idle>
           </Group>
 
@@ -49,16 +51,20 @@ export function DropzoneButton({ setFiles }: Props) {
             <Dropzone.Idle>Upload Image</Dropzone.Idle>
           </Text>
           <Text ta="center" fz="sm" mt="xs" c="dimmed">
-            Drag&apos;n&apos;drop files here to upload. We can accept only <i>.png, jpeg, webp</i> files that
-            are less than 30mb in size.
+            Drag&apos;n&apos;drop files here to upload. We can accept only{' '}
+            <i>.png, jpeg, webp</i> files that are less than 30mb in size.
           </Text>
         </div>
       </Dropzone>
-      
-      <Button className={classes.control} size="md" radius="xl" onClick={() => openRef.current?.()}>
+
+      <Button
+        className={classes.control}
+        size="md"
+        radius="xl"
+        onClick={() => openRef.current?.()}
+      >
         Select files
       </Button>
-     
     </div>
   );
 }

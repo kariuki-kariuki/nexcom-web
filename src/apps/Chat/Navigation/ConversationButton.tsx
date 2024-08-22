@@ -27,7 +27,7 @@ export function ConversationButton({
   // const { user } = useContext(AppContext) as UserContextType;
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
   const { activeConversation, setActiveConversation } = useContext(
-    ConversationContext
+    ConversationContext,
   ) as activeConversatonType;
   const active: boolean = conversation.id === activeConversation?.id;
   const [messages, setMessages] = useState(conversation.messages);
@@ -78,19 +78,19 @@ export function ConversationButton({
       radius={active ? 'md' : '0'}
     >
       <Group onClick={open}>
-        <Avatar src={user.photo} radius='xl' />
+        <Avatar src={user.photo} radius="xl" />
 
         <div style={{ flex: 1 }}>
-          <Text size='sm' c='teal.4' fw={500}>
+          <Text size="sm" c="teal.4" fw={500}>
             {`${user.firstName} ${user.lastName}`}
           </Text>
 
-          <Text c='dimmed' size='xs' lineClamp={1}>
+          <Text c="dimmed" size="xs" lineClamp={1}>
             {lastMessage?.message}
           </Text>
         </div>
-        <Flex direction={"column"} justify={"center"} align={"center"}>
-          <Text c='lime' size='xs'>
+        <Flex direction={'column'} justify={'center'} align={'center'}>
+          <Text c="lime" size="xs">
             {`${date?.toLocaleString('en-US', {
               hour: 'numeric',
               minute: 'numeric',
@@ -98,11 +98,11 @@ export function ConversationButton({
             })}`}
           </Text>
           {count > 0 ? (
-            <Badge size='md' circle color='teal'>
+            <Badge size="md" circle color="teal">
               {count}
             </Badge>
           ) : (
-            <Text c={active ? "purple" : "coco.0" }>--</Text>
+            <Text c={active ? 'purple' : 'coco.0'}>--</Text>
           )}
         </Flex>
       </Group>

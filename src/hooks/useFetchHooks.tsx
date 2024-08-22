@@ -5,7 +5,7 @@ interface Iprops<T> {
   result: T | null;
   error: any;
 }
-export function useFetch<T>(resource: string): Iprops<T>  {
+export function useFetch<T>(resource: string): Iprops<T> {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<T | null>(null);
   const token = localStorage.getItem('token');
@@ -22,7 +22,7 @@ export function useFetch<T>(resource: string): Iprops<T>  {
         .then((result) => {
           setResult(result);
           setIsLoading(false);
-          console.log(result)
+          console.log(result);
         })
         .catch((e) => {
           setError(e);

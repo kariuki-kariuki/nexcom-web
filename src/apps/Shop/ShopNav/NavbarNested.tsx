@@ -9,7 +9,6 @@ import {
   IconLock,
 } from '@tabler/icons-react';
 import classes from './NavbarNested.module.css';
-import { UserButton } from '../../Admin/AdminNav/UserButton/UserButton';
 import { LinksGroup } from './NavbarLinksGroup';
 import MenuDrop from '../../../index/MenuDrop';
 

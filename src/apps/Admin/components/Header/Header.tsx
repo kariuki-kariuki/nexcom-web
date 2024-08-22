@@ -1,13 +1,11 @@
-import { Group, Text } from '@mantine/core'
-
+import { Group, Text } from '@mantine/core';
 
 const Header = () => {
   return (
-    
-    <Group px={"xl"} bg={"coco-2"}>
+    <Group px={'xl'} bg={'coco-2'}>
       <Text>Analytics</Text>
     </Group>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

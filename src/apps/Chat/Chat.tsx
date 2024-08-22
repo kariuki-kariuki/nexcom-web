@@ -13,7 +13,7 @@ export type activeType = (active: any) => void;
 function Chat() {
   const token = localStorage.getItem('token');
   const [conversations, setConversation] = useState<ConversationProps[]>([]);
-  const [socket, setSocket] = useState<SocketType>(null)
+  const [socket, setSocket] = useState<SocketType>(null);
   useEffect(() => {
     setSocket(
       io(url1, {
@@ -34,7 +34,9 @@ function Chat() {
       }
     });
   }, [setConversation]);
-  const [activeConvo, setActiveConvo] = useState<ConversationProps | null>(null)
+  const [activeConvo, setActiveConvo] = useState<ConversationProps | null>(
+    null,
+  );
   const [opened, { open, close }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();
   const bgColor = colorScheme === 'dark' ? 'gray.8' : 'gray';
@@ -54,7 +56,13 @@ function Chat() {
         radius={'lg'}
         padding={2}
       >
-        <Navigation conversations={conversations} setActiveConvo={setActiveConvo} open={open} socket={socket} opened={opened}/>
+        <Navigation
+          conversations={conversations}
+          setActiveConvo={setActiveConvo}
+          open={open}
+          socket={socket}
+          opened={opened}
+        />
       </Card>
       <Card
         visibleFrom="sm"
@@ -87,7 +95,7 @@ function Chat() {
           h={'97vh'}
           bg={colorScheme == 'dark' ? 'dark' : 'teal'}
         >
-          <ChatArea close={close} activeConvo={activeConvo}/>
+          <ChatArea close={close} activeConvo={activeConvo} />
         </Card>
       </Modal>
     </Flex>

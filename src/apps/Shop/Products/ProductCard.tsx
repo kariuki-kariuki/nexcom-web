@@ -1,7 +1,7 @@
 import { Image, Card, Grid, Group, Text, Button, rem } from '@mantine/core';
 import { ProductWithShop } from '../../../@types/shop';
 import classes from './ProductCard.module.css';
-import { IconShoppingCartFilled, IconStar } from '@tabler/icons-react';
+import { IconStar } from '@tabler/icons-react';
 import { Carousel } from '@mantine/carousel';
 interface Iprops {
   product: ProductWithShop;
@@ -17,10 +17,7 @@ function ProductCard({ product, open, setViewing }: Iprops) {
   ));
   return (
     <Grid.Col span={{ base: 12, md: 6, lg: 4 }} p={'sm'}>
-      <Card
-        className={classes.card}
-        
-      >
+      <Card className={classes.card}>
         <Card.Section>
           <Carousel
             withIndicators
@@ -35,7 +32,7 @@ function ProductCard({ product, open, setViewing }: Iprops) {
           </Carousel>
         </Card.Section>
         <Group justify="space-between" mt="lg">
-          <Text fw={500} fz="lg" lineClamp={1} w={"70%"}>
+          <Text fw={500} fz="lg" lineClamp={1} w={'70%'}>
             {product.name}
           </Text>
 
@@ -55,13 +52,22 @@ function ProductCard({ product, open, setViewing }: Iprops) {
           <div>
             <Text fz="xl" span fw={500} className={classes.price}>
               Ksh{' '}
-              {product.price > 1000 ? `${product.price / 1000}k` : product.price}
-              
+              {product.price > 1000
+                ? `${product.price / 1000}k`
+                : product.price}
             </Text>
             <Text span fz="sm" c="dimmed"></Text>
           </div>
 
-          <Button radius="md" bg={"purple"} onClick={() => {setViewing(product), open()}}>Add to Cart</Button>
+          <Button
+            radius="md"
+            bg={'purple'}
+            onClick={() => {
+              setViewing(product), open();
+            }}
+          >
+            Add to Cart
+          </Button>
         </Group>
       </Card>
     </Grid.Col>

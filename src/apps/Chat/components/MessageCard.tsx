@@ -24,7 +24,7 @@ const MessageCard = ({ message }: Props) => {
     >
       <Card bg={'none'} className={status ? classes.right : classes.left}>
         <Box className={status ? classes.box_right : classes.box_left} m={0}>
-          <p className='font-serif'>{message?.message}</p>
+          <p className="font-serif">{message?.message}</p>
         </Box>
         <Text fs={'dimmed'} c={'teal'} ff={'monospace'} fz={'xs'} p={'3px'}>
           {`${date?.toLocaleString('en-US', {

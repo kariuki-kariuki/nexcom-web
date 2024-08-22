@@ -53,11 +53,6 @@ interface Person {
   // address: Adress;
 }
 
-interface Props {
-  activePage: number;
-}
-
-
 export function UsersTable() {
   const [user_data, setUserData] = useState<Person[]>([]);
   const [activePage, setPage] = useState<number>(1);
@@ -83,7 +78,11 @@ export function UsersTable() {
     <Table.Tr key={index}>
       <Table.Td>
         <Group gap="sm">
-          <Avatar size={30} src={user.photo ? user.photo : faker.image.avatar()} radius={30} />
+          <Avatar
+            size={30}
+            src={user.photo ? user.photo : faker.image.avatar()}
+            radius={30}
+          />
           <Text fz="sm" fw={500}>
             {user.firstName} {}
           </Text>
@@ -122,8 +121,8 @@ export function UsersTable() {
       minWidth={10}
       className={classes.main}
       style={{ borderRadius: '10px' }}
-      my={"md"}
-      py={"md"}
+      my={'md'}
+      py={'md'}
     >
       <Table verticalSpacing="md">
         <Table.Thead>

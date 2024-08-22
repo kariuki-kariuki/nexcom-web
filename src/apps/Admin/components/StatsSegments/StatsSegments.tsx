@@ -1,4 +1,12 @@
-import { Progress, Box, Text, Group, Paper, SimpleGrid, rem } from '@mantine/core';
+import {
+  Progress,
+  Box,
+  Text,
+  Group,
+  Paper,
+  SimpleGrid,
+  rem,
+} from '@mantine/core';
 import { IconArrowUpRight, IconDeviceAnalytics } from '@tabler/icons-react';
 import classes from './StatsSegments.module.css';
 
@@ -10,13 +18,21 @@ const data = [
 
 export function StatsSegments() {
   const segments = data.map((segment) => (
-    <Progress.Section value={segment.part} color={segment.color} key={segment.color}>
+    <Progress.Section
+      value={segment.part}
+      color={segment.color}
+      key={segment.color}
+    >
       {segment.part > 10 && <Progress.Label>{segment.part}%</Progress.Label>}
     </Progress.Section>
   ));
 
   const descriptions = data.map((stat) => (
-    <Box key={stat.label} style={{ borderBottomColor: stat.color }} className={classes.stat}>
+    <Box
+      key={stat.label}
+      style={{ borderBottomColor: stat.color }}
+      className={classes.stat}
+    >
       <Text tt="uppercase" fz="xs" c="dimmed" fw={700}>
         {stat.label}
       </Text>
@@ -39,17 +55,29 @@ export function StatsSegments() {
           </Text>
           <Text c="teal" className={classes.diff} fz="sm" fw={700}>
             <span>18%</span>
-            <IconArrowUpRight size="1rem" style={{ marginBottom: rem(4) }} stroke={1.5} />
+            <IconArrowUpRight
+              size="1rem"
+              style={{ marginBottom: rem(4) }}
+              stroke={1.5}
+            />
           </Text>
         </Group>
-        <IconDeviceAnalytics size="1.4rem" className={classes.icon} stroke={1.5} />
+        <IconDeviceAnalytics
+          size="1.4rem"
+          className={classes.icon}
+          stroke={1.5}
+        />
       </Group>
 
       <Text c="dimmed" fz="sm">
         Page views compared to previous month
       </Text>
 
-      <Progress.Root size={34} classNames={{ label: classes.progressLabel }} mt={40}>
+      <Progress.Root
+        size={34}
+        classNames={{ label: classes.progressLabel }}
+        mt={40}
+      >
         {segments}
       </Progress.Root>
       <SimpleGrid cols={{ base: 1, xs: 3 }} mt="xl">

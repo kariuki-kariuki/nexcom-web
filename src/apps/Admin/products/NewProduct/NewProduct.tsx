@@ -19,7 +19,7 @@ import {
 import { url } from '../../../../data/url';
 import { Product } from '../../../../@types/shop';
 import { notifications } from '@mantine/notifications';
-import classes from "./NewProduct.module.css";
+import classes from './NewProduct.module.css';
 const prd = {
   name: '',
   description: '',
@@ -28,9 +28,8 @@ const prd = {
   quantity: 0,
   sizes: '',
   files: [],
-  price: 0.0
+  price: 0.0,
 };
-
 
 function NewProduct() {
   const [product, setProduct] = useState<Product>(prd);
@@ -80,11 +79,22 @@ function NewProduct() {
         body: formData,
       })
         .then((res) => res.json())
-        .then((r) => {console.log(r), setProduct(prd); notifications.show({title: 'Success', message: "Prodcuct Added Succesfully"})})
+        .then((r) => {
+          console.log(r), setProduct(prd);
+          notifications.show({
+            title: 'Success',
+            message: 'Prodcuct Added Succesfully',
+          });
+        })
         .catch((e) => {
-          console.log(e); 
-          notifications.show({ title: 'Error Occured', color: 'red', message: e, autoClose: true })}
-        ); 
+          console.log(e);
+          notifications.show({
+            title: 'Error Occured',
+            color: 'red',
+            message: e,
+            autoClose: true,
+          });
+        });
     } catch (error) {
       // Handle network error
       console.error('An error occurred:', error);
@@ -92,7 +102,12 @@ function NewProduct() {
   };
 
   return (
-    <Flex p="md" align={'center'} justify={'center'} classNames={{ root: classes.main }}>
+    <Flex
+      p="md"
+      align={'center'}
+      justify={'center'}
+      classNames={{ root: classes.main }}
+    >
       <Card w={{ base: '100%', sm: '75%', md: '50%' }} className={classes.card}>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -249,8 +264,7 @@ function NewProduct() {
               type="submit"
               variant="filled"
               rightSection={<IconUpload size={18} />}
-              bg={"purple"}
-
+              bg={'purple'}
             >
               Submit
             </Button>
@@ -258,7 +272,7 @@ function NewProduct() {
               type="submit"
               variant="outline"
               rightSection={<IconEyeCheck size={18} />}
-              color='teal.8'
+              color="teal.8"
             >
               Preview
             </Button>

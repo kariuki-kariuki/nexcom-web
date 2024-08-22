@@ -21,10 +21,16 @@ interface Props {
   open: () => void;
   socket: SocketType;
   setActiveConvo: (convo: ConversationProps) => void;
-  opened: boolean
+  opened: boolean;
 }
 
-const Navigation = ({ conversations, open, socket, setActiveConvo, opened }: Props) => {
+const Navigation = ({
+  conversations,
+  open,
+  socket,
+  setActiveConvo,
+  // opened,
+}: Props) => {
   const navigate = useNavigate();
   const conversation = conversations?.map((convo: ConversationProps) => (
     <ConversationButton
@@ -37,7 +43,7 @@ const Navigation = ({ conversations, open, socket, setActiveConvo, opened }: Pro
   ));
   const { user } = useContext(AppContext) as UserContextType;
   return (
-    <Paper h='100%' className={classes.nav}>
+    <Paper h="100%" className={classes.nav}>
       <Flex
         pos={'relative'}
         direction={'column'}
@@ -48,9 +54,9 @@ const Navigation = ({ conversations, open, socket, setActiveConvo, opened }: Pro
       >
         <Group
           h={'80'}
-          p='lg'
-          justify='space-between'
-          align='center'
+          p="lg"
+          justify="space-between"
+          align="center"
           classNames={{ root: classes.group }}
           grow
         >
@@ -58,17 +64,17 @@ const Navigation = ({ conversations, open, socket, setActiveConvo, opened }: Pro
             <Avatar src={user.photo} />
             <Text className={classes.navText}>{user.firstName}</Text>
           </Group>
-          <Group gap={'20%'} justify='end'>
-            <Tooltip label='home' color='grape'>
+          <Group gap={'20%'} justify="end">
+            <Tooltip label="home" color="grape">
               <IconHome size={18} onClick={() => navigate('/')} />
             </Tooltip>
-            <Tooltip label='shop' color='grape'>
+            <Tooltip label="shop" color="grape">
               <IconShoppingBag size={18} onClick={() => navigate('/shop')} />
             </Tooltip>
             <IconSearch size={18} />
           </Group>
         </Group>
-        <ScrollArea p={'5px'} bg={'none'} type='never'>
+        <ScrollArea p={'5px'} bg={'none'} type="never">
           {conversation}
         </ScrollArea>
       </Flex>

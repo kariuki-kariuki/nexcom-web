@@ -1,5 +1,4 @@
 import Message from '../../components/MessageCard';
-import { useContext } from 'react';
 import Bar from '../Bar/Bar';
 import { Flex, Paper, ScrollArea } from '@mantine/core';
 import NewMessageBox from '../../components/NewMessageBox';

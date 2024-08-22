@@ -29,7 +29,13 @@ export function StatsGrid() {
     const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
 
     return (
-      <Paper withBorder p="md" radius="md" key={stat.title} className={classes.stat}>
+      <Paper
+        withBorder
+        p="md"
+        radius="md"
+        key={stat.title}
+        className={classes.stat}
+      >
         <Group justify="space-between">
           <Text size="xs" c="dimmed" className={classes.title}>
             {stat.title}
@@ -39,7 +45,12 @@ export function StatsGrid() {
 
         <Group align="flex-end" gap="xs" mt={25}>
           <Text className={classes.value}>{stat.value}</Text>
-          <Text c={stat.diff > 0 ? 'teal' : 'red'} fz="sm" fw={500} className={classes.diff}>
+          <Text
+            c={stat.diff > 0 ? 'teal' : 'red'}
+            fz="sm"
+            fw={500}
+            className={classes.diff}
+          >
             <span>{stat.diff}%</span>
             <DiffIcon size="1rem" stroke={1.5} />
           </Text>

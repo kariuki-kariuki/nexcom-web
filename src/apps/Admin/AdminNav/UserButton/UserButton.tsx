@@ -10,7 +10,7 @@ export function UserButton() {
 
   return (
     <UnstyledButton className={classes.user} py={'md'}>
-      <Group grow preventGrowOverflow={false} wrap='nowrap'>
+      <Group grow preventGrowOverflow={false} wrap="nowrap">
         <Avatar src={user.photo} radius="xl" />
 
         <div style={{ flex: 1 }}>

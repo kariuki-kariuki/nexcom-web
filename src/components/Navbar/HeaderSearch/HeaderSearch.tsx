@@ -3,9 +3,9 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import classes from './HeaderSearch.module.css';
 import logo from '../../../assets/mklogo.png';
-import { useNavigate }  from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const links = [
-  { link: '/', label: "Home" },
+  { link: '/', label: 'Home' },
   { link: '/chat', label: 'Chat' },
   { link: '/shop', label: 'Shop' },
   { link: '/admin', label: 'Admin' },
@@ -14,7 +14,7 @@ const links = [
 
 export function HeaderSearch() {
   const [opened, { toggle }] = useDisclosure(false);
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const items = links.map((link) => (
     <a
       key={link.label}

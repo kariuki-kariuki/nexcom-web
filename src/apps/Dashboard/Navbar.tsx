@@ -9,7 +9,7 @@ import {
   IconX,
 } from '@tabler/icons-react';
 import MenuDrop from '../../index/MenuDrop';
-import classes from "./Dashboard.module.css";
+// import classes from './Dashboard.module.css';
 const links = [
   { name: 'Accounts', icon: IconUser },
   { name: 'Payments', icon: IconCoin },

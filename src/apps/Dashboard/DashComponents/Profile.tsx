@@ -21,7 +21,7 @@ function Profile() {
       radius={'xl'}
       p={0}
     >
-      <Card.Section h={'40%'} p='lg'>
+      <Card.Section h={'40%'} p="lg">
         <Image
           src={
             user.photo
@@ -35,14 +35,14 @@ function Profile() {
       </Card.Section>
       <Divider />
       <Card.Section px={'xl'} py={'sm'}>
-        <Group justify='space-between'>
+        <Group justify="space-between">
           <Text fz={'sm'}>Name</Text>
           <Text>{user.firstName}</Text>
         </Group>
       </Card.Section>
       <Divider />
       <Card.Section px={'xl'} py={'sm'}>
-        <Group justify='space-between'>
+        <Group justify="space-between">
           <Text fz={'sm'}>Email</Text>
           <Text>{user.email}</Text>
         </Group>
@@ -51,7 +51,7 @@ function Profile() {
       <Card.Section p={'xl'}>
         <Group>
           <Text>Two factor authentication</Text>
-          <Switch size='xs' onLabel='ON' offLabel='OFF' />
+          <Switch size="xs" onLabel="ON" offLabel="OFF" />
         </Group>
       </Card.Section>
       <Card.Section px={'xl'}>

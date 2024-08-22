@@ -20,7 +20,10 @@ function ProductModal({ opened, close, product }: Iprops) {
   return (
     <Modal
       opened={opened}
-      onClose={() => {close(); setQuantity(1)}}
+      onClose={() => {
+        close();
+        setQuantity(1);
+      }}
       withCloseButton={true}
       size={'auto'}
       padding={'md'}

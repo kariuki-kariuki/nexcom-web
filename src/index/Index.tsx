@@ -1,13 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Divider,
-  Flex,
-  Group,
-  Paper,
-  rem,
-  Text,
-} from '@mantine/core';
+import { Avatar, Button, Flex, Group, Paper, rem, Text } from '@mantine/core';
 import logo from '../assets/mklogo.png';
 import { IconArrowRight } from '@tabler/icons-react';
 import { useContext } from 'react';

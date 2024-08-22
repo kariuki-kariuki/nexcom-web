@@ -1,13 +1,15 @@
 import { Grid, Paper, ScrollArea } from '@mantine/core';
 import ProductCard from './ProductCard';
-import {  ProductWithShop } from '../../../@types/shop';
+import { ProductWithShop } from '../../../@types/shop';
 import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 import ProductModal from './ProductModal';
 import classes from './hero.module.css';
 
-interface Iprop { products: ProductWithShop[]};
-function HeroPage({products}: Iprop) {
+interface Iprop {
+  products: ProductWithShop[];
+}
+function HeroPage({ products }: Iprop) {
   const [opened, { open, close }] = useDisclosure(false);
   const [viewing, setVeiwing] = useState<ProductWithShop>(products?.[0]);
   const product = products?.map((product: ProductWithShop, index) => (
@@ -20,7 +22,7 @@ function HeroPage({products}: Iprop) {
   ));
 
   return (
-    <Paper bg={'none'} className={classes.hero} pl={{sm: "md"}}>
+    <Paper bg={'none'} className={classes.hero} pl={{ sm: 'md' }}>
       <ScrollArea className={classes.scroll} scrollbars="y">
         <Grid p={0} gutter={'xs'}>
           {product}

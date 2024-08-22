@@ -12,24 +12,24 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AppContext } from '../context/appContext';
 import { UserContextType } from '../@types/app';
-import classes from "./MenuDrop.module.css";
+import classes from './MenuDrop.module.css';
 export default function MenuDrop() {
   const navigate = useNavigate();
   const { updateUser } = useContext(AppContext) as UserContextType;
   return (
     <Box p={'md'} className={classes.menu}>
-      <Menu shadow='md' width={200} >
+      <Menu shadow="md" width={200}>
         <Menu.Target>
           <div>
             <ToggleButton />
           </div>
         </Menu.Target>
 
-        <Menu.Dropdown bg={"coco.1"}>
+        <Menu.Dropdown bg={'coco.1'}>
           <Menu.Label>Application</Menu.Label>
           <Menu.Item
-            component='a'
-            href='/shop'
+            component="a"
+            href="/shop"
             leftSection={
               <IconShoppingBag style={{ width: rem(14), height: rem(14) }} />
             }
@@ -37,8 +37,8 @@ export default function MenuDrop() {
             Shop
           </Menu.Item>
           <Menu.Item
-            component='a'
-            href='/dashboard'
+            component="a"
+            href="/dashboard"
             leftSection={
               <IconLayoutDashboardFilled
                 style={{ width: rem(14), height: rem(14) }}
@@ -51,13 +51,13 @@ export default function MenuDrop() {
             leftSection={
               <IconMessageCircle style={{ width: rem(14), height: rem(14) }} />
             }
-            component='a'
-            href='/chat'
+            component="a"
+            href="/chat"
           >
             Messages
           </Menu.Item>
           <Menu.Item
-            color='red'
+            color="red"
             onClick={() => {
               localStorage.removeItem('token');
               navigate('/', { replace: false });
@@ -89,7 +89,7 @@ export default function MenuDrop() {
             Transfer my data
           </Menu.Item>
           <Menu.Item
-            color='red'
+            color="red"
             leftSection={
               <IconTrash style={{ width: rem(14), height: rem(14) }} />
             }

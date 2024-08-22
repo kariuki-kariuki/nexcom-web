@@ -9,29 +9,38 @@ import StatsBar from './components/StatsBar/StatsBar';
 import { StatsSegments } from './components/StatsSegments/StatsSegments';
 import { StartLine } from './components/StartLine/StartLine';
 import AdminCalendar from './components/AdminCalendar/AdminCalendar';
-import classes from "./Admin.module.css"
+import classes from './Admin.module.css';
 
 function Admin() {
   const [active, setActive] = useState(false);
   return (
-    <Box  h={'100vh'} p={{sm: 'lg'}} className={classes.admin} >
-      <Flex h={'100%'} gap={"sm"}>
-        <Box w={{ base: '100%', sm: '30%', md: '25%' }} visibleFrom="sm" >
+    <Box h={'100vh'} p={{ sm: 'lg' }} className={classes.admin}>
+      <Flex h={'100%'} gap={'sm'}>
+        <Box w={{ base: '100%', sm: '30%', md: '25%' }} visibleFrom="sm">
           <NavbarSearch active={active} setActive={setActive} />
         </Box>
-        <Box w={{ base: '100%', sm: '70%', md: '75%' }} py={{ sm: 'md'}} className={classes.flex}>
+        <Box
+          w={{ base: '100%', sm: '70%', md: '75%' }}
+          py={{ sm: 'md' }}
+          className={classes.flex}
+        >
           <Header />
-          <ScrollArea h={'100%'} p={{sm:'md', md: 'md'}} w={"fit-content"} scrollbars="y">
+          <ScrollArea
+            h={'100%'}
+            p={{ sm: 'md', md: 'md' }}
+            w={'fit-content'}
+            scrollbars="y"
+          >
             <Grid>
-              <Grid.Col span={{base: 12, sm: 12, md: 6}}>
+              <Grid.Col span={{ base: 12, sm: 12, md: 6 }}>
                 <StatsGrid />
                 <StatsBar />
                 <StatsSegments />
-                <UsersTable  />
+                <UsersTable />
               </Grid.Col>
-              <Grid.Col span={{base: 12, sm: 12, md: 6}} p={'md'}>
+              <Grid.Col span={{ base: 12, sm: 12, md: 6 }} p={'md'}>
                 <StatsChart />
-                <UsersTable  />
+                <UsersTable />
                 <StartLine />
                 <StatsSegments />
                 <AdminCalendar />

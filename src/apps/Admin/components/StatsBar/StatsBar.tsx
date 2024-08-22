@@ -1,6 +1,6 @@
 import { BarChart } from '@mantine/charts';
 import { Card } from '@mantine/core';
-import classes from './StatsBar.module.css'
+import classes from './StatsBar.module.css';
 const data = [
   { month: 'January', Smartphones: 1200, Laptops: 900, Tablets: 200 },
   { month: 'February', Smartphones: 1900, Laptops: 1200, Tablets: 400 },
@@ -11,7 +11,7 @@ const data = [
 ];
 const StatsBar = () => {
   return (
-    <Card  mb={"sm"} className={classes.main}>
+    <Card mb={'sm'} className={classes.main}>
       <BarChart
         h={300}
         data={data}

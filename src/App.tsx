@@ -4,11 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './routes/Routes.tsx';
 import { AppContext } from './context/appContext';
 import { UserContextType } from './@types/app';
-import { Notification } from '@mantine/core';
-//  interface userProps {
-//   user_name: string
-//   user_id: string
-//  }
+
 function App() {
   const { updateUser } = useContext(AppContext) as UserContextType;
   const token = localStorage.getItem('token');

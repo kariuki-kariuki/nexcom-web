@@ -6,11 +6,7 @@ import classes from './Dashboard.module.css';
 const Hero = ({ setActive }: ActiveProps) => {
   const { colorScheme } = useMantineColorScheme();
   return (
-    <Paper
-      w={'100%'}
-      style={{ overflow: 'hidden' }}
-      className={classes.hero}
-    >
+    <Paper w={'100%'} style={{ overflow: 'hidden' }} className={classes.hero}>
       <Header setActive={setActive} />
       <Paper
         h={'75%'}

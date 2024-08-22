@@ -10,7 +10,7 @@ import { io, Socket } from 'socket.io-client';
 const NewMessageBox = () => {
   const [message, setMessage] = useState('');
   const { activeConversation } = useContext(
-    ConversationContext
+    ConversationContext,
   ) as activeConversatonType;
 
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -23,7 +23,7 @@ const NewMessageBox = () => {
         extraHeaders: {
           authorization: `Bearer ${token}`,
         },
-      })
+      }),
     );
   }, [url, setSocket]);
   const handleSubmit = () => {
@@ -34,16 +34,16 @@ const NewMessageBox = () => {
       };
       try {
         socket?.emit('message', messageBody);
-        setMessage('')
+        setMessage('');
       } catch (e) {
         console.log(e);
       }
     }
   };
   return (
-    <Group pt={10} variant='div' justify='space-between'>
+    <Group pt={10} variant="div" justify="space-between">
       <TextInput
-        placeholder='message'
+        placeholder="message"
         value={message}
         className={classes.textarea}
         onChange={(event) => setMessage(event.currentTarget.value)}
@@ -51,7 +51,7 @@ const NewMessageBox = () => {
         c={'white'}
         rightSection={
           <IconSend
-            color='blue'
+            color="blue"
             className={classes.send}
             onClick={handleSubmit}
           />
