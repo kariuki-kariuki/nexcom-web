@@ -20,7 +20,7 @@ function HeroPage({products}: Iprop) {
   ));
 
   return (
-    <Paper bg={'black'} className={classes.hero}>
+    <Paper bg={'none'} className={classes.hero} pl={{sm: "md"}}>
       <ScrollArea className={classes.scroll} scrollbars="y">
         <Grid p={0} gutter={'xs'}>
           {product}

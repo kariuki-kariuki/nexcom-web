@@ -10,10 +10,7 @@
     }
   }
 }
-.card {
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, .5);
-}
+
 .carouselControls {
   transition: opacity 150ms ease;
   opacity: 0;
@@ -27,8 +24,4 @@
   &[data-active] {
     width: rem(16px);
   }
-}
-
-.card {
-  background-color: '';
 }

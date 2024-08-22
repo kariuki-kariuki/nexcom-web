@@ -12,15 +12,21 @@ interface Iprops {
 
 function ProductModal({ opened, close, product }: Iprops) {
   const [quantity, setQuantity] = useState(1);
+  const colors = product.colors?.map((color, index) => (
+    <Badge bg={color} variant="light" key={index}>
+      {color}
+    </Badge>
+  ));
   return (
     <Modal
       opened={opened}
-      onClose={close}
+      onClose={() => {close(); setQuantity(1)}}
       withCloseButton={true}
       size={'auto'}
       padding={'md'}
+      bg={'blue'}
     >
-      <Grid>
+      <Grid bg={'coco-1'}>
         <Grid.Col span={{ base: 12, md: 6 }}>
           <Card p={{ base: 'sm', md: 'xl' }}>
             <Card.Section className="flex content-center">
@@ -41,17 +47,7 @@ function ProductModal({ opened, close, product }: Iprops) {
               <Text> Price: ${product?.price}</Text>
             </Card.Section>
             <Card.Section>
-              <Group>
-                <Badge color="pink.4" variant="filled">
-                  Lime filled
-                </Badge>
-
-                <Badge color="orange" variant="light">
-                  Orange light
-                </Badge>
-
-                <Badge variant="danger">Danger</Badge>
-              </Group>
+              <Group>{colors}</Group>
             </Card.Section>
             <Card.Section>
               <Group justify="space-between" pr={'xl'}>
