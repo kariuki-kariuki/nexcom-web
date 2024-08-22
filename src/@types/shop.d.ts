@@ -7,7 +7,6 @@ export interface IProduct {
   description: string;
   price: number;
   image: string[];
-
 }
 
 export type Product = {
@@ -25,18 +24,18 @@ export type ShopProduct = {
   name: string;
   description: string;
   images: string[];
-  colors: string;
+  colors?: string[];
   quantity: number;
   sizes: string;
   price: number;
-  discount: number | null
+  discount: number | null;
 };
 
 interface Shop {
-  name: string,
-  id: string
-  user: GlobalUser
+  name: string;
+  id: string;
+  user: GlobalUser;
 }
-export interface ProductWithShop  extends ShopProduct {
+export interface ProductWithShop extends ShopProduct {
   shop: Shop;
 }

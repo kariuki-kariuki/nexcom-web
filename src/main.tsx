@@ -4,7 +4,7 @@ import './index.css';
 
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
-import { MantineProvider } from '@mantine/core';
+import { MantineProvider, Notification } from '@mantine/core';
 import AppProvider from './context/appContext.tsx';
 import ScreenProvider from './context/screenContext.tsx';
 import ConversationProvider from './context/activeConversation.tsx';
@@ -13,10 +13,11 @@ import { theme } from './theme.ts';
 import '@mantine/charts/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/dropzone/styles.css';
+import '@mantine/notifications/styles.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <MantineProvider theme={theme} defaultColorScheme='dark'>
+    <MantineProvider theme={theme} defaultColorScheme='light'>
       <AppProvider>
         <ScreenProvider>
           <ConversationProvider>

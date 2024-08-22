@@ -1,10 +1,9 @@
 import Navigation from './Navigation/Navigation';
 import { ConversationProps } from '../../@types/chat';
-// import chats from '../../data/data';
 import { Card, Flex, Modal, useMantineColorScheme } from '@mantine/core';
 import classes from './Chat.module.css';
 import { useDisclosure } from '@mantine/hooks';
-import ChatArea from './ChatBox/ChatArea';
+import ChatArea from './ChatBox/ChatArea/ChatArea';
 import { useEffect, useState } from 'react';
 import { url, url1 } from '../../data/url';
 import { io, Socket } from 'socket.io-client';
@@ -43,7 +42,7 @@ function Chat() {
     <Flex
       wrap="nowrap"
       gap={5}
-      p={{ base: 'md', md: 'sm' }}
+      p={{ base: '0px', md: 'sm' }}
       h="100vh"
       bg={bgColor}
     >

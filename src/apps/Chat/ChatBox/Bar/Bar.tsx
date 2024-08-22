@@ -1,11 +1,11 @@
-import Miscelenious from '../components/Miscelenious';
+import Miscelenious from '../../components/Miscelenious';
 import { IconArrowLeftCircle } from '@tabler/icons-react';
 
 import { Avatar, Button, Group, Paper, Text } from '@mantine/core';
-import { CloseProps } from './ChatArea';
+import { CloseProps } from '../ChatArea/ChatArea';
 import classes from './Bar.module.css';
 import { useContext } from 'react';
-import { activeConversatonType, ConversationContext } from '../../../context/activeConversation';
+import { activeConversatonType, ConversationContext } from '../../../../context/activeConversation';
 
 // Top Bar on the Chatbox Area
 const Bar = ({ close }: CloseProps) => {

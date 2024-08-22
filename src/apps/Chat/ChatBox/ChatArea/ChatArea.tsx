@@ -1,10 +1,10 @@
-import Message from '../components/MessageCard';
+import Message from '../../components/MessageCard';
 import { useContext } from 'react';
-import Bar from './Bar';
+import Bar from '../Bar/Bar';
 import { Flex, Paper, ScrollArea } from '@mantine/core';
-import NewMessageBox from '../components/NewMessageBox';
+import NewMessageBox from '../../components/NewMessageBox';
 import classes from './ChatArea.module.css';
-import { ConversationProps } from '../../../@types/chat';
+import { ConversationProps } from '../../../../@types/chat';
 export interface CloseProps {
   close: () => void;
   activeConvo?: ConversationProps | null;

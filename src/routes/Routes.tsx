@@ -8,7 +8,7 @@ import Index from '../index/Index';
 import Chat from '../apps/Chat/Chat';
 import Dashboard from '../apps/Dashboard/Dashboard';
 import Callback from '../apps/Auth/Callback';
-import NewProduct from '../apps/Admin/products/NewProduct';
+import NewProduct from '../apps/Admin/products/NewProduct/NewProduct';
 // import { useContext } from "react";
 // import { AppContext } from "../context/appContext";
 // import { UserContextType } from "../@types/app";
