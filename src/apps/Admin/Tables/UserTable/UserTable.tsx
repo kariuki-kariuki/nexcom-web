@@ -10,8 +10,9 @@ import {
 } from '@mantine/core';
 import { IconPencil, IconTrash } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
-import { url } from '../../../data/url';
-import PaginationDemo from './PaginationDemo';
+import { url } from '../../../../data/url';
+import PaginationDemo from '../PaginationDemo/PaginationDemo';
+import classes from './UserTable.module.css';
 
 // enum IdType {
 //   Number = "Number",
@@ -119,7 +120,7 @@ export function UsersTable() {
   return (
     <Table.ScrollContainer
       minWidth={10}
-      bg={'coco.2'}
+      className={classes.main}
       style={{ borderRadius: '10px' }}
       my={"md"}
       py={"md"}

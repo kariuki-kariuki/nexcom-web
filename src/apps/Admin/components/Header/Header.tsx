@@ -1,10 +1,10 @@
 import { Group, Text } from '@mantine/core'
-import React from 'react'
+
 
 const Header = () => {
   return (
     
-    <Group px={"xl"}>
+    <Group px={"xl"} bg={"coco-2"}>
       <Text>Analytics</Text>
     </Group>
   )

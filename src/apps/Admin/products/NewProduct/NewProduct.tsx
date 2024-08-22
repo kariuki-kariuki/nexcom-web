@@ -10,28 +10,30 @@ import {
 } from '@mantine/core';
 import { useState } from 'react';
 import { FileWithPath } from '@mantine/dropzone';
-import { DropzoneButton } from './DropzoneButton';
+import { DropzoneButton } from '../DropzoneButton/DropzoneButton';
 import {
   IconEyeCheck,
   IconImageInPicture,
   IconUpload,
 } from '@tabler/icons-react';
-import { url } from '../../../data/url';
-import { Product } from '../../../@types/shop';
-
+import { url } from '../../../../data/url';
+import { Product } from '../../../../@types/shop';
+import { notifications } from '@mantine/notifications';
+import classes from "./NewProduct.module.css";
+const prd = {
+  name: '',
+  description: '',
+  image: '',
+  colors: '',
+  quantity: 0,
+  sizes: '',
+  files: [],
+  price: 0.0
+};
 
 
 function NewProduct() {
-  const [product, setProduct] = useState<Product>({
-    name: '',
-    description: '',
-    image: '',
-    colors: '',
-    quantity: 0,
-    sizes: '',
-    files: [],
-    price: 0.0
-  });
+  const [product, setProduct] = useState<Product>(prd);
 
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const previews = files.map((file, index) => {
@@ -59,6 +61,7 @@ function NewProduct() {
     formData.append('colors', product.colors);
     formData.append('quantity', product.quantity.toString());
     formData.append('sizes', product.sizes);
+    formData.append('price', product.price.toString());
 
     // Append each file to FormData
     files.forEach((file) => {
@@ -77,8 +80,11 @@ function NewProduct() {
         body: formData,
       })
         .then((res) => res.json())
-        .then((r) => console.log(r))
-        .catch((e) => console.log(e));
+        .then((r) => {console.log(r), setProduct(prd); notifications.show({title: 'Success', message: "Prodcuct Added Succesfully"})})
+        .catch((e) => {
+          console.log(e); 
+          notifications.show({ title: 'Error Occured', color: 'red', message: e, autoClose: true })}
+        ); 
     } catch (error) {
       // Handle network error
       console.error('An error occurred:', error);
@@ -86,8 +92,8 @@ function NewProduct() {
   };
 
   return (
-    <Flex p="md" align={'center'} justify={'center'}>
-      <Card w={{ base: '100%', sm: '75%', md: '50%' }}>
+    <Flex p="md" align={'center'} justify={'center'} classNames={{ root: classes.main }}>
+      <Card w={{ base: '100%', sm: '75%', md: '50%' }} className={classes.card}>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <Input.Wrapper
@@ -243,6 +249,8 @@ function NewProduct() {
               type="submit"
               variant="filled"
               rightSection={<IconUpload size={18} />}
+              bg={"purple"}
+
             >
               Submit
             </Button>
@@ -250,6 +258,7 @@ function NewProduct() {
               type="submit"
               variant="outline"
               rightSection={<IconEyeCheck size={18} />}
+              color='teal.8'
             >
               Preview
             </Button>

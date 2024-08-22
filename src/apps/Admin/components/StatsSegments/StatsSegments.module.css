@@ -5,6 +5,10 @@
   line-height: 1;
   font-size: var(--mantine-font-size-sm);
 }
+.stats {
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+  box-shadow: 5px 5px 5px light-dark(rgba(0, 0, 0, .5), rgba(0, 0, 0, 0));
+}
 
 .stat {
   border-bottom: rem(3px) solid;

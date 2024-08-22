@@ -1,6 +1,6 @@
 import { LineChart } from '@mantine/charts';
 import { Card } from '@mantine/core';
-
+import classes from './StartLine.module.css'
 const data = [
   { date: 'Jan', temperature: -25 },
   { date: 'Feb', temperature: -10 },
@@ -17,7 +17,7 @@ const data = [
 ];
 export function StartLine() {
   return (
-    <Card my={"md"} bg={"coco.2"}>
+    <Card my={"md"} className={classes.main}>
       <LineChart
         h={300}
         data={data}

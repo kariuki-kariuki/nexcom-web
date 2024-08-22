@@ -31,7 +31,7 @@ export function StatsSegments() {
   ));
 
   return (
-    <Paper withBorder p="md" radius="md" bg={"coco.2"}>
+    <Paper withBorder p="md" radius="md" className={classes.stats}>
       <Group justify="space-between">
         <Group align="flex-end" gap="xs">
           <Text fz="xl" fw={700}>

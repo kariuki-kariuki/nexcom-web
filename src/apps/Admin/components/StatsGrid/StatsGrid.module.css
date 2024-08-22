@@ -1,7 +1,12 @@
 .root {
   padding: calc(var(--mantine-spacing-md)) 0px;
   width: 100%;
-  /* background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-black)); */
+
+}
+
+.stat {
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+  box-shadow: 5px 5px 5px light-dark(rgba(0, 0, 0, .5), rgba(0, 0, 0, 0));
 }
 
 .value {

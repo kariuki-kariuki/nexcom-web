@@ -1,6 +1,7 @@
 import { Badge, Box, Grid, Group, Paper, Text } from '@mantine/core';
 import { DonutChart } from '@mantine/charts';
 import { IconUserBolt, IconUserCheck } from '@tabler/icons-react';
+import classes from "./StatsChart.module.css";
 export const data = [
   { name: 'Kenya', value: 400, color: 'purple' },
   { name: 'India', value: 300, color: 'orange.6' },
@@ -31,13 +32,13 @@ const userData = [
 ];
 const StatsChart = () => {
   const stats = userData.map((data) => (
-    <Paper p={'md'} bg={'coco.2'} bd={'1px solid gray'}>
+    <Paper p={'md'} className={classes.main} bd={'1px solid gray'}>
       <div>
         <Group justify="space-between" mb={'md'}>
           <Text fz={'sm'}>{data.label}</Text>
           <data.icon size={18} />
         </Group>
-        <Group>
+        <Group justify='space-between'>
           <div>
             <Text fz={'h1'} ff={'serif'}>
               {data.data.reduce((acc, curr) => {
@@ -46,7 +47,7 @@ const StatsChart = () => {
             </Text>
             <Text fz={'xs'}>{data.desc}</Text>
           </div>
-          <DonutChart data={data.data} size={100} />
+          <DonutChart data={data.data} size={70} />
         </Group>
       </div>
     </Paper>
