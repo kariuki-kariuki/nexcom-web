@@ -10,7 +10,7 @@ import {
 } from '@tabler/icons-react';
 import classes from './NavbarNested.module.css';
 import { LinksGroup } from './NavbarLinksGroup';
-import MenuDrop from '../../../index/MenuDrop';
+import MenuDrop from '../../../Index/MenuDrop';
 
 const mockdata = [
   { label: 'Dashboard', icon: IconGauge },

@@ -4,7 +4,7 @@ import Login from '../apps/Auth/Login';
 import Register from '../apps/Auth/Register';
 import Admin from '../apps/Admin/Admin';
 import Shop from '../apps/Shop/Shop';
-import Index from '../index/Index';
+import Index from '../Index/Index';
 import Chat from '../apps/Chat/Chat';
 import Dashboard from '../apps/Dashboard/Dashboard';
 import Callback from '../apps/Auth/Callback';
