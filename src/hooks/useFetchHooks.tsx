@@ -17,17 +17,15 @@ export function useFetch<T>(resource: string): Iprops<T> {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          setResult(result);
+      }).then((res) => {
+        if (res.ok) {
+          res.json().then((r) => setResult(r));
           setIsLoading(false);
-          console.log(result);
-        })
-        .catch((e) => {
-          setError(e);
+        } else {
+          setError('Failed to fecth');
           setIsLoading(false);
-        }); // server respone error
+        }
+      });
     } catch (e) {
       // newtwork error
       setError(e);
