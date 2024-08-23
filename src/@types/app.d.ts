@@ -1,3 +1,5 @@
+import { GlobalUser } from './chat';
+
 export interface IUser {
   id: number | null;
   firstName: string | null;
@@ -7,6 +9,6 @@ export interface IUser {
 }
 
 export type UserContextType = {
-  user: IUser;
-  updateUser: (user: IUser) => void;
+  user: GlobalUser | null;
+  updateUser: (user: GlobalUser | null) => void;
 };

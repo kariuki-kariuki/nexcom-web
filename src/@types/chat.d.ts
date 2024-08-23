@@ -2,6 +2,8 @@
 //   String: string;
 // }
 
+import { Shop } from './shop';
+
 // // Define the interface for the nested id object
 // export interface NestedId {
 //   id: IdString;
@@ -24,6 +26,7 @@ export interface GlobalUser {
   firstName: string;
   lastName: string;
   updated_at: string;
+  shop: Shop | null;
 }
 
 export interface ConversationProps {

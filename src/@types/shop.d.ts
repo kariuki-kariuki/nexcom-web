@@ -21,6 +21,7 @@ export type Product = {
 };
 
 export type ShopProduct = {
+  id: string;
   name: string;
   description: string;
   images: string[];
@@ -31,11 +32,18 @@ export type ShopProduct = {
   discount: number | null;
 };
 
-interface Shop {
+export interface Shop {
   name: string;
   id: string;
+}
+
+interface ShopWithUser extends Shop {
   user: GlobalUser;
 }
 export interface ProductWithShop extends ShopProduct {
   shop: Shop;
+}
+
+export interface ShopWithProducts extends Shop {
+  products: ShopProduct[];
 }
