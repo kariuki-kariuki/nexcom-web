@@ -7,7 +7,7 @@
 }
 .stats {
   background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
-  box-shadow: 5px 5px 5px light-dark(rgba(0, 0, 0, .5), rgba(0, 0, 0, 0));
+  box-shadow: 5px 5px 5px light-dark(rgba(0, 0, 0, .3), rgba(0, 0, 0, 0));
 }
 
 .stat {

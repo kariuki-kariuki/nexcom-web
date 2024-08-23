@@ -28,7 +28,7 @@ function Admin() {
           <ScrollArea
             h={'100%'}
             p={{ sm: 'md', md: 'md' }}
-            w={'fit-content'}
+            w={'100%'}
             scrollbars="y"
           >
             <Grid>
@@ -37,6 +37,7 @@ function Admin() {
                 <StatsBar />
                 <StatsSegments />
                 <UsersTable />
+                <StatsChart />
               </Grid.Col>
               <Grid.Col span={{ base: 12, sm: 12, md: 6 }} p={'md'}>
                 <StatsChart />

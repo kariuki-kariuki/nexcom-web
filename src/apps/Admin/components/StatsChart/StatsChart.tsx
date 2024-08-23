@@ -33,7 +33,7 @@ const userData = [
 ];
 const StatsChart = () => {
   const stats = userData.map((data) => (
-    <Paper p={'md'} className={classes.main} bd={'1px solid gray'}>
+    <Paper p={'md'} className={classes.main}>
       <div>
         <Group justify="space-between" mb={'md'}>
           <Text fz={'sm'}>{data.label}</Text>
