@@ -1,18 +1,13 @@
 import React from 'react';
-import { IUser, UserContextType } from '../@types/app';
+import { UserContextType } from '../@types/app';
+import { GlobalUser } from '../@types/chat';
 
 export const AppContext = React.createContext<UserContextType | null>(null);
 
 const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = React.useState<IUser>({
-    id: null,
-    firstName: null,
-    email: null,
-    photo: null,
-    apiKey: null,
-  });
+  const [user, setUser] = React.useState<GlobalUser | null>(null);
 
-  const updateUser = (user: IUser) => {
+  const updateUser = (user: GlobalUser | null) => {
     setUser(user);
   };
 
