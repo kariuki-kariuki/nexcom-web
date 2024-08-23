@@ -1,4 +1,14 @@
-import { Badge, Button, Card, Grid, Group, Modal, Text } from '@mantine/core';
+import {
+  Badge,
+  Box,
+  Button,
+  Card,
+  Flex,
+  Grid,
+  Group,
+  Modal,
+  Text,
+} from '@mantine/core';
 import { useState } from 'react';
 import { ProductWithShop } from '../../../@types/shop';
 import ImageCarousel from '../shopcomponents/ImageCarousel';
@@ -13,7 +23,7 @@ interface Iprops {
 function ProductModal({ opened, close, product }: Iprops) {
   const [quantity, setQuantity] = useState(1);
   const colors = product.colors?.map((color, index) => (
-    <Badge bg={color} variant="light" key={index}>
+    <Badge variant="filled" color={color} key={index} p={'sm'}>
       {color}
     </Badge>
   ));
@@ -24,12 +34,16 @@ function ProductModal({ opened, close, product }: Iprops) {
         close();
         setQuantity(1);
       }}
-      withCloseButton={true}
-      size={'auto'}
+      withCloseButton={false}
+      size={'100%'}
       padding={'md'}
       bg={'blue'}
+      h={'100%'}
+      overlayProps={{
+        h: '100%',
+      }}
     >
-      <Grid bg={'coco-1'}>
+      <Grid bg={'coco-1'} h={'rem(100%)'}>
         <Grid.Col span={{ base: 12, md: 6 }}>
           <Card p={{ base: 'sm', md: 'xl' }}>
             <Card.Section className="flex content-center">
@@ -38,26 +52,46 @@ function ProductModal({ opened, close, product }: Iprops) {
           </Card>
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 6 }}>
-          <Card className="md:p-5 h-full flex content-center" p={'xl'}>
-            <Card.Section className="md:p-5">
-              <Text className="text-center">{product?.name}</Text>
-            </Card.Section>
-            <Card.Section py={'xl'}>
-              <p className="text-slate-200 font-mono">Product Description</p>
-              <Text fz={'sm'} className="text-slate-500 font-serif">
-                {product?.description}
+          <Card p={'xl'} h={'100%'}>
+            <Flex direction={'column'} gap={5} justify={'center'} h={'100%'}>
+              <Text fw={'500'} fz={'lg'} ta={'center'}>
+                {product?.name}
               </Text>
-              <Text> Price: ${product?.price}</Text>
-            </Card.Section>
-            <Card.Section>
+              <Box>
+                <Group justify="space-between">
+                  <Text fw={'400'} fs={'italic'} py={'md'}>
+                    Product Description
+                  </Text>
+                  <Text
+                    // bg={'purple'}
+                    w={'fit-content'}
+                    // c={'white'}
+                    // p={'xs'}
+                    fz={'xl'}
+                    fw={'500'}
+                    style={{ borderRadius: '10px' }}
+                  >
+                    {' '}
+                    Price: ${product?.price}
+                  </Text>
+                </Group>
+                <Text
+                  fz={'sm'}
+                  className="text-slate-500 font-serif"
+                  lineClamp={5}
+                >
+                  {product?.description}
+                </Text>
+              </Box>
+
               <Group>{colors}</Group>
-            </Card.Section>
-            <Card.Section>
               <Group justify="space-between" pr={'xl'}>
                 <Button.Group py={'xl'}>
                   <Button
                     variant="default"
-                    bg="pink"
+                    bg="red"
+                    c={'white'}
+                    fz={'xl'}
                     onClick={() => {
                       if (quantity > 1) {
                         setQuantity(quantity - 1);
@@ -69,7 +103,9 @@ function ProductModal({ opened, close, product }: Iprops) {
                   <Button variant="default">{quantity}</Button>
                   <Button
                     variant="default"
-                    bg="orange"
+                    bg="teal"
+                    c={'white'}
+                    fz={'xl'}
                     onClick={() => setQuantity(quantity + 1)}
                   >
                     +
@@ -81,12 +117,12 @@ function ProductModal({ opened, close, product }: Iprops) {
                 <Button
                   leftSection={<IconBasketPlus size={14} />}
                   onClick={() => setQuantity(1)}
-                  variant="outline"
+                  bg={'purple'}
                 >
                   Add To Cart
                 </Button>
               </Group>
-            </Card.Section>
+            </Flex>
           </Card>
         </Grid.Col>
       </Grid>
