@@ -1,34 +1,24 @@
-import { Flex, Drawer, Paper } from '@mantine/core';
-import Navbar from './Navbar';
-import Hero from './Hero';
-import { useDisclosure } from '@mantine/hooks';
+import { GlobalUser } from '../../@types/chat';
+import Profile from './DashComponents/Profile/Profile';
 import classes from './Dashboard.module.css';
-const Dashboard = () => {
-  const [opened, { open, close }] = useDisclosure(false);
+import { Drawer } from '@mantine/core';
+interface Iprops {
+  opened: boolean;
+  close: () => void;
+  actUser: GlobalUser;
+}
+const Dashboard = ({ opened = true, close, actUser }: Iprops) => {
   return (
-    <Paper h={'100vh'} className={classes.dashboard}>
-      <Flex direction={'row'} h={'100%'} bg={'none'}>
-        <Paper bg={'none'} w={{ sm: '30%' }} visibleFrom="sm">
-          <Navbar setActive={open} />
-        </Paper>
-
-        <Hero setActive={open} />
-      </Flex>
-      <Drawer
-        opened={opened}
-        onClose={close}
-        hiddenFrom="sm"
-        withCloseButton={false}
-        padding={'0px'}
-        bg={'black'}
-        zIndex={10}
-        size={'80%'}
-        shadow="lg"
-      >
-        <Navbar setActive={close} />
-      </Drawer>
-    </Paper>
+    <Drawer
+      opened={opened}
+      onClose={close}
+      w={'100%'}
+      style={{ overflow: 'hidden' }}
+      classNames={{ root: classes.hero }}
+      h={'100%'}
+    >
+      <Profile userClicked={actUser} />
+    </Drawer>
   );
 };
-
 export default Dashboard;
