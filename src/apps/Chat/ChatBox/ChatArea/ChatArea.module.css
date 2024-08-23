@@ -1,13 +1,11 @@
-.chatArea {
-  background-color: light-dark(
-    var(--mantine-color-gray-3),
-    #06141B
-  );
+.chat_area {
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-1));
+  border: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-8));
 }
 
 .scroll {
   background-color: light-dark(
-    var(--mantine-color-gray-3),
-    #253745
+    var(--mantine-color-white),
+    var(--mantine-color-coco-1)
   );
 }

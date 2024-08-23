@@ -1,6 +1,9 @@
 .bar {
   background-color: light-dark(
-    var(--mantine-color-gray-9),
+    var(--mantine-color-white),
     #06141B
   );
+  margin-bottom: var(--mantine-spacing-sm);
+  box-shadow: 5px 5px 5px light-dark(rgba(0, 0, 0, .2), rgba(0, 0, 0, 0));
+  border-radius:  var(--mantine-spacing-md) var(--mantine-spacing-md) 0px 0px;
 }

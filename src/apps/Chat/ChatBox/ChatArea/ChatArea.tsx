@@ -5,10 +5,10 @@ import NewMessageBox from '../../components/NewMessageBox';
 import classes from './ChatArea.module.css';
 import { ConversationProps } from '../../../../@types/chat';
 export interface CloseProps {
-  close: () => void;
+  closes: () => void;
   activeConvo?: ConversationProps | null;
 }
-function ChatArea({ close, activeConvo }: CloseProps) {
+function ChatArea({ closes, activeConvo }: CloseProps) {
   // const { activeConversation } = useContext(
   //   ConversationContext,
   // ) as activeConversatonType;
@@ -17,18 +17,23 @@ function ChatArea({ close, activeConvo }: CloseProps) {
     <Message message={message} key={idx} />
   ));
   return (
-    <Paper h={'100%'} radius={'md'} p={'0px'} m={'0px'}>
+    <Paper
+      h={'100%'}
+      radius={'md'}
+      p={'0px'}
+      m={'0px'}
+      className={classes.chat_area}
+    >
       <Flex
         pos={'relative'}
         direction={'column'}
         h={'100%'}
         p={'0px'}
         m={'0px'}
-        className={classes.scroll}
       >
-        <Bar close={close} />
+        <Bar closes={closes} />
         <ScrollArea h={'100%'} p={0} className={classes.scroll}>
-          {messages}
+          <div>{messages}</div>
         </ScrollArea>
         <NewMessageBox />
       </Flex>

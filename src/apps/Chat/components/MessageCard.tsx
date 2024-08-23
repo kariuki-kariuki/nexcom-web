@@ -24,9 +24,11 @@ const MessageCard = ({ message }: Props) => {
     >
       <Card bg={'none'} className={status ? classes.right : classes.left}>
         <Box className={status ? classes.box_right : classes.box_left} m={0}>
-          <p className="font-serif">{message?.message}</p>
+          <Text className="font-serif" c={'white'}>
+            {message?.message}
+          </Text>
         </Box>
-        <Text fs={'dimmed'} c={'teal'} ff={'monospace'} fz={'xs'} p={'3px'}>
+        <Text c={'dimmed'} ff={'monospace'} fz={'xs'} p={'3px'}>
           {`${date?.toLocaleString('en-US', {
             hour: 'numeric',
             minute: 'numeric',

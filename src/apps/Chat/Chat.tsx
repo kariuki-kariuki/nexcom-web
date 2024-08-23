@@ -39,7 +39,7 @@ function Chat() {
   );
   const [opened, { open, close }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();
-  const bgColor = colorScheme === 'dark' ? 'gray.8' : 'gray';
+  const bgColor = colorScheme === 'dark' ? 'gray.8' : 'gray.8';
   return (
     <Flex
       wrap="nowrap"
@@ -52,7 +52,7 @@ function Chat() {
         className={classes.overflow}
         h="100%"
         w={{ sm: '40%', md: '30%' }}
-        bg={bgColor}
+        // bg={bgColor}
         radius={'lg'}
         padding={2}
       >
@@ -69,11 +69,10 @@ function Chat() {
         className={`${classes.overflow}`}
         p={2}
         w={{ sm: '60%', md: '70%' }}
-        bg={colorScheme == 'dark' ? 'dark' : 'black'}
-        h="`100%"
+        h="100%"
         radius={'lg'}
       >
-        <ChatArea close={close} activeConvo={activeConvo} />
+        <ChatArea closes={close} activeConvo={activeConvo} />
       </Card>
       <Modal
         radius="md"
@@ -95,7 +94,7 @@ function Chat() {
           h={'97vh'}
           bg={colorScheme == 'dark' ? 'dark' : 'teal'}
         >
-          <ChatArea close={close} activeConvo={activeConvo} />
+          <ChatArea closes={close} activeConvo={activeConvo} />
         </Card>
       </Modal>
     </Flex>

@@ -61,8 +61,8 @@ const Navigation = ({
           grow
         >
           <Group bg={'none'}>
-            <Avatar src={user.photo} />
-            <Text className={classes.navText}>{user.firstName}</Text>
+            <Avatar src={user?.photo} />
+            <Text className={classes.navText}>{user?.firstName}</Text>
           </Group>
           <Group gap={'20%'} justify="end">
             <Tooltip label="home" color="grape">

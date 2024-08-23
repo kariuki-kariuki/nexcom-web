@@ -64,7 +64,6 @@ export function ConversationButton({
       socket?.off('message', handleMessage);
     };
   }, [socket, conversation, activeConversation, messages]);
-  console.log(count);
   return (
     <Card
       className={classes.user}
