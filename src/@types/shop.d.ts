@@ -47,3 +47,13 @@ export interface ProductWithShop extends ShopProduct {
 export interface ShopWithProducts extends Shop {
   products: ShopProduct[];
 }
+
+export interface Order {
+  quantity: number;
+  size: string;
+  id: number;
+  size: string;
+  color: string;
+  customer_description: string;
+  product: ShopProduct;
+}
