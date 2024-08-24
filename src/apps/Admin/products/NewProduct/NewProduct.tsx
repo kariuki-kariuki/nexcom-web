@@ -1,7 +1,7 @@
 import {
   Button,
   Card,
-  Flex,
+  Drawer,
   Group,
   Image,
   Input,
@@ -31,7 +31,12 @@ const prd = {
   price: 0.0,
 };
 
-function NewProduct() {
+interface IDrawer {
+  opened: boolean;
+  close: () => void;
+}
+
+function NewProduct({ opened, close }: IDrawer) {
   const [product, setProduct] = useState<Product>(prd);
 
   const [files, setFiles] = useState<FileWithPath[]>([]);
@@ -102,12 +107,7 @@ function NewProduct() {
   };
 
   return (
-    <Flex
-      p="md"
-      align={'center'}
-      justify={'center'}
-      classNames={{ root: classes.main }}
-    >
+    <Drawer p="md" opened={opened} onClose={close}>
       <Card w={{ base: '100%', sm: '75%', md: '50%' }} className={classes.card}>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -279,7 +279,7 @@ function NewProduct() {
           </Group>
         </form>
       </Card>
-    </Flex>
+    </Drawer>
   );
 }
 
