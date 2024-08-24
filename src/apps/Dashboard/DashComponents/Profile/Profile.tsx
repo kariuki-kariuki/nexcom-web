@@ -7,6 +7,9 @@ import { GlobalUser } from '../../../../@types/chat';
 import { useFetch } from '../../../../hooks/useFetchHooks';
 import { ShopProduct } from '../../../../@types/shop';
 import { CardsCarousel } from '../CardsCarousel/CardsCarousel';
+import { IconPencil } from '@tabler/icons-react';
+import PictureUpdate from '../PictureUpdate/PictureUpdate';
+import CreateShop from '../PictureUpdate/CreateShop';
 const stats = [
   { value: '34K', label: 'Followers' },
   { value: '187', label: 'Follows' },
@@ -16,7 +19,8 @@ const stats = [
 function Profile({ userClicked }: { userClicked: GlobalUser }) {
   const { user } = useContext(AppContext) as UserContextType;
   const { result } = useFetch<ShopProduct[]>(`shops/${userClicked.shop?.id}`);
-  console.log('Result', result);
+
+  console.log('Result', userClicked);
   userClicked.lastName = 'Doe';
   const items = stats.map((stat) => (
     <div key={stat.label}>
@@ -28,6 +32,7 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
       </Text>
     </div>
   ));
+
   return (
     <Card h={'100%'} className={classes.profile} radius={'md'} pb={'lg'}>
       <Card.Section
@@ -37,14 +42,18 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
             'url(https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80)',
         }}
       />
-      <Avatar
-        src={userClicked.photo}
-        size={80}
-        radius={80}
-        mx="auto"
-        mt={-30}
-        className={classes.avatar}
-      />
+      {userClicked.email === user?.email ? (
+        <PictureUpdate image={userClicked.photo} />
+      ) : (
+        <Avatar
+          src={userClicked.photo}
+          size={80}
+          radius={80}
+          mx="auto"
+          mt={-30}
+          className={classes.avatar}
+        />
+      )}
       <Text ta="center" fz="lg" fw={500} mt="sm">
         {userClicked.firstName}{' '}
         {userClicked.shop ? `• at ${userClicked.shop.name}` : ''}
@@ -63,12 +72,21 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
             </Text>
             <Switch size="xs" onLabel="ON" offLabel="OFF" />
           </Group>
-          <Button fullWidth radius="md" mt="xl" size="md" variant="default">
-            Edit
-          </Button>
+
+          <Group justify="center">
+            <Button
+              radius="md"
+              mt="xl"
+              size="md"
+              variant="default"
+              leftSection={<IconPencil size={14} />}
+            >
+              New Product
+            </Button>
+          </Group>
         </>
       ) : (
-        ''
+        <CreateShop />
       )}
       <Card.Section>
         {result != null ? <CardsCarousel products={result} /> : ''}

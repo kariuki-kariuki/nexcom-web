@@ -1,11 +1,5 @@
 .card {
-  height: rem(440px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  background-size: cover;
-  background-position: center;
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
 }
 
 .title {

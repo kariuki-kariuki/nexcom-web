@@ -1,13 +1,13 @@
 import { Image, Card, Button } from '@mantine/core';
 import { ShopProduct } from '../../../../@types/shop';
 import { IconArrowUpRight } from '@tabler/icons-react';
-
+import classes from './CarouselCard.module.css';
 interface Iprop {
   product: ShopProduct;
 }
 export function CarouselCard({ product }: Iprop) {
   return (
-    <Card radius="md" withBorder padding="xl">
+    <Card radius="md" withBorder padding="xl" className={classes.card}>
       <Card.Section h={200}>
         <Image src={product.images[0]} height={'100%'} />
       </Card.Section>

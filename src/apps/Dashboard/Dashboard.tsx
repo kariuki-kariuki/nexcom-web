@@ -7,15 +7,17 @@ interface Iprops {
   close: () => void;
   actUser: GlobalUser;
 }
-const Dashboard = ({ opened = true, close, actUser }: Iprops) => {
+const Dashboard = ({ opened, close, actUser }: Iprops) => {
   return (
     <Drawer
       opened={opened}
-      onClose={close}
+      onClose={() => close()}
       w={'100%'}
       style={{ overflow: 'hidden' }}
       classNames={{ root: classes.hero }}
       h={'100%'}
+      title={`${actUser.firstName}'s Profile`}
+      position="right"
     >
       <Profile userClicked={actUser} />
     </Drawer>
