@@ -6,9 +6,8 @@ import Admin from '../apps/Admin/Admin';
 import Shop from '../apps/Shop/Shop';
 import Index from '../Index/Index';
 import Chat from '../apps/Chat/Chat';
-import Dashboard from '../apps/Dashboard/Dashboard';
 import Callback from '../apps/Auth/Callback';
-import NewProduct from '../apps/Admin/products/NewProduct/NewProduct';
+import Cart from '../apps/Shop/Cart/Cart';
 // import { useContext } from "react";
 // import { AppContext } from "../context/appContext";
 // import { UserContextType } from "../@types/app";
@@ -27,14 +26,13 @@ export const router = createBrowserRouter([
     path: '/login',
     element: <Login />,
   },
-  { path: '/callback/:token', element: <Callback /> },
+  {
+    path: '/callback/:token',
+    element: <Callback />,
+  },
   {
     path: '/register',
     element: <Register />,
-  },
-  {
-    path: '/dashboard',
-    element: <Dashboard />,
   },
   {
     path: '/admin',
@@ -49,7 +47,7 @@ export const router = createBrowserRouter([
     element: <Shop />,
   },
   {
-    path: '/newproduct',
-    element: <NewProduct />,
+    path: '/cart',
+    element: <Cart />,
   },
 ]);
