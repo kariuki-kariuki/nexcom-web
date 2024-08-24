@@ -46,7 +46,13 @@ const Bar = ({ closes }: CloseProps) => {
               </div>
             </Group>
           ) : (
-            ''
+            <Group>
+              <Avatar src={activeConversation?.users[0].photo} />
+              <div className="px-5">
+                <Text>{activeConversation?.users[0].firstName}</Text>
+                <p className="hidden lg:block md:text-sm">"Hello World"</p>
+              </div>
+            </Group>
           )}
         </Group>
         <Paper visibleFrom="sm" bg={'none'}>
