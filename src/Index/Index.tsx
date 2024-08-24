@@ -11,7 +11,6 @@ const links = [
   { link: '/chat', label: 'Chat' },
   { link: '/shop', label: 'Shop' },
   { link: '/admin', label: 'Admin' },
-  { link: '/dashboard', label: 'Dashboard' },
 ];
 
 function Index() {

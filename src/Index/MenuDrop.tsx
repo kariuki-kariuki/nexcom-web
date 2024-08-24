@@ -15,10 +15,14 @@ import { useContext } from 'react';
 import { AppContext } from '../context/appContext';
 import { UserContextType } from '../@types/app';
 import classes from './MenuDrop.module.css';
+import { useDisclosure } from '@mantine/hooks';
+import Dashboard from '../apps/Dashboard/Dashboard';
 export default function MenuDrop() {
   const navigate = useNavigate();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const { updateUser } = useContext(AppContext) as UserContextType;
+  const [opened, { open, close }] = useDisclosure();
+  const { user } = useContext(AppContext) as UserContextType;
   return (
     <Box p={'md'} className={classes.menu}>
       <Menu shadow="md" width={200}>
@@ -40,8 +44,7 @@ export default function MenuDrop() {
             Shop
           </Menu.Item>
           <Menu.Item
-            component="a"
-            href="/dashboard"
+            onClick={open}
             leftSection={
               <IconLayoutDashboardFilled
                 style={{ width: rem(14), height: rem(14) }}
@@ -107,6 +110,7 @@ export default function MenuDrop() {
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
+      {user ? <Dashboard opened={opened} close={close} actUser={user} /> : ''}
     </Box>
   );
 }
