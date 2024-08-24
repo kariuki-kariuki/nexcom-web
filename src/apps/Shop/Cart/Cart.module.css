@@ -1,0 +1,16 @@
+.main {
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-gray-8));
+
+  @media (min-width: $mantine-breakpoint-md) {
+    padding: var(--mantine-spacing-md);
+  }
+}
+
+.card {
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-1));
+  margin: 10px;
+}
+
+.inner_card {
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+}

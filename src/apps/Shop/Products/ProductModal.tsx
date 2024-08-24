@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { ProductWithShop } from '../../../@types/shop';
 import ImageCarousel from '../shopcomponents/ImageCarousel';
 import { IconBasketPlus } from '@tabler/icons-react';
+import { url } from '../../../data/url';
 
 interface Iprops {
   opened: boolean;
@@ -27,6 +28,31 @@ function ProductModal({ opened, close, product }: Iprops) {
       {color}
     </Badge>
   ));
+  const token = localStorage.getItem('token');
+  function handleSubmit() {
+    fetch(`${url}/orders`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ quantity, productId: product.id }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          res.json().then((res) => {
+            console.log(res);
+            setQuantity(1);
+            close();
+          });
+        } else {
+          res.json().then((r) => console.log(r));
+        }
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  }
   return (
     <Modal
       opened={opened}
@@ -116,7 +142,7 @@ function ProductModal({ opened, close, product }: Iprops) {
               <Group justify="center">
                 <Button
                   leftSection={<IconBasketPlus size={14} />}
-                  onClick={() => setQuantity(1)}
+                  onClick={handleSubmit}
                   bg={'purple'}
                 >
                   Add To Cart

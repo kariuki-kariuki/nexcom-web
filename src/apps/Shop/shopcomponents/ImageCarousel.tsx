@@ -14,7 +14,7 @@ function ImageCarousel({ images }: Iprops) {
     </Carousel.Slide>
   ));
   return (
-    <Carousel classNames={classes} withIndicators>
+    <Carousel classNames={classes} withIndicators loop>
       {slides}
     </Carousel>
   );
