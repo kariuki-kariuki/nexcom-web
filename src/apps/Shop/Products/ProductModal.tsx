@@ -70,16 +70,16 @@ function ProductModal({ opened, close, product }: Iprops) {
       }}
     >
       <Grid bg={'coco-1'} h={'rem(100%)'}>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <Card p={{ base: 'sm', md: 'xl' }}>
-            <Card.Section className="flex content-center">
+        <Grid.Col span={{ base: 12, sm: 6 }}>
+          <Card p={{ base: 'sm', md: 'xl' }} h={'100%'}>
+            <Card.Section className="flex content-center" h={'100%'}>
               <ImageCarousel images={product?.images} />
             </Card.Section>
           </Card>
         </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
+        <Grid.Col span={{ base: 12, sm: 6 }}>
           <Card p={'xl'} h={'100%'}>
-            <Flex direction={'column'} gap={5} justify={'center'} h={'100%'}>
+            <Flex direction={'column'} gap={5} h={'100%'} justify={'center'}>
               <Text fw={'500'} fz={'lg'} ta={'center'}>
                 {product?.name}
               </Text>

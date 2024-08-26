@@ -11,12 +11,12 @@ interface Iprops {
 
 function ProductCard({ product, open, setViewing }: Iprops) {
   const slides = product.images.map((image) => (
-    <Carousel.Slide key={image} h={300}>
+    <Carousel.Slide key={image} classNames={{ slide: classes.slides }}>
       <Image src={image} height={'100%'} />
     </Carousel.Slide>
   ));
   return (
-    <Grid.Col span={{ base: 12, md: 6, lg: 4 }} p={'sm'}>
+    <Grid.Col span={{ base: 12, sm: 6, lg: 4 }} p={'sm'}>
       <Card className={classes.card}>
         <Card.Section>
           <Carousel
@@ -27,6 +27,8 @@ function ProductCard({ product, open, setViewing }: Iprops) {
               controls: classes.carouselControls,
               indicator: classes.carouselIndicator,
             }}
+            slideGap={'md'}
+            slidesToScroll={1}
           >
             {slides}
           </Carousel>
@@ -50,10 +52,10 @@ function ProductCard({ product, open, setViewing }: Iprops) {
 
         <Group justify="space-between" mt="md">
           <div>
-            <Text fz="xl" span fw={500} className={classes.price}>
+            <Text fz="lg" span fw={500} className={classes.price}>
               Ksh{' '}
               {product.price > 1000
-                ? `${product.price / 1000}k`
+                ? `${(product.price / 1000).toFixed(0)}k`
                 : product.price}
             </Text>
             <Text span fz="sm" c="dimmed"></Text>
@@ -61,7 +63,7 @@ function ProductCard({ product, open, setViewing }: Iprops) {
 
           <Button
             radius="md"
-            bg={'purple'}
+            bg={'teal'}
             onClick={() => {
               setViewing(product), open();
             }}
