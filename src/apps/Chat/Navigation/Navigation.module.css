@@ -1,5 +1,5 @@
 .nav {
-  border: 2px solid;
+  /* border: 2px solid; */
   border-color: light-dark(var(--mantine-color-gray-3), #06141b);
   background-color: light-dark(
     var(--mantine-color-white),

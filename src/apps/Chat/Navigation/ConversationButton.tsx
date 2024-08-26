@@ -1,6 +1,12 @@
-import { Group, Avatar, Text, Card, Badge, Flex } from '@mantine/core';
+import { Group, Avatar, Text, Card, Badge, Flex, rgba } from '@mantine/core';
 import classes from './UserButton.module.css';
-import { useContext, useEffect, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { ConversationProps, GlobalUser, Message } from '../../../@types/chat';
 import {
   ConversationContext,
@@ -17,12 +23,15 @@ interface Props {
   open: () => void;
   socket: SocketType;
   setActiveConvo: activeType;
+  setConverSations: Dispatch<SetStateAction<ConversationProps[]>>;
+  index: number;
 }
 export function ConversationButton({
   conversation,
   open,
   socket,
   setActiveConvo,
+  setConverSations,
 }: Props) {
   // const { user } = useContext(AppContext) as UserContextType;
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
@@ -45,6 +54,13 @@ export function ConversationButton({
           updated_at: msg.updated_at,
         };
         setMessages((messages): any => [...messages, message]);
+        setConverSations((prevConversations) =>
+          prevConversations.map((convo) =>
+            convo.id === conversation.id
+              ? { ...convo, messages: [...convo.messages, message] }
+              : convo,
+          ),
+        );
         if (msg.conversation.id === activeConversation?.id) {
           conversation.messages.push(message);
           setActiveConversation(conversation);
@@ -67,7 +83,7 @@ export function ConversationButton({
   return (
     <Card
       className={classes.user}
-      bg={active ? 'purple' : 'coco'}
+      bg={active ? 'teal.8' : 'coco'}
       onClick={() => {
         setActiveConversation(conversation);
         setActiveConvo(conversation);
@@ -80,16 +96,16 @@ export function ConversationButton({
         <Avatar src={user.photo} radius="xl" />
 
         <div style={{ flex: 1 }}>
-          <Text size="sm" c="teal.4" fw={500}>
+          <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
             {`${user.firstName} ${user.lastName}`}
           </Text>
 
-          <Text c="dimmed" size="xs" lineClamp={1}>
+          <Text c={active ? '' : 'dimmed'} size="xs" lineClamp={1}>
             {lastMessage?.message}
           </Text>
         </div>
         <Flex direction={'column'} justify={'center'} align={'center'}>
-          <Text c="lime" size="xs">
+          <Text c={active ? 'white' : 'lime'} size="xs">
             {`${date?.toLocaleString('en-US', {
               hour: 'numeric',
               minute: 'numeric',
@@ -101,7 +117,7 @@ export function ConversationButton({
               {count}
             </Badge>
           ) : (
-            <Text c={active ? 'purple' : 'coco.0'}>--</Text>
+            <Text style={{ color: rgba(`0 0 0`, 0) }}>--</Text>
           )}
         </Flex>
       </Group>

@@ -22,7 +22,7 @@
 }
 
 .box_right {
-  background-color: purple;
+  background-color: var(--mantine-color-teal-7);
   border-radius: 10px 0px 10px 10px;
   padding: 5px 10px;
 }
@@ -30,7 +30,7 @@
 .box_left {
   border-radius: 0px 10px 10px 10px;
   padding: 5px 10px;
-  background-color: var(--mantine-color-coco-0);
+  background-color: var(--mantine-color-gray-8);
 }
 
 .left {

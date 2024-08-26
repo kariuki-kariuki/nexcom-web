@@ -6,11 +6,12 @@ import {
   IconMoonFilled,
   IconPhoneCalling,
   IconShoppingBag,
+  IconSquareLetterXFilled,
   IconSunFilled,
   IconTrash,
   IconVideo,
 } from '@tabler/icons-react';
-import { Box, Menu, rem, useMantineColorScheme } from '@mantine/core';
+import { Box, Menu, rem, Tooltip, useMantineColorScheme } from '@mantine/core';
 import Dashboard from '../../Dashboard/Dashboard';
 import classes from './Miscelenious.module.css';
 import { useDisclosure } from '@mantine/hooks';
@@ -18,11 +19,18 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AppContext } from '../../../context/appContext';
 import { UserContextType } from '../../../@types/app';
+import {
+  activeConversatonType,
+  ConversationContext,
+} from '../../../context/activeConversation';
 function Miscelenious() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [opened, { open, close }] = useDisclosure();
   const navigate = useNavigate();
   const { user, updateUser } = useContext(AppContext) as UserContextType;
+  const { activeConversation, setActiveConversation } = useContext(
+    ConversationContext,
+  ) as activeConversatonType;
 
   return (
     <div className="flex justify-around">
@@ -32,6 +40,18 @@ function Miscelenious() {
       <div className="p-3">
         <IconPhoneCalling />
       </div>
+      {activeConversation ? (
+        <div className="p-3">
+          <Tooltip label="Close this conversation">
+            <IconSquareLetterXFilled
+              color="red"
+              onClick={() => setActiveConversation(null)}
+            />
+          </Tooltip>
+        </div>
+      ) : (
+        ''
+      )}
       <div className="p-3">
         <Box p={0} className={classes.menu}>
           <Menu shadow="md" width={200}>

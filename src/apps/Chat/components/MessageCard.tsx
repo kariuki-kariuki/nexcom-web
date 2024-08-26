@@ -12,7 +12,7 @@ interface Props {
 // Sent and received message card
 const MessageCard = ({ message }: Props) => {
   const { user } = useContext(AppContext) as UserContextType;
-  const status = message.user.id === user.id;
+  const status = message.user.id === user?.id;
   const date = new Date(message.updated_at);
   return (
     <Paper

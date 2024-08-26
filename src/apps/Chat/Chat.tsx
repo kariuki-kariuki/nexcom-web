@@ -52,8 +52,6 @@ function Chat() {
         className={classes.overflow}
         h="100%"
         w={{ sm: '40%', md: '30%' }}
-        // bg={bgColor}
-        radius={'lg'}
         padding={2}
       >
         <Navigation
@@ -62,6 +60,7 @@ function Chat() {
           open={open}
           socket={socket}
           opened={opened}
+          setConverSations={setConversation}
         />
       </Card>
       <Card

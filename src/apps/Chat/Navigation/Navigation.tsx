@@ -6,12 +6,14 @@ import classes from './Navigation.module.css';
 import { SocketType } from '../Chat';
 import { useNavigate } from 'react-router-dom';
 import SmallComponent from './SmallComponent';
+import { Dispatch, SetStateAction } from 'react';
 interface Props {
   conversations: ConversationProps[];
   open: () => void;
   socket: SocketType;
   setActiveConvo: (convo: ConversationProps) => void;
   opened: boolean;
+  setConverSations: Dispatch<SetStateAction<ConversationProps[]>>;
 }
 
 const Navigation = ({
@@ -20,15 +22,27 @@ const Navigation = ({
   socket,
   setActiveConvo,
   // opened,
+  setConverSations,
 }: Props) => {
   const navigate = useNavigate();
-  const conversation = conversations?.map((convo: ConversationProps) => (
+  conversations.sort((a, b) => {
+    const timeA = new Date(
+      a.messages[a.messages.length - 1].updated_at,
+    ).getTime();
+    const timeB = new Date(
+      b.messages[b.messages.length - 1].updated_at,
+    ).getTime();
+    return timeB - timeA;
+  });
+  const conversation = conversations?.map((convo: ConversationProps, index) => (
     <ConversationButton
       conversation={convo}
       key={convo.id}
       socket={socket}
       open={open}
       setActiveConvo={setActiveConvo}
+      setConverSations={setConverSations}
+      index={index}
     />
   ));
   return (

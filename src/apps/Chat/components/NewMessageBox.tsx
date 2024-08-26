@@ -49,9 +49,10 @@ const NewMessageBox = () => {
         onChange={(event) => setMessage(event.currentTarget.value)}
         w={'100%'}
         c={'white'}
+        disabled={activeConversation ? false : true}
         rightSection={
           <IconSend
-            color="blue"
+            color="teal"
             className={classes.send}
             onClick={handleSubmit}
           />

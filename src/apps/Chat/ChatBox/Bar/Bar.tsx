@@ -1,7 +1,6 @@
 import Miscelenious from '../../components/Miscelenious';
-import { IconArrowLeftCircle } from '@tabler/icons-react';
-
-import { Avatar, Button, Group, Paper, Text } from '@mantine/core';
+import { IconArrowBadgeLeftFilled } from '@tabler/icons-react';
+import { Avatar, Group, Paper, Stack, Text } from '@mantine/core';
 import { CloseProps } from '../ChatArea/ChatArea';
 import classes from './Bar.module.css';
 import { useContext } from 'react';
@@ -21,29 +20,32 @@ const Bar = ({ closes }: CloseProps) => {
   return (
     <>
       <Group
-        p={'lg'}
-        h={'80'}
+        p={{ base: 'sm', sm: 'lg' }}
+        h={{ base: 'fit-content', md: '80' }}
         justify="space-between"
         align="center"
         className={classes.bar}
       >
         <Group bg={'none'}>
-          <Button variant="outline" hiddenFrom="sm" bd={'none'}>
-            <IconArrowLeftCircle
-              size={20}
+          <Paper variant="outline" hiddenFrom="sm" bd={'none'}>
+            <IconArrowBadgeLeftFilled
+              size={40}
               onClick={() => {
                 closes();
                 setActiveConversation(null);
               }}
+              color="teal"
             />
-          </Button>
+          </Paper>
           {activeConversation?.users ? (
             <Group onClick={open}>
               <Avatar src={activeConversation?.users[0].photo} />
-              <div className="px-5">
+              <Stack gap={0}>
                 <Text>{activeConversation?.users[0].firstName}</Text>
-                <p className="hidden lg:block md:text-sm">"Hello World"</p>
-              </div>
+                <Text fz={'xs'} c={'dimmed'}>
+                  {activeConversation.users[0].status}
+                </Text>
+              </Stack>
             </Group>
           ) : (
             <Group>
