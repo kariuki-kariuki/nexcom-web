@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { url } from '../data/url';
 
 interface Iprops<T> {
   isLoading: boolean;
@@ -13,7 +14,7 @@ export function useFetch<T>(resource: string): Iprops<T> {
   useEffect(() => {
     try {
       setIsLoading(true);
-      fetch(`http://localhost:3000/${resource}`, {
+      fetch(`${url}/${resource}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

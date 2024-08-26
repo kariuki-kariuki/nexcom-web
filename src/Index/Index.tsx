@@ -1,12 +1,14 @@
 import { Avatar, Button, Flex, Group, Paper, rem, Text } from '@mantine/core';
 import logo from '../assets/mklogo.png';
 import { IconArrowRight } from '@tabler/icons-react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AppContext } from '../context/appContext';
 import { UserContextType } from '../@types/app';
 import MenuDrop from './MenuDrop';
 import { useNavigate } from 'react-router-dom';
 import classes from './Index.module.css';
+import { useFetch } from '../hooks/useFetchHooks';
+import { GlobalUser } from '../@types/chat';
 const links = [
   { link: '/chat', label: 'Chat' },
   { link: '/shop', label: 'Shop' },
@@ -14,7 +16,12 @@ const links = [
 ];
 
 function Index() {
-  const { user } = useContext(AppContext) as UserContextType;
+  const { user, updateUser } = useContext(AppContext) as UserContextType;
+  const { result } = useFetch<GlobalUser>(`auth/me`);
+
+  useEffect(() => {
+    updateUser(result);
+  }, [result]);
   const items = links.map((link) => (
     <a
       key={link.label}

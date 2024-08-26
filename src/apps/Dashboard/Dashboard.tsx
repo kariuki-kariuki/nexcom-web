@@ -14,7 +14,7 @@ const Dashboard = ({ opened, close, actUser }: Iprops) => {
       onClose={() => close()}
       w={'100%'}
       style={{ overflow: 'hidden' }}
-      classNames={{ root: classes.hero }}
+      classNames={{ header: classes.color, content: classes.color }}
       h={'100%'}
       title={`${actUser.firstName}'s Profile`}
       position="right"

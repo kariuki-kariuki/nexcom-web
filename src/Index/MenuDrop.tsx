@@ -51,7 +51,7 @@ export default function MenuDrop() {
               />
             }
           >
-            Dashboard
+            Profile
           </Menu.Item>
           <Menu.Item
             leftSection={

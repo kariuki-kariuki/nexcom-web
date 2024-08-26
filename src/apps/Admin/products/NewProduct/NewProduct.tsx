@@ -17,7 +17,7 @@ import {
   IconUpload,
 } from '@tabler/icons-react';
 import { url } from '../../../../data/url';
-import { Product } from '../../../../@types/shop';
+import { Product, ShopProduct } from '../../../../@types/shop';
 import { notifications } from '@mantine/notifications';
 import classes from './NewProduct.module.css';
 const prd = {
@@ -33,10 +33,11 @@ const prd = {
 
 interface IDrawer {
   opened: boolean;
-  close: () => void;
+  toggle: () => void;
+  setProducts: React.Dispatch<React.SetStateAction<ShopProduct[]>>;
 }
 
-function NewProduct({ opened, close }: IDrawer) {
+function NewProduct({ opened, toggle, setProducts }: IDrawer) {
   const [product, setProduct] = useState<Product>(prd);
 
   const [files, setFiles] = useState<FileWithPath[]>([]);
@@ -84,12 +85,16 @@ function NewProduct({ opened, close }: IDrawer) {
         body: formData,
       })
         .then((res) => res.json())
-        .then((r) => {
+        .then((r: ShopProduct) => {
           console.log(r), setProduct(prd);
-          notifications.show({
-            title: 'Success',
-            message: 'Prodcuct Added Succesfully',
+          setProducts((prev: ShopProduct[]) => {
+            if (prev) {
+              return [...prev, r];
+            } else {
+              return [r];
+            }
           });
+          setFiles([]);
         })
         .catch((e) => {
           console.log(e);
@@ -107,8 +112,18 @@ function NewProduct({ opened, close }: IDrawer) {
   };
 
   return (
-    <Drawer p="md" opened={opened} onClose={close}>
-      <Card w={{ base: '100%', sm: '75%', md: '50%' }} className={classes.card}>
+    <Drawer
+      p="md"
+      opened={opened}
+      onClose={toggle}
+      classNames={{
+        content: classes.color,
+        header: classes.color,
+        body: classes.overlay,
+      }}
+      position="right"
+    >
+      <Card w={'100%'} className={classes.card}>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <Input.Wrapper

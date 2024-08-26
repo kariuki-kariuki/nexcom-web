@@ -1,13 +1,10 @@
-import { Avatar, Button, Card, Group, Switch, Text } from '@mantine/core';
+import { Avatar, Card, Group, Switch, Text } from '@mantine/core';
 import { useContext } from 'react';
 import { AppContext } from '../../../../context/appContext';
 import { UserContextType } from '../../../../@types/app';
 import classes from './Profile.module.css';
 import { GlobalUser } from '../../../../@types/chat';
-import { useFetch } from '../../../../hooks/useFetchHooks';
-import { ShopProduct } from '../../../../@types/shop';
 import { CardsCarousel } from '../CardsCarousel/CardsCarousel';
-import { IconPencil } from '@tabler/icons-react';
 import PictureUpdate from '../PictureUpdate/PictureUpdate';
 import CreateShop from '../PictureUpdate/CreateShop';
 const stats = [
@@ -18,9 +15,7 @@ const stats = [
 
 function Profile({ userClicked }: { userClicked: GlobalUser }) {
   const { user } = useContext(AppContext) as UserContextType;
-  const { result } = useFetch<ShopProduct[]>(`shops/${userClicked.shop?.id}`);
-
-  console.log('Result', userClicked);
+  const active = userClicked.email === user?.email;
   userClicked.lastName = 'Doe';
   const items = stats.map((stat) => (
     <div key={stat.label}>
@@ -42,7 +37,7 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
             'url(https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80)',
         }}
       />
-      {userClicked.email === user?.email ? (
+      {active ? (
         <PictureUpdate image={userClicked.photo} />
       ) : (
         <Avatar
@@ -59,12 +54,12 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
         {userClicked.shop ? `• at ${userClicked.shop.name}` : ''}
       </Text>
       <Text ta="center" fz="sm" c="dimmed">
-        {userClicked.email}
+        {userClicked.status}
       </Text>
       <Group my="md" justify="center" gap={30}>
         {items}
       </Group>
-      {userClicked.email == user?.email ? (
+      {active ? (
         <>
           <Group justify="center" p={'md'}>
             <Text fz={'sm'} c={'dimmed'}>
@@ -73,23 +68,13 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
             <Switch size="xs" onLabel="ON" offLabel="OFF" />
           </Group>
 
-          <Group justify="center">
-            <Button
-              radius="md"
-              mt="xl"
-              size="md"
-              variant="default"
-              leftSection={<IconPencil size={14} />}
-            >
-              New Product
-            </Button>
-          </Group>
+          <Group justify="center">{user?.shop ? '' : <CreateShop />}</Group>
         </>
       ) : (
-        <CreateShop />
+        ''
       )}
       <Card.Section>
-        {result != null ? <CardsCarousel products={result} /> : ''}
+        {userClicked.shop ? <CardsCarousel userClicked={userClicked} /> : ''}
       </Card.Section>
     </Card>
   );

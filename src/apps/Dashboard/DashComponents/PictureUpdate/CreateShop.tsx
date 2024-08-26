@@ -9,30 +9,35 @@ import {
 import { IconCirclePlusFilled } from '@tabler/icons-react';
 import { useContext, useState } from 'react';
 import classes from './CreateShop.module.css';
-import { ur } from '@faker-js/faker';
 import { AppContext } from '../../../../context/appContext';
 import { UserContextType } from '../../../../@types/app';
+import { url } from '../../../../data/url';
+import { useNavigate } from 'react-router-dom';
 const CreateShop = () => {
   const [name, setName] = useState('');
   const [erros, setErrors] = useState(null);
   const { user, updateUser } = useContext(AppContext) as UserContextType;
+  const navigate = useNavigate();
 
   function handleSubmit() {
+    setErrors(null);
     const token = localStorage.getItem('token');
     if (name) {
-      fetch(`${ur}/shops`, {
+      fetch(`${url}/shops`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name: name }),
       }).then((res) => {
         if (res.ok) {
           res.json().then((res) => {
             if (user) {
-              user.shop = res;
+              user.shop = { name: res.name, id: res.id };
+              localStorage.setItem('token', res.token);
               updateUser(user);
+              navigate('/home');
             }
           });
         } else {
@@ -44,7 +49,7 @@ const CreateShop = () => {
     }
   }
   return (
-    <Popover position="top">
+    <Popover withArrow>
       <Popover.Target>
         <Group justify="center" p={'md'}>
           <Button

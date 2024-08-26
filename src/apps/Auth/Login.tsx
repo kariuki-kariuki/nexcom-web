@@ -20,10 +20,14 @@ import { url } from '../../data/url';
 import { useNavigate } from 'react-router-dom';
 import { HeaderSearch } from '../../components/Navbar/HeaderSearch/HeaderSearch';
 import classes from './Login.module.css';
+import { useContext } from 'react';
+import { AppContext } from '../../context/appContext';
+import { UserContextType } from '../../@types/app';
 
 export default function Login(props: PaperProps) {
   const [type, toggle] = useToggle(['login', 'register']);
   const navigate = useNavigate();
+  const { updateUser } = useContext(AppContext) as UserContextType;
   const form = useForm({
     initialValues: {
       email: '',
@@ -40,9 +44,20 @@ export default function Login(props: PaperProps) {
           : null,
     },
   });
-
+  function getMe(token: string) {
+    fetch(`http://192.168.100.16:3000/auth/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((res) => {
+          updateUser(res);
+        });
+      }
+    });
+  }
   function handleSubmit(values: typeof form.values) {
-    console.log(values);
     fetch(`${url}/auth/login`, {
       method: 'POST',
       headers: {
@@ -57,6 +72,7 @@ export default function Login(props: PaperProps) {
         if (res.ok) {
           res.json().then((res) => {
             localStorage.setItem('token', res.token);
+            getMe(res.token);
             navigate('/chat', { replace: true });
           });
         } else {

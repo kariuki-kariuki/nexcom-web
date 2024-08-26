@@ -15,7 +15,7 @@ export function CarouselCard({ product }: Iprop) {
         <Button
           radius="0px"
           w={'100%'}
-          bg={'purple'}
+          bg={'teal'}
           rightSection={<IconArrowUpRight size={12} color="white" />}
         >
           View

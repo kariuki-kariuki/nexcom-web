@@ -1,4 +1,11 @@
-import { Avatar, Button, FileInput, Group, Popover } from '@mantine/core';
+import {
+  Avatar,
+  Button,
+  FileInput,
+  Group,
+  Indicator,
+  Popover,
+} from '@mantine/core';
 import { url } from '../../../../data/url';
 import { useContext, useState } from 'react';
 import classes from './PictureUpdate.module.css';
@@ -36,16 +43,25 @@ const PictureUpdate = ({ image }: { image: string }) => {
     }
   }
   return (
-    <Popover width={300}>
+    <Popover width={300} onClose={() => setValue(null)}>
       <Popover.Target>
-        <Avatar
-          src={value ? URL.createObjectURL(value) : image}
-          size={80}
-          radius={80}
-          mx="auto"
-          mt={-30}
-          className={classes.avatar}
-        />
+        <Group justify="center">
+          <Indicator
+            size={20}
+            processing
+            title="Click To edit"
+            color="teal"
+            withBorder
+          >
+            <Avatar
+              src={value ? URL.createObjectURL(value) : image}
+              size={80}
+              radius={80}
+              mt={-30}
+              className={classes.avatar}
+            />
+          </Indicator>
+        </Group>
       </Popover.Target>
       <Popover.Dropdown p={'md'}>
         <FileInput
@@ -54,12 +70,17 @@ const PictureUpdate = ({ image }: { image: string }) => {
           size="xs"
           value={value}
           onChange={setValue}
+          accept="image/png,image/jpeg,image/webp,image/jpg"
         />
         <Group my={'md'}>
-          <Button onClick={handleSubmit}>Submit</Button>
-          <Button color="red" onClick={() => setValue(null)}>
-            Clear
-          </Button>
+          <Button onClick={handleSubmit}>Save</Button>
+          {value ? (
+            <Button color="red" onClick={() => setValue(null)}>
+              Clear
+            </Button>
+          ) : (
+            ''
+          )}
         </Group>
       </Popover.Dropdown>
     </Popover>

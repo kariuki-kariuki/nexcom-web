@@ -21,12 +21,13 @@ export interface UserProps {
 
 export interface GlobalUser {
   id: number;
-  email: string;
+  email?: string;
   photo: string;
   firstName: string;
   lastName: string;
   updated_at: string;
   shop: Shop | null;
+  status: string;
 }
 
 export interface ConversationProps {
