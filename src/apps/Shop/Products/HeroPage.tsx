@@ -10,13 +10,13 @@ interface Iprop {
   products: ProductWithShop[];
 }
 function HeroPage({ products }: Iprop) {
-  const [opened, { open, close }] = useDisclosure(false);
+  const [opened, { toggle }] = useDisclosure(false);
   const [viewing, setVeiwing] = useState<ProductWithShop>(products?.[0]);
   const product = products?.map((product: ProductWithShop, index) => (
     <ProductCard
       product={product}
       setViewing={setVeiwing}
-      open={open}
+      toggle={toggle}
       key={index}
     />
   ));
@@ -28,7 +28,12 @@ function HeroPage({ products }: Iprop) {
           {product}
         </Grid>
       </ScrollArea>
-      <ProductModal opened={opened} close={close} product={viewing} />
+      <ProductModal
+        opened={opened}
+        toggle={toggle}
+        product={viewing}
+        shopId={viewing.shop.id}
+      />
     </Paper>
   );
 }

@@ -1,8 +1,7 @@
 import {
+  Box,
   Button,
-  Card,
   Flex,
-  Grid,
   Group,
   Input,
   InputWrapper,
@@ -21,42 +20,46 @@ const Cart = () => {
   const { result } = useFetch<Order[] | null>('orders');
   console.log(result);
   return (
-    <Paper className={classes.main}>
+    <Paper className={classes.main} h={'100vh'}>
       <HeaderSearch />
-      <Grid style={{ overflow: 'hidden' }}>
-        <Grid.Col span={8}>
+      <Flex
+        h={'85%'}
+        className={classes.flex}
+        direction={'row'}
+        justify={'center'}
+        align={'center'}
+        gap={'md'}
+      >
+        <Box w={{ base: '100%', sm: '70%' }} h={'100%'}>
           {result ? <CartTable orders={result} /> : ''}
-        </Grid.Col>
-        <Grid.Col span={4} px={3}>
-          <Card h={'100%'} className={classes.card} withBorder shadow="md">
-            <Flex
-              direction={'column'}
-              justify={'center'}
-              align={'center'}
-              h={'100%'}
-            >
-              <Paper className={classes.inner_card} shadow="md" p={'lg'}>
-                <MenuDrop />
-                <Group justify="space-between" p={'md'} w={'fit-content'}>
-                  <Text>Total</Text> <Text>$200</Text>
-                </Group>
-                <InputWrapper label={'Phone'} required p={'md'}>
-                  <Input placeholder="+254 742075647" />
-                </InputWrapper>
-                <Group p={'md'} justify="center">
-                  <Button
-                    color="green"
-                    w={'100%'}
-                    leftSection={<IconEyeDollar size={14} />}
-                  >
-                    CheckOut
-                  </Button>
-                </Group>
-              </Paper>
-            </Flex>
-          </Card>
-        </Grid.Col>
-      </Grid>
+        </Box>
+        <Flex
+          h={'100%'}
+          className={classes.card}
+          w={{ base: '100%', sm: '30%' }}
+          align={'center'}
+          justify={'center'}
+        >
+          <Paper className={classes.inner_card} shadow="md" p={'lg'}>
+            <MenuDrop />
+            <Group justify="space-between" p={'md'} w={'fit-content'}>
+              <Text>Total</Text> <Text>$200</Text>
+            </Group>
+            <InputWrapper label={'Phone'} required p={'md'}>
+              <Input placeholder="+254 742075647" />
+            </InputWrapper>
+            <Group p={'md'} justify="center">
+              <Button
+                color="green"
+                w={'100%'}
+                leftSection={<IconEyeDollar size={14} />}
+              >
+                CheckOut
+              </Button>
+            </Group>
+          </Paper>
+        </Flex>
+      </Flex>
     </Paper>
   );
 };

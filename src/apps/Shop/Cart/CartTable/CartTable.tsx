@@ -76,7 +76,10 @@ export function CartTable({ orders }: { orders: Order[] }) {
     return (
       <Table.Tr
         key={order.id}
-        className={cx({ [classes.rowSelected]: selected })}
+        className={cx({
+          [classes.rowSelected]: selected,
+          [classes.color]: !selected,
+        })}
       >
         <Table.Td>
           <Checkbox
@@ -85,8 +88,12 @@ export function CartTable({ orders }: { orders: Order[] }) {
           />
         </Table.Td>
         <Table.Td>
-          <Group gap="sm" h={100}>
-            <Image style={{ height: '100%' }} src={order.product.images[0]} />
+          <Group gap="sm" h={70}>
+            <Image
+              style={{ height: '100%' }}
+              src={order.product.images[0]}
+              radius={'md'}
+            />
             <Text size="sm" fw={500}>
               {order.product.name}
             </Text>
@@ -125,7 +132,13 @@ export function CartTable({ orders }: { orders: Order[] }) {
   return (
     <Paper className={classes.main}>
       <ScrollArea>
-        <Table miw={0} verticalSpacing="sm" withRowBorders={false} striped>
+        <Table
+          miw={0}
+          verticalSpacing="sm"
+          withRowBorders={false}
+          stickyHeader
+          // stickyHeaderOffset={60}
+        >
           <Table.Thead>
             <Table.Tr>
               <Table.Th style={{ width: rem(40) }}>

@@ -2,3 +2,14 @@
   background-color: var(--mantine-color-blue-light);
 }
 
+.color {
+  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-coco-0));
+
+}
+
+.main{
+  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-coco-1));
+  height: 100%;
+  padding: var(--mantine-spacing-md);
+  border-radius: var(--mantine-spacing-md);
+}

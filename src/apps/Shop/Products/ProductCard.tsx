@@ -6,10 +6,10 @@ import { Carousel } from '@mantine/carousel';
 interface Iprops {
   product: ProductWithShop;
   setViewing: (item: ProductWithShop) => void;
-  open: () => void;
+  toggle: () => void;
 }
 
-function ProductCard({ product, open, setViewing }: Iprops) {
+function ProductCard({ product, toggle, setViewing }: Iprops) {
   const slides = product.images.map((image) => (
     <Carousel.Slide key={image} classNames={{ slide: classes.slides }}>
       <Image src={image} height={'100%'} />
@@ -65,7 +65,7 @@ function ProductCard({ product, open, setViewing }: Iprops) {
             radius="md"
             bg={'teal'}
             onClick={() => {
-              setViewing(product), open();
+              setViewing(product), toggle();
             }}
           >
             Add to Cart
