@@ -14,10 +14,21 @@
 
 .flex {
   border-radius: var(--mantine-spacing-md);
+  position: relative;
   /* background-color: light-dark(var(--mantine-color-gray-2), #06141b); */
 }
 
 .group {
   border-radius: var(--mantine-spacing-md) var(--mantine-spacing-md) 0px 0px;
   background-color: light-dark(var(--mantine-color-white-0), #06141b);
+}
+
+/* .relative {
+  position: absolute;
+} */
+
+.absolute {
+  position: absolute;
+  bottom: 20%;
+  left: 80%;
 }

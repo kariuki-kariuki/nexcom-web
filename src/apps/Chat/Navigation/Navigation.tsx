@@ -1,7 +1,20 @@
 import { ConversationProps } from '../../../@types/chat';
 import { ConversationButton } from './ConversationButton';
-import { Flex, Group, Paper, ScrollArea, Tooltip } from '@mantine/core';
-import { IconHome, IconSearch, IconShoppingBag } from '@tabler/icons-react';
+import {
+  ActionIcon,
+  Box,
+  Flex,
+  Group,
+  Paper,
+  ScrollArea,
+  Tooltip,
+} from '@mantine/core';
+import {
+  IconCirclePlusFilled,
+  IconHome,
+  IconSearch,
+  IconShoppingBag,
+} from '@tabler/icons-react';
 import classes from './Navigation.module.css';
 import { SocketType } from '../Chat';
 import { useNavigate } from 'react-router-dom';
@@ -74,9 +87,14 @@ const Navigation = ({
             <IconSearch size={18} />
           </Group>
         </Group>
-        <ScrollArea p={'5px'} bg={'none'} type="never">
+        <ScrollArea p={'5px'} bg={'none'} type="never" h={'100%'}>
           {conversation}
         </ScrollArea>
+        <Box className={classes.absolute}>
+          <ActionIcon bg={'blue'} size={40}>
+            <IconCirclePlusFilled size={20} color={'white'} />
+          </ActionIcon>
+        </Box>
       </Flex>
     </Paper>
   );

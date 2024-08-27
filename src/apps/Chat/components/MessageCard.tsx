@@ -1,6 +1,6 @@
 import classes from './style.module.css';
 import { Message } from '../../../@types/chat';
-import { Box, Card, Paper, Text } from '@mantine/core';
+import { Box, Card, Group, Paper, rem, Text } from '@mantine/core';
 import { useContext } from 'react';
 import { AppContext } from '../../../context/appContext';
 import { UserContextType } from '../../../@types/app';
@@ -24,17 +24,20 @@ const MessageCard = ({ message }: Props) => {
     >
       <Card bg={'none'} className={status ? classes.right : classes.left}>
         <Box className={status ? classes.box_right : classes.box_left} m={0}>
-          <Text className="font-serif" c={'white'}>
-            {message?.message}
-          </Text>
+          <Group>
+            <Text className="font-serif" c={'white'} py={0}>
+              {message?.message}
+            </Text>
+
+            <Text c={'gray'} fz={rem(10)} fw={100} pt={15}>
+              {`${date?.toLocaleString('en-US', {
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true,
+              })}`}
+            </Text>
+          </Group>
         </Box>
-        <Text c={'dimmed'} ff={'monospace'} fz={'xs'} p={'3px'}>
-          {`${date?.toLocaleString('en-US', {
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true,
-          })}`}
-        </Text>
       </Card>
     </Paper>
   );

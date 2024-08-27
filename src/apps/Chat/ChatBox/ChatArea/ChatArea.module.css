@@ -9,3 +9,19 @@
     var(--mantine-color-coco-1)
   );
 }
+
+.ps{
+  height: '100%';
+  overflow-y: scroll;
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-coco-1)
+  );
+  scroll-behavior: smooth;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}

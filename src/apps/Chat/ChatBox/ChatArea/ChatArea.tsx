@@ -1,6 +1,6 @@
 import Message from '../../components/MessageCard';
 import Bar from '../Bar/Bar';
-import { Flex, Paper, ScrollArea } from '@mantine/core';
+import { Box, Flex, Paper, ScrollArea } from '@mantine/core';
 import NewMessageBox from '../../components/NewMessageBox';
 import classes from './ChatArea.module.css';
 import { ConversationProps } from '../../../../@types/chat';
@@ -8,16 +8,27 @@ import {
   activeConversatonType,
   ConversationContext,
 } from '../../../../context/activeConversation';
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 export interface CloseProps {
   closes: () => void;
   activeConvo?: ConversationProps | null;
 }
+
 function ChatArea({ closes, activeConvo }: CloseProps) {
   const { activeConversation } = useContext(
     ConversationContext,
   ) as activeConversatonType;
 
+  const endOfMessagesRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to the bottom on new message or when conversation changes
+  useEffect(() => {
+    if (endOfMessagesRef.current) {
+      endOfMessagesRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [activeConvo?.messages, activeConversation?.messages]); // Triggers when messages change
+
+  console.log(activeConvo);
   const messages = activeConvo?.messages?.map((message, idx) => (
     <Message message={message} key={idx} />
   ));
@@ -37,8 +48,20 @@ function ChatArea({ closes, activeConvo }: CloseProps) {
         m={'0px'}
       >
         <Bar closes={closes} />
-        <ScrollArea h={'100%'} p={0} className={classes.scroll}>
-          {activeConversation ? <div>{messages}</div> : ''}
+        <ScrollArea
+          h={'100%'}
+          py={0}
+          px={{ sm: 'xl' }}
+          className={classes.scroll}
+        >
+          {activeConversation ? (
+            <Box>
+              <div className={classes.clearfix}>{messages}</div>
+              <div ref={endOfMessagesRef} />
+            </Box>
+          ) : (
+            ''
+          )}
         </ScrollArea>
         <NewMessageBox />
       </Flex>
