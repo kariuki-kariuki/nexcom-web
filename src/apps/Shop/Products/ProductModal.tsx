@@ -71,7 +71,7 @@ function ProductModal({ opened, close, product }: Iprops) {
     >
       <Grid bg={'coco-1'} h={'rem(100%)'}>
         <Grid.Col span={{ base: 12, sm: 6 }}>
-          <Card p={{ base: 'sm', md: 'xl' }} h={'100%'}>
+          <Card p={{ base: 'sm', md: 'xl' }} h={{ base: '100%', sm: '100%' }}>
             <Card.Section className="flex content-center" h={'100%'}>
               <ImageCarousel images={product?.images} />
             </Card.Section>
@@ -141,9 +141,9 @@ function ProductModal({ opened, close, product }: Iprops) {
               </Group>
               <Group justify="center">
                 <Button
-                  leftSection={<IconBasketPlus size={14} />}
+                  leftSection={<IconBasketPlus size={20} />}
                   onClick={handleSubmit}
-                  bg={'purple'}
+                  bg={'teal.7'}
                 >
                   Add To Cart
                 </Button>
