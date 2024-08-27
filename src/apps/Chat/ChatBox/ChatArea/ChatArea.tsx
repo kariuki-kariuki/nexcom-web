@@ -28,7 +28,6 @@ function ChatArea({ closes, activeConvo }: CloseProps) {
     }
   }, [activeConvo?.messages, activeConversation?.messages]); // Triggers when messages change
 
-  console.log(activeConvo);
   const messages = activeConvo?.messages?.map((message, idx) => (
     <Message message={message} key={idx} />
   ));

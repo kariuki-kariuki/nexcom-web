@@ -34,7 +34,7 @@ export type ShopProduct = {
 
 export interface Shop {
   name: string;
-  id: string;
+  id: number;
 }
 
 interface ShopWithUser extends Shop {
