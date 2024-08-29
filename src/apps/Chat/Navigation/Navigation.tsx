@@ -20,23 +20,23 @@ import { SocketType } from '../Chat';
 import { useNavigate } from 'react-router-dom';
 import SmallComponent from './SmallComponent';
 import { Dispatch, SetStateAction } from 'react';
+import { useDisclosure } from '@mantine/hooks';
+import NewMessage from './NewMessage';
 interface Props {
   conversations: ConversationProps[];
   open: () => void;
   socket: SocketType;
   setActiveConvo: (convo: ConversationProps) => void;
-  opened: boolean;
   setConverSations: Dispatch<SetStateAction<ConversationProps[]>>;
 }
 
-const Navigation = ({
+export default function Navigation({
   conversations,
   open,
   socket,
   setActiveConvo,
-  // opened,
   setConverSations,
-}: Props) => {
+}: Props) {
   const navigate = useNavigate();
   conversations.sort((a, b) => {
     const timeA = new Date(
@@ -90,14 +90,20 @@ const Navigation = ({
         <ScrollArea p={'5px'} bg={'none'} type="never" h={'100%'}>
           {conversation}
         </ScrollArea>
-        <Box className={classes.absolute}>
-          <ActionIcon bg={'blue'} size={40}>
-            <IconCirclePlusFilled size={20} color={'white'} />
-          </ActionIcon>
-        </Box>
+        <AddPop />
       </Flex>
     </Paper>
   );
-};
+}
 
-export default Navigation;
+function AddPop() {
+  const [opened, { toggle }] = useDisclosure(false);
+  return (
+    <Box className={classes.absolute}>
+      <ActionIcon bg={'blue'} size={40} onClick={toggle}>
+        <IconCirclePlusFilled size={20} color={'white'} />
+      </ActionIcon>
+      <NewMessage opened={opened} toggle={toggle} />
+    </Box>
+  );
+}

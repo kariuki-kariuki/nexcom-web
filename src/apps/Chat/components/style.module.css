@@ -46,3 +46,11 @@
 .send {
   padding: 10;
 }
+
+.emoji {
+  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-coco-1));
+}
+
+.msg {
+  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-0));
+}

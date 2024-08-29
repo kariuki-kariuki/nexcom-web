@@ -32,7 +32,6 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
       {color}
     </Badge>
   ));
-  console.log(`Shop id: ${shopId}`);
   const token = localStorage.getItem('token');
   function handleSubmit() {
     fetch(`${url}/orders`, {

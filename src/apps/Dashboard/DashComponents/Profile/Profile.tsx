@@ -31,7 +31,7 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
   return (
     <Card h={'100%'} className={classes.profile} radius={'md'} pb={'lg'}>
       <Card.Section
-        h={140}
+        h={70}
         style={{
           backgroundImage:
             'url(https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80)',
