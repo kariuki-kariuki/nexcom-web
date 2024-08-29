@@ -11,15 +11,15 @@ export function UserButton() {
   return (
     <UnstyledButton className={classes.user} py={'md'}>
       <Group grow preventGrowOverflow={false} wrap="nowrap">
-        <Avatar src={user.photo} radius="xl" />
+        <Avatar src={user?.photo} radius="xl" />
 
         <div style={{ flex: 1 }}>
           <Text size="sm" fw={500}>
-            {user.firstName}
+            {user?.firstName}
           </Text>
 
           <Text c="dimmed" size="xs">
-            {user.email}
+            {user?.email}
           </Text>
         </div>
 

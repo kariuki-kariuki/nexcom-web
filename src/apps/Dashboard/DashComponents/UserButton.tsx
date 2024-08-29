@@ -8,14 +8,14 @@ const UserButton = () => {
 
   return (
     <Group bg={'none'}>
-      <Avatar src={user.photo} />
+      <Avatar src={user?.photo} />
       <div style={{ flex: 1 }}>
         <Text size="sm" fw={500}>
-          {user.firstName}
+          {user?.firstName}
         </Text>
 
         <Text c="dimmed" size="xs">
-          {user.email}
+          {user?.email}
         </Text>
       </div>
     </Group>

@@ -59,7 +59,6 @@ function Chat() {
           setActiveConvo={setActiveConvo}
           open={open}
           socket={socket}
-          opened={opened}
           setConverSations={setConversation}
         />
       </Card>
