@@ -6,23 +6,33 @@ import {
   IconMoonFilled,
   IconPhoneCalling,
   IconShoppingBag,
-  IconSquareLetterXFilled,
   IconSunFilled,
   IconTrash,
   IconVideo,
 } from '@tabler/icons-react';
-import { Box, Menu, rem, Tooltip, useMantineColorScheme } from '@mantine/core';
-import Dashboard from '../../Dashboard/Dashboard';
+import {
+  Box,
+  Menu,
+  rem,
+  Text,
+  Tooltip,
+  useMantineColorScheme,
+} from '@mantine/core';
+import Dashboard from '../../../Dashboard/Dashboard';
 import classes from './Miscelenious.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { AppContext } from '../../../context/appContext';
-import { UserContextType } from '../../../@types/app';
+import { AppContext } from '../../../../context/appContext';
+import { UserContextType } from '../../../../@types/app';
 import {
   activeConversatonType,
   ConversationContext,
-} from '../../../context/activeConversation';
+} from '../../../../context/activeConversation';
+import {
+  NewConversationContext,
+  NewConversationType,
+} from '../../../../context/newConversation';
 function Miscelenious() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [opened, { open, close }] = useDisclosure();
@@ -31,6 +41,9 @@ function Miscelenious() {
   const { activeConversation, setActiveConversation } = useContext(
     ConversationContext,
   ) as activeConversatonType;
+  const { newConversation, setNewConversation } = useContext(
+    NewConversationContext,
+  ) as NewConversationType;
 
   return (
     <div className="flex justify-around">
@@ -40,13 +53,19 @@ function Miscelenious() {
       <div className="p-3">
         <IconPhoneCalling />
       </div>
-      {activeConversation ? (
+      {activeConversation || newConversation ? (
         <div className="p-3">
           <Tooltip label="Close this conversation">
-            <IconSquareLetterXFilled
-              color="red"
-              onClick={() => setActiveConversation(null)}
-            />
+            <Text
+              fw={500}
+              c="red"
+              onClick={() => {
+                setActiveConversation(null);
+                setNewConversation(null);
+              }}
+            >
+              X
+            </Text>
           </Tooltip>
         </div>
       ) : (
@@ -64,8 +83,7 @@ function Miscelenious() {
             <Menu.Dropdown className={classes.menu_drop}>
               <Menu.Label>Application</Menu.Label>
               <Menu.Item
-                component="a"
-                href="/shop"
+                onClick={() => navigate('/shop')}
                 leftSection={
                   <IconShoppingBag
                     style={{ width: rem(14), height: rem(14) }}
@@ -82,7 +100,7 @@ function Miscelenious() {
                   />
                 }
               >
-                Dashboard
+                Profile
               </Menu.Item>
               <Menu.Item
                 leftSection={

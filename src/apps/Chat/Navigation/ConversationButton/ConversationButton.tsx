@@ -1,5 +1,5 @@
 import { Group, Avatar, Text, Card, Badge, Flex, rgba } from '@mantine/core';
-import classes from './UserButton.module.css';
+import classes from './ConversationButton.module.css';
 import {
   Dispatch,
   SetStateAction,
@@ -7,16 +7,24 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { ConversationProps, GlobalUser, Message } from '../../../@types/chat';
+import {
+  ConversationProps,
+  GlobalUser,
+  Message,
+} from '../../../../@types/chat';
 import {
   ConversationContext,
   activeConversatonType,
-} from '../../../context/activeConversation';
+} from '../../../../context/activeConversation';
 import {
   ScreenContext,
   screenContextType,
-} from '../../../context/screenContext';
-import { activeType, SocketType } from '../Chat';
+} from '../../../../context/screenContext';
+import { activeType, SocketType } from '../../Chat';
+import {
+  NewConversationContext,
+  NewConversationType,
+} from '../../../../context/newConversation';
 
 interface Props {
   conversation: ConversationProps;
@@ -38,6 +46,9 @@ export function ConversationButton({
   const { activeConversation, setActiveConversation } = useContext(
     ConversationContext,
   ) as activeConversatonType;
+  const { newConversation, setNewConversation } = useContext(
+    NewConversationContext,
+  ) as NewConversationType;
   const active: boolean = conversation.id === activeConversation?.id;
   const [messages, setMessages] = useState(conversation.messages);
   const lastMessage = messages ? messages[messages.length - 1] : null;
@@ -45,6 +56,10 @@ export function ConversationButton({
   const [count, setCount] = useState(0);
   const date = lastMessage ? new Date(lastMessage?.updated_at) : null;
   useEffect(() => {
+    if (newConversation?.id === user.id) {
+      setActiveConversation(conversation);
+      setNewConversation(null);
+    }
     const handleMessage = (msg: any) => {
       if (msg.conversation.id === conversation.id) {
         const message: Message = {

@@ -44,7 +44,7 @@ function Chat() {
     <Flex
       wrap="nowrap"
       gap={5}
-      p={{ base: '0px', md: 'sm' }}
+      p={{ base: '0px', sm: 'sm', md: 'sm' }}
       h="100vh"
       bg={bgColor}
     >
@@ -70,7 +70,7 @@ function Chat() {
         h="100%"
         radius={'lg'}
       >
-        <ChatArea closes={close} activeConvo={activeConvo} />
+        <ChatArea closes={close} activeConvo={activeConvo} socket={socket} />
       </Card>
       <Modal
         radius="md"
@@ -92,7 +92,7 @@ function Chat() {
           h={'97vh'}
           bg={colorScheme == 'dark' ? 'dark' : 'teal'}
         >
-          <ChatArea closes={close} activeConvo={activeConvo} />
+          <ChatArea closes={close} activeConvo={activeConvo} socket={socket} />
         </Card>
       </Modal>
     </Flex>

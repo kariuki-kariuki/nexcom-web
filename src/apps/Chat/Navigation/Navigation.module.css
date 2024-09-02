@@ -1,5 +1,4 @@
 .nav {
-  /* border: 2px solid; */
   border-color: light-dark(var(--mantine-color-gray-3), #06141b);
   background-color: light-dark(
     var(--mantine-color-white),
@@ -30,5 +29,5 @@
 .absolute {
   position: absolute;
   bottom: 20%;
-  left: 80%;
+  left: 72%;
 }

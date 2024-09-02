@@ -1,7 +1,6 @@
-import Miscelenious from '../../components/Miscelenious';
+import Miscelenious from '../../components/Miscelenious/Miscelenious';
 import { IconArrowBadgeLeftFilled } from '@tabler/icons-react';
 import { Avatar, Group, Paper, Stack, Text } from '@mantine/core';
-import { CloseProps } from '../ChatArea/ChatArea';
 import classes from './Bar.module.css';
 import { useContext } from 'react';
 import {
@@ -10,13 +9,25 @@ import {
 } from '../../../../context/activeConversation';
 import Dashboard from '../../../Dashboard/Dashboard';
 import { useDisclosure } from '@mantine/hooks';
-
+import { ConversationProps } from '../../../../@types/chat';
+import {
+  NewConversationContext,
+  NewConversationType,
+} from '../../../../context/newConversation';
+interface CloseProps {
+  closes: () => void;
+  activeConvo?: ConversationProps | null;
+}
 // Top Bar on the Chatbox Area
 const Bar = ({ closes }: CloseProps) => {
   const { activeConversation, setActiveConversation } = useContext(
     ConversationContext,
   ) as activeConversatonType;
+  const user = activeConversation?.users[0];
   const [opened, { open, close }] = useDisclosure(false);
+  const { newConversation } = useContext(
+    NewConversationContext,
+  ) as NewConversationType;
   return (
     <>
       <Group
@@ -37,24 +48,24 @@ const Bar = ({ closes }: CloseProps) => {
               color="teal"
             />
           </Paper>
-          {activeConversation?.users ? (
-            <Group onClick={open}>
-              <Avatar src={activeConversation?.users[0].photo} />
-              <Stack gap={0}>
-                <Text>{activeConversation?.users[0].firstName}</Text>
-                <Text fz={'xs'} c={'dimmed'}>
-                  {activeConversation.users[0].status}
-                </Text>
-              </Stack>
-            </Group>
+          {user ? (
+            <Details
+              open={open}
+              name={user.firstName}
+              status={user.status}
+              avatar={user.photo}
+            />
           ) : (
-            <Group>
-              <Avatar src={activeConversation?.users[0].photo} />
-              <div className="px-5">
-                <Text>{activeConversation?.users[0].firstName}</Text>
-                <p className="hidden lg:block md:text-sm">"Hello World"</p>
-              </div>
-            </Group>
+            <>
+              {newConversation ? (
+                <Details
+                  name={newConversation?.firstName}
+                  status={`Start chatting with ${newConversation.firstName}`}
+                />
+              ) : (
+                <Details />
+              )}
+            </>
           )}
         </Group>
         <Paper visibleFrom="sm" bg={'none'}>
@@ -73,5 +84,31 @@ const Bar = ({ closes }: CloseProps) => {
     </>
   );
 };
+
+interface IDetails {
+  open?: () => void;
+  avatar?: string;
+  status?: string;
+  name?: string;
+}
+
+function Details({
+  open,
+  avatar,
+  status = 'Start A new Chat',
+  name,
+}: IDetails) {
+  return (
+    <Group onClick={open}>
+      <Avatar src={avatar} />
+      <Stack gap={0}>
+        <Text>{name}</Text>
+        <Text fz={'xs'} c={'dimmed'}>
+          {status}
+        </Text>
+      </Stack>
+    </Group>
+  );
+}
 
 export default Bar;

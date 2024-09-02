@@ -1,7 +1,7 @@
-import Message from '../../components/MessageCard';
+import Message from '../../components/MessageCard/MessageCard';
 import Bar from '../Bar/Bar';
 import { Box, Flex, Paper, ScrollArea } from '@mantine/core';
-import NewMessageBox from '../../components/NewMessageBox';
+import NewMessageBox from '../../components/NewMessageBox/NewMessageBox';
 import classes from './ChatArea.module.css';
 import { ConversationProps } from '../../../../@types/chat';
 import {
@@ -9,12 +9,14 @@ import {
   ConversationContext,
 } from '../../../../context/activeConversation';
 import { useContext, useEffect, useRef } from 'react';
-export interface CloseProps {
+import { SocketType } from '../../Chat';
+interface CloseProps {
   closes: () => void;
   activeConvo?: ConversationProps | null;
+  socket: SocketType;
 }
 
-function ChatArea({ closes, activeConvo }: CloseProps) {
+function ChatArea({ closes, activeConvo, socket }: CloseProps) {
   const { activeConversation } = useContext(
     ConversationContext,
   ) as activeConversatonType;
@@ -52,17 +54,18 @@ function ChatArea({ closes, activeConvo }: CloseProps) {
           py={0}
           px={{ sm: 'xl' }}
           className={classes.scroll}
+          scrollbars="y"
         >
           {activeConversation ? (
             <Box>
               <div className={classes.clearfix}>{messages}</div>
-              <div ref={endOfMessagesRef} />
             </Box>
           ) : (
             ''
           )}
+          <div ref={endOfMessagesRef} />
         </ScrollArea>
-        <NewMessageBox />
+        <NewMessageBox socket={socket} />
       </Flex>
     </Paper>
   );

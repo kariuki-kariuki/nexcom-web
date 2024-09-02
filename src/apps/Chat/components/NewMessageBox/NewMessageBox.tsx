@@ -6,26 +6,33 @@ import {
   TextInput,
   useMantineColorScheme,
 } from '@mantine/core';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   ConversationContext,
   activeConversatonType,
-} from '../../../context/activeConversation';
+} from '../../../../context/activeConversation';
 import { Theme } from 'emoji-picker-react';
-import classes from './style.module.css';
-import { io, Socket } from 'socket.io-client';
+import classes from './NewMessageBox.module.css';
 import EmojiPicker from 'emoji-picker-react';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSend } from '@tabler/icons-react';
-
-const NewMessageBox = () => {
-  const [message, setMessage] = useState('');
+import { SocketType } from '../../Chat';
+import {
+  NewConversationContext,
+  NewConversationType,
+} from '../../../../context/newConversation';
+interface Props {
+  socket: SocketType;
+}
+const NewMessageBox = ({ socket }: Props) => {
+  const [message, setMessage] = useState<string>('');
   const { activeConversation } = useContext(
     ConversationContext,
   ) as activeConversatonType;
+  const { newConversation } = useContext(
+    NewConversationContext,
+  ) as NewConversationType;
 
-  const [socket, setSocket] = useState<Socket | null>(null);
-  const url = 'ws://192.168.100.16:3002';
   const [opened, { toggle }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();
   function theme() {
@@ -36,24 +43,26 @@ const NewMessageBox = () => {
     }
     return Theme.AUTO;
   }
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setSocket(
-      io(url, {
-        extraHeaders: {
-          authorization: `Bearer ${token}`,
-        },
-      }),
-    );
-  }, [url, setSocket]);
   const handleSubmit = () => {
-    if (activeConversation) {
+    if (activeConversation && message) {
       const messageBody = {
         message,
         conversation: activeConversation?.id,
       };
       try {
         socket?.emit('message', messageBody);
+        setMessage('');
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    if (newConversation && message) {
+      const messageBody = {
+        message,
+        email: newConversation.email,
+      };
+      try {
+        socket?.emit('new-conversation', messageBody);
         setMessage('');
       } catch (e) {
         console.log(e);
@@ -73,7 +82,7 @@ const NewMessageBox = () => {
           onChange={(event) => setMessage(event.currentTarget.value)}
           w={'100%'}
           c={'white'}
-          disabled={activeConversation ? false : true}
+          disabled={activeConversation || newConversation ? false : true}
           rightSection={
             <IconSend
               color="teal"
@@ -83,7 +92,7 @@ const NewMessageBox = () => {
           }
         />
       </Flex>
-      {activeConversation ? (
+      {activeConversation || newConversation ? (
         <EmojiPicker
           width={'100%'}
           lazyLoadEmojis={true}
