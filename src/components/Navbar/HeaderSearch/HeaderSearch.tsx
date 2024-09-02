@@ -16,14 +16,13 @@ export function HeaderSearch() {
   const [opened, { toggle }] = useDisclosure(false);
   const navigate = useNavigate();
   const items = links.map((link) => (
-    <a
+    <div
       key={link.label}
-      href={link.link}
       className={classes.link}
       onClick={() => navigate(link.link)}
     >
       {link.label}
-    </a>
+    </div>
   ));
 
   return (
