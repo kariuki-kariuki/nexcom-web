@@ -14,14 +14,17 @@ import '@mantine/charts/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/dropzone/styles.css';
 import '@mantine/notifications/styles.css';
+import NewConversationProvider from './context/newConversation.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <MantineProvider theme={theme} defaultColorScheme="light">
+    <MantineProvider theme={theme} defaultColorScheme="dark">
       <AppProvider>
         <ScreenProvider>
           <ConversationProvider>
-            <App />
+            <NewConversationProvider>
+              <App />
+            </NewConversationProvider>
           </ConversationProvider>
         </ScreenProvider>
       </AppProvider>

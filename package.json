@@ -10,6 +10,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
     "preview": "vite preview"
   },
+  "proxy": "http://192.168.100.16:3000",
   "dependencies": {
     "@catppuccin/tailwindcss": "^0.1.6",
     "@faker-js/faker": "^8.4.1",
