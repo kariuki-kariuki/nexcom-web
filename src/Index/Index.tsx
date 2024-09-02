@@ -1,4 +1,14 @@
-import { Avatar, Button, Flex, Group, Paper, rem, Text } from '@mantine/core';
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Group,
+  Paper,
+  rem,
+  Text,
+} from '@mantine/core';
 import logo from '../assets/mklogo.png';
 import { IconArrowRight } from '@tabler/icons-react';
 import { useContext, useEffect } from 'react';
@@ -18,21 +28,15 @@ const links = [
 function Index() {
   const { user, updateUser } = useContext(AppContext) as UserContextType;
   const { result } = useFetch<GlobalUser>(`auth/me`);
-
+  const navigate = useNavigate();
   useEffect(() => {
     updateUser(result);
   }, [result]);
   const items = links.map((link) => (
-    <a
-      key={link.label}
-      href={link.link}
-      className={classes.link}
-      onClick={() => navigate(link.link)}
-    >
+    <div className={classes.link} onClick={() => navigate(link.link)}>
       {link.label}
-    </a>
+    </div>
   ));
-  const navigate = useNavigate();
   return (
     <Paper h={'100vh'} p={{ base: 'sm', sm: 'lg' }} className={classes.main}>
       <div className="flex justify-between p-5 md:p-5  sticky top-0 left-0 right-0">
@@ -41,7 +45,7 @@ function Index() {
           <Text className={classes.text}>COCO</Text>
         </Group>
         <Group>{items}</Group>
-        <Group>
+        <Group visibleFrom="sm">
           {/* <TextInput
               placeholder="search"
               pr={10}
@@ -74,27 +78,50 @@ function Index() {
           >
             Bringing You a <br />
             New Experience In <br />
-            <span className="text-orange-500">Communication</span> and{' '}
-            <span className="text-orange-500">Commerce</span>
+            <Text
+              component="span"
+              ff={'serif'}
+              c={'teal'}
+              fw={{ base: 'bold' }}
+              fz={{ base: 'md', sm: 'h1' }}
+            >
+              Communication
+            </Text>{' '}
+            <Text component="span" ff={'serif'} fz={{ base: 'md', sm: 'h1' }}>
+              And
+            </Text>{' '}
+            <Text
+              c="teal"
+              ff={'serif'}
+              component="span"
+              fw={{ base: 'bold' }}
+              fz={{ base: 'md', sm: 'h1' }}
+            >
+              Commerce
+            </Text>
           </Text>
 
-          <hr className="w-3/5 mb-3 border-purple-900" />
-          <hr className="w-2/5 mb-3 border-purple-900" />
-          <hr className="w-1/5 mb-3 border-purple-900" />
+          <Divider color={'teal'} className="w-3/5 mb-3" />
+          <Divider color={'teal'} className="w-2/5 mb-3" />
+          <Divider color={'teal'} className="w-1/5 mb-3" />
           <Button
             variant="outline"
             component="a"
             href={user?.firstName ? '/shop' : '/login'}
             rightSection={<IconArrowRight size={20} />}
-            color="purple"
+            color="teal"
           >
             Get Started
           </Button>
         </div>
-        <div className="">
-          <p className="text-8xl">CO</p>
-          <p className="text-8xl">CO</p>
-        </div>
+        <Box>
+          <Text fz={{ base: '50px' }} lh={1} fw={900}>
+            CO
+          </Text>
+          <Text fz={{ base: '50px' }} fw={900}>
+            CO
+          </Text>
+        </Box>
       </Flex>
     </Paper>
   );

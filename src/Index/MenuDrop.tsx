@@ -35,8 +35,7 @@ export default function MenuDrop() {
         <Menu.Dropdown className={classes.menu_drop}>
           <Menu.Label>Application</Menu.Label>
           <Menu.Item
-            component="a"
-            href="/shop"
+            onClick={() => navigate('/shop')}
             leftSection={
               <IconShoppingBag style={{ width: rem(14), height: rem(14) }} />
             }
@@ -57,10 +56,9 @@ export default function MenuDrop() {
             leftSection={
               <IconMessageCircle style={{ width: rem(14), height: rem(14) }} />
             }
-            component="a"
-            href="/chat"
+            onClick={() => navigate('/chat')}
           >
-            Messages
+            Chat
           </Menu.Item>
           <Menu.Item
             leftSection={
