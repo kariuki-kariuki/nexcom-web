@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // import App from "../App";
 import Login from '../apps/Auth/Login';
 import Register from '../apps/Auth/Register';
@@ -8,46 +8,47 @@ import Index from '../Index/Index';
 import Chat from '../apps/Chat/Chat';
 import Callback from '../apps/Auth/Callback';
 import Cart from '../apps/Shop/Cart/Cart';
-// import { useContext } from "react";
-// import { AppContext } from "../context/appContext";
-// import { UserContextType } from "../@types/app";
+import { GlobalUser } from '../@types/chat';
+const MyRoutes = ({ user }: { user: GlobalUser | null }) => {
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Index />,
+    },
+    {
+      path: '/home',
+      element: <Index />,
+    },
+    {
+      path: '/login',
+      element: user ? <Index /> : <Login />,
+    },
+    {
+      path: '/callback/:token',
+      element: <Callback />,
+    },
+    {
+      path: '/register',
+      element: <Register />,
+    },
+    {
+      path: '/admin',
+      element: user?.shop ? <Admin /> : <Login />,
+    },
+    {
+      path: '/chat',
+      element: user ? <Chat /> : <Login />,
+    },
+    {
+      path: '/shop',
+      element: <Shop />,
+    },
+    {
+      path: '/cart',
+      element: <Cart />,
+    },
+  ]);
+  return <RouterProvider router={router} />;
+};
 
-// export const  {user} = useContext(AppContext) as UserContextType
-export const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Index />,
-  },
-  {
-    path: '/home',
-    element: <Index />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/callback/:token',
-    element: <Callback />,
-  },
-  {
-    path: '/register',
-    element: <Register />,
-  },
-  {
-    path: '/admin',
-    element: <Admin />,
-  },
-  {
-    path: '/chat',
-    element: <Chat />,
-  },
-  {
-    path: '/shop',
-    element: <Shop />,
-  },
-  {
-    path: '/cart',
-    element: <Cart />,
-  },
-]);
+export default MyRoutes;

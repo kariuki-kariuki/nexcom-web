@@ -1,32 +1,20 @@
 import { useContext, useEffect } from 'react';
 import './App.css';
-import { RouterProvider } from 'react-router-dom';
-import { router } from './routes/Routes.tsx';
 import { AppContext } from './context/appContext';
 import { UserContextType } from './@types/app';
+import { useFetch } from './hooks/useFetchHooks.tsx';
+import { GlobalUser } from './@types/chat';
+import MyRoutes from './routes/Routes.tsx';
 
 function App() {
-  const { updateUser } = useContext(AppContext) as UserContextType;
-  const token = localStorage.getItem('token');
-
+  const { user, updateUser } = useContext(AppContext) as UserContextType;
+  const { result } = useFetch<GlobalUser>(`auth/me`);
+  updateUser(result);
   useEffect(() => {
-    fetch(`http://192.168.100.16:3000/auth/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then((res) => {
-          updateUser(res);
-        });
-      }
-    });
+    updateUser(result);
   }, []);
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+
+  return <MyRoutes user={user} />;
 }
 
 export default App;
