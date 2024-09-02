@@ -19,18 +19,14 @@ function Admin() {
         <Box w={{ base: '100%', sm: '30%', md: '25%' }} visibleFrom="sm">
           <NavbarSearch active={active} setActive={setActive} />
         </Box>
-        <Box
+        <Flex
           w={{ base: '100%', sm: '70%', md: '75%' }}
-          py={{ sm: 'md' }}
+          h={'100%'}
+          direction={'column'}
           className={classes.flex}
         >
-          <Header />
-          <ScrollArea
-            h={'100%'}
-            p={{ sm: 'md', md: 'md' }}
-            w={'100%'}
-            scrollbars="y"
-          >
+          <Header active={active} setActive={setActive} />
+          <ScrollArea w={'100%'} h={'100%'} type="never">
             <Grid>
               <Grid.Col span={{ base: 12, sm: 12, md: 6 }}>
                 <StatsGrid />
@@ -39,16 +35,20 @@ function Admin() {
                 <UsersTable />
                 <StatsChart />
               </Grid.Col>
-              <Grid.Col span={{ base: 12, sm: 12, md: 6 }} p={'md'}>
+              <Grid.Col
+                span={{ base: 12, sm: 12, md: 6 }}
+                p={'md'}
+                className={classes.scroll}
+              >
+                <StartLine />
                 <StatsChart />
                 <UsersTable />
-                <StartLine />
                 <StatsSegments />
                 <AdminCalendar />
               </Grid.Col>
             </Grid>
           </ScrollArea>
-        </Box>
+        </Flex>
       </Flex>
     </Box>
   );

@@ -74,23 +74,23 @@ export function UsersTable() {
     });
     // console.log(user_data);
   }, [activePage]);
-  const rows = user_data.slice(4, 10).map((user, index) => (
+  const rows = user_data.slice(0, 10).map((user, index) => (
     <Table.Tr key={index}>
       <Table.Td>
-        <Group gap="sm">
+        <Group gap="sm" wrap="nowrap">
           <Avatar
             size={30}
             src={user.photo ? user.photo : faker.image.avatar()}
             radius={30}
           />
-          <Text fz="sm" fw={500}>
+          <Text fz="sm" fw={500} lineClamp={1}>
             {user.firstName} {}
           </Text>
         </Group>
       </Table.Td>
 
       <Table.Td>
-        <Anchor component="button" size="sm">
+        <Anchor component="button" size="sm" lineClamp={1}>
           {user.email}
         </Anchor>
       </Table.Td>
@@ -118,7 +118,8 @@ export function UsersTable() {
 
   return (
     <Table.ScrollContainer
-      minWidth={10}
+      maw={'100%'}
+      minWidth={'100%'}
       className={classes.main}
       style={{ borderRadius: '10px' }}
       my={'md'}

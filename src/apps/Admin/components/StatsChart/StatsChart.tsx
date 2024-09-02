@@ -1,4 +1,4 @@
-import { Group, Paper, Text } from '@mantine/core';
+import { Grid, Group, Paper, Text } from '@mantine/core';
 import { DonutChart } from '@mantine/charts';
 import { IconUserBolt, IconUserCheck } from '@tabler/icons-react';
 import classes from './StatsChart.module.css';
@@ -33,32 +33,30 @@ const userData = [
 ];
 const StatsChart = () => {
   const stats = userData.map((data) => (
-    <Paper p={'md'} className={classes.main}>
-      <div>
-        <Group justify="space-between" mb={'md'}>
-          <Text fz={'sm'}>{data.label}</Text>
-          <data.icon size={18} />
-        </Group>
-        <Group justify="space-between">
-          <div>
-            <Text fz={'h1'} ff={'serif'}>
-              {data.data.reduce((acc, curr) => {
-                return acc + curr.value;
-              }, 0) / 100}
-              K
-            </Text>
-            <Text fz={'xs'}>{data.desc}</Text>
-          </div>
-          <DonutChart data={data.data} size={70} />
-        </Group>
-      </div>
-    </Paper>
+    <Grid.Col span={{ base: 12, sm: 6 }}>
+      <Paper p={'md'} className={classes.main}>
+        <div>
+          <Group justify="space-between" mb={'md'}>
+            <Text fz={'sm'}>{data.label}</Text>
+            <data.icon size={18} />
+          </Group>
+          <Group justify="space-between">
+            <div>
+              <Text fz={'h1'} ff={'serif'}>
+                {data.data.reduce((acc, curr) => {
+                  return acc + curr.value;
+                }, 0) / 100}
+                K
+              </Text>
+              <Text fz={'xs'}>{data.desc}</Text>
+            </div>
+            <DonutChart data={data.data} size={70} />
+          </Group>
+        </div>
+      </Paper>
+    </Grid.Col>
   ));
-  return (
-    <Group grow py={'sm'}>
-      {stats}
-    </Group>
-  );
+  return <Grid py={'sm'}>{stats}</Grid>;
 };
 
 export default StatsChart;
