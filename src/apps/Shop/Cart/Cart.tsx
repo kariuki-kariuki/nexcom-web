@@ -1,6 +1,6 @@
 import {
-  Box,
   Button,
+  Card,
   Flex,
   Group,
   Input,
@@ -30,9 +30,14 @@ const Cart = () => {
         align={'center'}
         gap={'md'}
       >
-        <Box w={{ base: '100%', sm: '70%' }} h={'100%'}>
-          {result ? <CartTable orders={result} /> : ''}
-        </Box>
+        <Card
+          w={{ base: '100%', sm: '70%' }}
+          h={'100%'}
+          bg={'coco.0'}
+          radius={'md'}
+        >
+          {result && result.length > 0 ? <CartTable orders={result} /> : ''}
+        </Card>
         <Flex
           h={'100%'}
           className={classes.card}

@@ -27,7 +27,7 @@ interface Iprops {
 function ProductModal({ opened, toggle, product, shopId }: Iprops) {
   const [quantity, setQuantity] = useState(1);
   const { user } = useContext(AppContext) as UserContextType;
-  const colors = product.colors?.map((color, index) => (
+  const colors = product?.colors?.map((color, index) => (
     <Badge variant="filled" color={color} key={index} p={'sm'}>
       {color}
     </Badge>
@@ -158,7 +158,7 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
                         +
                       </Button>
                     </Button.Group>
-                    <Text>Total {product.price * quantity}</Text>
+                    <Text>Total {product?.price * quantity}</Text>
                   </Group>
                   <Group justify="center">
                     <Button

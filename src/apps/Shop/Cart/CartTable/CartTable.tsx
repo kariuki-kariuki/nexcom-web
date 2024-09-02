@@ -57,8 +57,8 @@ const data = [
   },
 ];
 
-export function CartTable({ orders }: { orders: Order[] }) {
-  const [selection, setSelection] = useState([orders[0].id.toString()]);
+export function CartTable({ orders }: { orders: Order[] | null }) {
+  const [selection, setSelection] = useState([orders?.[0].id.toString()]);
   const toggleRow = (id: string) =>
     setSelection((current) =>
       current.includes(id)
@@ -67,15 +67,15 @@ export function CartTable({ orders }: { orders: Order[] }) {
     );
   const toggleAll = () =>
     setSelection((current) =>
-      current.length === data.length ? [] : data.map((item) => item.id),
+      current.length === data.length ? [] : data?.map((item) => item?.id),
     );
 
-  const rows = orders.map((order) => {
-    const selected = selection.includes(order.id.toString());
+  const rows = orders?.map((order) => {
+    const selected = selection.includes(order?.id.toString());
     const [myOrders, setOrders] = useState(order);
     return (
       <Table.Tr
-        key={order.id}
+        key={order?.id}
         className={cx({
           [classes.rowSelected]: selected,
           [classes.color]: !selected,

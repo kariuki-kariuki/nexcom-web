@@ -32,7 +32,7 @@ function HeroPage({ products }: Iprop) {
         opened={opened}
         toggle={toggle}
         product={viewing}
-        shopId={viewing.shop.id}
+        shopId={viewing?.shop.id}
       />
     </Paper>
   );

@@ -23,10 +23,15 @@ function Shop() {
       <Box className={classes.shop}>
         <HeaderSearch />
         <Box className={classes.sections} bg={'none'}>
-          <Paper w={'25%'} visibleFrom="sm" p={0} bg={'none'}>
+          <Paper
+            w={{ sm: '30%', md: '25%' }}
+            visibleFrom="sm"
+            p={0}
+            bg={'none'}
+          >
             <NavbarNested />
           </Paper>
-          <Paper w={{ sm: '75%' }} p={0} bg={'none'}>
+          <Paper w={{ base: '100%', sm: '70%', md: '75%' }} p={0} bg={'none'}>
             {result ? <HeroPage products={result} /> : ''}
           </Paper>
         </Box>
