@@ -1,10 +1,11 @@
-import { Grid, Paper, ScrollArea } from '@mantine/core';
+import { Flex, Grid, ScrollArea } from '@mantine/core';
 import ProductCard from './ProductCard';
 import { ProductWithShop } from '../../../@types/shop';
 import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 import ProductModal from './ProductModal';
 import classes from './hero.module.css';
+import { HeaderSearch } from '../../../components/Navbar/HeaderSearch/HeaderSearch';
 
 interface Iprop {
   products: ProductWithShop[];
@@ -22,7 +23,14 @@ function HeroPage({ products }: Iprop) {
   ));
 
   return (
-    <Paper bg={'none'} className={classes.hero} pl={{ sm: 'md' }}>
+    <Flex
+      bg={'none'}
+      className={classes.hero}
+      pl={{ sm: 'md' }}
+      direction={'column'}
+    >
+      <HeaderSearch />
+
       <ScrollArea className={classes.scroll} scrollbars="y">
         <Grid p={0} gutter={'xs'}>
           {product}
@@ -34,7 +42,7 @@ function HeroPage({ products }: Iprop) {
         product={viewing}
         shopId={viewing?.shop.id}
       />
-    </Paper>
+    </Flex>
   );
 }
 

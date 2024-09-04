@@ -31,7 +31,8 @@ export default function Login(props: PaperProps) {
   const form = useForm({
     initialValues: {
       email: '',
-      name: '',
+      firstName: '',
+      lastName: '',
       password: '',
       terms: true,
     },
@@ -58,15 +59,13 @@ export default function Login(props: PaperProps) {
     });
   }
   function handleSubmit(values: typeof form.values) {
-    fetch(`${url}/auth/login`, {
+    console.log(values);
+    fetch(`${url}${type == 'login' ? '/auth/login' : '/auth/register'}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        email: values.email,
-        password: values.password,
-      }),
+      body: JSON.stringify(values),
     })
       .then((res) => {
         if (res.ok) {
@@ -76,7 +75,7 @@ export default function Login(props: PaperProps) {
             navigate('/chat', { replace: true });
           });
         } else {
-          throw res.statusText;
+          res.json().then((res) => console.log(res));
         }
       })
       .catch((err) => alert(err));
@@ -123,11 +122,22 @@ export default function Login(props: PaperProps) {
             <Stack>
               {type === 'register' && (
                 <TextInput
-                  label="Name"
+                  label="First Name"
                   placeholder="Your name"
-                  value={form.values.name}
+                  value={form.values.firstName}
                   onChange={(event) =>
-                    form.setFieldValue('name', event.currentTarget.value)
+                    form.setFieldValue('firstName', event.currentTarget.value)
+                  }
+                  radius="md"
+                />
+              )}
+              {type === 'register' && (
+                <TextInput
+                  label="Last Name"
+                  placeholder="Your name"
+                  value={form.values.lastName}
+                  onChange={(event) =>
+                    form.setFieldValue('lastName', event.currentTarget.value)
                   }
                   radius="md"
                 />

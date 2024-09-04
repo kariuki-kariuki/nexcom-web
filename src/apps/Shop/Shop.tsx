@@ -1,11 +1,7 @@
-// import CreateNewShop from "./CreateNewShop";
 import HeroPage from './Products/HeroPage';
 import { Box, LoadingOverlay, Paper } from '@mantine/core';
 import { NavbarNested } from './ShopNav/NavbarNested';
-// import ProductCard from "./Products/ProductCard";
-// import NewProduct from "./Products/NewProduct";
 import classes from './Shop.module.css';
-import { HeaderSearch } from '../../components/Navbar/HeaderSearch/HeaderSearch';
 import { useFetch } from '../../hooks/useFetchHooks';
 import { ProductWithShop } from '../../@types/shop';
 
@@ -21,7 +17,6 @@ function Shop() {
         loaderProps={{ color: 'purple', type: 'bars' }}
       />
       <Box className={classes.shop}>
-        <HeaderSearch />
         <Box className={classes.sections} bg={'none'}>
           <Paper
             w={{ sm: '30%', md: '25%' }}

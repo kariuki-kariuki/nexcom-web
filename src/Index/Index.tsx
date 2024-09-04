@@ -33,7 +33,11 @@ function Index() {
     updateUser(result);
   }, [result]);
   const items = links.map((link) => (
-    <div className={classes.link} onClick={() => navigate(link.link)}>
+    <div
+      className={classes.link}
+      onClick={() => navigate(link.link)}
+      key={link.label}
+    >
       {link.label}
     </div>
   ));

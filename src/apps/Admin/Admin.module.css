@@ -23,7 +23,7 @@
     padding: var(--mantine-spacing-sm);
 
 
-  @media (min-width $mantine-breakpoint-sm) {
+  @media (min-width: $mantine-breakpoint-sm) {
     border-radius: var(--mantine-spacing-md);
   }
 }

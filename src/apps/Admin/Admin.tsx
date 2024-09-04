@@ -40,9 +40,9 @@ function Admin() {
                 p={'md'}
                 className={classes.scroll}
               >
-                <StartLine />
                 <StatsChart />
                 <UsersTable />
+                <StartLine />
                 <StatsSegments />
                 <AdminCalendar />
               </Grid.Col>

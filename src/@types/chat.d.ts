@@ -2,6 +2,7 @@
 //   String: string;
 // }
 
+import { MessageState } from '../common/common';
 import { Shop } from './shop';
 
 // // Define the interface for the nested id object
@@ -43,4 +44,5 @@ export interface Message {
   user: GlobalUser;
   files: string[] | null;
   updated_at: string;
+  state?: MessageState;
 }
