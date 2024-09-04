@@ -8,3 +8,14 @@
       background-color: light-dark(var(--mantine-color-black-0), var(--mantine-color-dark-8));
     }
   }
+
+  .active {
+    display: block;
+    width: 100%;
+    padding: var(--mantine-spacing-md);
+    color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-0));
+    background-color: var(--mantine-color-teal-8);
+    @mixin hover {
+      background-color: light-dark(var(--mantine-color-black-0), var(--mantine-color-dark-8));
+    }
+  }

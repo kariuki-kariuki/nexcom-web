@@ -25,6 +25,7 @@ import {
   NewConversationContext,
   NewConversationType,
 } from '../../../../context/newConversation';
+import { MessageState } from '../../../../common/common';
 
 interface Props {
   conversation: ConversationProps;
@@ -53,7 +54,19 @@ export function ConversationButton({
   const [messages, setMessages] = useState(conversation.messages);
   const lastMessage = messages ? messages[messages.length - 1] : null;
   const user: GlobalUser = conversation.users[0];
-  const [count, setCount] = useState(0);
+  const count = conversation.messages.reduce(
+    (total, message) =>
+      message.user.email === user.email && message.state !== MessageState.READ
+        ? (total += 1)
+        : total,
+    0,
+  );
+  const handleRead = () => {
+    socket?.emit('message-state', {
+      state: MessageState.READ,
+      conversation_id: conversation.id,
+    });
+  };
   const date = lastMessage ? new Date(lastMessage?.updated_at) : null;
   useEffect(() => {
     if (newConversation?.id === user.id) {
@@ -67,6 +80,7 @@ export function ConversationButton({
           user: msg.user,
           files: msg.files,
           updated_at: msg.updated_at,
+          state: msg.state,
         };
         setMessages((messages): any => [...messages, message]);
         setConverSations((prevConversations) =>
@@ -80,8 +94,6 @@ export function ConversationButton({
           conversation.messages.push(message);
           setActiveConversation(conversation);
           setActiveConvo(conversation);
-        } else {
-          setCount((prev) => prev + 1);
         }
       }
     };
@@ -92,15 +104,16 @@ export function ConversationButton({
       socket?.off('message', handleMessage);
     };
   }, [socket, conversation, activeConversation, messages]);
+
   return (
     <Card
       className={classes.user}
-      bg={active ? 'teal.8' : 'coco'}
+      bg={active ? 'teal.5' : 'coco'}
       onClick={() => {
         setActiveConversation(conversation);
         setActiveConvo(conversation);
         updateActiveScreen('chat');
-        setCount(0);
+        handleRead();
       }}
       radius={active ? 'md' : '0'}
     >

@@ -88,6 +88,7 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
             rightSection={
               <IconSearch size={20} color="teal" onClick={handleSubmit} />
             }
+            placeholder="Enter name, email or phone"
             value={value}
             onChange={(e) => setValue(e.target.value)}
             my={'md'}

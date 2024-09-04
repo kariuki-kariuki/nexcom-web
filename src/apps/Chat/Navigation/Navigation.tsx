@@ -52,6 +52,9 @@ export default function Navigation({
   const { newConversation, setNewConversation } = useContext(
     NewConversationContext,
   ) as NewConversationType;
+  conversations = conversations.filter(
+    (conversation) => conversation.messages.length !== 0,
+  );
   conversations.sort((a, b) => {
     const timeA = new Date(
       a.messages[a.messages.length - 1].updated_at,
