@@ -6,8 +6,7 @@ import { useFetch } from '../../hooks/useFetchHooks';
 import { ProductWithShop } from '../../@types/shop';
 
 function Shop() {
-  const { isLoading, result, error } = useFetch<ProductWithShop[]>('products');
-  console.log(error);
+  const { isLoading, result } = useFetch<ProductWithShop[]>('products');
   return (
     <Box pos="relative">
       <LoadingOverlay

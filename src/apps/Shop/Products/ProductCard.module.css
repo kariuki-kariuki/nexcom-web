@@ -22,8 +22,8 @@
 }
 
 .slides {
-  max-height: rem(400);
-  min-height: rem(400);
+  max-height: rem(200);
+  min-height: rem(200);
   @media (min-width: $mantine-breakpoint-sm) {
     /* font-size: rem(50px); */
     height: rem(320);
@@ -32,8 +32,8 @@
 }
 
 .image {
-  max-height: rem(400);
-  min-height: rem(400);
+  max-height: rem(100);
+  min-height: rem(100);
   @media (min-width: $mantine-breakpoint-sm) {
     /* font-size: rem(50px); */
     height: rem(320);

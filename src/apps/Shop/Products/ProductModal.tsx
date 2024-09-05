@@ -8,6 +8,7 @@ import {
   Group,
   Modal,
   Text,
+  useMantineTheme,
 } from '@mantine/core';
 import { useContext, useState } from 'react';
 import { ProductWithShop, ShopProduct } from '../../../@types/shop';
@@ -17,6 +18,7 @@ import { url } from '../../../data/url';
 import { AppContext } from '../../../context/appContext';
 import { UserContextType } from '../../../@types/app';
 import classes from './ProductModal.module.css';
+import { useMediaQuery } from '@mantine/hooks';
 interface Iprops {
   opened: boolean;
   toggle: () => void;
@@ -57,6 +59,8 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
         console.log(e.message);
       });
   }
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   return (
     <Modal
       opened={opened}
@@ -74,7 +78,7 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
       }}
       classNames={{ body: classes.body }}
     >
-      <Grid bg={'coco-1'} h={'100%'}>
+      <Grid bg={'coco-0'} h={'100%'}>
         <Grid.Col span={{ base: 12, sm: 6 }} h={'100%'}>
           <Card
             p={{ base: 'sm', md: 'xl' }}
@@ -88,7 +92,11 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
           </Card>
         </Grid.Col>
         <Grid.Col span={{ base: 12, sm: 6 }}>
-          <Card p={'xl'} h={'100%'} className={classes.card}>
+          <Card
+            p={{ base: 'sm', sm: 'xl' }}
+            h={'100%'}
+            className={classes.card}
+          >
             <Flex direction={'column'} gap={5} h={'100%'} justify={'center'}>
               <Text fw={'500'} fz={'lg'} ta={'center'}>
                 {product?.name}
@@ -132,8 +140,11 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
                 </Group>
               ) : (
                 <div>
-                  <Group justify="space-between" pr={'xl'}>
-                    <Button.Group py={'xl'}>
+                  <Group
+                    justify={mobile ? 'center' : 'space-between'}
+                    py={'md'}
+                  >
+                    <Button.Group>
                       <Button
                         variant="default"
                         bg="red"

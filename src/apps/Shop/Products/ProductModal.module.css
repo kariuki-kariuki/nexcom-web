@@ -5,9 +5,21 @@
 }
 
 .body {
-  background-color: light-dark(var(--var-mantine-color-gray-2), var(--mantine-color-coco-1));
+  background-color: light-dark(
+    var(--var-mantine-color-gray-2),
+    var(--mantine-color-coco-0)
+  );
 }
 
 .card {
-  background-color: light-dark(var(--var-mantine-color-gray-2), var(--mantine-color-coco-0));
+  background-color: light-dark(
+      var(--var-mantine-color-gray-2),
+      var(--mantine-color-coco-0)
+    );
+  @media (min-width: $mantine-breakpoint-sm) {
+    background-color: light-dark(
+      var(--var-mantine-color-gray-2),
+      var(--mantine-color-coco-0)
+    );
+  }
 }

@@ -9,17 +9,18 @@
 .scroll {
   width: rem(100%);
   height: rem(100%);
-  border-radius: var(--mantine-spacing-xs);
+  /* border-radius: var(--mantine-spacing-xs); */
   background-color: light-dark(
     var(--mantine-color-white),
     var(--mantine-color-coco-1)
   );
   padding: var(--mantine-spacing-xs);
-  border: rem(1px) solid
-    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  
 
-  @media (min-width: $mantine-breakpoint-md) {
+  @media (min-width: $mantine-breakpoint-sm) {
     padding: 10px;
     border-radius: var(--mantine-spacing-md);
+    border: rem(1px) solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
   }
 }
