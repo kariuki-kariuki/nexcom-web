@@ -40,6 +40,7 @@ export function HeaderSearch() {
           <Autocomplete
             className={classes.search}
             placeholder="Search"
+            visibleFrom="md"
             leftSection={
               <IconSearch
                 style={{ width: rem(16), height: rem(16) }}
@@ -55,7 +56,6 @@ export function HeaderSearch() {
               'Svelte',
               'Blitz.js',
             ]}
-            visibleFrom="xs"
           />
         </Group>
       </div>
