@@ -56,7 +56,9 @@ export function ConversationButton({
   const user: GlobalUser = conversation.users[0];
   const count = conversation.messages.reduce(
     (total, message) =>
-      message.user.email === user.email && message.state !== MessageState.READ
+      message.user.email === user.email &&
+      (message.state === MessageState.DELIVERED ||
+        message.state === MessageState.SENT)
         ? (total += 1)
         : total,
     0,
@@ -66,6 +68,17 @@ export function ConversationButton({
       state: MessageState.READ,
       conversation_id: conversation.id,
     });
+    // make sure all the messages from the other user is marked as read
+    conversation.messages = conversation.messages.map((message) =>
+      message.user.email === user.email
+        ? {
+            ...message,
+            state: MessageState.READ,
+          }
+        : message,
+    );
+    setActiveConversation(conversation);
+    setActiveConvo(conversation);
   };
   const date = lastMessage ? new Date(lastMessage?.updated_at) : null;
   useEffect(() => {
@@ -80,8 +93,11 @@ export function ConversationButton({
           user: msg.user,
           files: msg.files,
           updated_at: msg.updated_at,
-          state: msg.state,
+          state: MessageState.SENT,
         };
+        if (message.user.email === user.email) {
+          socket?.emit('message-state', { state: MessageState.DELIVERED });
+        }
         setMessages((messages): any => [...messages, message]);
         setConverSations((prevConversations) =>
           prevConversations.map((convo) =>
@@ -91,9 +107,22 @@ export function ConversationButton({
           ),
         );
         if (msg.conversation.id === activeConversation?.id) {
-          conversation.messages.push(message);
-          setActiveConversation(conversation);
-          setActiveConvo(conversation);
+          // If it is the current active conversation
+          if (message.user.email === user.email) {
+            socket?.emit('message-state', {
+              state: MessageState.READ,
+              conversation_id: conversation.id,
+            });
+            message.state = MessageState.READ;
+            conversation.messages.push(message);
+            setActiveConversation(conversation);
+            setActiveConvo(conversation);
+          } else {
+            // If the message message user not me
+            conversation.messages.push(message);
+            setActiveConversation(conversation);
+            setActiveConvo(conversation);
+          }
         }
       }
     };

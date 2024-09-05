@@ -100,6 +100,7 @@ const NewMessageBox = ({ socket }: Props) => {
           open={opened}
           theme={theme()}
           className={classes.emoji}
+          searchDisabled
         />
       ) : (
         ''

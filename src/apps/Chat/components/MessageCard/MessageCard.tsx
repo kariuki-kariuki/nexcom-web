@@ -4,6 +4,8 @@ import { Box, Card, Group, Paper, rem, Text } from '@mantine/core';
 import { useContext } from 'react';
 import { AppContext } from '../../../../context/appContext';
 import { UserContextType } from '../../../../@types/app';
+import { MessageState } from '../../../../common/common';
+import { IconCheck, IconChecks } from '@tabler/icons-react';
 
 interface Props {
   message: Message;
@@ -28,14 +30,30 @@ const MessageCard = ({ message }: Props) => {
             <Text className="font-serif" c={'white'} py={0}>
               {message?.message}
             </Text>
-
-            <Text c={'gray'} fz={rem(10)} fw={100} pt={15}>
-              {`${date?.toLocaleString('en-US', {
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true,
-              })}`}
-            </Text>
+            <Group align="center" pt={15} gap={'sm'}>
+              <Text c={'gray'} fz={rem(10)} fw={100}>
+                {`${date?.toLocaleString('en-US', {
+                  hour: 'numeric',
+                  minute: 'numeric',
+                  hour12: true,
+                })}`}
+              </Text>
+              {status && message.state == MessageState.SENT ? (
+                <IconCheck size={14} />
+              ) : (
+                ''
+              )}
+              {status && message.state == MessageState.DELIVERED ? (
+                <IconChecks size={14} />
+              ) : (
+                ''
+              )}
+              {status && message.state == MessageState.READ ? (
+                <IconChecks color="purple" size={16} />
+              ) : (
+                ''
+              )}
+            </Group>
           </Group>
         </Box>
       </Card>

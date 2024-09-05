@@ -16,6 +16,7 @@ export type activeType = (active: any) => void;
 function Chat() {
   const [conversations, setConversations] = useState<ConversationProps[]>([]);
   const { user } = useContext(AppContext) as UserContextType;
+  user;
   const [socket, setSocket] = useState<SocketType>(null);
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -57,43 +58,54 @@ function Chat() {
   const bgColor = colorScheme === 'dark' ? 'gray.8' : 'gray.8';
   useEffect(() => {
     const handleState = (res: any) => {
-      console.log('State Change', res);
-      if (res.email != user?.email) {
-        if (res.state === MessageState.DELIVERED) {
-          setConversations((prevConversations) =>
-            prevConversations.map((conversation) => ({
-              ...conversation,
-              messages: conversation.messages.map((message) =>
-                message.user.email === res.email
-                  ? { ...message, state: MessageState.DELIVERED }
-                  : message,
-              ),
-            })),
-          );
-          console.log('gibberish');
-          console.log(conversations);
-        } else {
-          setConversations((prevConversations) =>
-            prevConversations.map((conversation) => ({
-              ...conversation,
-              messages: conversation.messages.map((message) =>
-                conversation.id === res.conversation_id &&
-                message.state !== MessageState.READ
-                  ? { ...message, state: MessageState.READ }
-                  : message,
-              ),
-            })),
-          );
-          console.log(conversations);
-        }
+      console.log(res);
+      if (res.state === MessageState.DELIVERED) {
+        setConversations((prevConversations) =>
+          prevConversations.map((conversation) =>
+            // If My messages have been delivered to user B
+            conversation.users[0].email === res.email
+              ? {
+                  ...conversation,
+                  messages: conversation.messages.map((message) =>
+                    message.user.email !== res.email &&
+                    message.state === MessageState.SENT
+                      ? { ...message, state: MessageState.DELIVERED }
+                      : message,
+                  ),
+                }
+              : conversation,
+          ),
+        );
+      } else {
+        // Handle message read for the current user
+        // Read By User B
+        setConversations((prevConversations) =>
+          prevConversations.map((conversation) =>
+            // The conversation read and the user reading not me
+            // Means all my messages sent have been read by user B
+            conversation.id === res.conversation_id && res.email !== user?.email // I am not the reader
+              ? {
+                  ...conversation,
+                  messages: conversation.messages.map((message) =>
+                    message.user.email === user?.email &&
+                    message.state !== MessageState.READ
+                      ? { ...message, state: MessageState.READ }
+                      : message,
+                  ),
+                }
+              : conversation,
+          ),
+        );
       }
+      // console.log(activeConvo);
+      console.log(conversations);
     };
     socket?.on('message-state', handleState);
 
     return () => {
       socket?.off('message-state', handleState);
     };
-  }, []);
+  });
 
   return (
     <Flex
