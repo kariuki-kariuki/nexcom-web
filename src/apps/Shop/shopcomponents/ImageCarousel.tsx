@@ -1,5 +1,5 @@
 import { Carousel } from '@mantine/carousel';
-import { Image, rem, useMantineTheme } from '@mantine/core';
+import { Image, useMantineTheme } from '@mantine/core';
 import classes from './carousel.module.css';
 import { useMediaQuery } from '@mantine/hooks';
 interface Iprops {
@@ -17,11 +17,12 @@ function ImageCarousel({ images }: Iprops) {
   return (
     <Carousel
       withIndicators
-      slideSize={{ base: '50%', sm: '50%' }}
-      slideGap={{ base: rem(2), sm: 'md' }}
+      slideSize={{ base: '51%', sm: '51%' }}
+      slideGap={{ base: 'md', sm: 'md' }}
       align="start"
       loop
-      slidesToScroll={mobile ? 1 : 1}
+      draggable
+      slidesToScroll={mobile ? 1 : 2}
     >
       {slides}
     </Carousel>

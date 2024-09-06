@@ -1,4 +1,13 @@
-import { Group, Avatar, Text, Card, Badge, Flex, rgba } from '@mantine/core';
+import {
+  Group,
+  Avatar,
+  Text,
+  Card,
+  Badge,
+  Flex,
+  rgba,
+  Box,
+} from '@mantine/core';
 import classes from './ConversationButton.module.css';
 import {
   Dispatch,
@@ -26,6 +35,7 @@ import {
   NewConversationType,
 } from '../../../../context/newConversation';
 import { MessageState } from '../../../../common/common';
+import { IconCheck, IconChecks } from '@tabler/icons-react';
 
 interface Props {
   conversation: ConversationProps;
@@ -132,7 +142,7 @@ export function ConversationButton({
     return () => {
       socket?.off('message', handleMessage);
     };
-  }, [socket, conversation, activeConversation, messages]);
+  }, [socket, conversation, activeConversation, messages, lastMessage]);
 
   return (
     <Card
@@ -167,14 +177,36 @@ export function ConversationButton({
               {count}
             </Badge>
           ) : (
-            <Text style={{ color: rgba(`0 0 0`, 0) }}>--</Text>
+            <Box pt={'4px'}>
+              <LastMessage
+                message={
+                  conversation.messages[conversation.messages.length - 1]
+                }
+                user={user}
+              />
+            </Box>
           )}
         </Flex>
       </Group>
     </Card>
   );
 }
-
+interface ILastMessage {
+  message: Message;
+  user: GlobalUser;
+}
+function LastMessage({ message, user }: ILastMessage) {
+  if (message.user.email !== user.email) {
+    if (message.state === MessageState.SENT) {
+      return <IconCheck size={14} />;
+    } else if (message.state === MessageState.DELIVERED) {
+      return <IconChecks color="gray" size={14} />;
+    } else {
+      return <IconChecks color="lime" size={16} />;
+    }
+  }
+  return <Text style={{ color: rgba(`0 0 0`, 0) }}>--</Text>;
+}
 function formatDate(date: Date): string {
   const today = new Date();
 

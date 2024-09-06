@@ -4,15 +4,15 @@ import { IconSearch } from '@tabler/icons-react';
 import classes from './HeaderSearch.module.css';
 import logo from '../../../assets/mklogo.png';
 import { useNavigate } from 'react-router-dom';
-const links = [
-  { link: '/', label: 'Home' },
-  { link: '/chat', label: 'Chat' },
-  { link: '/shop', label: 'Shop' },
-  { link: '/admin', label: 'Admin' },
-  { link: '/cart', label: 'Cart' },
-];
 
-export function HeaderSearch() {
+interface Link {
+  link: string;
+  label: string;
+}
+interface ILink {
+  links: Link[];
+}
+export function HeaderSearch({ links }: ILink) {
   const [opened, { toggle }] = useDisclosure(false);
   const navigate = useNavigate();
   const items = links.map((link) => (
@@ -34,7 +34,7 @@ export function HeaderSearch() {
         </Group>
 
         <Group>
-          <Group ml={50} gap={5} className={classes.links} visibleFrom="sm">
+          <Group ml={50} gap={5} className={classes.links}>
             {items}
           </Group>
           <Autocomplete

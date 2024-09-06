@@ -8,19 +8,20 @@ import {
   Paper,
   ScrollArea,
   Tooltip,
+  useMantineTheme,
 } from '@mantine/core';
 import {
   IconCirclePlusFilled,
   IconHome,
-  IconSearch,
   IconShoppingBag,
+  IconShoppingCart,
 } from '@tabler/icons-react';
 import classes from './Navigation.module.css';
 import { SocketType } from '../Chat';
 import { useNavigate } from 'react-router-dom';
 import SmallComponent from './SmallComponent';
 import { Dispatch, SetStateAction, useContext, useEffect } from 'react';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import NewMessage from './NewMessage/NewMessage';
 import { AppContext } from '../../../context/appContext';
 import { UserContextType } from '../../../@types/app';
@@ -47,7 +48,6 @@ export default function Navigation({
   setActiveConvo,
   setConverSations,
 }: Props) {
-  const navigate = useNavigate();
   const { user } = useContext(AppContext) as UserContextType;
   const { newConversation, setNewConversation } = useContext(
     NewConversationContext,
@@ -122,23 +122,16 @@ export default function Navigation({
       >
         <Group
           h={'80'}
-          p="lg"
+          px={{ base: 'lg', sm: 'lg' }}
           justify="space-between"
           align="center"
           classNames={{ root: classes.group }}
           grow
         >
           <SmallComponent />
-          <Group gap={'20%'} justify="end">
-            <Tooltip label="home" color="grape">
-              <IconHome size={18} onClick={() => navigate('/')} />
-            </Tooltip>
-            <Tooltip label="shop" color="grape">
-              <IconShoppingBag size={18} onClick={() => navigate('/shop')} />
-            </Tooltip>
-            <IconSearch size={18} />
-          </Group>
+          <Links />
         </Group>
+
         <ScrollArea p={'5px'} bg={'none'} type="scroll" h={'100%'}>
           {conversation}
         </ScrollArea>
@@ -147,6 +140,24 @@ export default function Navigation({
     </Paper>
   );
 }
+const Links = () => {
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const navigate = useNavigate();
+  return (
+    <Group gap={mobile ? '20%' : '20%'} justify="end">
+      <Tooltip label="home" color="teal">
+        <IconHome size={18} onClick={() => navigate('/')} />
+      </Tooltip>
+      <Tooltip label="Shop" color="teal">
+        <IconShoppingBag size={18} onClick={() => navigate('/shop')} />
+      </Tooltip>
+      <Tooltip label="Cart" color="teal">
+        <IconShoppingCart size={18} onClick={() => navigate('/cart')} />
+      </Tooltip>
+    </Group>
+  );
+};
 
 interface IAddPopMenu {
   open: () => void;

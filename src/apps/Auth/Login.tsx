@@ -24,6 +24,11 @@ import { useContext } from 'react';
 import { AppContext } from '../../context/appContext';
 import { UserContextType } from '../../@types/app';
 
+const links = [
+  { link: '/', label: 'Home' },
+  { link: '/shop', label: 'Shop' },
+  { link: '/cart', label: 'Cart' },
+];
 export default function Login(props: PaperProps) {
   const [type, toggle] = useToggle(['login', 'register']);
   const navigate = useNavigate();
@@ -83,7 +88,7 @@ export default function Login(props: PaperProps) {
 
   return (
     <Box h={'100vh'}>
-      <HeaderSearch />
+      <HeaderSearch links={links} />
       <Flex
         justify="center"
         direction={'column'}

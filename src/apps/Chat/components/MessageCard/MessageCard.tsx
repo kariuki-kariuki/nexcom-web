@@ -44,12 +44,12 @@ const MessageCard = ({ message }: Props) => {
                 ''
               )}
               {status && message.state == MessageState.DELIVERED ? (
-                <IconChecks size={14} />
+                <IconChecks color="#EEEEEE" size={14} />
               ) : (
                 ''
               )}
               {status && message.state == MessageState.READ ? (
-                <IconChecks color="purple" size={16} />
+                <IconChecks color="lime" size={16} />
               ) : (
                 ''
               )}

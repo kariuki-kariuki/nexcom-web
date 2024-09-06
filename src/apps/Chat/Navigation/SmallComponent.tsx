@@ -10,7 +10,7 @@ export default function SmallComponent() {
   const [opened, { open, close }] = useDisclosure(false);
   return (
     <div>
-      <Group bg={'none'} onClick={open}>
+      <Group bg={'none'} onClick={open} wrap="nowrap">
         <Avatar src={user?.photo} />
         <Text>{user?.firstName}</Text>
       </Group>

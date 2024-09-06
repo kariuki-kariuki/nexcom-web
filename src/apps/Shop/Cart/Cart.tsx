@@ -16,12 +16,17 @@ import { HeaderSearch } from '../../../components/Navbar/HeaderSearch/HeaderSear
 import MenuDrop from '../../../Index/MenuDrop';
 import { IconEyeDollar } from '@tabler/icons-react';
 // import mpesa from '../../../assets/mpesa.png';
+const links = [
+  { link: '/', label: 'Home' },
+  { link: '/chat', label: 'Chat' },
+  { link: '/cart', label: 'Cart' },
+];
 const Cart = () => {
   const { result } = useFetch<Order[] | null>('orders');
   console.log(result);
   return (
     <Paper className={classes.main} h={'100vh'}>
-      <HeaderSearch />
+      <HeaderSearch links={links} />
       <Flex
         h={'85%'}
         className={classes.flex}

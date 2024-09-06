@@ -68,7 +68,6 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
         toggle();
         setQuantity(1);
       }}
-      withCloseButton={false}
       size={'100%'}
       padding={'md'}
       bg={'blue'}
@@ -76,7 +75,7 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
       overlayProps={{
         h: '100vh',
       }}
-      classNames={{ body: classes.body }}
+      classNames={{ body: classes.body, header: classes.header }}
     >
       <Grid bg={'coco-0'} h={'100%'}>
         <Grid.Col span={{ base: 12, sm: 6 }} h={'100%'}>
