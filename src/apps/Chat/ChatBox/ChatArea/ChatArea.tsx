@@ -28,7 +28,12 @@ function ChatArea({ closes, activeConvo, socket }: CloseProps) {
     if (endOfMessagesRef.current) {
       endOfMessagesRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [activeConvo?.messages, activeConversation?.messages]); // Triggers when messages change
+  }, [
+    activeConvo?.messages,
+    activeConversation?.messages,
+    activeConvo,
+    activeConversation,
+  ]); // Triggers when messages change
 
   const messages = activeConversation?.messages?.map((message, idx) => (
     <Message message={message} key={idx} />

@@ -10,13 +10,20 @@ import { AppContext } from '../../context/appContext';
 import { UserContextType } from '../../@types/app';
 import { ConversationProps } from '../../@types/chat';
 import { MessageState } from '../../common/common';
+import {
+  activeConversatonType,
+  ConversationContext,
+} from '../../context/activeConversation';
 export type SocketType = Socket | null;
 export type activeType = (active: any) => void;
 
 function Chat() {
   const [conversations, setConversations] = useState<ConversationProps[]>([]);
   const { user } = useContext(AppContext) as UserContextType;
-  user;
+  // user;
+  const { activeConversation, setActiveConversation } = useContext(
+    ConversationContext,
+  ) as activeConversatonType;
   const [socket, setSocket] = useState<SocketType>(null);
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -58,47 +65,58 @@ function Chat() {
   const bgColor = colorScheme === 'dark' ? 'gray.8' : 'gray.8';
   useEffect(() => {
     const handleState = (res: any) => {
-      console.log(res);
       if (res.state === MessageState.DELIVERED) {
         setConversations((prevConversations) =>
-          prevConversations.map((conversation) =>
+          prevConversations.map((conversation) => {
             // If My messages have been delivered to user B
-            conversation.users[0].email === res.email
-              ? {
-                  ...conversation,
-                  messages: conversation.messages.map((message) =>
-                    message.user.email !== res.email &&
-                    message.state === MessageState.SENT
-                      ? { ...message, state: MessageState.DELIVERED }
-                      : message,
-                  ),
-                }
-              : conversation,
-          ),
+            if (conversation.users[0].email === res.email) {
+              const updatedConvo = {
+                ...conversation,
+                messages: conversation.messages.map((message) =>
+                  message.user.email !== res.email &&
+                  message.state === MessageState.SENT
+                    ? { ...message, state: MessageState.DELIVERED }
+                    : message,
+                ),
+              };
+              if (updatedConvo.id === activeConversation?.id) {
+                setActiveConversation(updatedConvo);
+                setActiveConvo(updatedConvo);
+              }
+              return updatedConvo;
+            }
+            return conversation;
+          }),
         );
       } else {
         // Handle message read for the current user
         // Read By User B
-        setConversations((prevConversations) =>
-          prevConversations.map((conversation) =>
-            // The conversation read and the user reading not me
-            // Means all my messages sent have been read by user B
-            conversation.id === res.conversation_id && res.email !== user?.email // I am not the reader
-              ? {
-                  ...conversation,
-                  messages: conversation.messages.map((message) =>
-                    message.user.email === user?.email &&
-                    message.state !== MessageState.READ
-                      ? { ...message, state: MessageState.READ }
-                      : message,
-                  ),
-                }
-              : conversation,
-          ),
+        setConversations((prevConversation) =>
+          prevConversation.map((conversation) => {
+            if (
+              conversation.id === res.conversation_id &&
+              res.email != user?.email
+            ) {
+              conversation = {
+                ...conversation,
+                messages: conversation.messages.map((message) =>
+                  message.user.email === user?.email &&
+                  message.state !== MessageState.READ
+                    ? { ...message, state: MessageState.READ }
+                    : message,
+                ),
+              };
+              if (conversation.id === activeConversation?.id) {
+                setActiveConvo(conversation);
+                setActiveConversation(conversation);
+              }
+              return conversation;
+            }
+            return conversation;
+          }),
         );
       }
       // console.log(activeConvo);
-      console.log(conversations);
     };
     socket?.on('message-state', handleState);
 
