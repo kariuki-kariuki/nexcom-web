@@ -1,4 +1,4 @@
-import { Box, Menu, rem, useMantineColorScheme } from '@mantine/core';
+import { Box, Menu, rem } from '@mantine/core';
 import {
   IconMessageCircle,
   IconTrash,
@@ -6,8 +6,7 @@ import {
   IconLogout,
   IconLayoutDashboardFilled,
   IconShoppingBag,
-  IconSunFilled,
-  IconMoonFilled,
+  IconDiamond,
 } from '@tabler/icons-react';
 import ToggleButton from './ToggleButton';
 import { useNavigate } from 'react-router-dom';
@@ -19,10 +18,8 @@ import { useDisclosure } from '@mantine/hooks';
 import Dashboard from '../apps/Dashboard/Dashboard';
 export default function MenuDrop() {
   const navigate = useNavigate();
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const { updateUser } = useContext(AppContext) as UserContextType;
   const [opened, { open, close }] = useDisclosure();
-  const { user } = useContext(AppContext) as UserContextType;
+  const { user, updateUser } = useContext(AppContext) as UserContextType;
   return (
     <Box p={'md'} className={classes.menu}>
       <Menu shadow="md" width={200}>
@@ -60,18 +57,18 @@ export default function MenuDrop() {
           >
             Chat
           </Menu.Item>
-          <Menu.Item
-            leftSection={
-              colorScheme === 'dark' ? (
-                <IconSunFilled style={{ width: rem(14), height: rem(14) }} />
-              ) : (
-                <IconMoonFilled style={{ width: rem(14), height: rem(14) }} />
-              )
-            }
-            onClick={toggleColorScheme}
-          >
-            {colorScheme === 'dark' ? 'Light' : 'Dark'}
-          </Menu.Item>
+          {user?.shop ? (
+            <Menu.Item
+              leftSection={
+                <IconDiamond style={{ width: rem(14), height: rem(14) }} />
+              }
+              onClick={() => navigate('/admin')}
+            >
+              Admin
+            </Menu.Item>
+          ) : (
+            ''
+          )}
           <Menu.Divider />
 
           <Menu.Label>Danger zone</Menu.Label>
@@ -79,8 +76,8 @@ export default function MenuDrop() {
             color="red"
             onClick={() => {
               localStorage.removeItem('token');
-              navigate('/', { replace: false });
               updateUser(null);
+              navigate('/', { replace: true });
             }}
             leftSection={
               <IconLogout style={{ width: rem(14), height: rem(14) }} />
