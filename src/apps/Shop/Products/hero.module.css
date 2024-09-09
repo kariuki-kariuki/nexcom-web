@@ -7,6 +7,8 @@
   width: rem(100%);
   @media (min-width: $mantine-breakpoint-sm) {
     border-radius: var(--mantine-spacing-md);
+    border: rem(1px) solid
+      light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
   }
 }
 
@@ -22,7 +24,5 @@
   @media (min-width: $mantine-breakpoint-sm) {
     padding: 10px;
     border-radius: var(--mantine-spacing-md);
-    /* border: rem(1px) solid
-      light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4)); */
   }
 }

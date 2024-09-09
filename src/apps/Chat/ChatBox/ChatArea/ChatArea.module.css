@@ -1,6 +1,14 @@
 .chat_area {
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-1));
-  border: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-8));
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-coco-1)
+  );
+  border: 1px solid
+    light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-8));
+
+  @media (min-width: $mantine-breakpoint-sm) {
+    border-radius: var(--mantine-spacing-md);
+  }
 }
 
 .scroll {
@@ -10,8 +18,7 @@
   );
 }
 
-
-.ps{
+.ps {
   height: '100%';
   overflow-y: scroll;
   background-color: light-dark(
@@ -22,7 +29,7 @@
 }
 
 .clearfix::after {
-  content: "";
+  content: '';
   clear: both;
   display: table;
 }

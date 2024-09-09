@@ -7,8 +7,8 @@
 
 .admin {
   background-color: light-dark(
-    var(--mantine-color-white),
-    var(--mantine-color-gray-7)
+    var(--mantine-color-gray-8),
+    var(--mantine-color-gray-8)
   );
 }
 

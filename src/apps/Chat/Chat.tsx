@@ -165,16 +165,16 @@ function Chat() {
         withCloseButton={false}
         p={'0px'}
         m={0}
-        size={'100vh'}
+        // size={'100vh'}
         fullScreen
-        classNames={{ root: classes.root }}
+        classNames={{ root: classes.root, body: classes.body }}
         padding={'0px'}
       >
         <Card
           className={`${classes.overflow}`}
           padding={'0px'}
           m={'0px'}
-          h={'97vh'}
+          h={'100%'}
           bg={colorScheme == 'dark' ? 'dark' : 'teal'}
         >
           <ChatArea closes={close} activeConvo={activeConvo} socket={socket} />

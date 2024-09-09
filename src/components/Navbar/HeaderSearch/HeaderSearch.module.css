@@ -1,10 +1,6 @@
 .header {
   height: rem(56px);
-  background-color: light-dark(
-    var(--mantine-color-gray-2),
-    var(--mantine-color-coco-0)
-  );
- 
+  background-color: none;
   padding-left: var(--mantine-spacing-md);
   padding-right: var(--mantine-spacing-md);
 

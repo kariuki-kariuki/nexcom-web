@@ -2,6 +2,7 @@
     background-color: light-dark( var(--mantine-color-white),var(--mantine-color-coco-0));
     height: 100%;
     width: 100%;
+    overflow-y: scroll;
     padding: var(--mantine-spacing-md);
     padding-top: 0;
     display: flex;

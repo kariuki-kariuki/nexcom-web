@@ -9,7 +9,6 @@ import MyRoutes from './routes/Routes.tsx';
 function App() {
   const { user, updateUser } = useContext(AppContext) as UserContextType;
   const { result } = useFetch<GlobalUser>(`auth/me`);
-  updateUser(result);
   useEffect(() => {
     updateUser(result);
   }, []);

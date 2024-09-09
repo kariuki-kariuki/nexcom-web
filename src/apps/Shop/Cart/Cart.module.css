@@ -1,5 +1,8 @@
 .main {
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-gray-8));
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-gray-8)
+  );
   overflow: hidden;
   @media (min-width: $mantine-breakpoint-md) {
     padding: var(--mantine-spacing-md);
@@ -7,12 +10,18 @@
 }
 
 .card {
-  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-coco-1));
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-coco-1)
+  );
   border-radius: var(--mantine-spacing-md);
 }
 
 .inner_card {
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-coco-0)
+  );
   margin: 0 auto;
   height: fit-content;
   border-radius: var(--mantine-spacing-md);
@@ -23,4 +32,11 @@
 }
 .flex {
   height: 100%;
+}
+
+.card {
+  background-color: light-dark(
+    var(--mantine-color-gray-4),
+    var(--mantine-color-coco-0)
+  );
 }

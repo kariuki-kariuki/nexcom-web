@@ -16,7 +16,11 @@ function Admin() {
   return (
     <Box h={'100vh'} p={{ sm: 'lg' }} className={classes.admin}>
       <Flex h={'100%'} gap={'sm'}>
-        <Box w={{ base: '100%', sm: '30%', md: '25%' }} visibleFrom="sm">
+        <Box
+          w={{ base: '100%', sm: '30%', md: '25%' }}
+          visibleFrom="sm"
+          h={'100%'}
+        >
           <NavbarSearch active={active} setActive={setActive} />
         </Box>
         <Flex

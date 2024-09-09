@@ -39,13 +39,7 @@ function ChatArea({ closes, activeConvo, socket }: CloseProps) {
     <Message message={message} key={idx} />
   ));
   return (
-    <Paper
-      h={'100%'}
-      radius={'md'}
-      p={'0px'}
-      m={'0px'}
-      className={classes.chat_area}
-    >
+    <Paper h={'100%'} p={'0px'} m={'0px'} className={classes.chat_area}>
       <Flex
         pos={'relative'}
         direction={'column'}
@@ -62,9 +56,7 @@ function ChatArea({ closes, activeConvo, socket }: CloseProps) {
           scrollbars="y"
         >
           {activeConversation ? (
-            <Box>
-              <div className={classes.clearfix}>{messages}</div>
-            </Box>
+            <Box className={classes.clearfix}>{messages}</Box>
           ) : (
             ''
           )}
