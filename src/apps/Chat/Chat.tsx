@@ -1,4 +1,3 @@
-import Navigation from './Navigation/Navigation';
 import { Card, Flex, Modal, useMantineColorScheme } from '@mantine/core';
 import classes from './Chat.module.css';
 import { useDisclosure } from '@mantine/hooks';
@@ -14,6 +13,7 @@ import {
   activeConversatonType,
   ConversationContext,
 } from '../../context/activeConversation';
+import ConversationButtonList from './conversation/ConversationButtonList';
 export type SocketType = Socket | null;
 export type activeType = (active: any) => void;
 
@@ -139,7 +139,7 @@ function Chat() {
         w={{ sm: '40%', md: '30%' }}
         padding={2}
       >
-        <Navigation
+        <ConversationButtonList
           conversations={conversations}
           setActiveConvo={setActiveConvo}
           open={open}

@@ -95,7 +95,7 @@ const NewMessageBox = ({ socket }: Props) => {
       {activeConversation || newConversation ? (
         <EmojiPicker
           width={'100%'}
-          lazyLoadEmojis={true}
+          lazyLoadEmojis={false}
           height={350}
           open={opened}
           theme={theme()}

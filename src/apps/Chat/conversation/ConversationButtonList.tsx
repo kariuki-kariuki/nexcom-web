@@ -16,7 +16,7 @@ import {
   IconShoppingBag,
   IconShoppingCart,
 } from '@tabler/icons-react';
-import classes from './Navigation.module.css';
+import classes from './ConversationButtonList.module.css';
 import { SocketType } from '../Chat';
 import { useNavigate } from 'react-router-dom';
 import SmallComponent from './SmallComponent';
@@ -41,7 +41,7 @@ interface Props {
   setConverSations: Dispatch<SetStateAction<ConversationProps[]>>;
 }
 
-export default function Navigation({
+export default function ConversationButtonList({
   conversations,
   open,
   socket,
