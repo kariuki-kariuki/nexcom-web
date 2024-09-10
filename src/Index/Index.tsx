@@ -19,10 +19,11 @@ import { useNavigate } from 'react-router-dom';
 import classes from './Index.module.css';
 import { useFetch } from '../hooks/useFetchHooks';
 import { GlobalUser } from '../@types/chat';
+import HeroCarousel from './HeroCarousel';
 const links = [
   { link: '/chat', label: 'Chat' },
   { link: '/shop', label: 'Shop' },
-  { link: '/admin', label: 'Admin' },
+  { link: '/cart', label: 'Cart' },
 ];
 
 function Index() {
@@ -42,13 +43,22 @@ function Index() {
     </div>
   ));
   return (
-    <Paper h={'100vh'} p={{ base: 'sm', sm: 'lg' }} className={classes.main}>
+    <Paper h={'100vh'} px={{ base: 'sm', sm: 'lg' }} className={classes.main}>
       <div className="flex justify-between p-5 md:p-5  sticky top-0 left-0 right-0">
         <Group align="center">
           <Avatar src={logo} />
           <Text className={classes.text}>COCO</Text>
         </Group>
-        <Group>{items}</Group>
+        <Group>
+          {items}
+          {user?.shop ? (
+            <div className={classes.link} onClick={() => navigate('/admin')}>
+              Admin
+            </div>
+          ) : (
+            ''
+          )}
+        </Group>
         <Group visibleFrom="sm">
           {/* <TextInput
               placeholder="search"
@@ -74,7 +84,7 @@ function Index() {
         align={'center'}
         h={rem('70%')}
       >
-        <div>
+        <Box w={{ base: '100%', sm: '50%' }}>
           <Text
             ff={'serif'}
             fw={{ base: 'bold' }}
@@ -117,14 +127,9 @@ function Index() {
           >
             Get Started
           </Button>
-        </div>
-        <Box>
-          <Text fz={{ base: '50px' }} lh={1} fw={900}>
-            CO
-          </Text>
-          <Text fz={{ base: '50px' }} fw={900}>
-            CO
-          </Text>
+        </Box>
+        <Box maw={'100%'} w={'50%'} visibleFrom="md" p={'md'}>
+          <HeroCarousel />
         </Box>
       </Flex>
     </Paper>
