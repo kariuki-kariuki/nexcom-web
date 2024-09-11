@@ -51,7 +51,7 @@ export default function Login(props: PaperProps) {
     },
   });
   function getMe(token: string) {
-    fetch(`http://192.168.100.16:3000/auth/me`, {
+    fetch(`${url}/auth/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

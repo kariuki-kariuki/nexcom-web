@@ -1,2 +1,2 @@
-export const url = 'http://192.168.100.16:3000';
-export const url1 = 'ws://192.168.100.16:3000';
+export const url = process.env.URL;
+export const url1 = process.env.WS_URL ?? 'http://13.53.168.149:3000/';
