@@ -7,13 +7,13 @@ const HeroCarousel = () => {
   const images = [bg1, bg2, bg3];
   const slides = images.map((image) => (
     <Carousel.Slide h={'100%'}>
-      <img src={image} style={{ height: 'auto', width: '100%' }} />
+      <img src={image} style={{ height: '100%', width: '100%' }} />
     </Carousel.Slide>
   ));
   return (
     <Carousel
       loop
-      h={'100%'}
+      h={'70%'}
       slideGap={'md'}
       withIndicators
       classNames={classes}

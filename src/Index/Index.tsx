@@ -128,7 +128,7 @@ function Index() {
             Get Started
           </Button>
         </Box>
-        <Box maw={'100%'} w={'50%'} visibleFrom="md" p={'md'}>
+        <Box maw={'100%'} w={'50%'} visibleFrom="sm" p={'md'}>
           <HeroCarousel />
         </Box>
       </Flex>

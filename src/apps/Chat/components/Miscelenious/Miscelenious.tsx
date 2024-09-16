@@ -4,11 +4,11 @@ import {
   IconLayoutDashboardFilled,
   IconLogout,
   IconMoonFilled,
-  IconPhoneCalling,
+  // IconPhoneCalling,
   IconShoppingBag,
   IconSunFilled,
   IconTrash,
-  IconVideo,
+  // IconVideo,
 } from '@tabler/icons-react';
 import {
   Box,
@@ -47,12 +47,12 @@ function Miscelenious() {
 
   return (
     <div className="flex justify-around">
-      <div className="p-3">
+      {/* <div className="p-3">
         <IconVideo />
       </div>
       <div className="p-3">
         <IconPhoneCalling />
-      </div>
+      </div> */}
       {activeConversation || newConversation ? (
         <div className="p-3">
           <Tooltip label="Close this conversation">

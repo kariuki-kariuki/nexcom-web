@@ -1,4 +1,4 @@
-import { Avatar, Card, Group, Switch, Text } from '@mantine/core';
+import { Avatar, Card, Group, Text } from '@mantine/core';
 import { useContext } from 'react';
 import { AppContext } from '../../../../context/appContext';
 import { UserContextType } from '../../../../@types/app';
@@ -60,16 +60,7 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
         {userClicked.shop ? items : ''}
       </Group>
       {active ? (
-        <>
-          <Group justify="center" p={'md'}>
-            <Text fz={'sm'} c={'dimmed'}>
-              Two factor authentication
-            </Text>
-            <Switch size="xs" onLabel="ON" offLabel="OFF" />
-          </Group>
-
-          <Group justify="center">{user?.shop ? '' : <CreateShop />}</Group>
-        </>
+        <Group justify="center">{user?.shop ? '' : <CreateShop />}</Group>
       ) : (
         ''
       )}
