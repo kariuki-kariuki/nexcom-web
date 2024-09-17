@@ -1,21 +1,21 @@
-.user {
+.normal {
     display: block;
     width: 100%;
     padding: var(--mantine-spacing-md);
     color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
-  
+    background-color: var(--mantine-color-coco-0);
+    border-radius: var(--mantine-spacing-sm);
+    margin-bottom: 2px;
     @mixin hover {
-      background-color: light-dark(var(--mantine-color-black-0), var(--mantine-color-dark-8));
+      background-color: light-dark(var(--mantine-color-black-0), var(--mantine-color-coco-2));
     }
   }
 
   .active {
     display: block;
     width: 100%;
+    margin-bottom: 2px;
     padding: var(--mantine-spacing-md);
     color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-0));
     background-color: var(--mantine-color-teal-8);
-    @mixin hover {
-      background-color: light-dark(var(--mantine-color-black-0), var(--mantine-color-dark-8));
-    }
   }

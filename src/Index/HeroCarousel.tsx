@@ -6,7 +6,7 @@ import classes from './HeroCorousel.module.css';
 const HeroCarousel = () => {
   const images = [bg1, bg2, bg3];
   const slides = images.map((image) => (
-    <Carousel.Slide h={'100%'}>
+    <Carousel.Slide h={'100%'} key={image}>
       <img src={image} style={{ height: '100%', width: '100%' }} />
     </Carousel.Slide>
   ));

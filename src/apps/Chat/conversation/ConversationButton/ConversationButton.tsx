@@ -36,6 +36,7 @@ import {
 } from '../../../../context/newConversation';
 import { MessageState } from '../../../../common/common';
 import { IconCheck, IconChecks } from '@tabler/icons-react';
+import clsx from 'clsx';
 
 interface Props {
   conversation: ConversationProps;
@@ -146,15 +147,13 @@ export function ConversationButton({
 
   return (
     <Card
-      className={classes.user}
-      bg={active ? 'teal.5' : 'coco'}
+      className={clsx({ [classes.active]: active, [classes.normal]: !active })}
       onClick={() => {
         setActiveConversation(conversation);
         setActiveConvo(conversation);
         updateActiveScreen('chat');
         handleRead();
       }}
-      radius={active ? 'md' : '0'}
     >
       <Group onClick={open}>
         <Avatar src={user.photo} radius="xl" />

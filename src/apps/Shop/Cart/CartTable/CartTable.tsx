@@ -1,5 +1,5 @@
 import cx from 'clsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Table,
   Checkbox,
@@ -14,65 +14,54 @@ import classes from './CartTable.module.css';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
 import { Order } from '../../../../@types/shop';
 
-const data = [
-  {
-    id: '1',
-    avatar:
-      'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-1.png',
-    name: 'Robert Wolfkisser',
-    job: 'Engineer',
-    email: 'rob_wolf@gmail.com',
-  },
-  {
-    id: '2',
-    avatar:
-      'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-7.png',
-    name: 'Jill Jailbreaker',
-    job: 'Engineer',
-    email: 'jj@breaker.com',
-  },
-  {
-    id: '3',
-    avatar:
-      'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png',
-    name: 'Henry Silkeater',
-    job: 'Designer',
-    email: 'henry@silkeater.io',
-  },
-  {
-    id: '4',
-    avatar:
-      'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png',
-    name: 'Bill Horsefighter',
-    job: 'Designer',
-    email: 'bhorsefighter@gmail.com',
-  },
-  {
-    id: '5',
-    avatar:
-      'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-10.png',
-    name: 'Jeremy Footviewer',
-    job: 'Manager',
-    email: 'jeremy@foot.dev',
-  },
-];
-
-export function CartTable({ orders }: { orders: Order[] | null }) {
+interface IProps {
+  orders: Order[];
+  setTotal: (total: number) => void;
+  setOrders: (orders: Order[]) => void;
+}
+export function CartTable({ orders, setTotal, setOrders }: IProps) {
   const [selection, setSelection] = useState([orders?.[0].id.toString()]);
+  console.log(orders);
   const toggleRow = (id: string) =>
     setSelection((current) =>
       current.includes(id)
         ? current.filter((item) => item !== id)
         : [...current, id],
     );
+  const calculateTotal = () => {
+    const selectedOrders = orders?.filter((order) =>
+      selection.includes(order.id.toString()),
+    );
+    const newTotal = selectedOrders?.reduce((sum, order) => {
+      return sum + order.product.price * order.quantity;
+    }, 0);
+    if (newTotal) {
+      setTotal(newTotal);
+    } else {
+      setTotal(0);
+    }
+  };
   const toggleAll = () =>
     setSelection((current) =>
-      current.length === data.length ? [] : data?.map((item) => item?.id),
+      current?.length === orders.length
+        ? []
+        : orders?.map((item) => item.id.toString()),
     );
+  useEffect(() => {
+    calculateTotal();
+  }, [selection, orders]);
 
   const rows = orders?.map((order) => {
     const selected = selection.includes(order?.id.toString());
-    const [myOrders, setOrders] = useState(order);
+    const [myOrders, setOrderss] = useState(order);
+    const handleSubmit = () => {
+      console.log(orders);
+      const newOrd = orders.map((item) =>
+        item.id === order.id ? myOrders : item,
+      );
+      setOrders(newOrd);
+      calculateTotal();
+    };
     return (
       <Table.Tr
         key={order?.id}
@@ -105,10 +94,11 @@ export function CartTable({ orders }: { orders: Order[] | null }) {
               color="red"
               onClick={() => {
                 if (myOrders.quantity > 1) {
-                  setOrders((prev: Order) => ({
+                  setOrderss((prev: Order) => ({
                     ...prev,
                     quantity: prev.quantity - 1,
                   }));
+                  handleSubmit();
                 }
               }}
             />
@@ -116,10 +106,11 @@ export function CartTable({ orders }: { orders: Order[] | null }) {
             <IconPlus
               color="green"
               onClick={() => {
-                setOrders((prev: Order) => ({
+                setOrderss((prev: Order) => ({
                   ...prev,
                   quantity: prev.quantity + 1,
                 }));
+                handleSubmit();
               }}
             />
           </Group>
@@ -144,9 +135,9 @@ export function CartTable({ orders }: { orders: Order[] | null }) {
               <Table.Th style={{ width: rem(40) }}>
                 <Checkbox
                   onChange={toggleAll}
-                  checked={selection.length === data.length}
+                  checked={selection.length === orders.length}
                   indeterminate={
-                    selection.length > 0 && selection.length !== data.length
+                    selection.length > 0 && selection.length !== orders.length
                   }
                 />
               </Table.Th>

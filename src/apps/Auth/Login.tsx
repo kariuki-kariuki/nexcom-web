@@ -87,7 +87,7 @@ export default function Login(props: PaperProps) {
   }
 
   return (
-    <Box h={'100vh'}>
+    <Box h={'100vh'} className={classes.login}>
       <HeaderSearch links={links} />
       <Flex
         justify="center"
@@ -99,10 +99,10 @@ export default function Login(props: PaperProps) {
         <Paper
           radius="md"
           p="xl"
-          bg="rgb(15 23 42 / var(--tw-bg-opacity))"
           withBorder
           {...props}
-          className="bg-slate-900 "
+          bg={'none'}
+          className={classes.main}
         >
           <Text size="lg" fw={500} c="white" ta={'center'}>
             Welcome to COCO, {type} with

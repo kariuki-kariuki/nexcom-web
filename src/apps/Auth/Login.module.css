@@ -1,3 +1,10 @@
 .flex {
   height: rem(90%);
 }
+
+.login {
+  background-color: var(--mantine-color-coco-0);
+}
+.main {
+  box-shadow: var(--mantine-shadow-xl);
+}

@@ -16,6 +16,7 @@ import { Order } from '../../../@types/shop';
 import { HeaderSearch } from '../../../components/Navbar/HeaderSearch/HeaderSearch';
 import MenuDrop from '../../../Index/MenuDrop';
 import { IconEyeDollar } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
 // import mpesa from '../../../assets/mpesa.png';
 const links = [
   { link: '/', label: 'Home' },
@@ -24,7 +25,14 @@ const links = [
 ];
 const Cart = () => {
   const { result } = useFetch<Order[] | null>('orders');
-  console.log(result);
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    if (result) {
+      setOrders(result);
+    }
+  }, [result]);
+  const [total, setTotal] = useState(0);
   return (
     <Paper className={classes.main} h={'100vh'}>
       <Flex
@@ -43,7 +51,15 @@ const Cart = () => {
         >
           <HeaderSearch links={links} />
 
-          {result && result.length > 0 ? <CartTable orders={result} /> : ''}
+          {orders.length > 0 ? (
+            <CartTable
+              orders={orders}
+              setTotal={setTotal}
+              setOrders={setOrders}
+            />
+          ) : (
+            ''
+          )}
         </Card>
         <Box visibleFrom="sm" w={{ base: '100%', sm: '30%' }} h={'100%'}>
           <Flex
@@ -53,17 +69,22 @@ const Cart = () => {
             justify={'center'}
           >
             <Paper className={classes.inner_card} shadow="md" p={'lg'}>
+              <Text ta={'center'} fw={'bold'} ff={'serif'}>
+                CART
+              </Text>
               <MenuDrop />
               <Group justify="space-between" p={'md'} w={'fit-content'}>
-                <Text>Total</Text> <Text>$200</Text>
+                <Text ff={'serif'}>Total</Text>{' '}
+                <Text ff={'serif'}>Ksh {total}</Text>
               </Group>
-              <InputWrapper label={'Phone'} required p={'md'}>
-                <Input placeholder="+254 742075647" />
+              <InputWrapper label={'Phone'} required p={'md'} ff={'serif'}>
+                <Input placeholder="+254 742075647" ff={'serif'} />
               </InputWrapper>
               <Group p={'md'} justify="center">
                 <Button
                   color="green"
                   w={'100%'}
+                  ff={'serif'}
                   leftSection={<IconEyeDollar size={14} />}
                 >
                   CheckOut
