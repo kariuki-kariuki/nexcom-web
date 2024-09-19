@@ -14,34 +14,6 @@ import { url } from '../../../../data/url';
 import PaginationDemo from '../PaginationDemo/PaginationDemo';
 import classes from './UserTable.module.css';
 
-// enum IdType {
-//   Number = "Number",
-//   String = "String",
-//   Array = "Array",
-//   Object = "Object",
-//   Generate = "Generate",
-// }
-
-// interface Id {
-//   type: IdType;
-
-//   // Use discriminated unions for specific types within the enum
-//   numberValue?: bigint; // Use bigint for i64
-//   stringValue?: string;
-//   arrayValue?: any[]; // Can be refined based on actual array content
-//   objectValue?: { [key: string]: any }; // Object literal type
-//   generateValue?: (length: number) => string; // Function for generating ID
-// }
-
-// interface Adress {
-//   address_line_1: string;
-//   address_line_2: string | null;
-//   city: string;
-//   coordinates: string[];
-//   country: string;
-//   post_code: string;
-// }
-
 interface Person {
   id: string;
   firstName: string;
@@ -66,13 +38,11 @@ export function UsersTable() {
       if (res.ok) {
         res.json().then((res) => {
           setUserData(res);
-          console.log(res);
         });
       } else {
         alert('Failed to fetch user data');
       }
     });
-    // console.log(user_data);
   }, [activePage]);
   const rows = user_data.slice(0, 10).map((user, index) => (
     <Table.Tr key={index}>

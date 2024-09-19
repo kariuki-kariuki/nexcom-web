@@ -30,7 +30,6 @@ function Index() {
   const { user, updateUser } = useContext(AppContext) as UserContextType;
   const { result } = useFetch<GlobalUser>(`auth/me`);
   const navigate = useNavigate();
-  console.log(process.env.URL);
   useEffect(() => {
     updateUser(result);
   }, [result]);

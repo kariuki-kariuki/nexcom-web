@@ -12,7 +12,7 @@
 .card {
   background-color: light-dark(
     var(--mantine-color-white),
-    var(--mantine-color-coco-1)
+    var(--mantine-color-coco-0)
   );
   border-radius: var(--mantine-spacing-md);
 }
@@ -20,7 +20,7 @@
 .inner_card {
   background-color: light-dark(
     var(--mantine-color-white),
-    var(--mantine-color-coco-0)
+    var(--mantine-color-coco-1)
   );
   margin: 0 auto;
   height: fit-content;
@@ -34,9 +34,3 @@
   height: 100%;
 }
 
-.card {
-  background-color: light-dark(
-    var(--mantine-color-gray-4),
-    var(--mantine-color-coco-0)
-  );
-}

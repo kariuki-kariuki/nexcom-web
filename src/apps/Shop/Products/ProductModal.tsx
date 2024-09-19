@@ -6,6 +6,7 @@ import {
   Flex,
   Grid,
   Group,
+  LoadingOverlay,
   Modal,
   Text,
   useMantineTheme,
@@ -28,6 +29,7 @@ interface Iprops {
 
 function ProductModal({ opened, toggle, product, shopId }: Iprops) {
   const [quantity, setQuantity] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(AppContext) as UserContextType;
   const colors = product?.colors?.map((color, index) => (
     <Badge variant="filled" color={color} key={index} p={'sm'}>
@@ -36,6 +38,7 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
   ));
   const token = localStorage.getItem('token');
   function handleSubmit() {
+    setIsLoading(true);
     fetch(`${url}/orders`, {
       method: 'POST',
       headers: {
@@ -46,17 +49,19 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
     })
       .then((res) => {
         if (res.ok) {
-          res.json().then((res) => {
-            console.log(res);
+          res.json().then(() => {
             setQuantity(1);
             close();
+            setIsLoading(false);
           });
         } else {
           res.json().then((r) => console.log(r));
+          setIsLoading(false);
         }
       })
       .catch((e) => {
         console.log(e.message);
+        setIsLoading(false);
       });
   }
   const theme = useMantineTheme();
@@ -77,6 +82,12 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
       }}
       classNames={{ body: classes.body, header: classes.header }}
     >
+      <LoadingOverlay
+        visible={isLoading}
+        zIndex={1000}
+        overlayProps={{ radius: 'sm', blur: 2 }}
+        loaderProps={{ color: 'teal.7', type: 'bars' }}
+      />
       <Grid bg={'coco-0'} h={'100%'}>
         <Grid.Col span={{ base: 12, sm: 6 }} h={'100%'}>
           <Card

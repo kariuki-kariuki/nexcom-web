@@ -13,7 +13,7 @@ function Shop() {
         visible={isLoading}
         zIndex={1000}
         overlayProps={{ radius: 'sm', blur: 2 }}
-        loaderProps={{ color: 'purple', type: 'bars' }}
+        loaderProps={{ color: 'coco.0', type: 'bars' }}
       />
       <Box className={classes.shop}>
         <Box className={classes.sections} bg={'none'}>

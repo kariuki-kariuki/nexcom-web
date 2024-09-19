@@ -68,7 +68,12 @@ const Cart = () => {
             align={'center'}
             justify={'center'}
           >
-            <Paper className={classes.inner_card} shadow="md" p={'lg'}>
+            <Card
+              className={classes.inner_card}
+              withBorder
+              shadow="md"
+              p={'lg'}
+            >
               <Text ta={'center'} fw={'bold'} ff={'serif'}>
                 CART
               </Text>
@@ -90,7 +95,7 @@ const Cart = () => {
                   CheckOut
                 </Button>
               </Group>
-            </Paper>
+            </Card>
           </Flex>
         </Box>
       </Flex>
