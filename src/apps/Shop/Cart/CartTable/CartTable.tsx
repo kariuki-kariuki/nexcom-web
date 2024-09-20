@@ -21,7 +21,6 @@ interface IProps {
 }
 export function CartTable({ orders, setTotal, setOrders }: IProps) {
   const [selection, setSelection] = useState([orders?.[0].id.toString()]);
-  console.log(orders);
   const toggleRow = (id: string) =>
     setSelection((current) =>
       current.includes(id)
@@ -55,7 +54,6 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
     const selected = selection.includes(order?.id.toString());
     const [myOrders, setOrderss] = useState(order);
     const handleSubmit = () => {
-      console.log(orders);
       const newOrd = orders.map((item) =>
         item.id === order.id ? myOrders : item,
       );
@@ -124,7 +122,7 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
     <Paper className={classes.main}>
       <ScrollArea>
         <Table
-          miw={0}
+          miw={400}
           verticalSpacing="sm"
           withRowBorders={false}
           stickyHeader

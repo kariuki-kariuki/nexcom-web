@@ -46,8 +46,8 @@ const Cart = () => {
         <Card
           w={{ base: '100%', sm: '70%' }}
           h={'100%'}
-          radius={'md'}
           className={classes.card}
+          p={{ base: 'xs', sm: 'md' }}
         >
           <HeaderSearch links={links} />
 

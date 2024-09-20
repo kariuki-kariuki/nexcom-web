@@ -14,7 +14,10 @@
     var(--mantine-color-white),
     var(--mantine-color-coco-0)
   );
-  border-radius: var(--mantine-spacing-md);
+  
+  @media (min-width: $mantine-breakpoint-sm) {
+    border-radius: var(--mantine-spacing-md);
+  }
 }
 
 .inner_card {
@@ -32,5 +35,7 @@
 }
 .flex {
   height: 100%;
+  @media (max-width: $mantine-breakpoint-sm) {
+    border-radius: var(--mantine-spacing-md);
+  }
 }
-

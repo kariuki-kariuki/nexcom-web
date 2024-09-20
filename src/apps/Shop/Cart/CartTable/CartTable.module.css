@@ -3,13 +3,20 @@
 }
 
 .color {
-  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-coco-0));
-
+  background-color: light-dark(
+    var(--mantine-color-gray-2),
+    var(--mantine-color-coco-0)
+  );
 }
 
-.main{
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-1));
+.main {
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-coco-1)
+  );
   height: 100%;
-  padding: var(--mantine-spacing-md);
-  border-radius: var(--mantine-spacing-md);
+  @media (min-width: $mantine-breakpoint-sm) {
+    border-radius: var(--mantine-spacing-md);
+    padding: var(--mantine-spacing-md);
+  }
 }
