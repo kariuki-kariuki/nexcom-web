@@ -3,21 +3,11 @@ import {
   IconDotsVertical,
   IconLayoutDashboardFilled,
   IconLogout,
-  IconMoonFilled,
-  // IconPhoneCalling,
   IconShoppingBag,
-  IconSunFilled,
   IconTrash,
   // IconVideo,
 } from '@tabler/icons-react';
-import {
-  Box,
-  Menu,
-  rem,
-  Text,
-  Tooltip,
-  useMantineColorScheme,
-} from '@mantine/core';
+import { Box, Menu, rem, Text, Tooltip } from '@mantine/core';
 import Dashboard from '../../../Dashboard/Dashboard';
 import classes from './Miscelenious.module.css';
 import { useDisclosure } from '@mantine/hooks';
@@ -34,7 +24,6 @@ import {
   NewConversationType,
 } from '../../../../context/newConversation';
 function Miscelenious() {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [opened, { open, close }] = useDisclosure();
   const navigate = useNavigate();
   const { user, updateUser } = useContext(AppContext) as UserContextType;
@@ -101,22 +90,6 @@ function Miscelenious() {
                 }
               >
                 Profile
-              </Menu.Item>
-              <Menu.Item
-                leftSection={
-                  colorScheme === 'dark' ? (
-                    <IconSunFilled
-                      style={{ width: rem(14), height: rem(14) }}
-                    />
-                  ) : (
-                    <IconMoonFilled
-                      style={{ width: rem(14), height: rem(14) }}
-                    />
-                  )
-                }
-                onClick={toggleColorScheme}
-              >
-                {colorScheme === 'dark' ? 'Light' : 'Dark'}
               </Menu.Item>
               <Menu.Divider />
 

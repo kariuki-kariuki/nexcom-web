@@ -59,7 +59,6 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
   ));
   const handleSubmit = async () => {
     const body = { text: value };
-    console.log(value);
     const { result } = await PostFecthFX<GlobalUser[], { text: string }>({
       resource: `users/search`,
       method: 'POST',
@@ -67,7 +66,6 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
     });
     if (result) {
       setUsers(result);
-      console.log(result);
     }
   };
   return (

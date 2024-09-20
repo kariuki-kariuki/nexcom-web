@@ -116,7 +116,6 @@ function Chat() {
           }),
         );
       }
-      // console.log(activeConvo);
     };
     socket?.on('message-state', handleState);
 
