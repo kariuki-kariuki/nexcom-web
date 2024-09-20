@@ -1,5 +1,5 @@
 .main {
-  background: light-dark( var(--mantine-color-gray-0),linear-gradient(90deg, var(--mantine-color-coco-0) 0%, var(--mantine-color-coco-1) 35%, var(--mantine-color-coco-2) 100%));
+  background: light-dark( var(--mantine-color-gray-0),linear-gradient(90deg, var(--mantine-color-coco-0) 0%, var(--mantine-color-coco-1) 35%, var(--mantine-color-coco-0) 100%));
 }
 
 .text {

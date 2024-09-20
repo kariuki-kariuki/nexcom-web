@@ -21,7 +21,7 @@ export default function MenuDrop() {
   const [opened, { open, close }] = useDisclosure();
   const { user, updateUser } = useContext(AppContext) as UserContextType;
   return (
-    <Box p={'md'} className={classes.menu}>
+    <Box px={'md'} py={'sm'} className={classes.menu}>
       <Menu shadow="md" width={200}>
         <Menu.Target>
           <div>

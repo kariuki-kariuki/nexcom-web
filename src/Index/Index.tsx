@@ -1,25 +1,13 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Group,
-  Paper,
-  rem,
-  Text,
-} from '@mantine/core';
-import logo from '../assets/mklogo.png';
+import { Box, Button, Divider, Flex, Paper, rem, Text } from '@mantine/core';
 import { IconArrowRight } from '@tabler/icons-react';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '../context/appContext';
 import { UserContextType } from '../@types/app';
-import MenuDrop from './MenuDrop';
-import { useNavigate } from 'react-router-dom';
 import classes from './Index.module.css';
 import { useFetch } from '../hooks/useFetchHooks';
 import { GlobalUser } from '../@types/chat';
 import HeroCarousel from './HeroCarousel';
+import { IndexNav } from './IndexNav/IndexNav';
 const links = [
   { link: '/chat', label: 'Chat' },
   { link: '/shop', label: 'Shop' },
@@ -29,55 +17,13 @@ const links = [
 function Index() {
   const { user, updateUser } = useContext(AppContext) as UserContextType;
   const { result } = useFetch<GlobalUser>(`auth/me`);
-  const navigate = useNavigate();
   useEffect(() => {
     updateUser(result);
   }, [result]);
-  const items = links.map((link) => (
-    <div
-      className={classes.link}
-      onClick={() => navigate(link.link)}
-      key={link.label}
-    >
-      {link.label}
-    </div>
-  ));
+
   return (
     <Paper h={'100vh'} px={{ base: 'sm', sm: 'lg' }} className={classes.main}>
-      <div className="flex justify-between p-5 md:p-5  sticky top-0 left-0 right-0">
-        <Group align="center">
-          <Avatar src={logo} />
-          <Text className={classes.text}>COCO</Text>
-        </Group>
-        <Group>
-          {items}
-          {user?.shop ? (
-            <div className={classes.link} onClick={() => navigate('/admin')}>
-              Admin
-            </div>
-          ) : (
-            ''
-          )}
-        </Group>
-        <Group visibleFrom="sm">
-          {/* <TextInput
-              placeholder="search"
-              pr={10}
-              visibleFrom="sm"
-              leftSection={<IconSearch size={18} />}
-              rightSection={
-                <Text size="xs" c="dimmed">
-                  ⌘K
-                </Text>
-              }
-            /> */}
-          {user?.firstName ? (
-            <MenuDrop />
-          ) : (
-            <Button onClick={() => navigate('/login')}>Login</Button>
-          )}
-        </Group>
-      </div>
+      <IndexNav links={links} />
       <Flex
         justify={'space-between'}
         p={{ base: 'sm', sm: 'md' }}
