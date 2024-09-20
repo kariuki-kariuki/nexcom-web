@@ -24,7 +24,7 @@
   text-decoration: none;
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
   font-size: var(--mantine-font-size-sm);
-  font-weight: 500;
+  font-weight: 900;
 
   @mixin hover {
     background-color: light-dark(
@@ -32,4 +32,25 @@
       var(--mantine-color-dark-6)
     );
   }
+}
+
+.content {
+  padding: 10px;
+  background-color: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-coco-0)
+  );
+}
+.body {
+  height: 90%;
+  background-color: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-coco-1)
+  );
+}
+.bg {
+  background-color: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-coco-1)
+  );
 }

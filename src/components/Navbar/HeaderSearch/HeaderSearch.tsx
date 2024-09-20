@@ -1,9 +1,18 @@
-import { Autocomplete, Group, Burger, rem, Avatar } from '@mantine/core';
+import {
+  Autocomplete,
+  Group,
+  Burger,
+  rem,
+  Avatar,
+  Flex,
+  Drawer,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import classes from './HeaderSearch.module.css';
 import logo from '../../../assets/mklogo.png';
 import { useNavigate } from 'react-router-dom';
+import MenuDrop from '../../../Index/MenuDrop';
 
 interface Link {
   link: string;
@@ -32,8 +41,25 @@ export function HeaderSearch({ links }: ILink) {
           <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
           <Avatar src={logo} />
         </Group>
+        <Drawer
+          opened={opened}
+          onClose={toggle}
+          title="Navigation"
+          classNames={{
+            header: classes.bg,
+            body: classes.body,
+            content: classes.content,
+          }}
+        >
+          <Flex direction={'column'} h="100%" justify={'space-between'}>
+            <Flex direction={'column'} gap={'md'}>
+              {items}
+            </Flex>
+            <MenuDrop />
+          </Flex>
+        </Drawer>
 
-        <Group>
+        <Group visibleFrom="sm">
           <Group ml={50} gap={5} className={classes.links}>
             {items}
           </Group>
