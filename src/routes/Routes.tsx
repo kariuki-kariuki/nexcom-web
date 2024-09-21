@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // import App from "../App";
 import Login from '../apps/Auth/Login';
-import Register from '../apps/Auth/Register';
 import Admin from '../apps/Admin/Admin';
 import Shop from '../apps/Shop/Shop';
 import Index from '../Index/Index';
@@ -26,10 +25,6 @@ const MyRoutes = ({ user }: { user: GlobalUser | null }) => {
     {
       path: '/callback/:token',
       element: <Callback />,
-    },
-    {
-      path: '/register',
-      element: <Register />,
     },
     {
       path: '/admin',

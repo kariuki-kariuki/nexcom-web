@@ -6,7 +6,8 @@ import {
   Progress,
   Text,
 } from '@mantine/core';
-import { useInputState } from '@mantine/hooks';
+import { UseFormReturnType } from '@mantine/form';
+// import { useInputState } from '@mantine/hooks';
 import { IconCheck, IconX } from '@tabler/icons-react';
 
 function PasswordRequirement({
@@ -48,17 +49,38 @@ function getStrength(password: string) {
 
   return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 0);
 }
-
-export default function PasswordStrength() {
-  const [value, setValue] = useInputState('');
-
-  const strength = getStrength(value);
+type ChildComponentProps = {
+  form: UseFormReturnType<
+    {
+      email: string;
+      firstName: string;
+      lastName: string;
+      password: string;
+      terms: boolean;
+    },
+    (values: {
+      email: string;
+      firstName: string;
+      lastName: string;
+      password: string;
+      terms: boolean;
+    }) => {
+      email: string;
+      firstName: string;
+      lastName: string;
+      password: string;
+      terms: boolean;
+    }
+  >;
+};
+export default function PasswordStrength({ form }: ChildComponentProps) {
+  const strength = getStrength(form.values.password);
 
   const checks = requirements.map((requirement, index) => (
     <PasswordRequirement
       key={index}
       label={requirement.label}
-      meets={requirement.re.test(value)}
+      meets={requirement.re.test(form.values.password)}
     />
   ));
 
@@ -68,7 +90,7 @@ export default function PasswordStrength() {
       <Progress
         style={{ section: { transitionDuration: '0ms' } }}
         value={
-          value.length > 0 && index === 0
+          form.values.password.length > 0 && index === 0
             ? 100
             : strength >= ((index + 1) / 4) * 100
               ? 100
@@ -83,8 +105,10 @@ export default function PasswordStrength() {
   return (
     <div>
       <PasswordInput
-        value={value}
-        onChange={setValue}
+        value={form.values.password}
+        onChange={(event) =>
+          form.setFieldValue('password', event.currentTarget.value)
+        }
         placeholder="Your password"
         c={'white'}
         label="Password"
@@ -97,7 +121,7 @@ export default function PasswordStrength() {
 
       <PasswordRequirement
         label="Has at least 6 characters"
-        meets={value.length > 5}
+        meets={form.values.password.length > 5}
       />
       {checks}
     </div>

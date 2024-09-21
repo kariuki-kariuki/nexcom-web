@@ -23,6 +23,7 @@ import classes from './Login.module.css';
 import { useContext } from 'react';
 import { AppContext } from '../../context/appContext';
 import { UserContextType } from '../../@types/app';
+import PasswordStrength from '../../components/input/PasswordStrenght';
 
 const links = [
   { link: '/', label: 'Home' },
@@ -64,7 +65,6 @@ export default function Login(props: PaperProps) {
     });
   }
   function handleSubmit(values: typeof form.values) {
-    console.log(values);
     fetch(`${url}${type == 'login' ? '/auth/login' : '/auth/register'}`, {
       method: 'POST',
       headers: {
@@ -87,7 +87,7 @@ export default function Login(props: PaperProps) {
   }
 
   return (
-    <Box h={'100vh'} className={classes.login}>
+    <Box className={classes.login}>
       <HeaderSearch links={links} />
       <Flex
         justify="center"
@@ -129,6 +129,7 @@ export default function Login(props: PaperProps) {
                 <TextInput
                   label="First Name"
                   placeholder="Your name"
+                  required
                   value={form.values.firstName}
                   onChange={(event) =>
                     form.setFieldValue('firstName', event.currentTarget.value)
@@ -141,13 +142,13 @@ export default function Login(props: PaperProps) {
                   label="Last Name"
                   placeholder="Your name"
                   value={form.values.lastName}
+                  required
                   onChange={(event) =>
                     form.setFieldValue('lastName', event.currentTarget.value)
                   }
                   radius="md"
                 />
               )}
-
               <TextInput
                 c="white"
                 required
@@ -161,21 +162,25 @@ export default function Login(props: PaperProps) {
                 radius="md"
               />
 
-              <PasswordInput
-                required
-                label="Password"
-                c="white"
-                placeholder="Your password"
-                value={form.values.password}
-                onChange={(event) =>
-                  form.setFieldValue('password', event.currentTarget.value)
-                }
-                error={
-                  form.errors.password &&
-                  'Password should include at least 6 characters'
-                }
-                radius="md"
-              />
+              {type === 'login' && (
+                <PasswordInput
+                  required
+                  label="Password"
+                  c="white"
+                  placeholder="Your password"
+                  value={form.values.password}
+                  onChange={(event) =>
+                    form.setFieldValue('password', event.currentTarget.value)
+                  }
+                  error={
+                    form.errors.password &&
+                    'Password should include at least 6 characters'
+                  }
+                  radius="md"
+                />
+              )}
+
+              {type === 'register' && <PasswordStrength form={form} />}
 
               {type === 'register' && (
                 <Checkbox

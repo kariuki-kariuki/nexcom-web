@@ -1,8 +1,9 @@
 .flex {
-  height: rem(90%);
 }
 
 .login {
+  height: 100vh;
+  overflow-y: auto;
   background-color: var(--mantine-color-coco-0);
 }
 .main {
