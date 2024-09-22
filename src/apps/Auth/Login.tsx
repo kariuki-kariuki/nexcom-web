@@ -87,7 +87,7 @@ export default function Login(props: PaperProps) {
   }
 
   return (
-    <Box className={classes.login}>
+    <Box className={classes.login} pb={'lg'}>
       <HeaderSearch links={links} />
       <Flex
         justify="center"
