@@ -19,47 +19,58 @@ interface IProps {
   setTotal: (total: number) => void;
   setOrders: (orders: Order[]) => void;
 }
+
 export function CartTable({ orders, setTotal, setOrders }: IProps) {
-  const [selection, setSelection] = useState([orders?.[0].id.toString()]);
+  const [selection, setSelection] = useState([orders?.[0]?.id.toString()]);
+
+  // Toggle selection of individual row
   const toggleRow = (id: string) =>
     setSelection((current) =>
       current.includes(id)
         ? current.filter((item) => item !== id)
         : [...current, id],
     );
-  const calculateTotal = () => {
-    const selectedOrders = orders?.filter((order) =>
-      selection.includes(order.id.toString()),
-    );
-    const newTotal = selectedOrders?.reduce((sum, order) => {
-      return sum + order.product.price * order.quantity;
-    }, 0);
-    if (newTotal) {
-      setTotal(newTotal);
-    } else {
-      setTotal(0);
-    }
-  };
+
+  // Toggle selection of all rows
   const toggleAll = () =>
     setSelection((current) =>
       current?.length === orders.length
         ? []
         : orders?.map((item) => item.id.toString()),
     );
+
+  // Calculate the total based on selected orders
+  const calculateTotal = () => {
+    const selectedOrders = orders?.filter((order) =>
+      selection.includes(order.id.toString()),
+    );
+    const newTotal =
+      selectedOrders?.reduce((sum, order) => {
+        return sum + order.product.price * order.quantity;
+      }, 0) || 0; // Default to 0 if no selection
+    setTotal(newTotal);
+  };
+
+  // Recalculate total when selection or orders change
   useEffect(() => {
     calculateTotal();
   }, [selection, orders]);
 
+  // Render table rows for each order
   const rows = orders?.map((order) => {
     const selected = selection.includes(order?.id.toString());
-    const [myOrders, setOrderss] = useState(order);
-    const handleSubmit = () => {
-      const newOrd = orders.map((item) =>
-        item.id === order.id ? myOrders : item,
+    const [myOrder, setMyOrder] = useState(order); // Separate state for each order
+
+    // Update order quantity and recalculate total
+    const updateOrderQuantity = (newQuantity: number) => {
+      const updatedOrder = { ...myOrder, quantity: newQuantity };
+      setMyOrder(updatedOrder);
+      const updatedOrders = orders.map((item) =>
+        item.id === order.id ? updatedOrder : item,
       );
-      setOrders(newOrd);
-      calculateTotal();
+      setOrders(updatedOrders);
     };
+
     return (
       <Table.Tr
         key={order?.id}
@@ -91,29 +102,19 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
             <IconMinus
               color="red"
               onClick={() => {
-                if (myOrders.quantity > 1) {
-                  setOrderss((prev: Order) => ({
-                    ...prev,
-                    quantity: prev.quantity - 1,
-                  }));
-                  handleSubmit();
+                if (myOrder.quantity > 1) {
+                  updateOrderQuantity(myOrder.quantity - 1);
                 }
               }}
             />
-            {myOrders.quantity}
+            {myOrder.quantity}
             <IconPlus
               color="green"
-              onClick={() => {
-                setOrderss((prev: Order) => ({
-                  ...prev,
-                  quantity: prev.quantity + 1,
-                }));
-                handleSubmit();
-              }}
+              onClick={() => updateOrderQuantity(myOrder.quantity + 1)}
             />
           </Group>
         </Table.Td>
-        <Table.Td>{myOrders.quantity * order.product.price}</Table.Td>
+        <Table.Td>{myOrder.quantity * order.product.price}</Table.Td>
       </Table.Tr>
     );
   });
@@ -126,7 +127,6 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
           verticalSpacing="sm"
           withRowBorders={false}
           stickyHeader
-          // stickyHeaderOffset={60}
         >
           <Table.Thead>
             <Table.Tr>

@@ -6,8 +6,8 @@ import { UserContextType } from '../@types/app';
 import classes from './Index.module.css';
 import { useFetch } from '../hooks/useFetchHooks';
 import { GlobalUser } from '../@types/chat';
-import HeroCarousel from './HeroCarousel';
 import { IndexNav } from './IndexNav/IndexNav';
+import { useNavigate } from 'react-router-dom';
 const links = [
   { link: '/chat', label: 'Chat' },
   { link: '/shop', label: 'Shop' },
@@ -16,67 +16,65 @@ const links = [
 
 function Index() {
   const { user, updateUser } = useContext(AppContext) as UserContextType;
-  const { result } = useFetch<GlobalUser>(`auth/me`);
+  const { response } = useFetch<GlobalUser>(`auth/me`);
   useEffect(() => {
-    updateUser(result);
-  }, [result]);
-
+    updateUser(response);
+  }, [response]);
+  const navigate = useNavigate();
   return (
     <Paper h={'100vh'} px={{ base: 'sm', sm: 'lg' }} className={classes.main}>
-      <IndexNav links={links} />
-      <Flex
-        justify={'space-between'}
-        p={{ base: 'sm', sm: 'md' }}
-        align={'center'}
-        h={rem('70%')}
-      >
-        <Box w={{ base: '100%', sm: '50%' }}>
-          <Text
-            ff={'serif'}
-            fw={{ base: 'bold' }}
-            fz={{ base: 'md', sm: 'h1' }}
-          >
-            Bringing You a <br />
-            New Experience In <br />
+      <Flex direction={'column'} h={'100%'}>
+        <IndexNav links={links} />
+        <Flex
+          justify={{ base: 'center', sm: 'space-between' }}
+          p={{ base: 'sm', sm: 'md' }}
+          align={'center'}
+          h={rem('100%')}
+          direction={{ base: 'column', sm: 'row' }}
+        >
+          <Box w={{ base: '100%', sm: '60%' }}>
             <Text
-              component="span"
-              ff={'serif'}
-              c={'teal'}
+              ff={'poppins'}
               fw={{ base: 'bold' }}
-              fz={{ base: 'md', sm: 'h1' }}
+              lh={'1'}
+              fz={{ base: '40px', sm: '60px' }}
             >
-              Communication
-            </Text>{' '}
-            <Text component="span" ff={'serif'} fz={{ base: 'md', sm: 'h1' }}>
-              And
-            </Text>{' '}
-            <Text
-              c="teal"
-              ff={'serif'}
-              component="span"
-              fw={{ base: 'bold' }}
-              fz={{ base: 'md', sm: 'h1' }}
-            >
-              Commerce
+              Bringing You a New Experience In{'  '}
+              <Text component="span" inherit c={'orange.7'}>
+                Communication
+              </Text>{' '}
+              <Text component="span" inherit>
+                And
+              </Text>{' '}
+              <Text c="teal" inherit component="span">
+                Commerce
+              </Text>
             </Text>
-          </Text>
 
-          <Divider color={'teal'} className="w-3/5 mb-3" />
-          <Divider color={'teal'} className="w-2/5 mb-3" />
-          <Divider color={'teal'} className="w-1/5 mb-3" />
-          <Button
-            variant="outline"
-            component="a"
-            href={user?.firstName ? '/shop' : '/login'}
-            rightSection={<IconArrowRight size={20} />}
-            color="teal"
+            <Divider color={'teal'} className="w-3/5 mb-3" />
+            <Divider color={'teal'} className="w-2/5 mb-3" />
+            <Divider color={'teal'} className="w-1/5 mb-3" />
+            <Button
+              component="a"
+              rightSection={<IconArrowRight size={20} />}
+              color="teal.5"
+              px={{ base: 'lg', sm: 'xl' }}
+              onClick={() => navigate(user ? '/shop' : '/login')}
+            >
+              Get Started
+            </Button>
+          </Box>
+          <Box
+            maw={'100%'}
+            w={{ sm: '40%' }}
+            visibleFrom="sm"
+            p={'md'}
+            h={'90%'}
+            className={classes.carousel}
           >
-            Get Started
-          </Button>
-        </Box>
-        <Box maw={'100%'} w={'50%'} visibleFrom="sm" p={'md'}>
-          <HeroCarousel />
-        </Box>
+            {/* <HeroCarousel /> */}
+          </Box>
+        </Flex>
       </Flex>
     </Paper>
   );

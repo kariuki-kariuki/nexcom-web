@@ -14,7 +14,6 @@ import { CartTable } from './CartTable/CartTable';
 import { useFetch } from '../../../hooks/useFetchHooks';
 import { Order } from '../../../@types/shop';
 import { HeaderSearch } from '../../../components/Navbar/HeaderSearch/HeaderSearch';
-import MenuDrop from '../../../Index/MenuDrop';
 import { IconEyeDollar } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 // import mpesa from '../../../assets/mpesa.png';
@@ -24,15 +23,15 @@ const links = [
   { link: '/shop', label: 'Shop' },
 ];
 const Cart = () => {
-  const { result } = useFetch<Order[] | null>('orders');
+  const { response } = useFetch<Order[] | null>('orders');
   const [orders, setOrders] = useState<Order[]>([]);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    if (result) {
-      setOrders(result);
+    if (response) {
+      setOrders(response);
     }
-  }, [result]);
-  const [total, setTotal] = useState(0);
+  }, [response]);
   return (
     <Paper className={classes.main} h={'100vh'}>
       <Flex
@@ -77,7 +76,6 @@ const Cart = () => {
               <Text ta={'center'} fw={'bold'} ff={'serif'}>
                 CART
               </Text>
-              <MenuDrop />
               <Group justify="space-between" p={'md'} w={'fit-content'}>
                 <Text ff={'serif'}>Total</Text>{' '}
                 <Text ff={'serif'}>Ksh {total}</Text>

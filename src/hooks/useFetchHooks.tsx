@@ -3,12 +3,12 @@ import { url } from '../data/url';
 
 interface Iprops<T> {
   isLoading: boolean;
-  result: T | null;
+  response: T | null;
   error: any;
 }
 export function useFetch<T>(resource: string): Iprops<T> {
   const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState<T | null>(null);
+  const [response, setResult] = useState<T | null>(null);
   const token = localStorage.getItem('token');
   const [error, setError] = useState<any>(false);
   useEffect(() => {
@@ -34,5 +34,5 @@ export function useFetch<T>(resource: string): Iprops<T> {
     }
   }, [token, resource]);
 
-  return { isLoading, error, result };
+  return { isLoading, error, response };
 }

@@ -1,4 +1,4 @@
-import { Card, Flex, Modal, useMantineColorScheme } from '@mantine/core';
+import { Card, Flex, Modal } from '@mantine/core';
 import classes from './Chat.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import ChatArea from './ChatBox/ChatArea/ChatArea';
@@ -61,8 +61,6 @@ function Chat() {
     null,
   );
   const [opened, { open, close }] = useDisclosure(false);
-  const { colorScheme } = useMantineColorScheme();
-  const bgColor = colorScheme === 'dark' ? 'gray.8' : 'gray.8';
   useEffect(() => {
     const handleState = (res: any) => {
       if (res.state === MessageState.DELIVERED) {
@@ -127,16 +125,17 @@ function Chat() {
   return (
     <Flex
       wrap="nowrap"
-      gap={5}
+      gap={'md'}
       p={{ base: '0px', sm: 'sm', md: 'sm' }}
       h="100vh"
-      bg={bgColor}
+      className={classes.main}
     >
       <Card
         className={classes.overflow}
         h="100%"
         w={{ sm: '40%', md: '30%' }}
         padding={2}
+        bd={'none'}
       >
         <ConversationButtonList
           conversations={conversations}
@@ -149,10 +148,11 @@ function Chat() {
       <Card
         visibleFrom="sm"
         className={`${classes.overflow}`}
-        p={2}
+        p={0}
         w={{ sm: '60%', md: '70%' }}
         h="100%"
         radius={'lg'}
+        bd={'none'}
       >
         <ChatArea closes={close} activeConvo={activeConvo} socket={socket} />
       </Card>
@@ -174,7 +174,7 @@ function Chat() {
           padding={'0px'}
           m={'0px'}
           h={'100%'}
-          bg={colorScheme == 'dark' ? 'dark' : 'teal'}
+          bd={'none'}
         >
           <ChatArea closes={close} activeConvo={activeConvo} socket={socket} />
         </Card>

@@ -6,6 +6,6 @@
   }
 }
 .menu_drop {
-  background-color: light-dark(var(--mantine-color-white),  var(--mantine-color-coco-1));
+  background-color: light-dark(var(--mantine-color-white),  var(--mantine-color-coco-0));
   box-shadow: 5px 5px 5px light-dark(rgba(0, 0, 0, .2), rgba(0, 0, 0, 2));
 }

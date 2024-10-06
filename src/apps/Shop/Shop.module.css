@@ -1,7 +1,7 @@
 .shop {
   background-color: light-dark(
     var(--mantine-color-gray-8),
-    var(--mantine-color-gray-8)
+    var(--mantine-color-coco-0)
   );
   height: rem(100vh);
   width: 100%;

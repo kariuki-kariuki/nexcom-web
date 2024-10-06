@@ -4,9 +4,11 @@ import { NavbarNested } from './ShopNav/NavbarNested';
 import classes from './Shop.module.css';
 import { useFetch } from '../../hooks/useFetchHooks';
 import { ProductWithShop } from '../../@types/shop';
+import { useState } from 'react';
 
 function Shop() {
-  const { isLoading, result } = useFetch<ProductWithShop[]>('products');
+  const { isLoading, response } = useFetch<ProductWithShop[]>('products');
+  const [filterr, setFilter] = useState<string>('all');
   return (
     <Box pos="relative">
       <LoadingOverlay
@@ -23,10 +25,10 @@ function Shop() {
             p={0}
             bg={'none'}
           >
-            <NavbarNested />
+            <NavbarNested filter={filterr} setFilter={setFilter} />
           </Paper>
           <Paper w={{ base: '100%', sm: '70%', md: '75%' }} p={0} bg={'none'}>
-            {result ? <HeroPage products={result} /> : ''}
+            {response ? <HeroPage products={response} /> : ''}
           </Paper>
         </Box>
       </Box>

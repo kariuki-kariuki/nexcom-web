@@ -20,6 +20,8 @@
     var(--mantine-color-white),
     var(--mantine-color-coco-1)
   );
+  padding: 5px 5px;
+
 
   @media (min-width: $mantine-breakpoint-sm) {
     padding: 10px;

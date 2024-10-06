@@ -138,7 +138,9 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
                 </Text>
               </Box>
 
-              <Group justify={'center'}>{colors}</Group>
+              <Group justify={'center'} wrap="nowrap" px={0}>
+                {colors}
+              </Group>
               {shopId === user?.shop?.id ? (
                 <Group justify={'center'} w={'100%'} p={'lg'}>
                   <Button

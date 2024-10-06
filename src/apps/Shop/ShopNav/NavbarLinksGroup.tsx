@@ -1,26 +1,37 @@
 import { useState } from 'react';
 import { Group, Box, Collapse, Text, UnstyledButton, rem } from '@mantine/core';
-import { IconCalendarStats, IconChevronRight } from '@tabler/icons-react';
+import { IconChevronRight } from '@tabler/icons-react';
 import classes from './NavbarLinksGroup.module.css';
+import { Category } from '../../../@types/shop';
+import { FilterProps } from './NavbarNested';
 
-interface LinksGroupProps {
-  label: string;
+interface LinksGroupProps extends FilterProps {
+  name: string;
   initiallyOpened?: boolean;
-  links?: { label: string; link: string }[];
+  sub_category?: Category[];
 }
 
-export function LinksGroup({ label, initiallyOpened, links }: LinksGroupProps) {
-  const hasLinks = Array.isArray(links);
+export function LinksGroup({
+  name,
+  initiallyOpened,
+  sub_category,
+  // filter,
+  setFilter,
+}: LinksGroupProps) {
+  const hasCategories = Array.isArray(sub_category);
   const [opened, setOpened] = useState(initiallyOpened || false);
-  const items = (hasLinks ? links : []).map((link) => (
+  const items = (hasCategories ? sub_category : []).map((category) => (
     <Text<'a'>
       component="a"
       className={classes.link}
-      href={link.link}
-      key={link.label}
-      onClick={(event) => event.preventDefault()}
+      key={category.name}
+      href={`${category.name}`}
+      onClick={(event) => {
+        event.preventDefault();
+        setFilter(classes.link);
+      }}
     >
-      {link.label}
+      {category.name}
     </Text>
   ));
 
@@ -32,9 +43,9 @@ export function LinksGroup({ label, initiallyOpened, links }: LinksGroupProps) {
       >
         <Group justify="space-between" gap={0}>
           <Box style={{ display: 'flex', alignItems: 'center' }}>
-            <Box ml="md">{label}</Box>
+            <Box ml="md">{name}</Box>
           </Box>
-          {hasLinks && (
+          {hasCategories && sub_category.length > 1 && (
             <IconChevronRight
               className={classes.chevron}
               stroke={1.5}
@@ -47,25 +58,7 @@ export function LinksGroup({ label, initiallyOpened, links }: LinksGroupProps) {
           )}
         </Group>
       </UnstyledButton>
-      {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
+      {hasCategories ? <Collapse in={opened}>{items}</Collapse> : null}
     </>
-  );
-}
-
-const mockdata = {
-  label: 'Releases',
-  icon: IconCalendarStats,
-  links: [
-    { label: 'Upcoming releases', link: '/' },
-    { label: 'Previous releases', link: '/' },
-    { label: 'Releases schedule', link: '/' },
-  ],
-};
-
-export function NavbarLinksGroup() {
-  return (
-    <Box mih={220} p="md">
-      <LinksGroup {...mockdata} />
-    </Box>
   );
 }

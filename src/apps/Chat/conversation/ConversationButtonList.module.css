@@ -1,7 +1,7 @@
 .nav {
-  border-color: light-dark(var(--mantine-color-gray-3), #06141b);
+  border-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-gray-6));
   background-color: light-dark(
-    var(--mantine-color-white),
+    var(--mantine-color-coco-0),
     var(--mantine-color-coco-0)
   );
   border-radius: var(--mantine-spacing-md);
@@ -19,7 +19,7 @@
 
 .group {
   border-radius: var(--mantine-spacing-md) var(--mantine-spacing-md) 0px 0px;
-  background-color: light-dark(var(--mantine-color-white-0), #06141b);
+  background-color: light-dark(var(--mantine-color-white-0), var(--mantine-color-coco-0));
 }
 
 /* .relative {

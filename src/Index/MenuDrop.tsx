@@ -1,4 +1,4 @@
-import { Box, Menu, rem } from '@mantine/core';
+import { Box, Button, ButtonGroup, Menu, rem } from '@mantine/core';
 import {
   IconMessageCircle,
   IconTrash,
@@ -69,40 +69,56 @@ export default function MenuDrop() {
           ) : (
             ''
           )}
-          <Menu.Divider />
+          {user ? (
+            <>
+              <Menu.Divider />
+              <Menu.Label>Danger zone</Menu.Label>
+              <Menu.Item
+                color="red"
+                onClick={() => {
+                  localStorage.removeItem('token');
+                  updateUser(null);
+                  navigate('/', { replace: true });
+                }}
+                leftSection={
+                  <IconLogout style={{ width: rem(14), height: rem(14) }} />
+                }
+              >
+                Logout
+              </Menu.Item>
 
-          <Menu.Label>Danger zone</Menu.Label>
-          <Menu.Item
-            color="red"
-            onClick={() => {
-              localStorage.removeItem('token');
-              updateUser(null);
-              navigate('/', { replace: true });
-            }}
-            leftSection={
-              <IconLogout style={{ width: rem(14), height: rem(14) }} />
-            }
-          >
-            Logout
-          </Menu.Item>
-
-          <Menu.Item
-            leftSection={
-              <IconArrowsLeftRight
-                style={{ width: rem(14), height: rem(14) }}
-              />
-            }
-          >
-            Transfer my data
-          </Menu.Item>
-          <Menu.Item
-            color="red"
-            leftSection={
-              <IconTrash style={{ width: rem(14), height: rem(14) }} />
-            }
-          >
-            Delete my account
-          </Menu.Item>
+              <Menu.Item
+                leftSection={
+                  <IconArrowsLeftRight
+                    style={{ width: rem(14), height: rem(14) }}
+                  />
+                }
+              >
+                Transfer my data
+              </Menu.Item>
+              <Menu.Item
+                color="red"
+                leftSection={
+                  <IconTrash style={{ width: rem(14), height: rem(14) }} />
+                }
+              >
+                Delete my account
+              </Menu.Item>
+            </>
+          ) : (
+            <>
+              <Menu.Divider />
+              <Menu.Label>Login / Register</Menu.Label>
+              <Menu.Item>
+                <ButtonGroup>
+                  <Button onClick={() => navigate('/login')}>Login</Button>
+                  <Button onClick={() => navigate('/register')}>
+                    Register
+                  </Button>
+                </ButtonGroup>
+              </Menu.Item>
+            </>
+          )}
         </Menu.Dropdown>
       </Menu>
       {user ? <Dashboard opened={opened} close={close} actUser={user} /> : ''}

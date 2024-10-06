@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import './App.css';
 import { AppContext } from './context/appContext';
 import { UserContextType } from './@types/app';
@@ -8,10 +8,9 @@ import MyRoutes from './routes/Routes.tsx';
 
 function App() {
   const { user, updateUser } = useContext(AppContext) as UserContextType;
-  const { result } = useFetch<GlobalUser>(`auth/me`);
-  useEffect(() => {
-    updateUser(result);
-  }, []);
+  const { response, isLoading } = useFetch<GlobalUser>(`auth/me`);
+
+  if (!isLoading) updateUser(response);
 
   return <MyRoutes user={user} />;
 }

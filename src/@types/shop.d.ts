@@ -57,3 +57,13 @@ export interface Order {
   customer_description: string;
   product: ShopProduct;
 }
+
+export interface SubCategory {
+  id: number;
+  name: string;
+}
+export interface Category {
+  id: number;
+  name: string;
+  categories?: SubCategory[];
+}

@@ -1,56 +1,24 @@
 import { Group, Code, ScrollArea } from '@mantine/core';
-import {
-  IconNotes,
-  IconCalendarStats,
-  IconGauge,
-  IconPresentationAnalytics,
-  IconFileAnalytics,
-  IconAdjustments,
-  IconLock,
-} from '@tabler/icons-react';
 import classes from './NavbarNested.module.css';
 import { LinksGroup } from './NavbarLinksGroup';
 import MenuDrop from '../../../Index/MenuDrop';
+import { useFetch } from '../../../hooks/useFetchHooks';
+import { Category } from '../../../@types/shop';
+export interface FilterProps {
+  filter: string;
+  setFilter: (filter: string) => void;
+}
 
-const mockdata = [
-  { label: 'Dashboard', icon: IconGauge },
-  {
-    label: 'Market news',
-    icon: IconNotes,
-    initiallyOpened: true,
-    links: [
-      { label: 'Overview', link: '/' },
-      { label: 'Forecasts', link: '/' },
-      { label: 'Outlook', link: '/' },
-      { label: 'Real time', link: '/' },
-    ],
-  },
-  {
-    label: 'Releases',
-    icon: IconCalendarStats,
-    links: [
-      { label: 'Upcoming releases', link: '/' },
-      { label: 'Previous releases', link: '/' },
-      { label: 'Releases schedule', link: '/' },
-    ],
-  },
-  { label: 'Analytics', icon: IconPresentationAnalytics },
-  { label: 'Contracts', icon: IconFileAnalytics },
-  { label: 'Settings', icon: IconAdjustments },
-  {
-    label: 'Security',
-    icon: IconLock,
-    links: [
-      { label: 'Enable 2FA', link: '/' },
-      { label: 'Change password', link: '/' },
-      { label: 'Recovery codes', link: '/' },
-    ],
-  },
-];
-
-export function NavbarNested() {
-  const links = mockdata.map((item) => (
-    <LinksGroup {...item} key={item.label} />
+export function NavbarNested({ filter, setFilter }: FilterProps) {
+  const { response, isLoading } = useFetch<Category[]>('categories');
+  if (isLoading) return <div>Loading</div>;
+  const links = response?.map((item: Category) => (
+    <LinksGroup
+      {...item}
+      key={item.name}
+      filter={filter}
+      setFilter={setFilter}
+    />
   ));
 
   return (

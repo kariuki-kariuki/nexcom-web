@@ -4,7 +4,7 @@
     var(--mantine-color-coco-1)
   );
   border: 1px solid
-    light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-8));
+    light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-6));
 
   @media (min-width: $mantine-breakpoint-sm) {
     border-radius: var(--mantine-spacing-md);
