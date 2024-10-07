@@ -17,15 +17,15 @@ export interface IProps {
 export function CardsCarousel({ userClicked }: { userClicked: GlobalUser }) {
   const { user } = useContext(AppContext) as UserContextType;
   const [products, setProducts] = useState<ShopProduct[]>([]);
-  const { result } = useFetch<ShopProduct[]>(`shops/${userClicked.shop?.id}`);
+  const { response } = useFetch<ShopProduct[]>(`shops/${userClicked.shop?.id}`);
   const [opened, { toggle }] = useDisclosure();
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   useEffect(() => {
-    if (result) {
-      return setProducts(result);
+    if (response) {
+      return setProducts(response);
     }
-  }, [result]);
+  }, [response]);
 
   const slides = products?.map((item) => (
     <Carousel.Slide key={item.id}>
