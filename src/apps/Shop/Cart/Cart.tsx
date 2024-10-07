@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Card,
   Flex,
@@ -46,7 +45,9 @@ const Cart = () => {
           w={{ base: '100%', sm: '70%' }}
           h={'100%'}
           className={classes.card}
-          p={{ base: 'xs', sm: 'md' }}
+          py={{ base: 'xs', sm: 'md' }}
+          px={0}
+          withBorder
         >
           <HeaderSearch links={links} />
 
@@ -60,7 +61,14 @@ const Cart = () => {
             ''
           )}
         </Card>
-        <Box visibleFrom="sm" w={{ base: '100%', sm: '30%' }} h={'100%'}>
+        <Card
+          visibleFrom="sm"
+          w={{ base: '100%', sm: '30%' }}
+          h={'100%'}
+          withBorder
+          p={0}
+          radius={'lg'}
+        >
           <Flex
             h={'100%'}
             className={classes.card}
@@ -95,7 +103,7 @@ const Cart = () => {
               </Group>
             </Card>
           </Flex>
-        </Box>
+        </Card>
       </Flex>
     </Paper>
   );
