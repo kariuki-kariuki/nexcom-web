@@ -20,16 +20,17 @@
   display: block;
   line-height: 1;
   padding: rem(8px) rem(12px);
-  /* border-radius: var(--mantine-radius-sm); */
+  border-radius: var(--mantine-radius-sm);
   text-decoration: none;
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
   font-size: var(--mantine-font-size-sm);
   font-weight: 900;
 
   @mixin hover {
+    color: var(--mantine-color-orange-6);
     background-color: light-dark(
       var(--mantine-color-gray-0),
-      var(--mantine-color-dark-6)
+      var(--mantine-color-coco-9)
     );
   }
 }

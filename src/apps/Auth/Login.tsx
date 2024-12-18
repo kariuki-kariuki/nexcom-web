@@ -64,7 +64,7 @@ export default function Login(props: PaperProps) {
       }
     });
   }
-  function handleSubmit(values: typeof form.values) {
+  async function handleSubmit(values: typeof form.values) {
     fetch(`${url}${type == 'login' ? '/auth/login' : '/auth/register'}`, {
       method: 'POST',
       headers: {

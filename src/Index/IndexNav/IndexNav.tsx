@@ -20,27 +20,28 @@ export function IndexNav({ links }: ILink) {
   const { user } = useContext(AppContext) as UserContextType;
   const navigate = useNavigate();
   const items = links.map((link) => (
-    <div
+    <a
       key={link.label}
+      href={link.link}
       className={classes.link}
       onClick={() => navigate(link.link)}
     >
       {link.label}
-    </div>
+    </a>
   ));
 
   return (
     <Box className={classes.header} py={'md'} mb={'sm'}>
       <div className={classes.inner}>
-        <Group>
-          <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
+        <Group justify="space-between" w={{ base: '100%', sm: 'auto' }}>
           <Avatar src={logo} />
+          <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
         </Group>
 
-        <Group align="center" justify="center" visibleFrom="sm">
-          <Group ml={50} gap={5} className={classes.links}>
-            {items}
-          </Group>
+        <Group ml={50} gap={5} className={classes.links} visibleFrom="sm">
+          {items}
+        </Group>
+        <Group align="center" justify="space-between" visibleFrom="sm">
           <MenuDrop />
         </Group>
         <Drawer
