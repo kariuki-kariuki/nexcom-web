@@ -23,7 +23,7 @@ const CreateShop = () => {
     setErrors(null);
     const token = localStorage.getItem('token');
     if (name) {
-      fetch(`${url}/shops`, {
+      fetch(`${url}/auth/register-shops`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
