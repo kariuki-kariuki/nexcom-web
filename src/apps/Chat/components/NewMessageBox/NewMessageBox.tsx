@@ -47,7 +47,7 @@ const NewMessageBox = ({ socket }: Props) => {
     if (activeConversation && message) {
       const messageBody = {
         message,
-        conversation: activeConversation?.id,
+        conversationId: activeConversation?.id,
       };
       try {
         socket?.emit('message', messageBody);

@@ -77,7 +77,7 @@ export function ConversationButton({
   const handleRead = () => {
     socket?.emit('message-state', {
       state: MessageState.READ,
-      conversation_id: conversation.id,
+      conversationId: conversation.id,
     });
     // make sure all the messages from the other user is marked as read
     conversation.messages = conversation.messages.map((message) =>
@@ -122,7 +122,7 @@ export function ConversationButton({
           if (message.user.email === user.email) {
             socket?.emit('message-state', {
               state: MessageState.READ,
-              conversation_id: conversation.id,
+              conversationId: conversation.id,
             });
             message.state = MessageState.READ;
             conversation.messages.push(message);

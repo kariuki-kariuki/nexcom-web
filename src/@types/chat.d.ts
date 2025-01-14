@@ -13,7 +13,7 @@ import { Shop } from './shop';
 // Define the interface for the array elements
 
 export interface UserProps {
-  id: number;
+  id: string;
   created_at: string;
   name: string;
   avatar: string;
@@ -21,7 +21,7 @@ export interface UserProps {
 }
 
 export interface GlobalUser {
-  id: number;
+  id: string;
   email?: string;
   photo: string;
   firstName: string;
@@ -32,14 +32,14 @@ export interface GlobalUser {
 }
 
 export interface ConversationProps {
-  id: number;
+  id: string;
   users: GlobalUser[];
   messages: Message[];
   updated_at: string;
 }
 
 export interface Message {
-  id?: number;
+  id?: string;
   message: string;
   user: GlobalUser;
   files: string[] | null;

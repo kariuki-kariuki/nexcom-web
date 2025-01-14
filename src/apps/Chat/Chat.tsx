@@ -92,7 +92,7 @@ function Chat() {
         setConversations((prevConversation) =>
           prevConversation.map((conversation) => {
             if (
-              conversation.id === res.conversation_id &&
+              conversation.id === res.conversationId &&
               res.email != user?.email
             ) {
               conversation = {
