@@ -7,7 +7,7 @@ const data = [
   { month: 'March', Smartphones: 400, Laptops: 1000, Tablets: 200 },
   { month: 'April', Smartphones: 1000, Laptops: 200, Tablets: 800 },
   { month: 'May', Smartphones: 800, Laptops: 1400, Tablets: 1200 },
-  { month: 'June', Smartphones: 750, Laptops: 600, Tablets: 1000 },
+  { month: 'June', Smartphones: 750, Laptops: 600, Tablets: 1000 }
 ];
 const StatsBar = () => {
   return (
@@ -19,7 +19,7 @@ const StatsBar = () => {
         series={[
           { name: 'Smartphones', color: 'purple' },
           { name: 'Laptops', color: 'orange' },
-          { name: 'Tablets', color: 'teal.6' },
+          { name: 'Tablets', color: 'teal.6' }
         ]}
         tickLine="xy"
         gridAxis="y"

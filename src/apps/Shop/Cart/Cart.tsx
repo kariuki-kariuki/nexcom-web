@@ -6,7 +6,7 @@ import {
   Input,
   InputWrapper,
   Paper,
-  Text,
+  Text
 } from '@mantine/core';
 import classes from './Cart.module.css';
 import { CartTable } from './CartTable/CartTable';
@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react';
 const links = [
   { link: '/', label: 'Home' },
   { link: '/chat', label: 'Chat' },
-  { link: '/shop', label: 'Shop' },
+  { link: '/shop', label: 'Shop' }
 ];
 const Cart = () => {
   const { response } = useFetch<Order[] | null>('orders');

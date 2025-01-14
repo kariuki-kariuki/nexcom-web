@@ -6,7 +6,7 @@ import {
   Group,
   ScrollArea,
   Text,
-  TextInput,
+  TextInput
 } from '@mantine/core';
 import { IconSearch, IconX } from '@tabler/icons-react';
 import { useContext, useState } from 'react';
@@ -14,11 +14,11 @@ import { GlobalUser } from '../../../../@types/chat';
 import { PostFecthFX } from '../../../../hooks/fetchFX';
 import {
   NewConversationContext,
-  NewConversationType,
+  NewConversationType
 } from '../../../../context/newConversation';
 import {
   activeConversatonType,
-  ConversationContext,
+  ConversationContext
 } from '../../../../context/activeConversation';
 import classes from './NewMessage.module.css';
 
@@ -32,10 +32,10 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
   const [value, setValue] = useState('');
   const [users, setUsers] = useState<GlobalUser[] | null>(null);
   const { setNewConversation } = useContext(
-    NewConversationContext,
+    NewConversationContext
   ) as NewConversationType;
   const { setActiveConversation } = useContext(
-    ConversationContext,
+    ConversationContext
   ) as activeConversatonType;
   const usersFound = users?.map((user) => (
     <Card
@@ -62,7 +62,7 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
     const { result } = await PostFecthFX<GlobalUser[], { text: string }>({
       resource: `users/search`,
       method: 'POST',
-      body,
+      body
     });
     if (result) {
       setUsers(result);
@@ -75,7 +75,7 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
       classNames={{
         body: classes.body,
         content: classes.root,
-        header: classes.header,
+        header: classes.header
       }}
       withCloseButton={false}
     >

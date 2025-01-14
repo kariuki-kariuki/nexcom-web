@@ -8,7 +8,7 @@ import {
   Text,
   rem,
   Image,
-  Paper,
+  Paper
 } from '@mantine/core';
 import classes from './CartTable.module.css';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
@@ -28,7 +28,7 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
     setSelection((current) =>
       current.includes(id)
         ? current.filter((item) => item !== id)
-        : [...current, id],
+        : [...current, id]
     );
 
   // Toggle selection of all rows
@@ -36,13 +36,13 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
     setSelection((current) =>
       current?.length === orders.length
         ? []
-        : orders?.map((item) => item.id.toString()),
+        : orders?.map((item) => item.id.toString())
     );
 
   // Calculate the total based on selected orders
   const calculateTotal = () => {
     const selectedOrders = orders?.filter((order) =>
-      selection.includes(order.id.toString()),
+      selection.includes(order.id.toString())
     );
     const newTotal =
       selectedOrders?.reduce((sum, order) => {
@@ -66,7 +66,7 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
       const updatedOrder = { ...myOrder, quantity: newQuantity };
       setMyOrder(updatedOrder);
       const updatedOrders = orders.map((item) =>
-        item.id === order.id ? updatedOrder : item,
+        item.id === order.id ? updatedOrder : item
       );
       setOrders(updatedOrders);
     };
@@ -76,7 +76,7 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
         key={order?.id}
         className={cx({
           [classes.rowSelected]: selected,
-          [classes.color]: !selected,
+          [classes.color]: !selected
         })}
       >
         <Table.Td>

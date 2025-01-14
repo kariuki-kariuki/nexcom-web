@@ -7,7 +7,7 @@ import {
   Group,
   ActionIcon,
   Tooltip,
-  rem,
+  rem
 } from '@mantine/core';
 import {
   IconBulb,
@@ -15,7 +15,7 @@ import {
   IconCheckbox,
   IconSearch,
   IconPlus,
-  IconHome,
+  IconHome
 } from '@tabler/icons-react';
 import classes from './NavbarSearch.module.css';
 import MenuDrop from '../../../../Index/MenuDrop';
@@ -24,7 +24,7 @@ const links = [
   { icon: IconHome, label: 'Home' },
   { icon: IconBulb, label: 'Activity', notifications: 3 },
   { icon: IconCheckbox, label: 'Tasks', notifications: 4 },
-  { icon: IconUser, label: 'Contacts' },
+  { icon: IconUser, label: 'Contacts' }
 ];
 
 const collections = [
@@ -36,7 +36,7 @@ const collections = [
   { emoji: '🛒', label: 'Orders' },
   { emoji: '📅', label: 'Events' },
   { emoji: '🙈', label: 'Debts' },
-  { emoji: '💁‍♀️', label: 'Customers' },
+  { emoji: '💁‍♀️', label: 'Customers' }
 ];
 
 interface Props {

@@ -8,7 +8,7 @@ export default function MsgSubmitBox(props: any) {
     e.preventDefault();
     socket?.emit('message', {
       text: input,
-      room: currentRoom,
+      room: currentRoom
     });
     setInput('');
   };

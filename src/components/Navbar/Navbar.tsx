@@ -5,7 +5,7 @@ import {
   UnstyledButton,
   Stack,
   rem,
-  Image,
+  Image
 } from '@mantine/core';
 import {
   IconHome2,
@@ -17,7 +17,7 @@ import {
   IconLogout,
   IconSwitchHorizontal,
   IconMessageCircle,
-  IconTrolley,
+  IconTrolley
 } from '@tabler/icons-react';
 import classes from './NavbarMinimal.module.css';
 import logo from '../../assets/mklogo.png';
@@ -49,7 +49,7 @@ const mockdata = [
   { icon: IconCalendarStats, label: 'Releases' },
   { icon: IconUser, label: 'Account' },
   { icon: IconFingerprint, label: 'Security' },
-  { icon: IconSettings, label: 'Settings' },
+  { icon: IconSettings, label: 'Settings' }
 ];
 
 export default function Navbar() {

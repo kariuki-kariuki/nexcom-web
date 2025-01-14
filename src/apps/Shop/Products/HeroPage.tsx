@@ -13,7 +13,7 @@ interface Iprop {
 const links = [
   { link: '/', label: 'Home' },
   { link: '/chat', label: 'Chat' },
-  { link: '/cart', label: 'Cart' },
+  { link: '/cart', label: 'Cart' }
 ];
 function HeroPage({ products }: Iprop) {
   const [opened, { toggle }] = useDisclosure(false);

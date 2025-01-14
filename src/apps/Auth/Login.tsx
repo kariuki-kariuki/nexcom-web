@@ -13,7 +13,7 @@ import {
   Anchor,
   Stack,
   Box,
-  Flex,
+  Flex
 } from '@mantine/core';
 import { GoogleButton } from './GoogleButton';
 import { url } from '../../data/url';
@@ -28,7 +28,7 @@ import PasswordStrength from '../../components/input/PasswordStrenght';
 const links = [
   { link: '/', label: 'Home' },
   { link: '/shop', label: 'Shop' },
-  { link: '/cart', label: 'Cart' },
+  { link: '/cart', label: 'Cart' }
 ];
 export default function Login(props: PaperProps) {
   const [type, toggle] = useToggle(['login', 'register']);
@@ -40,22 +40,20 @@ export default function Login(props: PaperProps) {
       firstName: '',
       lastName: '',
       password: '',
-      terms: true,
+      terms: true
     },
 
     validate: {
       email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
       password: (val) =>
-        val.length <= 6
-          ? 'Password should include at least 6 characters'
-          : null,
-    },
+        val.length <= 6 ? 'Password should include at least 6 characters' : null
+    }
   });
   function getMe(token: string) {
     fetch(`${url}/auth/me`, {
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     }).then((res) => {
       if (res.ok) {
         res.json().then((res) => {
@@ -68,9 +66,9 @@ export default function Login(props: PaperProps) {
     fetch(`${url}${type == 'login' ? '/auth/login' : '/auth/register'}`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(values),
+      body: JSON.stringify(values)
     })
       .then((res) => {
         if (res.ok) {

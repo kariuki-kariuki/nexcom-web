@@ -8,17 +8,16 @@ import {
   Paper,
   ScrollArea,
   Tooltip,
-  useMantineTheme,
+  useMantineTheme
 } from '@mantine/core';
 import {
   IconCirclePlusFilled,
   IconHome,
   IconShoppingBag,
-  IconShoppingCart,
+  IconShoppingCart
 } from '@tabler/icons-react';
 import classes from './ConversationButtonList.module.css';
 import { SocketType } from '../Chat';
-import { useNavigate } from 'react-router-dom';
 import SmallComponent from './SmallComponent';
 import { Dispatch, SetStateAction, useContext, useEffect } from 'react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
@@ -27,12 +26,13 @@ import { AppContext } from '../../../context/appContext';
 import { UserContextType } from '../../../@types/app';
 import {
   NewConversationContext,
-  NewConversationType,
+  NewConversationType
 } from '../../../context/newConversation';
 import {
   activeConversatonType,
-  ConversationContext,
+  ConversationContext
 } from '../../../context/activeConversation';
+import { redirect } from 'next/navigation';
 interface Props {
   conversations: ConversationProps[];
   open: () => void;
@@ -46,26 +46,26 @@ export default function ConversationButtonList({
   open,
   socket,
   setActiveConvo,
-  setConverSations,
+  setConverSations
 }: Props) {
   const { user } = useContext(AppContext) as UserContextType;
   const { newConversation, setNewConversation } = useContext(
-    NewConversationContext,
+    NewConversationContext
   ) as NewConversationType;
   conversations = conversations.filter(
-    (conversation) => conversation.messages.length !== 0,
+    (conversation) => conversation.messages.length !== 0
   );
   conversations.sort((a, b) => {
     const timeA = new Date(
-      a.messages[a.messages.length - 1].updated_at,
+      a.messages[a.messages.length - 1].updated_at
     ).getTime();
     const timeB = new Date(
-      b.messages[b.messages.length - 1].updated_at,
+      b.messages[b.messages.length - 1].updated_at
     ).getTime();
     return timeB - timeA;
   });
   const { setActiveConversation } = useContext(
-    ConversationContext,
+    ConversationContext
   ) as activeConversatonType;
   useEffect(() => {
     const handleConvo = (convo: ConversationProps) => {
@@ -73,7 +73,7 @@ export default function ConversationButtonList({
       if (convo.users[0].id === user?.id || convo.users[1].id === user?.id) {
         {
           convo.users = convo.users.filter(
-            (userr: GlobalUser) => userr.id !== user.id,
+            (userr: GlobalUser) => userr.id !== user.id
           );
           conversations = [...conversations, convo];
           console.log('conversation', conversations);
@@ -84,7 +84,7 @@ export default function ConversationButtonList({
           convo.users[1].id === newConversation?.id
         ) {
           convo.users = convo.users.filter(
-            (userr: GlobalUser) => userr.id !== user.id,
+            (userr: GlobalUser) => userr.id !== user.id
           );
           setNewConversation(null);
           setActiveConvo(convo);
@@ -143,17 +143,16 @@ export default function ConversationButtonList({
 const Links = () => {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
-  const navigate = useNavigate();
   return (
     <Group gap={mobile ? '20%' : '20%'} justify="end">
       <Tooltip label="home" color="teal">
-        <IconHome size={18} onClick={() => navigate('/')} />
+        <IconHome size={18} onClick={() => redirect('/')} />
       </Tooltip>
       <Tooltip label="Shop" color="teal">
-        <IconShoppingBag size={18} onClick={() => navigate('/shop')} />
+        <IconShoppingBag size={18} onClick={() => redirect('/shop')} />
       </Tooltip>
       <Tooltip label="Cart" color="teal">
-        <IconShoppingCart size={18} onClick={() => navigate('/cart')} />
+        <IconShoppingCart size={18} onClick={() => redirect('/cart')} />
       </Tooltip>
     </Group>
   );

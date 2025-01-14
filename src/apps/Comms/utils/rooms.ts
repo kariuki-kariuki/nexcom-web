@@ -5,5 +5,5 @@ export const rooms = [
   'Go',
   'Python',
   'Java',
-  'JavaScript',
+  'JavaScript'
 ];

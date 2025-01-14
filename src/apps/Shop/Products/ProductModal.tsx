@@ -9,7 +9,7 @@ import {
   LoadingOverlay,
   Modal,
   Text,
-  useMantineTheme,
+  useMantineTheme
 } from '@mantine/core';
 import { useContext, useState } from 'react';
 import { ProductWithShop, ShopProduct } from '../../../@types/shop';
@@ -43,9 +43,9 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ quantity, productId: product.id }),
+      body: JSON.stringify({ quantity, productId: product.id })
     })
       .then((res) => {
         if (res.ok) {
@@ -78,7 +78,7 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
       bg={'blue'}
       h={'100%'}
       overlayProps={{
-        h: '100vh',
+        h: '100vh'
       }}
       classNames={{ body: classes.body, header: classes.header }}
     >

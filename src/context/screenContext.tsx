@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 export type screenContextType = {
@@ -5,11 +7,11 @@ export type screenContextType = {
   updateActiveScreen: (active: string) => void;
 };
 export const ScreenContext = React.createContext<screenContextType | null>(
-  null,
+  null
 );
 
 const ScreenProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
+  children
 }) => {
   const [activeScreen, setActiveScreen] = React.useState<string>('nav');
 

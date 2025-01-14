@@ -5,7 +5,7 @@ export const colorForName = (name: string) => {
     'ctp-red',
     'ctp-peach',
     'ctp-blue',
-    'ctp-teal',
+    'ctp-teal'
   ];
 
   name = name.toLowerCase();

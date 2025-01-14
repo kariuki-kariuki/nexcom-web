@@ -34,7 +34,7 @@ const MessageCard = ({ message }: Props) => {
               {`${date?.toLocaleString('en-US', {
                 hour: 'numeric',
                 minute: 'numeric',
-                hour12: true,
+                hour12: true
               })}`}
             </Text>
             {status && message.state == MessageState.SENT ? (

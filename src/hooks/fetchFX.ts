@@ -11,14 +11,14 @@ export async function fetchFX<T>(resource: string): Promise<Iprops<T>> {
   const initialResponse: Iprops<T> = {
     isLoading: true,
     result: null,
-    error: null,
+    error: null
   };
 
   try {
     const response = await fetch(`${url}/${resource}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     });
 
     if (response.ok) {
@@ -40,23 +40,23 @@ interface IPostProps<X> {
 export async function PostFecthFX<T, X>({
   resource,
   method,
-  body,
+  body
 }: IPostProps<X>): Promise<Iprops<T>> {
   const token = localStorage.getItem('token');
   const initialResponse: Iprops<T> = {
     isLoading: true,
     result: null,
-    error: null,
+    error: null
   };
 
   try {
     const response = await fetch(`${url}/${resource}`, {
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       method,
-      body: JSON.stringify(body),
+      body: JSON.stringify(body)
     });
 
     if (response.ok) {

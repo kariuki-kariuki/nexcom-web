@@ -30,8 +30,8 @@ function Comms() {
     // const url2 = 'ws://localhost:3002';
     const socket = io(url1, {
       extraHeaders: {
-        authorization: `Bearer ${token}`,
-      },
+        authorization: `Bearer ${token}`
+      }
     });
     setSocket(socket);
 

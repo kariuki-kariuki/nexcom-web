@@ -6,7 +6,7 @@ import {
   Text,
   ActionIcon,
   Anchor,
-  rem,
+  rem
 } from '@mantine/core';
 import { IconPencil, IconTrash } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
@@ -32,8 +32,8 @@ export function UsersTable() {
   useEffect(() => {
     fetch(`${url}/users`, {
       headers: {
-        'Content-Type': 'application/json',
-      },
+        'Content-Type': 'application/json'
+      }
     }).then((res) => {
       if (res.ok) {
         res.json().then((res) => {

@@ -16,7 +16,7 @@ export function LinksGroup({
   initiallyOpened,
   sub_category,
   // filter,
-  setFilter,
+  setFilter
 }: LinksGroupProps) {
   const hasCategories = Array.isArray(sub_category);
   const [opened, setOpened] = useState(initiallyOpened || false);
@@ -52,7 +52,7 @@ export function LinksGroup({
               style={{
                 width: rem(16),
                 height: rem(16),
-                transform: opened ? 'rotate(-90deg)' : 'none',
+                transform: opened ? 'rotate(-90deg)' : 'none'
               }}
             />
           )}

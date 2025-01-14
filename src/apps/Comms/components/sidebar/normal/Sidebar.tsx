@@ -18,7 +18,7 @@ export default function Sidebar(props: any): React.ReactNode {
               key={room}
               className={classNames(
                 'relative flex justify-between gap-x-6 px-4 py-5 hover:bg-ctp-mantle sm:px-6 w-full rounded-md cursor-pointer',
-                currentRoom === room ? 'bg-ctp-mantle' : '',
+                currentRoom === room ? 'bg-ctp-mantle' : ''
               )}
               onClick={() => setCurrentRoom(room)}
             >

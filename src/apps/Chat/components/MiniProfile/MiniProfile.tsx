@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import {
   ConversationContext,
-  activeConversatonType,
+  activeConversatonType
 } from '../../../../context/activeConversation';
 import { Avatar } from '@mantine/core';
 import classes from './MiniProfile.module.css';
@@ -14,7 +14,7 @@ export interface MiniProfileProps {
 }
 const MiniProfile = () => {
   const { activeConversation } = useContext(
-    ConversationContext,
+    ConversationContext
   ) as activeConversatonType;
 
   const sender = activeConversation?.users[0];

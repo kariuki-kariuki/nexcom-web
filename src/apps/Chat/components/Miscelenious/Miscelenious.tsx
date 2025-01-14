@@ -4,34 +4,33 @@ import {
   IconLayoutDashboardFilled,
   IconLogout,
   IconShoppingBag,
-  IconTrash,
+  IconTrash
   // IconVideo,
 } from '@tabler/icons-react';
 import { Box, Menu, rem, Text, Tooltip } from '@mantine/core';
 import Dashboard from '../../../Dashboard/Dashboard';
 import classes from './Miscelenious.module.css';
 import { useDisclosure } from '@mantine/hooks';
-import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AppContext } from '../../../../context/appContext';
 import { UserContextType } from '../../../../@types/app';
 import {
   activeConversatonType,
-  ConversationContext,
+  ConversationContext
 } from '../../../../context/activeConversation';
 import {
   NewConversationContext,
-  NewConversationType,
+  NewConversationType
 } from '../../../../context/newConversation';
+import { redirect } from 'next/navigation';
 function Miscelenious() {
   const [opened, { open, close }] = useDisclosure();
-  const navigate = useNavigate();
   const { user, updateUser } = useContext(AppContext) as UserContextType;
   const { activeConversation, setActiveConversation } = useContext(
-    ConversationContext,
+    ConversationContext
   ) as activeConversatonType;
   const { newConversation, setNewConversation } = useContext(
-    NewConversationContext,
+    NewConversationContext
   ) as NewConversationType;
 
   return (
@@ -72,7 +71,7 @@ function Miscelenious() {
             <Menu.Dropdown className={classes.menu_drop}>
               <Menu.Label>Application</Menu.Label>
               <Menu.Item
-                onClick={() => navigate('/shop')}
+                onClick={() => redirect('/shop')}
                 leftSection={
                   <IconShoppingBag
                     style={{ width: rem(14), height: rem(14) }}
@@ -97,8 +96,7 @@ function Miscelenious() {
               <Menu.Item
                 color="red"
                 onClick={() => {
-                  localStorage.removeItem('token');
-                  navigate('/', { replace: false });
+                  redirect('/');
                   updateUser(null);
                 }}
                 leftSection={

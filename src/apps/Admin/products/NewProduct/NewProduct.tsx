@@ -6,7 +6,7 @@ import {
   Image,
   Input,
   SimpleGrid,
-  Text,
+  Text
 } from '@mantine/core';
 import { useState } from 'react';
 import { FileWithPath } from '@mantine/dropzone';
@@ -14,7 +14,7 @@ import { DropzoneButton } from '../DropzoneButton/DropzoneButton';
 import {
   IconEyeCheck,
   IconImageInPicture,
-  IconUpload,
+  IconUpload
 } from '@tabler/icons-react';
 import { url } from '../../../../data/url';
 import { Product, ShopProduct } from '../../../../@types/shop';
@@ -28,7 +28,7 @@ const prd = {
   quantity: 0,
   sizes: '',
   files: [],
-  price: 0.0,
+  price: 0.0
 };
 
 interface IDrawer {
@@ -80,9 +80,9 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
       fetch(`${url}/products`, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
-        body: formData,
+        body: formData
       })
         .then((res) => res.json())
         .then((r: ShopProduct) => {
@@ -102,7 +102,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
             title: 'Error Occured',
             color: 'red',
             message: e,
-            autoClose: true,
+            autoClose: true
           });
         });
     } catch (error) {
@@ -119,7 +119,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
       classNames={{
         content: classes.color,
         header: classes.color,
-        body: classes.overlay,
+        body: classes.overlay
       }}
       position="right"
     >
@@ -141,7 +141,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
                 onChange={(e) =>
                   setProduct((prevProduct) => ({
                     ...prevProduct,
-                    name: e.target.value,
+                    name: e.target.value
                   }))
                 }
               />
@@ -163,7 +163,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
                 onChange={(e) =>
                   setProduct((prevProduct) => ({
                     ...prevProduct,
-                    description: e.target.value,
+                    description: e.target.value
                   }))
                 }
               />
@@ -184,7 +184,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
                 onChange={(e) =>
                   setProduct((prevProduct) => ({
                     ...prevProduct,
-                    price: parseFloat(e.target.value),
+                    price: parseFloat(e.target.value)
                   }))
                 }
               />
@@ -222,7 +222,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
                 onChange={(e) =>
                   setProduct((prevProduct) => ({
                     ...prevProduct,
-                    quantity: parseInt(e.target.value),
+                    quantity: parseInt(e.target.value)
                   }))
                 }
               />
@@ -245,7 +245,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
                 onChange={(e) =>
                   setProduct((prevProduct) => ({
                     ...prevProduct,
-                    sizes: e.target.value,
+                    sizes: e.target.value
                   }))
                 }
               />
@@ -267,7 +267,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
                 onChange={(e) =>
                   setProduct((prevProduct) => ({
                     ...prevProduct,
-                    colors: e.target.value,
+                    colors: e.target.value
                   }))
                 }
               />

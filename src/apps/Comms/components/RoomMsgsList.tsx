@@ -16,7 +16,7 @@ export default function RoomMsgsList(props: any) {
               <p
                 className={classNames(
                   'text-sm font-semibold',
-                  `text-${colorForName(msg.user)}`,
+                  `text-${colorForName(msg.user)}`
                 )}
               >
                 {msg.user}

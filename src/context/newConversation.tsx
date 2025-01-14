@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, useState } from 'react';
 import { GlobalUser } from '../@types/chat';
 
@@ -7,14 +9,14 @@ export type NewConversationType = {
 };
 
 export const NewConversationContext = createContext<NewConversationType | null>(
-  null,
+  null
 );
 
 const NewConversationProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
+  children
 }) => {
   const [newConversation, setNewConversation] = useState<GlobalUser | null>(
-    null,
+    null
   );
 
   // const updateActiveConver = (active: ConversationProps) => {

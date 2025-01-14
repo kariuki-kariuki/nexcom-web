@@ -5,7 +5,7 @@ import {
   Group,
   Paper,
   SimpleGrid,
-  rem,
+  rem
 } from '@mantine/core';
 import { IconArrowUpRight, IconDeviceAnalytics } from '@tabler/icons-react';
 import classes from './StatsSegments.module.css';
@@ -13,7 +13,7 @@ import classes from './StatsSegments.module.css';
 const data = [
   { label: 'Mobile', count: '204,001', part: 59, color: 'purple' },
   { label: 'Desktop', count: '121,017', part: 35, color: 'teal' },
-  { label: 'Tablet', count: '31,118', part: 6, color: 'orange' },
+  { label: 'Tablet', count: '31,118', part: 6, color: 'orange' }
 ];
 
 export function StatsSegments() {

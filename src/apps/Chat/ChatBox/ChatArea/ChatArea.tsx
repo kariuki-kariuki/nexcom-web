@@ -6,7 +6,7 @@ import classes from './ChatArea.module.css';
 import { ConversationProps } from '../../../../@types/chat';
 import {
   activeConversatonType,
-  ConversationContext,
+  ConversationContext
 } from '../../../../context/activeConversation';
 import { useContext, useEffect, useRef } from 'react';
 import { SocketType } from '../../Chat';
@@ -18,7 +18,7 @@ interface CloseProps {
 
 function ChatArea({ closes, activeConvo, socket }: CloseProps) {
   const { activeConversation } = useContext(
-    ConversationContext,
+    ConversationContext
   ) as activeConversatonType;
 
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
@@ -32,7 +32,7 @@ function ChatArea({ closes, activeConvo, socket }: CloseProps) {
     activeConvo?.messages,
     activeConversation?.messages,
     activeConvo,
-    activeConversation,
+    activeConversation
   ]); // Triggers when messages change
 
   const messages = activeConversation?.messages?.map((message, idx) => (

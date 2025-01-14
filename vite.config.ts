@@ -7,11 +7,11 @@ export default defineConfig(({ mode }) => {
 
   return {
     define: {
-      'process.env.URL': JSON.stringify(env.URL),
+      'process.env.URL': JSON.stringify(env.URL)
     },
     plugins: [react()],
     optimizeDeps: {
-      exclude: ['chunk-J6642NXP.js'],
-    },
+      exclude: ['chunk-J6642NXP.js']
+    }
   };
 });

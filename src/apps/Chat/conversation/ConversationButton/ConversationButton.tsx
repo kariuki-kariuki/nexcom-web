@@ -6,7 +6,7 @@ import {
   Badge,
   Flex,
   rgba,
-  Box,
+  Box
 } from '@mantine/core';
 import classes from './ConversationButton.module.css';
 import {
@@ -14,25 +14,25 @@ import {
   SetStateAction,
   useContext,
   useEffect,
-  useState,
+  useState
 } from 'react';
 import {
   ConversationProps,
   GlobalUser,
-  Message,
+  Message
 } from '../../../../@types/chat';
 import {
   ConversationContext,
-  activeConversatonType,
+  activeConversatonType
 } from '../../../../context/activeConversation';
 import {
   ScreenContext,
-  screenContextType,
+  screenContextType
 } from '../../../../context/screenContext';
 import { activeType, SocketType } from '../../Chat';
 import {
   NewConversationContext,
-  NewConversationType,
+  NewConversationType
 } from '../../../../context/newConversation';
 import { MessageState } from '../../../../common/common';
 import { IconCheck, IconChecks } from '@tabler/icons-react';
@@ -51,15 +51,15 @@ export function ConversationButton({
   open,
   socket,
   setActiveConvo,
-  setConverSations,
+  setConverSations
 }: Props) {
   // const { user } = useContext(AppContext) as UserContextType;
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
   const { activeConversation, setActiveConversation } = useContext(
-    ConversationContext,
+    ConversationContext
   ) as activeConversatonType;
   const { newConversation, setNewConversation } = useContext(
-    NewConversationContext,
+    NewConversationContext
   ) as NewConversationType;
   const active: boolean = conversation.id === activeConversation?.id;
   const [messages, setMessages] = useState(conversation.messages);
@@ -72,21 +72,21 @@ export function ConversationButton({
         message.state === MessageState.SENT)
         ? (total += 1)
         : total,
-    0,
+    0
   );
   const handleRead = () => {
     socket?.emit('message-state', {
       state: MessageState.READ,
-      conversationId: conversation.id,
+      conversationId: conversation.id
     });
     // make sure all the messages from the other user is marked as read
     conversation.messages = conversation.messages.map((message) =>
       message.user.email === user.email
         ? {
             ...message,
-            state: MessageState.READ,
+            state: MessageState.READ
           }
-        : message,
+        : message
     );
     setActiveConversation(conversation);
     setActiveConvo(conversation);
@@ -104,7 +104,7 @@ export function ConversationButton({
           user: msg.user,
           files: msg.files,
           updated_at: msg.updated_at,
-          state: MessageState.SENT,
+          state: MessageState.SENT
         };
         if (message.user.email === user.email) {
           socket?.emit('message-state', { state: MessageState.DELIVERED });
@@ -114,15 +114,15 @@ export function ConversationButton({
           prevConversations.map((convo) =>
             convo.id === conversation.id
               ? { ...convo, messages: [...convo.messages, message] }
-              : convo,
-          ),
+              : convo
+          )
         );
         if (msg.conversation.id === activeConversation?.id) {
           // If it is the current active conversation
           if (message.user.email === user.email) {
             socket?.emit('message-state', {
               state: MessageState.READ,
-              conversationId: conversation.id,
+              conversationId: conversation.id
             });
             message.state = MessageState.READ;
             conversation.messages.push(message);
@@ -220,7 +220,7 @@ function formatDate(date: Date): string {
     return date.toLocaleString('en-US', {
       hour: 'numeric',
       minute: 'numeric',
-      hour12: true,
+      hour12: true
     });
   } else {
     // Return date in dd/mm/yy format

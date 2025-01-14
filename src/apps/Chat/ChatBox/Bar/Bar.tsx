@@ -5,14 +5,14 @@ import classes from './Bar.module.css';
 import { useContext } from 'react';
 import {
   activeConversatonType,
-  ConversationContext,
+  ConversationContext
 } from '../../../../context/activeConversation';
 import Dashboard from '../../../Dashboard/Dashboard';
 import { useDisclosure } from '@mantine/hooks';
 import { ConversationProps } from '../../../../@types/chat';
 import {
   NewConversationContext,
-  NewConversationType,
+  NewConversationType
 } from '../../../../context/newConversation';
 interface CloseProps {
   closes: () => void;
@@ -21,12 +21,12 @@ interface CloseProps {
 // Top Bar on the Chatbox Area
 const Bar = ({ closes }: CloseProps) => {
   const { activeConversation, setActiveConversation } = useContext(
-    ConversationContext,
+    ConversationContext
   ) as activeConversatonType;
   const user = activeConversation?.users[0];
   const [opened, { open, close }] = useDisclosure(false);
   const { newConversation } = useContext(
-    NewConversationContext,
+    NewConversationContext
   ) as NewConversationType;
   return (
     <>
@@ -96,7 +96,7 @@ function Details({
   open,
   avatar,
   status = 'Start A new Chat',
-  name,
+  name
 }: IDetails) {
   return (
     <Group onClick={open}>

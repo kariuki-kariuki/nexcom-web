@@ -2,11 +2,11 @@ import { Group, Burger, Avatar, Drawer, Flex, Box } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './IndexNav.module.css';
 import logo from '../../assets/mklogo.png';
-import { useNavigate } from 'react-router-dom';
 import MenuDrop from '../MenuDrop';
 import { useContext } from 'react';
 import { AppContext } from '../../context/appContext';
 import { UserContextType } from '../../@types/app';
+import Link from 'next/link';
 
 interface Link {
   link: string;
@@ -18,16 +18,10 @@ interface ILink {
 export function IndexNav({ links }: ILink) {
   const [opened, { toggle }] = useDisclosure(false);
   const { user } = useContext(AppContext) as UserContextType;
-  const navigate = useNavigate();
   const items = links.map((link) => (
-    <a
-      key={link.label}
-      href={link.link}
-      className={classes.link}
-      onClick={() => navigate(link.link)}
-    >
+    <Link key={link.label} href={link.link} className={classes.link}>
       {link.label}
-    </a>
+    </Link>
   ));
 
   return (
@@ -51,19 +45,16 @@ export function IndexNav({ links }: ILink) {
           classNames={{
             header: classes.bg,
             body: classes.body,
-            content: classes.content,
+            content: classes.content
           }}
         >
           <Flex direction={'column'} justify={'space-between'} h={'100%'}>
             <Flex direction={'column'} gap={'lg'} py={'md'}>
               {items}
               {user?.shop ? (
-                <div
-                  className={classes.link}
-                  onClick={() => navigate('/admin')}
-                >
+                <Link className={classes.link} href="/admin">
                   Admin
-                </div>
+                </Link>
               ) : (
                 ''
               )}

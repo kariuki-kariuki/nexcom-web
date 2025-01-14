@@ -7,12 +7,12 @@ import {
   IconTrash,
   IconArrowsLeftRight,
   IconDotsVertical,
-  IconShoppingBagCheck,
+  IconShoppingBagCheck
 } from '@tabler/icons-react';
 import { useContext } from 'react';
 import {
   ScreenContext,
-  screenContextType,
+  screenContextType
 } from '../../../context/screenContext';
 
 function PopMenu() {

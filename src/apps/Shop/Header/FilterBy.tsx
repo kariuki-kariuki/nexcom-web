@@ -10,7 +10,7 @@ const ProductCategories = [
   'Sports and Outdoors',
   'Books and Stationery',
   'Health and Wellness',
-  'Toys and Games',
+  'Toys and Games'
 ];
 
 function FilterBy() {

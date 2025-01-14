@@ -1,3 +1,5 @@
+'use client';
+
 import { Card, Flex, Modal } from '@mantine/core';
 import classes from './Chat.module.css';
 import { useDisclosure } from '@mantine/hooks';
@@ -11,7 +13,7 @@ import { ConversationProps } from '../../@types/chat';
 import { MessageState } from '../../common/common';
 import {
   activeConversatonType,
-  ConversationContext,
+  ConversationContext
 } from '../../context/activeConversation';
 import ConversationButtonList from './conversation/ConversationButtonList';
 export type SocketType = Socket | null;
@@ -22,7 +24,7 @@ function Chat() {
   const { user } = useContext(AppContext) as UserContextType;
   // user;
   const { activeConversation, setActiveConversation } = useContext(
-    ConversationContext,
+    ConversationContext
   ) as activeConversatonType;
   const [socket, setSocket] = useState<SocketType>(null);
   useEffect(() => {
@@ -31,15 +33,15 @@ function Chat() {
     setSocket(
       io(url1, {
         extraHeaders: {
-          authorization: `Bearer ${token}`,
-        },
-      }),
+          authorization: `Bearer ${token}`
+        }
+      })
     );
 
     fetch(`${url}/conversations`, {
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     }).then((res: any) => {
       if (res.ok) {
         res.json().then((res: any) => {
@@ -58,7 +60,7 @@ function Chat() {
   }, [socket]);
 
   const [activeConvo, setActiveConvo] = useState<ConversationProps | null>(
-    null,
+    null
   );
   const [opened, { open, close }] = useDisclosure(false);
   useEffect(() => {
@@ -74,8 +76,8 @@ function Chat() {
                   message.user.email !== res.email &&
                   message.state === MessageState.SENT
                     ? { ...message, state: MessageState.DELIVERED }
-                    : message,
-                ),
+                    : message
+                )
               };
               if (updatedConvo.id === activeConversation?.id) {
                 setActiveConversation(updatedConvo);
@@ -84,7 +86,7 @@ function Chat() {
               return updatedConvo;
             }
             return conversation;
-          }),
+          })
         );
       } else {
         // Handle message read for the current user
@@ -101,8 +103,8 @@ function Chat() {
                   message.user.email === user?.email &&
                   message.state !== MessageState.READ
                     ? { ...message, state: MessageState.READ }
-                    : message,
-                ),
+                    : message
+                )
               };
               if (conversation.id === activeConversation?.id) {
                 setActiveConvo(conversation);
@@ -111,7 +113,7 @@ function Chat() {
               return conversation;
             }
             return conversation;
-          }),
+          })
         );
       }
     };

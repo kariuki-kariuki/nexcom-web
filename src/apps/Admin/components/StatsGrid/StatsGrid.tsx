@@ -5,7 +5,7 @@ import {
   IconReceipt2,
   IconCoin,
   IconArrowUpRight,
-  IconArrowDownRight,
+  IconArrowDownRight
 } from '@tabler/icons-react';
 import classes from './StatsGrid.module.css';
 
@@ -13,14 +13,14 @@ const icons = {
   user: IconUserPlus,
   discount: IconDiscount2,
   receipt: IconReceipt2,
-  coin: IconCoin,
+  coin: IconCoin
 };
 
 const data = [
   { title: 'Revenue', icon: 'receipt', value: '13,456', diff: 34 },
   { title: 'Profit', icon: 'coin', value: '4,145', diff: -13 },
   { title: 'Coupons usage', icon: 'discount', value: '745', diff: 18 },
-  { title: 'New customers', icon: 'user', value: '188', diff: -30 },
+  { title: 'New customers', icon: 'user', value: '188', diff: -30 }
 ] as const;
 
 export function StatsGrid() {

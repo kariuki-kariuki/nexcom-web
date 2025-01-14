@@ -4,7 +4,7 @@ import {
   FileInput,
   Group,
   Indicator,
-  Popover,
+  Popover
 } from '@mantine/core';
 import { url } from '../../../../data/url';
 import { useContext, useState } from 'react';
@@ -23,9 +23,9 @@ const PictureUpdate = ({ image }: { image: string }) => {
       fetch(`${url}/users/avatar`, {
         method: 'PATCH',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
-        body: formdata,
+        body: formdata
       })
         .then((res) => {
           if (res.ok) {

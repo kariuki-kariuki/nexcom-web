@@ -7,14 +7,14 @@ const data = [
   { name: 'Kenya', value: 400, color: 'purple' },
   { name: 'India', value: 300, color: 'orange.6' },
   { name: 'Japan', value: 100, color: 'teal.6' },
-  { name: 'Other', value: 200, color: 'gray.6' },
+  { name: 'Other', value: 200, color: 'gray.6' }
 ];
 
 const data2 = [
   { name: 'Kenya', value: 300, color: 'purple' },
   { name: 'India', value: 200, color: 'orange.6' },
   { name: 'Japan', value: 100, color: 'teal.6' },
-  { name: 'Other', value: 180, color: 'gray.6' },
+  { name: 'Other', value: 180, color: 'gray.6' }
 ];
 
 const userData = [
@@ -22,14 +22,14 @@ const userData = [
     label: 'Users',
     desc: 'Total Users',
     icon: IconUserCheck,
-    data,
+    data
   },
   {
     label: 'Active',
     desc: 'Active Users',
     icon: IconUserBolt,
-    data: data2,
-  },
+    data: data2
+  }
 ];
 const StatsChart = () => {
   const stats = userData.map((data) => (

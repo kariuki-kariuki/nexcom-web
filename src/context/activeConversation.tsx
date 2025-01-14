@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, useState } from 'react';
 import { ConversationProps } from '../@types/chat';
 
@@ -7,11 +9,11 @@ export type activeConversatonType = {
 };
 
 export const ConversationContext = createContext<activeConversatonType | null>(
-  null,
+  null
 );
 
 const ConversationProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
+  children
 }) => {
   const [activeConversation, setActiveConversation] =
     useState<ConversationProps | null>(null);

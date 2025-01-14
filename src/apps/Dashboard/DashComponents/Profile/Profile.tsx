@@ -10,7 +10,7 @@ import CreateShop from '../PictureUpdate/CreateShop';
 const stats = [
   { value: '34K', label: 'Followers' },
   { value: '187', label: 'Follows' },
-  { value: '1.6K', label: 'Posts' },
+  { value: '1.6K', label: 'Posts' }
 ];
 
 function Profile({ userClicked }: { userClicked: GlobalUser }) {
@@ -34,7 +34,7 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
         h={70}
         style={{
           backgroundImage:
-            'url(https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80)',
+            'url(https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80)'
         }}
       />
       {active ? (

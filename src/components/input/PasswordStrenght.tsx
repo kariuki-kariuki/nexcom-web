@@ -4,7 +4,7 @@ import {
   Group,
   PasswordInput,
   Progress,
-  Text,
+  Text
 } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
 // import { useInputState } from '@mantine/hooks';
@@ -12,7 +12,7 @@ import { IconCheck, IconX } from '@tabler/icons-react';
 
 function PasswordRequirement({
   meets,
-  label,
+  label
 }: {
   meets: boolean;
   label: string;
@@ -35,7 +35,7 @@ const requirements = [
   { re: /[0-9]/, label: 'Inclides number' },
   { re: /[a-z]/, label: 'Inludes lowercase letter' },
   { re: /[A-Z]/, label: 'Includes uppercase letter' },
-  { re: /[$&+,:;=?@#|'<>.^*()%!-']/, label: 'Includes special symbol' },
+  { re: /[$&+,:;=?@#|'<>.^*()%!-']/, label: 'Includes special symbol' }
 ];
 
 function getStrength(password: string) {

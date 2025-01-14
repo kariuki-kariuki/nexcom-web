@@ -13,7 +13,7 @@ const data = [
   { date: 'Sep', temperature: 15 },
   { date: 'Oct', temperature: 20 },
   { date: 'Nov', temperature: 0 },
-  { date: 'Dec', temperature: -10 },
+  { date: 'Dec', temperature: -10 }
 ];
 export function StartLine() {
   return (
@@ -30,7 +30,7 @@ export function StartLine() {
           { offset: 40, color: 'yellow.5' },
           { offset: 70, color: 'lime.5' },
           { offset: 80, color: 'cyan.5' },
-          { offset: 100, color: 'blue.5' },
+          { offset: 100, color: 'blue.5' }
         ]}
         strokeWidth={5}
         curveType="natural"

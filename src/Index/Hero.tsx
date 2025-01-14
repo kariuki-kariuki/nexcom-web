@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Button, Divider, Flex, Paper, rem, Text } from '@mantine/core';
 import { IconArrowRight } from '@tabler/icons-react';
 import { useContext, useEffect } from 'react';
@@ -7,20 +9,19 @@ import classes from './Index.module.css';
 import { useFetch } from '../hooks/useFetchHooks';
 import { GlobalUser } from '../@types/chat';
 import { IndexNav } from './IndexNav/IndexNav';
-import { useNavigate } from 'react-router-dom';
+import Link from 'next/link';
 const links = [
   { link: '/chat', label: 'Chat' },
   { link: '/shop', label: 'Shop' },
-  { link: '/cart', label: 'Cart' },
+  { link: '/cart', label: 'Cart' }
 ];
 
-function Index() {
-  const { user, updateUser } = useContext(AppContext) as UserContextType;
+function Hero() {
+  const { updateUser } = useContext(AppContext) as UserContextType;
   const { response } = useFetch<GlobalUser>(`auth/me`);
   useEffect(() => {
     updateUser(response);
   }, [response]);
-  const navigate = useNavigate();
   return (
     <Paper h={'100vh'} px={{ base: 'sm', sm: 'lg' }} className={classes.main}>
       <Flex direction={'column'} h={'100%'}>
@@ -54,15 +55,15 @@ function Index() {
             <Divider color={'teal'} className="w-3/5 mb-3" />
             <Divider color={'teal'} className="w-2/5 mb-3" />
             <Divider color={'teal'} className="w-1/5 mb-3" />
-            <Button
-              component="a"
-              rightSection={<IconArrowRight size={20} />}
-              color="teal.5"
-              px={{ base: 'lg', sm: 'xl' }}
-              onClick={() => navigate(user ? '/shop' : '/login')}
-            >
-              Get Started
-            </Button>
+            <Link href="/chat">
+              <Button
+                rightSection={<IconArrowRight size={20} />}
+                color="teal.5"
+                px={{ base: 'lg', sm: 'xl' }}
+              >
+                Get Started
+              </Button>
+            </Link>
           </Box>
           <Box
             maw={'100%'}
@@ -80,4 +81,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default Hero;

@@ -5,14 +5,14 @@ import {
   rem,
   Avatar,
   Flex,
-  Drawer,
+  Drawer
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import classes from './HeaderSearch.module.css';
 import logo from '../../../assets/mklogo.png';
-import { useNavigate } from 'react-router-dom';
 import MenuDrop from '../../../Index/MenuDrop';
+import { redirect } from 'next/navigation';
 
 interface Link {
   link: string;
@@ -23,12 +23,11 @@ interface ILink {
 }
 export function HeaderSearch({ links }: ILink) {
   const [opened, { toggle }] = useDisclosure(false);
-  const navigate = useNavigate();
   const items = links.map((link) => (
     <div
       key={link.label}
       className={classes.link}
-      onClick={() => navigate(link.link)}
+      onClick={() => redirect(link.link)}
     >
       {link.label}
     </div>
@@ -48,7 +47,7 @@ export function HeaderSearch({ links }: ILink) {
           classNames={{
             header: classes.bg,
             body: classes.body,
-            content: classes.content,
+            content: classes.content
           }}
         >
           <Flex direction={'column'} h="100%" justify={'space-between'}>
@@ -80,7 +79,7 @@ export function HeaderSearch({ links }: ILink) {
               'Next.js',
               'Riot.js',
               'Svelte',
-              'Blitz.js',
+              'Blitz.js'
             ]}
           />
         </Group>

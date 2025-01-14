@@ -1,3 +1,5 @@
+'use client';
+
 import HeroPage from './Products/HeroPage';
 import { Box, LoadingOverlay, Paper } from '@mantine/core';
 import { NavbarNested } from './ShopNav/NavbarNested';

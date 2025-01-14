@@ -4,12 +4,12 @@ import {
   Paper,
   Text,
   TextInput,
-  useMantineColorScheme,
+  useMantineColorScheme
 } from '@mantine/core';
 import { useContext, useState } from 'react';
 import {
   ConversationContext,
-  activeConversatonType,
+  activeConversatonType
 } from '../../../../context/activeConversation';
 import { Theme } from 'emoji-picker-react';
 import classes from './NewMessageBox.module.css';
@@ -19,7 +19,7 @@ import { IconSend } from '@tabler/icons-react';
 import { SocketType } from '../../Chat';
 import {
   NewConversationContext,
-  NewConversationType,
+  NewConversationType
 } from '../../../../context/newConversation';
 interface Props {
   socket: SocketType;
@@ -27,10 +27,10 @@ interface Props {
 const NewMessageBox = ({ socket }: Props) => {
   const [message, setMessage] = useState<string>('');
   const { activeConversation } = useContext(
-    ConversationContext,
+    ConversationContext
   ) as activeConversatonType;
   const { newConversation } = useContext(
-    NewConversationContext,
+    NewConversationContext
   ) as NewConversationType;
 
   const [opened, { toggle }] = useDisclosure(false);
@@ -47,7 +47,7 @@ const NewMessageBox = ({ socket }: Props) => {
     if (activeConversation && message) {
       const messageBody = {
         message,
-        conversationId: activeConversation?.id,
+        conversationId: activeConversation?.id
       };
       try {
         socket?.emit('message', messageBody);
@@ -59,7 +59,7 @@ const NewMessageBox = ({ socket }: Props) => {
     if (newConversation && message) {
       const messageBody = {
         message,
-        email: newConversation.email,
+        email: newConversation.email
       };
       try {
         socket?.emit('new-conversation', messageBody);

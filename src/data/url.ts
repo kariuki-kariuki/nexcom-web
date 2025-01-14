@@ -1,2 +1,2 @@
-export const url = import.meta.env.VITE_API_URL;
-export const url1 = import.meta.env.VITE_WS_URL;
+export const url = process.env.NEXT_PUBLIC_URL;
+export const url1 = process.env.NEXT_PUBLIC_WS_URL;

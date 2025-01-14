@@ -6,7 +6,7 @@ import {
   Text,
   Button,
   rem,
-  useMantineTheme,
+  useMantineTheme
 } from '@mantine/core';
 import { ProductWithShop } from '../../../@types/shop';
 import classes from './ProductCard.module.css';
@@ -37,7 +37,7 @@ function ProductCard({ product, toggle, setViewing }: Iprops) {
             classNames={{
               root: classes.carousel,
               controls: classes.carouselControls,
-              indicator: classes.carouselIndicator,
+              indicator: classes.carouselIndicator
             }}
             slideGap={'md'}
             slidesToScroll={1}

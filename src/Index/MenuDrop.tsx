@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Button, ButtonGroup, Menu, rem } from '@mantine/core';
 import {
   IconMessageCircle,
@@ -6,18 +8,17 @@ import {
   IconLogout,
   IconLayoutDashboardFilled,
   IconShoppingBag,
-  IconDiamond,
+  IconDiamond
 } from '@tabler/icons-react';
 import ToggleButton from './ToggleButton';
-import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AppContext } from '../context/appContext';
 import { UserContextType } from '../@types/app';
 import classes from './MenuDrop.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import Dashboard from '../apps/Dashboard/Dashboard';
+import Link from 'next/link';
 export default function MenuDrop() {
-  const navigate = useNavigate();
   const [opened, { open, close }] = useDisclosure();
   const { user, updateUser } = useContext(AppContext) as UserContextType;
   return (
@@ -31,14 +32,15 @@ export default function MenuDrop() {
 
         <Menu.Dropdown className={classes.menu_drop}>
           <Menu.Label>Application</Menu.Label>
-          <Menu.Item
-            onClick={() => navigate('/shop')}
-            leftSection={
-              <IconShoppingBag style={{ width: rem(14), height: rem(14) }} />
-            }
-          >
-            Shop
-          </Menu.Item>
+          <Link href="/shop">
+            <Menu.Item
+              leftSection={
+                <IconShoppingBag style={{ width: rem(14), height: rem(14) }} />
+              }
+            >
+              Shop
+            </Menu.Item>
+          </Link>
           <Menu.Item
             onClick={open}
             leftSection={
@@ -49,23 +51,27 @@ export default function MenuDrop() {
           >
             Profile
           </Menu.Item>
-          <Menu.Item
-            leftSection={
-              <IconMessageCircle style={{ width: rem(14), height: rem(14) }} />
-            }
-            onClick={() => navigate('/chat')}
-          >
-            Chat
-          </Menu.Item>
-          {user?.shop ? (
+          <Link href="/chat">
             <Menu.Item
               leftSection={
-                <IconDiamond style={{ width: rem(14), height: rem(14) }} />
+                <IconMessageCircle
+                  style={{ width: rem(14), height: rem(14) }}
+                />
               }
-              onClick={() => navigate('/admin')}
             >
-              Admin
+              Chat
             </Menu.Item>
+          </Link>
+          {user?.shop ? (
+            <Link href="/admin">
+              <Menu.Item
+                leftSection={
+                  <IconDiamond style={{ width: rem(14), height: rem(14) }} />
+                }
+              >
+                Admin
+              </Menu.Item>
+            </Link>
           ) : (
             ''
           )}
@@ -78,7 +84,6 @@ export default function MenuDrop() {
                 onClick={() => {
                   localStorage.removeItem('token');
                   updateUser(null);
-                  navigate('/', { replace: true });
                 }}
                 leftSection={
                   <IconLogout style={{ width: rem(14), height: rem(14) }} />
@@ -111,10 +116,10 @@ export default function MenuDrop() {
               <Menu.Label>Login / Register</Menu.Label>
               <Menu.Item>
                 <ButtonGroup>
-                  <Button onClick={() => navigate('/login')}>Login</Button>
-                  <Button onClick={() => navigate('/register')}>
-                    Register
-                  </Button>
+                  <Link href="/login">
+                    <Button>Login</Button>
+                  </Link>
+                  <Link href="/login"></Link>
                 </ButtonGroup>
               </Menu.Item>
             </>
