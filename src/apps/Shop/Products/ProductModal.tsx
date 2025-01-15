@@ -16,7 +16,7 @@ import { ProductWithShop, ShopProduct } from '../../../@types/shop';
 import ImageCarousel from '../shopcomponents/ImageCarousel';
 import { IconBasketPlus, IconTool } from '@tabler/icons-react';
 import { url } from '../../../data/url';
-import { AppContext } from '../../../context/appContext';
+import { AppContext } from '../../../../lib/context/appContext';
 import { UserContextType } from '../../../@types/app';
 import classes from './ProductModal.module.css';
 import { useMediaQuery } from '@mantine/hooks';

@@ -10,7 +10,7 @@ import { useContext, useState } from 'react';
 import {
   ConversationContext,
   activeConversatonType
-} from '../../../../context/activeConversation';
+} from '../../../../../lib/context/activeConversation';
 import { Theme } from 'emoji-picker-react';
 import classes from './NewMessageBox.module.css';
 import EmojiPicker from 'emoji-picker-react';
@@ -20,7 +20,7 @@ import { SocketType } from '../../Chat';
 import {
   NewConversationContext,
   NewConversationType
-} from '../../../../context/newConversation';
+} from '../../../../../lib/context/newConversation';
 interface Props {
   socket: SocketType;
 }

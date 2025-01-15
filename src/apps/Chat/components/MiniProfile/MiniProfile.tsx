@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import {
   ConversationContext,
   activeConversatonType
-} from '../../../../context/activeConversation';
+} from '../../../../../lib/context/activeConversation';
 import { Avatar } from '@mantine/core';
 import classes from './MiniProfile.module.css';
 export interface MiniProfileProps {

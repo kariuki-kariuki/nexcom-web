@@ -1,0 +1,28 @@
+/* ReadMessage.module.css */
+
+.card {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-9));
+}
+
+.fromText, .emailText {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.subjectText, .messageText {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 8px 0;
+}
+
+.divider {
+  margin: 12px 0;
+}
+
+.messageContent {
+  font-size: 15px;
+  white-space: pre-wrap;
+}

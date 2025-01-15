@@ -12,16 +12,16 @@ import Dashboard from '../../../Dashboard/Dashboard';
 import classes from './Miscelenious.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { useContext } from 'react';
-import { AppContext } from '../../../../context/appContext';
+import { AppContext } from '../../../../../lib/context/appContext';
 import { UserContextType } from '../../../../@types/app';
 import {
   activeConversatonType,
   ConversationContext
-} from '../../../../context/activeConversation';
+} from '../../../../../lib/context/activeConversation';
 import {
   NewConversationContext,
   NewConversationType
-} from '../../../../context/newConversation';
+} from '../../../../../lib/context/newConversation';
 import { redirect } from 'next/navigation';
 function Miscelenious() {
   const [opened, { open, close }] = useDisclosure();

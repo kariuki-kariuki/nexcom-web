@@ -1,7 +1,7 @@
 import { Group, Avatar, Text } from '@mantine/core';
 import { useContext } from 'react';
 import { UserContextType } from '../../../@types/app';
-import { AppContext } from '../../../context/appContext';
+import { AppContext } from '../../../../lib/context/appContext';
 
 const UserButton = () => {
   const { user } = useContext(AppContext) as UserContextType;

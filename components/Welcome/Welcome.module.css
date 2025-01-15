@@ -1,0 +1,29 @@
+.title {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-size: rem(70px);
+  font-weight: 900;
+  letter-spacing: rem(-2px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    font-size: rem(50px);
+  }
+}
+
+.section {
+  margin-bottom: calc(var(--mantine-spacing-xl) * 6);
+}
+
+.bg {
+  background-image: url('/images/bg.jpg');
+  background-color: light-dark(var(--mantine-color-black), var(--mantine-color-scode-9));
+  background-position: center;
+  background-size: cover;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, .95);
+}

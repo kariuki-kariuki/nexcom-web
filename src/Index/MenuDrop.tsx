@@ -12,7 +12,7 @@ import {
 } from '@tabler/icons-react';
 import ToggleButton from './ToggleButton';
 import { useContext } from 'react';
-import { AppContext } from '../context/appContext';
+import { AppContext } from '../../lib/context/appContext';
 import { UserContextType } from '../@types/app';
 import classes from './MenuDrop.module.css';
 import { useDisclosure } from '@mantine/hooks';

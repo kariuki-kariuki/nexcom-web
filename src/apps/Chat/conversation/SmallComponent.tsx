@@ -2,7 +2,7 @@ import { Group, Avatar, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useContext } from 'react';
 import { UserContextType } from '../../../@types/app';
-import { AppContext } from '../../../context/appContext';
+import { AppContext } from '../../../../lib/context/appContext';
 import Dashboard from '../../Dashboard/Dashboard';
 
 export default function SmallComponent() {

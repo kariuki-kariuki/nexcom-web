@@ -1,0 +1,9 @@
+.active {
+  background-color: var(--mantine-color-scode-9);
+  color: white;
+
+  &:hover {
+    background-color: var(--mantine-color-scode-9);
+    color: white;
+  }
+}

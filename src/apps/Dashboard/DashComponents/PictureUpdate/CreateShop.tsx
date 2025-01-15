@@ -9,7 +9,7 @@ import {
 import { IconCirclePlusFilled } from '@tabler/icons-react';
 import { useContext, useState } from 'react';
 import classes from './CreateShop.module.css';
-import { AppContext } from '../../../../context/appContext';
+import { AppContext } from '../../../../../lib/context/appContext';
 import { UserContextType } from '../../../../@types/app';
 import { url } from '../../../../data/url';
 import { redirect } from 'next/navigation';

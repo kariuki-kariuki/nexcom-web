@@ -1,0 +1,22 @@
+.wrapper {
+  min-height: 100vh;
+  background-size: cover;
+  background-image: url('/images/bg.png');
+}
+
+.form {
+  max-width: rem(500px);
+  padding-top: rem(80px);
+  background-color: light-dark(var(--mantine-color-body),var(--mantine-color-dark-9));
+  margin: 0px auto;
+  @media (max-width: $mantine-breakpoint-sm) {
+    max-width: 100%;
+  }
+}
+
+.title {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-family:
+    Greycliff CF,
+    var(--mantine-font-family);
+}

@@ -6,14 +6,14 @@ import { useContext } from 'react';
 import {
   activeConversatonType,
   ConversationContext
-} from '../../../../context/activeConversation';
+} from '../../../../../lib/context/activeConversation';
 import Dashboard from '../../../Dashboard/Dashboard';
 import { useDisclosure } from '@mantine/hooks';
 import { ConversationProps } from '../../../../@types/chat';
 import {
   NewConversationContext,
   NewConversationType
-} from '../../../../context/newConversation';
+} from '../../../../../lib/context/newConversation';
 interface CloseProps {
   closes: () => void;
   activeConvo?: ConversationProps | null;

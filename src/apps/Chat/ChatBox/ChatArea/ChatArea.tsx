@@ -7,7 +7,7 @@ import { ConversationProps } from '../../../../@types/chat';
 import {
   activeConversatonType,
   ConversationContext
-} from '../../../../context/activeConversation';
+} from '../../../../../lib/context/activeConversation';
 import { useContext, useEffect, useRef } from 'react';
 import { SocketType } from '../../Chat';
 interface CloseProps {

@@ -3,7 +3,7 @@ import { IconChevronRight } from '@tabler/icons-react';
 import classes from './UserButton.module.css';
 import { useContext } from 'react';
 import { UserContextType } from '../../../../@types/app';
-import { AppContext } from '../../../../context/appContext';
+import { AppContext } from '../../../../../lib/context/appContext';
 
 export function UserButton() {
   const { user } = useContext(AppContext) as UserContextType;

@@ -1,7 +1,7 @@
-import ConversationProvider from '@/src/context/activeConversation';
-import AppProvider from '@/src/context/appContext';
-import NewConversationProvider from '@/src/context/newConversation';
-import ScreenProvider from '@/src/context/screenContext';
+import ConversationProvider from '@/lib/context/activeConversation';
+import AppProvider from '@/lib/context/appContext';
+import NewConversationProvider from '@/lib/context/newConversation';
+import ScreenProvider from '@/lib/context/screenContext';
 import { theme } from '@/src/theme';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import React from 'react';

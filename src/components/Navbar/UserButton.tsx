@@ -2,7 +2,7 @@ import { UnstyledButton, Group, Avatar, Text, rem } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 import classes from './UserButton.module.css';
 import { useContext } from 'react';
-import { AppContext } from '../../context/appContext';
+import { AppContext } from '../../../lib/context/appContext';
 import { UserContextType } from '../../@types/app';
 
 export function UserButton() {

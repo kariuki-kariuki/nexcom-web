@@ -1,0 +1,19 @@
+.link {
+  display: flex;
+  flex-direction: row;
+  text-decoration:  none;
+  transition-duration: 1s;
+  padding: 5px 8px;
+  border-radius: var(--mantine-radius-md);
+  color: var(--mantine-color-orange-7);
+
+  &:hover {
+    background-color: light-dark(var(--mantine-color-scode-8));
+    color: white;
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: 5px 1px;
+  }
+}
+  

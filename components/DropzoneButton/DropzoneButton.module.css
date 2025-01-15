@@ -1,0 +1,26 @@
+.wrapper {
+  position: relative;
+  margin-bottom: rem(30px);
+  margin-top: rem(30px);
+}
+
+.dropzone {
+  border-width: rem(1px);
+  padding-bottom: rem(20px);
+}
+
+.icon {
+  color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
+}
+
+.control {
+  position: absolute;
+  width: rem(250px);
+  left: calc(50% - rem(125px));
+  bottom: rem(-20px);
+  background-color:  var(--mantine-color-scode-8);
+  transition-duration: 500ms;
+  &:hover {
+    background-color: var(--mantine-color-orange-7);
+  }
+}

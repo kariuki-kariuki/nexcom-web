@@ -13,7 +13,7 @@ import { useContext } from 'react';
 import {
   ScreenContext,
   screenContextType
-} from '../../../context/screenContext';
+} from '../../../../lib/context/screenContext';
 
 function PopMenu() {
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;

@@ -3,13 +3,12 @@
 import { Box, Button, Divider, Flex, Paper, rem, Text } from '@mantine/core';
 import { IconArrowRight } from '@tabler/icons-react';
 import { useContext, useEffect } from 'react';
-import { AppContext } from '../context/appContext';
-import { UserContextType } from '../@types/app';
 import classes from './Index.module.css';
 import { useFetch } from '../hooks/useFetchHooks';
-import { GlobalUser } from '../@types/chat';
 import { IndexNav } from './IndexNav/IndexNav';
 import Link from 'next/link';
+import { AppContext } from '@/lib/context/appContext';
+import { GlobalUser, UserContextType } from '@/lib/@types/app';
 const links = [
   { link: '/chat', label: 'Chat' },
   { link: '/shop', label: 'Shop' },
@@ -17,10 +16,10 @@ const links = [
 ];
 
 function Hero() {
-  const { updateUser } = useContext(AppContext) as UserContextType;
+  const { setUser } = useContext(AppContext) as UserContextType;
   const { response } = useFetch<GlobalUser>(`auth/me`);
   useEffect(() => {
-    updateUser(response);
+    setUser(response);
   }, [response]);
   return (
     <Paper h={'100vh'} px={{ base: 'sm', sm: 'lg' }} className={classes.main}>

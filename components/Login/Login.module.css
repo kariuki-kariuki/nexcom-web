@@ -1,0 +1,16 @@
+.main {
+  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-scode-9));
+}
+
+.input {
+  background-color: light-dark(none, var(--mantine-color-scode-9));
+  color: white;
+}
+
+.card {
+  background-color: light-dark(var(), var(--mantine-color-black));
+
+  &:hover{
+    box-shadow: 5px 5px 10px light-dark(var(--mantine), var(--mantine-color-dark-9));
+  }
+}

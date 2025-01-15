@@ -9,7 +9,7 @@ import { IconCirclePlusFilled } from '@tabler/icons-react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import NewProduct from '../../../Admin/products/NewProduct/NewProduct';
 import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../../../../context/appContext';
+import { AppContext } from '../../../../../lib/context/appContext';
 import { UserContextType } from '../../../../@types/app';
 export interface IProps {
   products: ShopProduct[];

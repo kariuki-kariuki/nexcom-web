@@ -7,14 +7,14 @@ import ChatArea from './ChatBox/ChatArea/ChatArea';
 import { useContext, useEffect, useState } from 'react';
 import { url, url1 } from '../../data/url';
 import { io, Socket } from 'socket.io-client';
-import { AppContext } from '../../context/appContext';
+import { AppContext } from '../../../lib/context/appContext';
 import { UserContextType } from '../../@types/app';
 import { ConversationProps } from '../../@types/chat';
 import { MessageState } from '../../common/common';
 import {
   activeConversatonType,
   ConversationContext
-} from '../../context/activeConversation';
+} from '../../../lib/context/activeConversation';
 import ConversationButtonList from './conversation/ConversationButtonList';
 export type SocketType = Socket | null;
 export type activeType = (active: any) => void;

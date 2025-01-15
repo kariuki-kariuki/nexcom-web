@@ -1,6 +1,6 @@
 import { Avatar, Card, Group, Text } from '@mantine/core';
 import { useContext } from 'react';
-import { AppContext } from '../../../../context/appContext';
+import { AppContext } from '../../../../../lib/context/appContext';
 import { UserContextType } from '../../../../@types/app';
 import classes from './Profile.module.css';
 import { GlobalUser } from '../../../../@types/chat';

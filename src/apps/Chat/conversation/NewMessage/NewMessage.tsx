@@ -15,11 +15,11 @@ import { PostFecthFX } from '../../../../hooks/fetchFX';
 import {
   NewConversationContext,
   NewConversationType
-} from '../../../../context/newConversation';
+} from '../../../../../lib/context/newConversation';
 import {
   activeConversatonType,
   ConversationContext
-} from '../../../../context/activeConversation';
+} from '../../../../../lib/context/activeConversation';
 import classes from './NewMessage.module.css';
 
 interface DProps {

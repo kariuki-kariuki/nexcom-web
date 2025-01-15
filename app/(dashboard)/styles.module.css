@@ -1,0 +1,15 @@
+.main {
+  display: flex;
+  gap: var(--mantine-spacing-md);
+  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-scode-9));
+  
+  @media (max-width: $mantine-breakpoint-sm) {
+    display: block;
+  }
+}
+
+.secondary {
+  overflow-x: auto;
+  height: 100vh;
+  min-width: 80%;
+}

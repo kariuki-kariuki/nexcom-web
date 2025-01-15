@@ -22,16 +22,16 @@ import SmallComponent from './SmallComponent';
 import { Dispatch, SetStateAction, useContext, useEffect } from 'react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import NewMessage from './NewMessage/NewMessage';
-import { AppContext } from '../../../context/appContext';
+import { AppContext } from '../../../../lib/context/appContext';
 import { UserContextType } from '../../../@types/app';
 import {
   NewConversationContext,
   NewConversationType
-} from '../../../context/newConversation';
+} from '../../../../lib/context/newConversation';
 import {
   activeConversatonType,
   ConversationContext
-} from '../../../context/activeConversation';
+} from '../../../../lib/context/activeConversation';
 import { redirect } from 'next/navigation';
 interface Props {
   conversations: ConversationProps[];

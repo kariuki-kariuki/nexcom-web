@@ -24,16 +24,16 @@ import {
 import {
   ConversationContext,
   activeConversatonType
-} from '../../../../context/activeConversation';
+} from '../../../../../lib/context/activeConversation';
 import {
   ScreenContext,
   screenContextType
-} from '../../../../context/screenContext';
+} from '../../../../../lib/context/screenContext';
 import { activeType, SocketType } from '../../Chat';
 import {
   NewConversationContext,
   NewConversationType
-} from '../../../../context/newConversation';
+} from '../../../../../lib/context/newConversation';
 import { MessageState } from '../../../../common/common';
 import { IconCheck, IconChecks } from '@tabler/icons-react';
 import clsx from 'clsx';

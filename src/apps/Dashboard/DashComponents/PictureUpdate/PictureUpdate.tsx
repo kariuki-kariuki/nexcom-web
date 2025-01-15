@@ -9,7 +9,7 @@ import {
 import { url } from '../../../../data/url';
 import { useContext, useState } from 'react';
 import classes from './PictureUpdate.module.css';
-import { AppContext } from '../../../../context/appContext';
+import { AppContext } from '../../../../../lib/context/appContext';
 import { UserContextType } from '../../../../@types/app';
 const PictureUpdate = ({ image }: { image: string }) => {
   const token = localStorage.getItem('token');

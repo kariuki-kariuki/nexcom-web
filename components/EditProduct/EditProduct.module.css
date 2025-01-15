@@ -1,0 +1,11 @@
+.color {
+  background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-coco-1));
+}
+
+.card {
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-9));
+}
+
+.overlay {
+  padding: 0px;
+}
