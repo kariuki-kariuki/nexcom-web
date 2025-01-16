@@ -10,7 +10,7 @@ export default withBundleAnalyzer({
     ignoreDuringBuilds: true
   },
   experimental: {
-    optimizePackageImports: ['@mantine/core', '@mantine/hooks', '@mantine/modals']
+    optimizePackageImports: ['@mantine/core', '@mantine/hooks']
   },
   redirects() {
     return [
