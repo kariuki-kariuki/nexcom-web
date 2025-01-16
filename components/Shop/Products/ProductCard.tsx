@@ -1,14 +1,15 @@
+'use client';
 import {
-  Image,
   Card,
   Grid,
   Group,
   Text,
   Button,
+  Image,
   rem,
   useMantineTheme
 } from '@mantine/core';
-import { ProductWithShop } from '../../../../lib/@types/shop';
+import { ProductWithShop } from '@/lib/@types/shop';
 import classes from './ProductCard.module.css';
 import { IconShoppingCartPlus, IconStar } from '@tabler/icons-react';
 import { Carousel } from '@mantine/carousel';
@@ -20,9 +21,10 @@ interface Iprops {
 }
 
 function ProductCard({ product, toggle, setViewing }: Iprops) {
+  console.log(product);
   const slides = product.images.map((image) => (
-    <Carousel.Slide key={image} classNames={{ slide: classes.slides }}>
-      <Image src={image} height={'100%'} />
+    <Carousel.Slide key={image.id} classNames={{ slide: classes.slides }}>
+      <Image src={image.url} height={'100%'} width={'100%'} alt="hello" />
     </Carousel.Slide>
   ));
   const theme = useMantineTheme();

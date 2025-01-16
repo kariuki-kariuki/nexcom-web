@@ -2,13 +2,14 @@ import ConversationProvider from '@/lib/context/activeConversation';
 import AppProvider from '@/lib/context/appContext';
 import NewConversationProvider from '@/lib/context/newConversation';
 import ScreenProvider from '@/lib/context/screenContext';
-import { theme } from '@/src/theme';
+import { theme } from '@/theme';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import React from 'react';
 import '@mantine/core/styles.css';
 import '@mantine/charts/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/dropzone/styles.css';
+import '@mantine/carousel/styles.css';
 import '@mantine/notifications/styles.css';
 import './index.css';
 

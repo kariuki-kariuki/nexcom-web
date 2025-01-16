@@ -5,7 +5,6 @@ import classes from './Chat.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import ChatArea from '../ChatArea/ChatArea';
 import { useContext, useEffect, useState } from 'react';
-import { url, url1 } from '../../src/data/url';
 import { io, Socket } from 'socket.io-client';
 import { AppContext } from '../../lib/context/appContext';
 import { MessageState } from '../../lib/common/common';
@@ -16,6 +15,7 @@ import {
 import ConversationButtonList from '../ConversationButtonList/ConversationButtonList';
 import { ConversationProps, UserContextType } from '@/lib/@types/app';
 import getToken from '@/lib/cookies';
+import { API_URL, WS_URL } from '@/lib/common/constans';
 export type SocketType = Socket | null;
 export type activeType = (active: any) => void;
 
@@ -32,24 +32,28 @@ function Chat() {
       const token = await getToken();
 
       setSocket(
-        io(url1, {
+        io(WS_URL, {
           extraHeaders: {
             authorization: `Bearer ${token}`
           }
         })
       );
-
-      fetch(`${url}/conversations`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }).then((res: any) => {
-        if (res.ok) {
-          res.json().then((res: any) => {
-            setConversations(res);
-          });
-        }
-      });
+      console.log(API_URL);
+      try {
+        fetch(`${API_URL}/conversations`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }).then((res: any) => {
+          if (res.ok) {
+            res.json().then((res: any) => {
+              setConversations(res);
+            });
+          }
+        });
+      } catch (e) {
+        console.log(e);
+      }
     };
     fetchItems();
   }, []);
@@ -77,7 +81,7 @@ function Chat() {
                 ...conversation,
                 messages: conversation.messages.map((message) =>
                   message.user.email !== res.email &&
-                    message.state === MessageState.SENT
+                  message.state === MessageState.SENT
                     ? { ...message, state: MessageState.DELIVERED }
                     : message
                 )
@@ -104,7 +108,7 @@ function Chat() {
                 ...conversation,
                 messages: conversation.messages.map((message) =>
                   message.user.email === user?.email &&
-                    message.state !== MessageState.READ
+                  message.state !== MessageState.READ
                     ? { ...message, state: MessageState.READ }
                     : message
                 )

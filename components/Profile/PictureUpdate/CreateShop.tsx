@@ -10,19 +10,19 @@ import { IconCirclePlusFilled } from '@tabler/icons-react';
 import { useContext, useState } from 'react';
 import classes from './CreateShop.module.css';
 import { AppContext } from '../../../lib/context/appContext';
-import { UserContextType } from '../../../../@types/app';
-import { url } from '../../../src/data/url';
 import { redirect } from 'next/navigation';
+import { UserContextType } from '@/lib/@types/app';
+import { API_URL } from '@/lib/common/constans';
 const CreateShop = () => {
   const [name, setName] = useState('');
   const [erros, setErrors] = useState(null);
-  const { user, updateUser } = useContext(AppContext) as UserContextType;
+  const { user, setUser } = useContext(AppContext) as UserContextType;
 
   function handleSubmit() {
     setErrors(null);
     const token = localStorage.getItem('token');
     if (name) {
-      fetch(`${url}/auth/register-shops`, {
+      fetch(`${API_URL}/auth/register-shops`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ const CreateShop = () => {
             if (user) {
               user.shop = { name: res.name, id: res.id };
               localStorage.setItem('token', res.token);
-              updateUser(user);
+              setUser(user);
               redirect('/home');
             }
           });

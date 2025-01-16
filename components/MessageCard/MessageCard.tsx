@@ -1,11 +1,10 @@
 import classes from './MessageCard.module.css';
-import { Message } from '../../lib/@types/chat';
 import { Box, Card, Group, Paper, rem, Text } from '@mantine/core';
 import { useContext } from 'react';
 import { AppContext } from '../../lib/context/appContext';
 import { MessageState } from '../../lib/common/common';
 import { IconCheck, IconChecks } from '@tabler/icons-react';
-import { UserContextType } from '@/lib/@types/app';
+import { Message, UserContextType } from '@/lib/@types/app';
 
 interface Props {
   message: Message;

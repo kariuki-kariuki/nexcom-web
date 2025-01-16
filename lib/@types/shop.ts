@@ -29,7 +29,7 @@ export type Product = {
   description: string;
   status: ProductStatus;
   product_sizes: SizeWithPrice[];
-  images: ProductImage[];
+  product_images: ProductImage[];
   category: string;
   stock: number;
   created_at: string;
@@ -39,7 +39,7 @@ export type ShopProduct = {
   id: string;
   name: string;
   description: string;
-  images: string[];
+  images: ProductImage[];
   colors?: string[];
   quantity: number;
   sizes: string;

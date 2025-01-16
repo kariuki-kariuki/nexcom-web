@@ -3,13 +3,13 @@ import Bar from '../Bar/Bar';
 import { Box, Flex, Paper, ScrollArea } from '@mantine/core';
 import NewMessageBox from '../../components/NewMessageBox/NewMessageBox';
 import classes from './ChatArea.module.css';
-import { ConversationProps } from '../../lib/@types/chat';
 import {
   activeConversatonType,
   ConversationContext
 } from '@/lib/context/activeConversation';
 import { useContext, useEffect, useRef } from 'react';
 import { SocketType } from '../Chat/Chat';
+import { ConversationProps } from '@/lib/@types/app';
 interface CloseProps {
   closes: () => void;
   activeConvo?: ConversationProps | null;

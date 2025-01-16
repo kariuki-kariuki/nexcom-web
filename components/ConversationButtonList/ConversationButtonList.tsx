@@ -1,4 +1,3 @@
-import { ConversationProps } from '../../lib/@types/chat';
 import { ConversationButton } from '../ConversationButton/ConversationButton';
 import {
   ActionIcon,
@@ -32,7 +31,11 @@ import {
   ConversationContext
 } from '../../lib/context/activeConversation';
 import { redirect } from 'next/navigation';
-import { GlobalUser, UserContextType } from '@/lib/@types/app';
+import {
+  ConversationProps,
+  GlobalUser,
+  UserContextType
+} from '@/lib/@types/app';
 interface Props {
   conversations: ConversationProps[];
   open: () => void;
@@ -73,7 +76,7 @@ export default function ConversationButtonList({
       if (convo.users[0].id === user?.id || convo.users[1].id === user?.id) {
         {
           convo.users = convo.users.filter(
-            (userr: GlobalUser) => userr.id !== user.id
+            (userr: GlobalUser) => userr.id !== user?.id
           );
           conversations = [...conversations, convo];
           console.log('conversation', conversations);
@@ -84,7 +87,7 @@ export default function ConversationButtonList({
           convo.users[1].id === newConversation?.id
         ) {
           convo.users = convo.users.filter(
-            (userr: GlobalUser) => userr.id !== user.id
+            (userr: GlobalUser) => userr.id !== user?.id
           );
           setNewConversation(null);
           setActiveConvo(convo);

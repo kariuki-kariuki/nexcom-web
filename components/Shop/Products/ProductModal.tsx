@@ -12,14 +12,14 @@ import {
   useMantineTheme
 } from '@mantine/core';
 import { useContext, useState } from 'react';
-import { ProductWithShop, ShopProduct } from '../../../../lib/@types/shop';
+import { ProductWithShop, ShopProduct } from '@/lib/@types/shop';
 import ImageCarousel from '../shopcomponents/ImageCarousel';
 import { IconBasketPlus, IconTool } from '@tabler/icons-react';
-import { url } from '../../../data/url';
-import { AppContext } from '../../../../lib/context/appContext';
-import { UserContextType } from '../../../@types/app';
+import { AppContext } from '@/lib/context/appContext';
 import classes from './ProductModal.module.css';
 import { useMediaQuery } from '@mantine/hooks';
+import { UserContextType } from '@/lib/@types/app';
+import { API_URL } from '@/lib/common/constans';
 interface Iprops {
   opened: boolean;
   toggle: () => void;
@@ -39,7 +39,7 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
   const token = localStorage.getItem('token');
   function handleSubmit() {
     setIsLoading(true);
-    fetch(`${url}/orders`, {
+    fetch(`${API_URL}/orders`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,

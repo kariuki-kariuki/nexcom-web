@@ -4,6 +4,8 @@ import { Shop } from './shop';
 export type UserContextType = {
   user: GlobalUser | null;
   setUser: (user: GlobalUser | null) => void;
+  isLoading: boolean;
+  isLoggedIn: boolean;
 };
 
 export interface GlobalUser {

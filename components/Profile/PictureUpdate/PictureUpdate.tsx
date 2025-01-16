@@ -6,21 +6,21 @@ import {
   Indicator,
   Popover
 } from '@mantine/core';
-import { url } from '../../../src/data/url';
 import { useContext, useState } from 'react';
 import classes from './PictureUpdate.module.css';
 import { AppContext } from '../../../lib/context/appContext';
-import { UserContextType } from '../../../../@types/app';
+import { API_URL } from '@/lib/common/constans';
+import { UserContextType } from '@/lib/@types/app';
 const PictureUpdate = ({ image }: { image: string }) => {
   const token = localStorage.getItem('token');
   const [value, setValue] = useState<File | null>(null);
-  const { user, updateUser } = useContext(AppContext) as UserContextType;
+  const { user, setUser } = useContext(AppContext) as UserContextType;
   function handleSubmit() {
     if (value) {
       const formdata = new FormData();
       formdata.append('file', value);
 
-      fetch(`${url}/users/avatar`, {
+      fetch(`${API_URL}/users/avatar`, {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`
@@ -32,7 +32,7 @@ const PictureUpdate = ({ image }: { image: string }) => {
             res.json().then((res) => {
               if (user) {
                 user.photo = res.link;
-                updateUser(user);
+                setUser(user);
               }
               setValue(null);
             });

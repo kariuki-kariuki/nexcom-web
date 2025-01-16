@@ -1,4 +1,4 @@
-import Shop from '@/src/apps/Shop/Shop';
+import Shop from '@/components/Shop/Shop';
 import React from 'react';
 
 function Page() {

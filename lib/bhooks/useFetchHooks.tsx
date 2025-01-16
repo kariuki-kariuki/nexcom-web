@@ -7,7 +7,7 @@ interface Iprops<T> {
   response: T | null;
   error: any;
 }
-export function useFetch<T>(resource: string): Iprops<T> {
+export default function useFetch<T>(resource: string): Iprops<T> {
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResult] = useState<T | null>(null);
   const [error, setError] = useState<any>(false);

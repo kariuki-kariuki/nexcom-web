@@ -1,12 +1,11 @@
 import { Avatar, Card, Group, Text } from '@mantine/core';
 import { useContext } from 'react';
 import { AppContext } from '../../../lib/context/appContext';
-import { UserContextType } from '../../../../@types/app';
 import classes from './Profile.module.css';
-import { GlobalUser } from '../../../lib/@types/chat';
 import { CardsCarousel } from '../CardsCarousel/CardsCarousel';
 import PictureUpdate from '../PictureUpdate/PictureUpdate';
 import CreateShop from '../PictureUpdate/CreateShop';
+import { GlobalUser, UserContextType } from '@/lib/@types/app';
 const stats = [
   { value: '34K', label: 'Followers' },
   { value: '187', label: 'Follows' },

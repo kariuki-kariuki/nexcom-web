@@ -62,8 +62,8 @@ export function ConversationButton({
   const count = conversation.messages.reduce(
     (total, message) =>
       message.user.email === user.email &&
-        (message.state === MessageState.DELIVERED ||
-          message.state === MessageState.SENT)
+      (message.state === MessageState.DELIVERED ||
+        message.state === MessageState.SENT)
         ? (total += 1)
         : total,
     0
@@ -77,9 +77,9 @@ export function ConversationButton({
     conversation.messages = conversation.messages.map((message) =>
       message.user.email === user.email
         ? {
-          ...message,
-          state: MessageState.READ
-        }
+            ...message,
+            state: MessageState.READ
+          }
         : message
     );
     setActiveConversation(conversation);
