@@ -10,9 +10,9 @@ import {
 } from '@mantine/core';
 import { IconPencil, IconTrash } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
-import { url } from '../../../../data/url';
 import PaginationDemo from '../PaginationDemo/PaginationDemo';
 import classes from './UserTable.module.css';
+import { API_URL } from '@/lib/common/constans';
 
 interface Person {
   id: string;
@@ -30,7 +30,7 @@ export function UsersTable() {
   const [activePage, setPage] = useState<number>(1);
 
   useEffect(() => {
-    fetch(`${url}/users`, {
+    fetch(`${API_URL}/users`, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -54,7 +54,7 @@ export function UsersTable() {
             radius={30}
           />
           <Text fz="sm" fw={500} lineClamp={1}>
-            {user.firstName} {}
+            {user.firstName} { }
           </Text>
         </Group>
       </Table.Td>

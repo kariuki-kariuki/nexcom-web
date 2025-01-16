@@ -13,14 +13,14 @@ import {
 import ToggleButton from './ToggleButton';
 import { useContext } from 'react';
 import { AppContext } from '../../lib/context/appContext';
-import { UserContextType } from '../@types/app';
 import classes from './MenuDrop.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import Dashboard from '../Profile/ProfileDashboard';
 import Link from 'next/link';
+import { UserContextType } from '@/lib/@types/app';
 export default function MenuDrop() {
   const [opened, { open, close }] = useDisclosure();
-  const { user, updateUser } = useContext(AppContext) as UserContextType;
+  const { user, setUser } = useContext(AppContext) as UserContextType;
   return (
     <Box px={'md'} py={'sm'} className={classes.menu}>
       <Menu shadow="md" width={200}>
@@ -83,7 +83,7 @@ export default function MenuDrop() {
                 color="red"
                 onClick={() => {
                   localStorage.removeItem('token');
-                  updateUser(null);
+                  setUser(null);
                 }}
                 leftSection={
                   <IconLogout style={{ width: rem(14), height: rem(14) }} />

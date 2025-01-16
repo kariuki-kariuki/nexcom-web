@@ -1,8 +1,8 @@
 import { Avatar, Group, rem, Text, UnstyledButton } from '@mantine/core';
 import { useContext } from 'react';
 import { AppContext } from '../../lib/context/appContext';
-import { UserContextType } from '../@types/app';
 import { IconChevronRight } from '@tabler/icons-react';
+import { UserContextType } from '@/lib/@types/app';
 
 const ToggleButton = () => {
   const { user } = useContext(AppContext) as UserContextType;

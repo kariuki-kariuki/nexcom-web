@@ -2,8 +2,8 @@ import { UnstyledButton, Group, Avatar, Text, rem } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 import classes from './UserButton.module.css';
 import { useContext } from 'react';
-import { UserContextType } from '../../../../@types/app';
-import { AppContext } from '../../../../../lib/context/appContext';
+import { UserContextType } from '@/lib/@types/app';
+import { AppContext } from '@/lib/context/appContext';
 
 export function UserButton() {
   const { user } = useContext(AppContext) as UserContextType;

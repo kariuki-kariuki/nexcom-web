@@ -12,7 +12,7 @@ import {
 } from '@mantine/core';
 import classes from './CartTable.module.css';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
-import { Order } from '../../../../../lib/@types/shop';
+import { Order } from '@/lib/@types/shop';
 
 interface IProps {
   orders: Order[];

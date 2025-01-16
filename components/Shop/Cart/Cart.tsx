@@ -10,17 +10,16 @@ import {
 } from '@mantine/core';
 import classes from './Cart.module.css';
 import { CartTable } from './CartTable/CartTable';
-import { useFetch } from '../../../../lib/bhooks/useFetchHooks';
-import { Order } from '../../../../lib/@types/shop';
-import { HeaderSearch } from '../../../components/Navbar/HeaderSearch/HeaderSearch';
+import useFetch from '@/lib/bhooks/useFetchHooks';
+import { Order } from '@/lib/@types/shop';
 import { IconEyeDollar } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 // import mpesa from '../../../assets/mpesa.png';
-const links = [
-  { link: '/', label: 'Home' },
-  { link: '/chat', label: 'Chat' },
-  { link: '/shop', label: 'Shop' }
-];
+// const links = [
+//   { link: '/', label: 'Home' },
+//   { link: '/chat', label: 'Chat' },
+//   { link: '/shop', label: 'Shop' }
+// ];
 const Cart = () => {
   const { response } = useFetch<Order[] | null>('orders');
   const [orders, setOrders] = useState<Order[]>([]);
@@ -49,8 +48,6 @@ const Cart = () => {
           px={0}
           withBorder
         >
-          <HeaderSearch links={links} />
-
           {orders.length > 0 ? (
             <CartTable
               orders={orders}

@@ -18,7 +18,7 @@ import {
   IconHome
 } from '@tabler/icons-react';
 import classes from './NavbarSearch.module.css';
-import MenuDrop from '../../../../../components/Menudrop/MenuDrop';
+import MenuDrop from '@/components/Menudrop/MenuDrop';
 
 const links = [
   { icon: IconHome, label: 'Home' },

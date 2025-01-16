@@ -18,7 +18,7 @@ import {
 } from 'react';
 import { IconCheck, IconChecks } from '@tabler/icons-react';
 import clsx from 'clsx';
-import { GlobalUser } from '@/lib/@types/app';
+import { ConversationProps, GlobalUser, Message } from '@/lib/@types/app';
 import {
   ConversationContext,
   activeConversatonType
@@ -28,7 +28,6 @@ import {
   NewConversationType
 } from '@/lib/context/newConversation';
 import { ScreenContext, screenContextType } from '@/lib/context/screenContext';
-import { ConversationProps, Message } from '@/lib/@types/chat';
 import { MessageState } from '@/lib/common/common';
 import { activeType, SocketType } from '../Chat/Chat';
 
@@ -60,10 +59,10 @@ export function ConversationButton({
   const lastMessage = messages ? messages[messages.length - 1] : null;
   const user: GlobalUser = conversation.users[0];
   const count = conversation.messages.reduce(
-    (total, message) =>
+    (total: number, message: Message) =>
       message.user.email === user.email &&
-      (message.state === MessageState.DELIVERED ||
-        message.state === MessageState.SENT)
+        (message.state === MessageState.DELIVERED ||
+          message.state === MessageState.SENT)
         ? (total += 1)
         : total,
     0
@@ -74,12 +73,12 @@ export function ConversationButton({
       conversationId: conversation.id
     });
     // make sure all the messages from the other user is marked as read
-    conversation.messages = conversation.messages.map((message) =>
+    conversation.messages = conversation.messages.map((message: Message) =>
       message.user.email === user.email
         ? {
-            ...message,
-            state: MessageState.READ
-          }
+          ...message,
+          state: MessageState.READ
+        }
         : message
     );
     setActiveConversation(conversation);
