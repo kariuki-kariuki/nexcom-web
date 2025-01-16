@@ -46,3 +46,42 @@ export type ShopProduct = {
   price: number;
   discount: number | null;
 };
+
+export interface IProduct {
+  name: string;
+  description: string;
+  price: number;
+  image: string[];
+}
+
+export interface Shop {
+  name: string;
+  id: number;
+}
+
+export interface ProductWithShop extends ShopProduct {
+  shop: Shop;
+}
+
+export interface ShopWithProducts extends Shop {
+  products: ShopProduct[];
+}
+
+export interface Order {
+  quantity: number;
+  id: number;
+  size: string;
+  color: string;
+  customer_description: string;
+  product: ShopProduct;
+}
+
+export interface SubCategory {
+  id: number;
+  name: string;
+}
+export interface Category {
+  id: number;
+  name: string;
+  categories?: SubCategory[];
+}

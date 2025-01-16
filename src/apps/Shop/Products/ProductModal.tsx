@@ -12,7 +12,7 @@ import {
   useMantineTheme
 } from '@mantine/core';
 import { useContext, useState } from 'react';
-import { ProductWithShop, ShopProduct } from '../../../@types/shop';
+import { ProductWithShop, ShopProduct } from '../../../../lib/@types/shop';
 import ImageCarousel from '../shopcomponents/ImageCarousel';
 import { IconBasketPlus, IconTool } from '@tabler/icons-react';
 import { url } from '../../../data/url';

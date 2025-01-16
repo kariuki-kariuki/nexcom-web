@@ -4,8 +4,8 @@ import HeroPage from './Products/HeroPage';
 import { Box, LoadingOverlay, Paper } from '@mantine/core';
 import { NavbarNested } from './ShopNav/NavbarNested';
 import classes from './Shop.module.css';
-import { useFetch } from '../../hooks/useFetchHooks';
-import { ProductWithShop } from '../../@types/shop';
+import { useFetch } from '../../../lib/bhooks/useFetchHooks';
+import { ProductWithShop } from '../../../lib/@types/shop';
 import { useState } from 'react';
 
 function Shop() {

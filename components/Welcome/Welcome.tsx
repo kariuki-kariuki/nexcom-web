@@ -24,7 +24,7 @@ export function Welcome({ user }: { user: GlobalUser | null }) {
             The Future of Connected Commerce.
           </Text>
           <Group justify="center" mt="xl">
-            <Link href={user ? '/products' : '/login'}>
+            <Link href={user ? '/chat' : '/login'}>
               <Button size="xl" color="scode.8" radius="xl" fw="bold">
                 Get Started
               </Button>

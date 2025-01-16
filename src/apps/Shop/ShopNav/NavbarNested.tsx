@@ -1,9 +1,9 @@
 import { Group, Code, ScrollArea } from '@mantine/core';
 import classes from './NavbarNested.module.css';
 import { LinksGroup } from './NavbarLinksGroup';
-import MenuDrop from '../../../Index/MenuDrop';
-import { useFetch } from '../../../hooks/useFetchHooks';
-import { Category } from '../../../@types/shop';
+import MenuDrop from '../../../../components/Menudrop/MenuDrop';
+import { useFetch } from '../../../../lib/bhooks/useFetchHooks';
+import { Category } from '../../../../lib/@types/shop';
 export interface FilterProps {
   filter: string;
   setFilter: (filter: string) => void;

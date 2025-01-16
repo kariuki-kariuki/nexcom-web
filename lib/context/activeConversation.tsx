@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useState } from 'react';
-import { ConversationProps } from '../../src/@types/chat';
+import { ConversationProps } from '../@types/chat';
 
 export type activeConversatonType = {
   activeConversation: ConversationProps | null;

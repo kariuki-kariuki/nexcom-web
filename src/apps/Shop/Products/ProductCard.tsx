@@ -8,7 +8,7 @@ import {
   rem,
   useMantineTheme
 } from '@mantine/core';
-import { ProductWithShop } from '../../../@types/shop';
+import { ProductWithShop } from '../../../../lib/@types/shop';
 import classes from './ProductCard.module.css';
 import { IconShoppingCartPlus, IconStar } from '@tabler/icons-react';
 import { Carousel } from '@mantine/carousel';

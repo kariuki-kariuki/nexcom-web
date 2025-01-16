@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useState } from 'react';
-import { GlobalUser } from '../../src/@types/chat';
+import { GlobalUser } from '../@types/app';
 
 export type NewConversationType = {
   newConversation: GlobalUser | null;

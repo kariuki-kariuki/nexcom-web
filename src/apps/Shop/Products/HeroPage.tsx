@@ -1,6 +1,6 @@
 import { Flex, Grid, ScrollArea } from '@mantine/core';
 import ProductCard from './ProductCard';
-import { ProductWithShop } from '../../../@types/shop';
+import { ProductWithShop } from '../../../../lib/@types/shop';
 import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 import ProductModal from './ProductModal';

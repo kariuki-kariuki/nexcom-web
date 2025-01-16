@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Group, Box, Collapse, Text, UnstyledButton, rem } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 import classes from './NavbarLinksGroup.module.css';
-import { Category } from '../../../@types/shop';
+import { Category } from '../../../../lib/@types/shop';
 import { FilterProps } from './NavbarNested';
 
 interface LinksGroupProps extends FilterProps {

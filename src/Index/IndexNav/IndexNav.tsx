@@ -2,7 +2,7 @@ import { Group, Burger, Avatar, Drawer, Flex, Box } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './IndexNav.module.css';
 import logo from '../../assets/mklogo.png';
-import MenuDrop from '../MenuDrop';
+import MenuDrop from '../../../components/Menudrop/MenuDrop';
 import { useContext } from 'react';
 import { AppContext } from '../../../lib/context/appContext';
 import { UserContextType } from '../../@types/app';

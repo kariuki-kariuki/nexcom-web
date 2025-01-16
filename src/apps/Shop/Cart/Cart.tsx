@@ -10,8 +10,8 @@ import {
 } from '@mantine/core';
 import classes from './Cart.module.css';
 import { CartTable } from './CartTable/CartTable';
-import { useFetch } from '../../../hooks/useFetchHooks';
-import { Order } from '../../../@types/shop';
+import { useFetch } from '../../../../lib/bhooks/useFetchHooks';
+import { Order } from '../../../../lib/@types/shop';
 import { HeaderSearch } from '../../../components/Navbar/HeaderSearch/HeaderSearch';
 import { IconEyeDollar } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';

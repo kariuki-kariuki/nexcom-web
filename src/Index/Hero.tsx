@@ -4,7 +4,7 @@ import { Box, Button, Divider, Flex, Paper, rem, Text } from '@mantine/core';
 import { IconArrowRight } from '@tabler/icons-react';
 import { useContext, useEffect } from 'react';
 import classes from './Index.module.css';
-import { useFetch } from '../hooks/useFetchHooks';
+import { useFetch } from '../../lib/bhooks/useFetchHooks';
 import { IndexNav } from './IndexNav/IndexNav';
 import Link from 'next/link';
 import { AppContext } from '@/lib/context/appContext';

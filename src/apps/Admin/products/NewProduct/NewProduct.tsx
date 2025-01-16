@@ -17,7 +17,7 @@ import {
   IconUpload
 } from '@tabler/icons-react';
 import { url } from '../../../../data/url';
-import { Product, ShopProduct } from '../../../../@types/shop';
+import { Product, ShopProduct } from '../../../../../lib/@types/shop';
 import { notifications } from '@mantine/notifications';
 import classes from './NewProduct.module.css';
 const prd = {
@@ -129,7 +129,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
             <Input.Wrapper
               label="New Product"
               withAsterisk
-              // // error="Input error"
+            // // error="Input error"
             >
               <Input
                 placeholder="Product Name"
@@ -152,7 +152,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
             <Input.Wrapper
               label="Product description"
               withAsterisk
-              // error="Input error"
+            // error="Input error"
             >
               <Input
                 placeholder="Product Description"
@@ -173,7 +173,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
             <Input.Wrapper
               label="Price"
               withAsterisk
-              // error="Input error"
+            // error="Input error"
             >
               <Input
                 placeholder="0.0"
@@ -211,7 +211,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
             <Input.Wrapper
               label="Quantity of Products"
               withAsterisk
-              // error="Input error"
+            // error="Input error"
             >
               <Input
                 placeholder="0"
@@ -234,7 +234,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
               label="Products Sizes"
               description="comma seperated"
               withAsterisk
-              // // error="Input error"
+            // // error="Input error"
             >
               <Input
                 placeholder="xl, sm, xxl"
@@ -256,7 +256,7 @@ function NewProduct({ opened, toggle, setProducts }: IDrawer) {
               label="Product colors"
               withAsterisk
               description="comma seperated"
-              // // error="Input error"
+            // // error="Input error"
             >
               <Input
                 placeholder="red, green, blue"
