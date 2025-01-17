@@ -15,7 +15,7 @@
 
 .bg {
   background-image: url('/images/bg.jpg');
-  background-color: light-dark(var(--mantine-color-black), var(--mantine-color-scode-9));
+  background-color: light-dark(var(--mantine-color-black), var(--mantine-color-coco-0));
   background-position: center;
   background-size: cover;
 }

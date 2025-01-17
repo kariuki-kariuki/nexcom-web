@@ -55,7 +55,7 @@ export function Products({ products }: { products: Product[] }) {
           classNames={classes}
           onChange={setActive}
         />
-        <Link href="/products/create">
+        <Link href="/dashboard/products/create">
           <Button
             variant="default"
             size={mobile ? 'xs' : 'sm'}

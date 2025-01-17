@@ -4,7 +4,7 @@ import { Navbar } from '../../components/Navbar/Navbar';
 import classes from './styles.module.css';
 
 export const metadata = {
-  title: 'Dashboard @ scode',
+  title: 'Dashboard @ Nexcom',
   description: 'Main Page'
 };
 

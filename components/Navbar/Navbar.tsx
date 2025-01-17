@@ -23,7 +23,7 @@ import classes from './Navbar.module.css';
 const data = [
   { link: '/products', label: 'Products', icon: IconListTree },
   { link: '/messages', label: 'Messages', icon: IconMessage },
-  { link: '/users', label: 'Users', icon: IconUser },
+  { link: '/users', label: 'Followers', icon: IconUser },
   { link: '/faq', label: 'FAQs', icon: IconBlockquote },
   { link: '/resources', label: 'Resources', icon: IconPdf },
   { link: '/gallery', label: 'Gallery', icon: IconPropeller },
@@ -40,11 +40,11 @@ export function Navbar() {
       className={classes.link}
       data-active={item.label === active || undefined}
       key={item.label}
-      href={item.link}
+      href={`/dashboard${item.link}`}
       onClick={(event) => {
         event.preventDefault();
         setActive(item.label);
-        router.push(item.link);
+        router.push(`/dashboard${item.link}`);
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />

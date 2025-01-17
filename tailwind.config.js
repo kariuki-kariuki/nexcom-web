@@ -1,41 +1,22 @@
 /** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
 
-export default {
-
-  content : ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
-  theme : {
+    // Or if using `src` directory:
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
     extend: {
       backgroundImage: {
         'hero-pattern': "url(/h.webp)"
       }
     },
-    // colors: {
-    //   // 'primary': '#FF7715'
-    // },
-    
   },
-  safelist: [
-    "text-ctp-red",
-    "text-ctp-green",
-    "text-ctp-pink",
-    "text-ctp-peach",
-    "text-ctp-blue",
-    "text-ctp-teal",
-    "text-ctp-sky",
-  ],
-  plugins: [
-    // eslint-disable-next-line no-undef
-    require('postcss-import'),
-    // eslint-disable-next-line no-undef
-    require('tailwindcss'),
-    // eslint-disable-next-line no-undef
-    require('autoprefixer'),
-    
-    require("@catppuccin/tailwindcss")({
-      prefix: "ctp",
-      defaultFlavour: "mocha",
-    }),
-  ],
-  
-
+  plugins: [],
 }
+
+

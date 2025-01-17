@@ -1,8 +1,8 @@
 .main {
   display: flex;
   gap: var(--mantine-spacing-md);
-  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-scode-9));
-  
+  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
+
   @media (max-width: $mantine-breakpoint-sm) {
     display: block;
   }

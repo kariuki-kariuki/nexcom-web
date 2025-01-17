@@ -63,7 +63,7 @@ export default function MenuDrop() {
             </Menu.Item>
           </Link>
           {user?.shop ? (
-            <Link href="/admin">
+            <Link href="/dashboard">
               <Menu.Item
                 leftSection={
                   <IconDiamond style={{ width: rem(14), height: rem(14) }} />

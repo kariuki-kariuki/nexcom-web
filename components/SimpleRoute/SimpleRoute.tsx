@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { IconChevronRight } from '@tabler/icons-react';
 import { Group, Text } from '@mantine/core';
-import { UserButton } from './UserButton';
 import classes from './SimpleRoute.module.css';
+import MenuDrop from '../Menudrop/MenuDrop';
 
 function SimpleRoute({ tag, main }: { tag: string; main: string }) {
   return (
@@ -14,17 +14,20 @@ function SimpleRoute({ tag, main }: { tag: string; main: string }) {
       visibleFrom="sm"
     >
       <Group>
-        <Link href="/products" className={classes.link}>
+        <Link href="/dashboard/products" className={classes.link}>
           <Text>Dashboard</Text>
           <IconChevronRight />
         </Link>
-        <Link href={`/${main.toLocaleLowerCase()}`} className={classes.link}>
+        <Link
+          href={`/dashboard/${main.toLocaleLowerCase()}`}
+          className={classes.link}
+        >
           <Text>{main}</Text>
           <IconChevronRight />
         </Link>
         <Text c="scode.8">{tag}</Text>
       </Group>
-      <UserButton />
+      <MenuDrop />
     </Group>
   );
 }

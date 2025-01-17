@@ -11,13 +11,13 @@ const protectedRoutes = [
   '/blogs',
   '/faq',
   '/gallery',
-  'jobs',
-  'tenders',
-  'resources',
-  'chat'
+  '/jobs',
+  '/tenders',
+  '/resources',
+  '/chat'
 ];
 const publicRoutes = ['/login'];
-const managerAdminRoutes = ['/users'];
+const shopOwnersRoutes = ['/dashboard'];
 
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
@@ -25,13 +25,13 @@ export default async function middleware(req: NextRequest) {
 
   // Attempt to decrypt the session token
   const claims = await decrypt(token);
-  const userRole = claims?.role;
+  const shopId = claims?.shop_id;
   const isAuthenticated = !!claims?.user_id;
 
   // Route access determination
   const isProtectedRoute = protectedRoutes.includes(path);
   const isPublicRoute = publicRoutes.includes(path);
-  const isManagerAdminRoute = managerAdminRoutes.includes(path);
+  const isShopOwnerRoute = shopOwnersRoutes.includes(path);
 
   // Allow access to the root route '/' for everyone
   if (path === '/') {
@@ -49,7 +49,7 @@ export default async function middleware(req: NextRequest) {
   }
 
   // Restrict access to manager and admin roles for specific routes
-  if (isManagerAdminRoute && userRole !== 'Manager' && userRole !== 'Admin') {
+  if (isShopOwnerRoute && shopId) {
     return NextResponse.redirect(new URL('/products', req.nextUrl));
   }
 
