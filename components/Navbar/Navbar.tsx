@@ -57,7 +57,7 @@ export function Navbar() {
       <div className={classes.navbarMain}>
         <Group className={classes.header} justify="space-between">
           <Link href="/">
-            <Avatar src="/logos/logo.png" alt="scode logo" />
+            <Avatar src="/logos/logo.png" alt="Nexcom logo" />
           </Link>
           <Code fw={700} visibleFrom="sm">
             Dashboard

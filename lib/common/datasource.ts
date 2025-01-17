@@ -1,5 +1,4 @@
 import Cookies from 'js-cookie';
-import getToken from '../cookies';
 import { API_URL, WS_URL } from './constans';
 import { io, Socket } from 'socket.io-client';
 
@@ -86,7 +85,7 @@ class DataSource {
   }
 
   getSocket() {
-    const socket: Socket = io(this.API_URL, {
+    const socket: Socket = io(this.WS_URL, {
       extraHeaders: {
         authorization: `Bearer ${this.getJwtToken()}`,
       },

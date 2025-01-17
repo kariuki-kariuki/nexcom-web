@@ -26,7 +26,7 @@ export default async function loginSSR(
   }
 
   setAuthCookie(parsedResponse.token);
-  return redirect('/products');
+  return redirect('/chat');
 }
 
 const setAuthCookie = (token: string) => {

@@ -16,9 +16,8 @@ import {
   IconShoppingCart
 } from '@tabler/icons-react';
 import classes from './ConversationButtonList.module.css';
-import { SocketType } from '../Chat/Chat';
 import SmallComponent from './SmallComponent';
-import { Dispatch, SetStateAction, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import NewMessage from '../NewMessage/NewMessage';
 import { AppContext } from '../../lib/context/appContext';
@@ -30,10 +29,9 @@ import {
   activeConversatonType,
   ConversationContext
 } from '../../lib/context/activeConversation';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import {
   ConversationProps,
-  GlobalUser,
   UserContextType
 } from '@/lib/@types/app';
 import { useChat } from '@/lib/context/ConversationContext';
@@ -105,17 +103,19 @@ export default function ConversationButtonList({
 }
 const Links = () => {
   const theme = useMantineTheme();
+  const router = useRouter()
+
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   return (
     <Group gap={mobile ? '20%' : '20%'} justify="end">
       <Tooltip label="home" color="teal">
-        <IconHome size={18} onClick={() => redirect('/')} />
+        <IconHome size={18} onClick={() => router.push('/')} />
       </Tooltip>
       <Tooltip label="Shop" color="teal">
-        <IconShoppingBag size={18} onClick={() => redirect('/shop')} />
+        <IconShoppingBag size={18} onClick={() => router.push('/shop')} />
       </Tooltip>
       <Tooltip label="Cart" color="teal">
-        <IconShoppingCart size={18} onClick={() => redirect('/cart')} />
+        <IconShoppingCart size={18} onClick={() => router.push('/cart')} />
       </Tooltip>
     </Group>
   );

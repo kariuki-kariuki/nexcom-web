@@ -5,15 +5,16 @@ import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 import ProductModal from './ProductModal';
 import classes from './hero.module.css';
+import { HeaderSearch } from '@/components/HeaderSearch/HeaderSearch';
 
 interface Iprop {
   products: ProductWithShop[];
 }
-// const links = [
-//   { link: '/', label: 'Home' },
-//   { link: '/chat', label: 'Chat' },
-//   { link: '/cart', label: 'Cart' }
-// ];
+const links = [
+  { link: '/', label: 'Home' },
+  { link: '/chat', label: 'Chat' },
+  { link: '/cart', label: 'Cart' }
+];
 function HeroPage({ products }: Iprop) {
   const [opened, { toggle }] = useDisclosure(false);
   const [viewing, setVeiwing] = useState<ProductWithShop>(products[0]);
@@ -29,9 +30,10 @@ function HeroPage({ products }: Iprop) {
 
   return (
     <Flex className={classes.hero} mx={{ sm: 'md' }} direction={'column'}>
-      {/* <HeaderSearch links={links} /> */}
 
       <ScrollArea className={classes.scroll} scrollbars="y">
+        <HeaderSearch links={links} />
+
         <Grid p={0} gutter={'xs'}>
           {product}
         </Grid>
