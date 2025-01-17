@@ -1,5 +1,7 @@
+import Cookies from 'js-cookie';
 import getToken from '../cookies';
-import { API_URL } from './constans';
+import { API_URL, WS_URL } from './constans';
+import { io, Socket } from 'socket.io-client';
 
 enum CRUDMETHODS {
   GET = 'GET',
@@ -23,7 +25,7 @@ export interface ReturnType<T> {
 
 class DataSource {
   // eslint-disable-next-line prettier/prettier
-  constructor(private url: string) { }
+  constructor(private API_URL: string, private readonly WS_URL: string) { }
 
   // CRUD METHODS
   async get<T>(path: string): Promise<ReturnType<T>> {
@@ -54,7 +56,7 @@ class DataSource {
     let data: T | null = null;
     const token = await this.getJwtToken();
     try {
-      const res = await fetch(`${this.url}/${path}`, {
+      const res = await fetch(`${this.API_URL}/${path}`, {
         method,
         headers: {
           'Content-Type': contentType ?? 'application/json',
@@ -78,9 +80,20 @@ class DataSource {
     }
   }
 
-  async getJwtToken() {
-    return await getToken();
+  getJwtToken() {
+    const token = Cookies.get('Authentication');
+    return token;
   }
+
+  getSocket() {
+    const socket: Socket = io(this.API_URL, {
+      extraHeaders: {
+        authorization: `Bearer ${this.getJwtToken()}`,
+      },
+    });
+    return socket;
+  }
+
 
   async handleError(errors: string | Array<string>): Promise<string> {
     if (typeof errors === 'string') {
@@ -90,4 +103,4 @@ class DataSource {
   }
 }
 
-export const datasource = new DataSource(API_URL);
+export const datasource = new DataSource(API_URL, WS_URL);

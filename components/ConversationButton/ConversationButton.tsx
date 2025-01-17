@@ -13,7 +13,6 @@ import {
   Dispatch,
   SetStateAction,
   useContext,
-  useEffect,
   useState
 } from 'react';
 import { IconCheck, IconChecks } from '@tabler/icons-react';
@@ -29,22 +28,17 @@ import {
 } from '@/lib/context/newConversation';
 import { ScreenContext, screenContextType } from '@/lib/context/screenContext';
 import { MessageState } from '@/lib/common/common';
-import { activeType, SocketType } from '../Chat/Chat';
+import { activeType } from '../Chat/Chat';
+import { datasource } from '@/lib/common/datasource';
 
 interface Props {
   conversation: ConversationProps;
   open: () => void;
-  socket: SocketType;
-  setActiveConvo: activeType;
-  setConverSations: Dispatch<SetStateAction<ConversationProps[]>>;
   index: number;
 }
 export function ConversationButton({
   conversation,
   open,
-  socket,
-  setActiveConvo,
-  setConverSations
 }: Props) {
   // const { user } = useContext(AppContext) as UserContextType;
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
@@ -67,85 +61,19 @@ export function ConversationButton({
         : total,
     0
   );
-  const handleRead = () => {
-    socket?.emit('message-state', {
-      state: MessageState.READ,
-      conversationId: conversation.id
-    });
-    // make sure all the messages from the other user is marked as read
-    conversation.messages = conversation.messages.map((message: Message) =>
-      message.user.email === user.email
-        ? {
-          ...message,
-          state: MessageState.READ
-        }
-        : message
-    );
-    setActiveConversation(conversation);
-    setActiveConvo(conversation);
-  };
+
   const date = lastMessage ? new Date(lastMessage?.updated_at) : null;
-  useEffect(() => {
-    if (newConversation?.id === user.id) {
-      setActiveConversation(conversation);
-      setNewConversation(null);
-    }
-    const handleMessage = (msg: any) => {
-      if (msg.conversation.id === conversation.id) {
-        const message: Message = {
-          message: msg.message,
-          user: msg.user,
-          files: msg.files,
-          updated_at: msg.updated_at,
-          state: MessageState.SENT
-        };
-        if (message.user.email === user.email) {
-          socket?.emit('message-state', { state: MessageState.DELIVERED });
-        }
-        setMessages((messages): any => [...messages, message]);
-        setConverSations((prevConversations) =>
-          prevConversations.map((convo) =>
-            convo.id === conversation.id
-              ? { ...convo, messages: [...convo.messages, message] }
-              : convo
-          )
-        );
-        if (msg.conversation.id === activeConversation?.id) {
-          // If it is the current active conversation
-          if (message.user.email === user.email) {
-            socket?.emit('message-state', {
-              state: MessageState.READ,
-              conversationId: conversation.id
-            });
-            message.state = MessageState.READ;
-            conversation.messages.push(message);
-            setActiveConversation(conversation);
-            setActiveConvo(conversation);
-          } else {
-            // If the message message user not me
-            conversation.messages.push(message);
-            setActiveConversation(conversation);
-            setActiveConvo(conversation);
-          }
-        }
-      }
-    };
-
-    socket?.on('message', handleMessage);
-
-    return () => {
-      socket?.off('message', handleMessage);
-    };
-  }, [socket, conversation, activeConversation, messages, lastMessage]);
 
   return (
     <Card
       className={clsx({ [classes.active]: active, [classes.normal]: !active })}
       onClick={() => {
         setActiveConversation(conversation);
-        setActiveConvo(conversation);
         updateActiveScreen('chat');
-        handleRead();
+        datasource.getSocket().emit('message-state', {
+          state: MessageState.READ,
+          conversationId: conversation.id
+        });
       }}
     >
       <Group onClick={open}>

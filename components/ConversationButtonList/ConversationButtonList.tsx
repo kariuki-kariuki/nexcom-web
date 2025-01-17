@@ -36,26 +36,20 @@ import {
   GlobalUser,
   UserContextType
 } from '@/lib/@types/app';
+import { useChat } from '@/lib/context/ConversationContext';
 interface Props {
-  conversations: ConversationProps[];
   open: () => void;
-  socket: SocketType;
-  setActiveConvo: (convo: ConversationProps) => void;
-  setConverSations: Dispatch<SetStateAction<ConversationProps[]>>;
 }
 
 export default function ConversationButtonList({
-  conversations,
   open,
-  socket,
-  setActiveConvo,
-  setConverSations
 }: Props) {
   const { user } = useContext(AppContext) as UserContextType;
   const { newConversation, setNewConversation } = useContext(
     NewConversationContext
   ) as NewConversationType;
-  conversations = conversations.filter(
+  const { state } = useChat()
+  const conversations = state.conversations.filter(
     (conversation) => conversation.messages.length !== 0
   );
   conversations.sort((a, b) => {
@@ -70,46 +64,12 @@ export default function ConversationButtonList({
   const { setActiveConversation } = useContext(
     ConversationContext
   ) as activeConversatonType;
-  useEffect(() => {
-    const handleConvo = (convo: ConversationProps) => {
-      console.log('new convo', convo.users);
-      if (convo.users[0].id === user?.id || convo.users[1].id === user?.id) {
-        {
-          convo.users = convo.users.filter(
-            (userr: GlobalUser) => userr.id !== user?.id
-          );
-          conversations = [...conversations, convo];
-          console.log('conversation', conversations);
-          setConverSations(conversations);
-        }
-        if (
-          convo.users[0].id === newConversation?.id ||
-          convo.users[1].id === newConversation?.id
-        ) {
-          convo.users = convo.users.filter(
-            (userr: GlobalUser) => userr.id !== user?.id
-          );
-          setNewConversation(null);
-          setActiveConvo(convo);
-          setActiveConversation(convo);
-        }
-      }
-    };
-    socket?.on('new-conversation', handleConvo);
-
-    return () => {
-      socket?.off('new-conversation', handleConvo);
-    };
-  }, [socket, conversations, newConversation]);
 
   const conversation = conversations?.map((convo: ConversationProps, index) => (
     <ConversationButton
       conversation={convo}
       key={convo.id}
-      socket={socket}
       open={open}
-      setActiveConvo={setActiveConvo}
-      setConverSations={setConverSations}
       index={index}
     />
   ));

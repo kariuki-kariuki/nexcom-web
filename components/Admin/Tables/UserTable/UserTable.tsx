@@ -54,7 +54,7 @@ export function UsersTable() {
             radius={30}
           />
           <Text fz="sm" fw={500} lineClamp={1}>
-            {user.firstName} { }
+            {user.firstName} {}
           </Text>
         </Group>
       </Table.Td>

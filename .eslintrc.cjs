@@ -12,8 +12,8 @@ module.exports = {
   plugins: ['react-refresh', '@typescript-eslint/eslint-plugin'],
   rules: {
     'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
+      'none',
+      { allowConstantExport: false },
     ],
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',

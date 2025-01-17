@@ -43,3 +43,36 @@ export interface Message {
   updated_at: string;
   state?: MessageState;
 }
+
+// Chat State Type
+export interface ChatState {
+  conversations: ConversationProps[];
+}
+
+// PayloadMessage state
+export interface PayloadMessage {
+  conversationId: string;
+  state: MessageState;
+  email: string;
+}
+
+// New Message type
+export interface NewMessage extends Message {
+  conversation: ConversationProps;
+}
+
+// Action Types
+export type ChatAction =
+  | {
+    type: 'ADD_MESSAGE';
+    payload: NewMessage;
+  }
+  | { type: 'ADD_CONVERSATION'; payload: ConversationProps }
+  | {
+    type: 'UPDATE_MESSAGE';
+    payload: PayloadMessage;
+  }
+  | {
+    type: 'SET_CONVERSATIONS';
+    payload: ConversationProps[];
+  };

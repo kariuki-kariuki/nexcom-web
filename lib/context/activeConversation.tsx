@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { ConversationProps } from '../@types/app';
 
 export type activeConversatonType = {
@@ -12,7 +12,15 @@ export const ConversationContext = createContext<activeConversatonType | null>(
   null
 );
 
-const ConversationProvider: React.FC<{ children: React.ReactNode }> = ({
+export const useActiveConversation = () => {
+  const context = useContext(ConversationContext);
+  if (!context) {
+    throw new Error('context must be used within a global provider');
+  }
+  return context;
+}
+
+const ActiveConversationProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [activeConversation, setActiveConversation] =
@@ -30,4 +38,4 @@ const ConversationProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-export default ConversationProvider;
+export default ActiveConversationProvider;

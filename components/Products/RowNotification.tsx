@@ -148,17 +148,17 @@ export function RowNotification({ prd, setProducts }: IRow) {
                 )}
                 {(product.status === ProductStatus.PUBLISHED ||
                   product.status === ProductStatus.ARCHIVED) && (
-                    <MenuItem
-                      leftSection={
-                        <IconNotesOff
-                          style={{ width: rem(14), height: rem(14) }}
-                        />
-                      }
-                      onClick={() => handleUpdate(ProductStatus.DRAFT)}
-                    >
-                      Draft
-                    </MenuItem>
-                  )}
+                  <MenuItem
+                    leftSection={
+                      <IconNotesOff
+                        style={{ width: rem(14), height: rem(14) }}
+                      />
+                    }
+                    onClick={() => handleUpdate(ProductStatus.DRAFT)}
+                  >
+                    Draft
+                  </MenuItem>
+                )}
                 <Divider />
                 <MenuLabel>Danger</MenuLabel>
                 <MenuItem

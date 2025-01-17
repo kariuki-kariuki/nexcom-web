@@ -8,15 +8,13 @@ import {
   ConversationContext
 } from '@/lib/context/activeConversation';
 import { useContext, useEffect, useRef } from 'react';
-import { SocketType } from '../Chat/Chat';
 import { ConversationProps } from '@/lib/@types/app';
 interface CloseProps {
   closes: () => void;
   activeConvo?: ConversationProps | null;
-  socket: SocketType;
 }
 
-function ChatArea({ closes, activeConvo, socket }: CloseProps) {
+function ChatArea({ closes, activeConvo }: CloseProps) {
   const { activeConversation } = useContext(
     ConversationContext
   ) as activeConversatonType;
@@ -28,14 +26,10 @@ function ChatArea({ closes, activeConvo, socket }: CloseProps) {
     if (endOfMessagesRef.current) {
       endOfMessagesRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [
-    activeConvo?.messages,
-    activeConversation?.messages,
-    activeConvo,
-    activeConversation
-  ]); // Triggers when messages change
+  }, [activeConvo]);
 
-  const messages = activeConversation?.messages?.map((message, idx) => (
+
+  const messages = activeConvo?.messages?.map((message, idx) => (
     <Message message={message} key={idx} />
   ));
   return (
@@ -62,7 +56,7 @@ function ChatArea({ closes, activeConvo, socket }: CloseProps) {
           )}
           <div ref={endOfMessagesRef} />
         </ScrollArea>
-        <NewMessageBox socket={socket} />
+        <NewMessageBox />
       </Flex>
     </Paper>
   );

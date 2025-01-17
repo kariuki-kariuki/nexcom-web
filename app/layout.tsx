@@ -1,5 +1,3 @@
-import ConversationProvider from '@/lib/context/activeConversation';
-import AppProvider from '@/lib/context/appContext';
 import NewConversationProvider from '@/lib/context/newConversation';
 import ScreenProvider from '@/lib/context/screenContext';
 import { theme } from '@/theme';
@@ -12,6 +10,9 @@ import '@mantine/dropzone/styles.css';
 import '@mantine/carousel/styles.css';
 import '@mantine/notifications/styles.css';
 import './index.css';
+import ActiveConversationProvider from '@/lib/context/activeConversation';
+import AppProvider from '@/lib/context/appContext';
+import { ChatProvider } from '@/lib/context/ConversationContext';
 
 export default function RootLayout({
   children
@@ -31,13 +32,15 @@ export default function RootLayout({
       <body>
         <MantineProvider theme={theme} defaultColorScheme="dark">
           <AppProvider>
-            <ScreenProvider>
-              <ConversationProvider>
-                <NewConversationProvider>
-                  <div id="root">{children}</div>
-                </NewConversationProvider>
-              </ConversationProvider>
-            </ScreenProvider>
+            <ChatProvider>
+              <ScreenProvider>
+                <ActiveConversationProvider>
+                  <NewConversationProvider>
+                    <div id="root">{children}</div>
+                  </NewConversationProvider>
+                </ActiveConversationProvider>
+              </ScreenProvider>
+            </ChatProvider>
           </AppProvider>
         </MantineProvider>
       </body>

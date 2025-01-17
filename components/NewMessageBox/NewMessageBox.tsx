@@ -21,11 +21,15 @@ import {
   NewConversationContext,
   NewConversationType
 } from '@/lib/context/newConversation';
+import { datasource } from '@/lib/common/datasource';
+import useWebSocket from '@/lib/hooks/useWebsockets';
 interface Props {
   socket: SocketType;
 }
-const NewMessageBox = ({ socket }: Props) => {
+const NewMessageBox = () => {
   const [message, setMessage] = useState<string>('');
+  const socket = datasource.getSocket()
+
   const { activeConversation } = useContext(
     ConversationContext
   ) as activeConversatonType;
@@ -43,14 +47,14 @@ const NewMessageBox = ({ socket }: Props) => {
     }
     return Theme.AUTO;
   }
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (activeConversation && message) {
       const messageBody = {
         message,
         conversationId: activeConversation?.id
       };
       try {
-        socket?.emit('message', messageBody);
+        socket.emit('message', messageBody);
         setMessage('');
       } catch (e) {
         console.log(e);

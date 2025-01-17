@@ -16,121 +16,21 @@ import ConversationButtonList from '../ConversationButtonList/ConversationButton
 import { ConversationProps, UserContextType } from '@/lib/@types/app';
 import getToken from '@/lib/cookies';
 import { API_URL, WS_URL } from '@/lib/common/constans';
+import useWebSocket from '@/lib/hooks/useWebsockets';
 export type SocketType = Socket | null;
 export type activeType = (active: any) => void;
 
 function Chat() {
-  const [conversations, setConversations] = useState<ConversationProps[]>([]);
   const { user } = useContext(AppContext) as UserContextType;
-  // user;
+
+
   const { activeConversation, setActiveConversation } = useContext(
     ConversationContext
   ) as activeConversatonType;
-  const [socket, setSocket] = useState<SocketType>(null);
-  useEffect(() => {
-    const fetchItems = async () => {
-      const token = await getToken();
 
-      setSocket(
-        io(WS_URL, {
-          extraHeaders: {
-            authorization: `Bearer ${token}`
-          }
-        })
-      );
-      console.log(API_URL);
-      try {
-        fetch(`${API_URL}/conversations`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }).then((res: any) => {
-          if (res.ok) {
-            res.json().then((res: any) => {
-              setConversations(res);
-            });
-          }
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchItems();
-  }, []);
-
-  useEffect(() => {
-    try {
-      socket?.emit('message-state', { state: 'delivered' });
-    } catch (e) {
-      console.log('Server failed', e);
-    }
-  }, [socket]);
-
-  const [activeConvo, setActiveConvo] = useState<ConversationProps | null>(
-    null
-  );
   const [opened, { open, close }] = useDisclosure(false);
-  useEffect(() => {
-    const handleState = (res: any) => {
-      if (res.state === MessageState.DELIVERED) {
-        setConversations((prevConversations) =>
-          prevConversations.map((conversation) => {
-            // If My messages have been delivered to user B
-            if (conversation.users[0].email === res.email) {
-              const updatedConvo = {
-                ...conversation,
-                messages: conversation.messages.map((message) =>
-                  message.user.email !== res.email &&
-                  message.state === MessageState.SENT
-                    ? { ...message, state: MessageState.DELIVERED }
-                    : message
-                )
-              };
-              if (updatedConvo.id === activeConversation?.id) {
-                setActiveConversation(updatedConvo);
-                setActiveConvo(updatedConvo);
-              }
-              return updatedConvo;
-            }
-            return conversation;
-          })
-        );
-      } else {
-        // Handle message read for the current user
-        // Read By User B
-        setConversations((prevConversation) =>
-          prevConversation.map((conversation) => {
-            if (
-              conversation.id === res.conversationId &&
-              res.email != user?.email
-            ) {
-              conversation = {
-                ...conversation,
-                messages: conversation.messages.map((message) =>
-                  message.user.email === user?.email &&
-                  message.state !== MessageState.READ
-                    ? { ...message, state: MessageState.READ }
-                    : message
-                )
-              };
-              if (conversation.id === activeConversation?.id) {
-                setActiveConvo(conversation);
-                setActiveConversation(conversation);
-              }
-              return conversation;
-            }
-            return conversation;
-          })
-        );
-      }
-    };
-    socket?.on('message-state', handleState);
-
-    return () => {
-      socket?.off('message-state', handleState);
-    };
-  });
-
+  const { state } = useWebSocket()
+  const activeCNV = state.conversations.find((conv) => conv.id === activeConversation?.id)
   return (
     <Flex
       wrap="nowrap"
@@ -147,11 +47,7 @@ function Chat() {
         bd={'none'}
       >
         <ConversationButtonList
-          conversations={conversations}
-          setActiveConvo={setActiveConvo}
           open={open}
-          socket={socket}
-          setConverSations={setConversations}
         />
       </Card>
       <Card
@@ -163,7 +59,7 @@ function Chat() {
         radius={'lg'}
         bd={'none'}
       >
-        <ChatArea closes={close} activeConvo={activeConvo} socket={socket} />
+        <ChatArea closes={close} activeConvo={activeCNV} />
       </Card>
       <Modal
         radius="md"
@@ -185,7 +81,7 @@ function Chat() {
           h={'100%'}
           bd={'none'}
         >
-          <ChatArea closes={close} activeConvo={activeConvo} socket={socket} />
+          <ChatArea closes={close} activeConvo={activeCNV} />
         </Card>
       </Modal>
     </Flex>

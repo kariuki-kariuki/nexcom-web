@@ -1,10 +1,18 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { GlobalUser, UserContextType } from '../@types/app';
 import { datasource } from '../common/datasource';
 
 export const AppContext = React.createContext<UserContextType | null>(null);
+
+export const useGlobalContext = () => {
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error('context must be used within a global provider');
+  }
+  return context;
+};
 
 const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = React.useState<GlobalUser | null>(null);
