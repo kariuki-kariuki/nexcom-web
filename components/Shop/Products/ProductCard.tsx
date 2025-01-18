@@ -21,9 +21,8 @@ interface Iprops {
 }
 
 function ProductCard({ product, toggle, setViewing }: Iprops) {
-  console.log(product);
   const slides = product.images.map((image) => (
-    <Carousel.Slide key={image.id} classNames={{ slide: classes.slides }}>
+    <Carousel.Slide key={image.id} h={{ base: '200px', sm: '400px' }}>
       <Image src={image.url} height={'100%'} width={'100%'} alt="hello" />
     </Carousel.Slide>
   ));

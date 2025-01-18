@@ -9,45 +9,26 @@
     }
   }
 }
+
 .card {
-  background-color: light-dark(
-    var(--mantine-color-white),
-    var(--mantine-color-coco-0)
-  );
+  background-color: light-dark(var(--mantine-color-white),
+      var(--mantine-color-coco-0));
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
+
 .carouselControls {
   transition: opacity 150ms ease;
-  opacity: 0;
+  opacity: 1;
 }
 
-.slides {
-  max-height: rem(200);
-  min-height: rem(200);
-  @media (min-width: $mantine-breakpoint-sm) {
-    /* font-size: rem(50px); */
-    height: rem(320);
-    min-height: rem(320);
-  }
-}
-
-.image {
-  max-height: rem(100);
-  min-height: rem(100);
-  @media (min-width: $mantine-breakpoint-sm) {
-    /* font-size: rem(50px); */
-    height: rem(320);
-    min-height: rem(320);
-  }
-}
 
 .carouselIndicator {
-  width: rem(4px);
-  height: rem(4px);
+  width: 4px;
+  height: 4px;
   transition: width 250ms ease;
 
   &[data-active] {
-    width: rem(16px);
+    width: 16px;
   }
 }
 

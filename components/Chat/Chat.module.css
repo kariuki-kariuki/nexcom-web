@@ -1,15 +1,10 @@
 .overflow {
-  border: none;
   width: 100%;
   overflow-y: auto;
-  @media (min-width: $mantine-breakpoint-sm) {
-    /* font-size: rem(50px); */
-    border-radius: var(--mantine-spacing-md);
-  }
 }
 
 .main {
-  background-color: var(--mantine-color-coco-0);
+  /* background-color: var(--mantine-color-coco-0); */
 }
 
 .hidden {
@@ -23,7 +18,8 @@
 .nav {
   width: 100%;
 }
-.root{
+
+.root {
   padding: 0;
   margin: 0;
 }

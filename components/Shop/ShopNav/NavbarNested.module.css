@@ -1,7 +1,7 @@
 .navbar {
   background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
-  height: rem(100%);
-  width: rem(100%);
+  height: 100%;
+  width: 100%;
   padding: var(--mantine-spacing-md);
   border-radius: var(--mantine-spacing-md);
   padding-bottom: 0;

@@ -34,8 +34,6 @@ function Chat() {
   return (
     <Flex
       wrap="nowrap"
-      gap={'md'}
-      p={{ base: '0px', sm: 'sm', md: 'sm' }}
       h="100vh"
       className={classes.main}
     >
@@ -56,7 +54,6 @@ function Chat() {
         p={0}
         w={{ sm: '60%', md: '70%' }}
         h="100%"
-        radius={'lg'}
         bd={'none'}
       >
         <ChatArea closes={close} activeConvo={activeCNV} />

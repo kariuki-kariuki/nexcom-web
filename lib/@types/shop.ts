@@ -23,6 +23,7 @@ export type INewProduct = {
   category: string;
   stock: number;
 };
+
 export type Product = {
   id: number;
   name: string;
@@ -35,6 +36,7 @@ export type Product = {
   created_at: string;
 };
 
+
 export type ShopProduct = {
   id: string;
   name: string;
@@ -42,7 +44,7 @@ export type ShopProduct = {
   images: ProductImage[];
   colors?: string[];
   quantity: number;
-  sizes: string;
+  product_sizes: SizeWithPrice[];
   price: number;
   discount: number | null;
 };

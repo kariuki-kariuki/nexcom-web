@@ -38,7 +38,7 @@ export function HeaderSearch({ links }: ILink) {
       <div className={classes.inner}>
         <Group>
           <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
-          <Avatar src={'/logo.png'} />
+          <Avatar src={'/logos/logo.png'} />
         </Group>
         <Drawer
           opened={opened}
