@@ -30,6 +30,7 @@ import { ScreenContext, screenContextType } from '@/lib/context/screenContext';
 import { MessageState } from '@/lib/common/common';
 import { activeType } from '../Chat/Chat';
 import { datasource } from '@/lib/common/datasource';
+import useWebSocket from '@/lib/hooks/useWebsockets';
 
 interface Props {
   conversation: ConversationProps;
@@ -41,6 +42,7 @@ export function ConversationButton({
   open,
 }: Props) {
   // const { user } = useContext(AppContext) as UserContextType;
+  const {state} = useWebSocket(conversation.id)
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
   const { activeConversation, setActiveConversation } = useContext(
     ConversationContext

@@ -6,7 +6,7 @@ import { useActiveConversation } from "../context/activeConversation";
 import { useGlobalContext } from "../context/appContext";
 import { MessageState } from "../common/common";
 
-const useWebSocket = () => {
+const useWebSocket = (conversationId: string) => {
   const { state, dispatch } = useChat();
   const socket = datasource.getSocket(); // Use a single socket instance
   const { user } = useGlobalContext();
@@ -14,9 +14,11 @@ const useWebSocket = () => {
 
   const handleIncomingMessage = useCallback(
     (res: NewMessage) => {
+      console.log('new message', res)
       if (res.user.id !== user?.id) {
         if (res.conversation.id === activeConversation?.id) {
           // Mark the message as read if it's for the active conversation
+          console.log(`Conversation ${res.conversation.id} is active and should emit received`)
           socket.emit("message-state", {
             state: MessageState.READ,
             conversationId: activeConversation.id,
@@ -42,7 +44,9 @@ const useWebSocket = () => {
 
   useEffect(() => {
     // Listener for message-state updates
+    socket.emit('join', conversationId);
     const handleMessageState = (res: PayloadMessage) => {
+      console.log('Received message state:', res)
       dispatch({ type: "UPDATE_MESSAGE", payload: res });
     };
 

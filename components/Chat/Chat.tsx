@@ -4,32 +4,26 @@ import { Card, Flex, Modal } from '@mantine/core';
 import classes from './Chat.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import ChatArea from '../ChatArea/ChatArea';
-import { useContext, useEffect, useState } from 'react';
-import { io, Socket } from 'socket.io-client';
-import { AppContext } from '../../lib/context/appContext';
-import { MessageState } from '../../lib/common/common';
+import { useContext } from 'react';
+import { Socket } from 'socket.io-client';
+import { AppContext, useGlobalContext } from '../../lib/context/appContext';
 import {
   activeConversatonType,
   ConversationContext
 } from '@/lib/context/activeConversation';
 import ConversationButtonList from '../ConversationButtonList/ConversationButtonList';
-import { ConversationProps, UserContextType } from '@/lib/@types/app';
-import getToken from '@/lib/cookies';
-import { API_URL, WS_URL } from '@/lib/common/constans';
-import useWebSocket from '@/lib/hooks/useWebsockets';
+import { UserContextType } from '@/lib/@types/app';
+import { useChat } from '@/lib/context/ConversationContext';
 export type SocketType = Socket | null;
 export type activeType = (active: any) => void;
 
 function Chat() {
-  const { user } = useContext(AppContext) as UserContextType;
-
-
   const { activeConversation, setActiveConversation } = useContext(
     ConversationContext
   ) as activeConversatonType;
 
   const [opened, { open, close }] = useDisclosure(false);
-  const { state } = useWebSocket()
+  const { state } = useChat();
   const activeCNV = state.conversations.find((conv) => conv.id === activeConversation?.id)
   return (
     <Flex
