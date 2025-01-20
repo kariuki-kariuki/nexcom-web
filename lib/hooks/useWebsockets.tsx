@@ -12,43 +12,36 @@ const useWebSocket = (conversationId: string) => {
   const { user } = useGlobalContext();
   const { activeConversation } = useActiveConversation();
 
+  const markMessageState = useCallback((state: MessageState, conversationId: string) => {
+    socket.emit('message-state', {
+      state,
+      conversationId
+    });
+  }, [socket])
+
   const handleIncomingMessage = useCallback(
     (res: NewMessage) => {
-      console.log('new message', res)
       if (res.user.id !== user?.id) {
         if (res.conversation.id === activeConversation?.id) {
-          // Mark the message as read if it's for the active conversation
-          console.log(`Conversation ${res.conversation.id} is active and should emit received`)
-          socket.emit("message-state", {
-            state: MessageState.READ,
-            conversationId: activeConversation.id,
-          });
+           markMessageState(MessageState.READ, activeConversation.id)
         } else {
-          // Check if the conversation exists in state
-          const hasConvo = state.conversations.find(
-            (conv) => conv.id === res.conversation.id
-          );
-          if (hasConvo) {
-            socket.emit("message-state", {
-              state: MessageState.DELIVERED,
-              conversationId: hasConvo.id,
-            });
-          }
+          markMessageState(MessageState.DELIVERED, conversationId)
         }
       }
       // Dispatch the new message to the chat state
       dispatch({ type: "ADD_MESSAGE", payload: res });
     },
-    [activeConversation, dispatch, socket, state.conversations, user?.id]
+    [activeConversation, dispatch, socket, state.conversations, user?.id, markMessageState]
   );
+  const handleMessageState = (res: PayloadMessage) => {
+    // console.log(`Message state ${res.email} convo: ${res.conversationId}, state: ${res.state}`)
+    dispatch({ type: "UPDATE_MESSAGE", payload: res });
+  };
 
   useEffect(() => {
     // Listener for message-state updates
     socket.emit('join', conversationId);
-    const handleMessageState = (res: PayloadMessage) => {
-      console.log('Received message state:', res)
-      dispatch({ type: "UPDATE_MESSAGE", payload: res });
-    };
+    
 
     // Attach socket event listeners
     socket.on("message-state", handleMessageState);
@@ -65,7 +58,7 @@ const useWebSocket = (conversationId: string) => {
       socket.off("message", handleIncomingMessage);
       socket.off("error");
     };
-  }, [socket, dispatch, handleIncomingMessage]);
+  }, [socket, dispatch, handleIncomingMessage, handleMessageState]);
 
   return { state };
 };

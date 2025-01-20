@@ -10,11 +10,8 @@ import {
 } from '@mantine/core';
 import classes from './ConversationButton.module.css';
 import {
-  Dispatch,
-  SetStateAction,
   useContext,
-  useState
-} from 'react';
+  useEffect} from 'react';
 import { IconCheck, IconChecks } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { ConversationProps, GlobalUser, Message } from '@/lib/@types/app';
@@ -28,7 +25,6 @@ import {
 } from '@/lib/context/newConversation';
 import { ScreenContext, screenContextType } from '@/lib/context/screenContext';
 import { MessageState } from '@/lib/common/common';
-import { activeType } from '../Chat/Chat';
 import { datasource } from '@/lib/common/datasource';
 import useWebSocket from '@/lib/hooks/useWebsockets';
 

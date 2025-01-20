@@ -50,9 +50,7 @@ function chatReducer(state: ChatState, action: ChatAction) {
           conv.id === action.payload.conversationId
             ? {
               ...conv,
-              messages: conv.messages.map((msg) => msg.state === MessageState.READ ? msg :
-                ({ ...msg, state: action.payload.state })
-              )
+              messages: conv.messages.map((msg) => msg.user.email !== action.payload.email && msg.state !== MessageState.READ ? {...msg, state: action.payload.state} : msg)
             }
             : conv
         )
