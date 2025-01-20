@@ -6,5 +6,5 @@ import { AUTHENTICATION_COOKIE } from '../lib/common/constans';
 
 export default async function logout() {
   cookies().delete(AUTHENTICATION_COOKIE);
-  redirect('/login');
+  redirect('/auth/login');
 }
