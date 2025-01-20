@@ -46,7 +46,7 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
     );
     const newTotal =
       selectedOrders?.reduce((sum, order) => {
-        return sum + order.product.price * order.quantity;
+        return sum + order.product.product_sizes[0].price * order.quantity;
       }, 0) || 0; // Default to 0 if no selection
     setTotal(newTotal);
   };
@@ -114,7 +114,7 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
             />
           </Group>
         </Table.Td>
-        <Table.Td>{myOrder.quantity * order.product.price}</Table.Td>
+        <Table.Td>{myOrder.quantity * order.product.product_sizes[0].price}</Table.Td>
       </Table.Tr>
     );
   });
