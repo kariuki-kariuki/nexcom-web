@@ -18,6 +18,7 @@ import { useDisclosure } from '@mantine/hooks';
 import Dashboard from '../Profile/ProfileDashboard';
 import Link from 'next/link';
 import { UserContextType } from '@/lib/@types/app';
+import logout from '@/utils/logout';
 export default function MenuDrop() {
   const [opened, { open, close }] = useDisclosure();
   const { user, setUser } = useContext(AppContext) as UserContextType;
@@ -82,7 +83,7 @@ export default function MenuDrop() {
               <Menu.Item
                 color="red"
                 onClick={() => {
-                  localStorage.removeItem('token');
+                  logout();
                   setUser(null);
                 }}
                 leftSection={

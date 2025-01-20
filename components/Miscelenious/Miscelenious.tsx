@@ -1,13 +1,15 @@
 import {
   IconArrowsLeftRight,
+  IconDiamond,
   IconDotsVertical,
   IconLayoutDashboardFilled,
   IconLogout,
+  IconMessageCircle,
   IconShoppingBag,
   IconTrash
   // IconVideo,
 } from '@tabler/icons-react';
-import { Box, Menu, rem, Text, Tooltip } from '@mantine/core';
+import { Box, Button, ButtonGroup, Menu, rem, Text, Tooltip } from '@mantine/core';
 import Dashboard from '../Profile/ProfileDashboard';
 import classes from './Miscelenious.module.css';
 import { useDisclosure } from '@mantine/hooks';
@@ -23,6 +25,8 @@ import {
 } from '@/lib/context/newConversation';
 import { redirect } from 'next/navigation';
 import { UserContextType } from '@/lib/@types/app';
+import Link from 'next/link';
+import logout from '@/utils/logout';
 function Miscelenious() {
   const [opened, { open, close }] = useDisclosure();
   const { user, setUser } = useContext(AppContext) as UserContextType;
@@ -70,16 +74,15 @@ function Miscelenious() {
 
             <Menu.Dropdown className={classes.menu_drop}>
               <Menu.Label>Application</Menu.Label>
-              <Menu.Item
-                onClick={() => redirect('/shop')}
-                leftSection={
-                  <IconShoppingBag
-                    style={{ width: rem(14), height: rem(14) }}
-                  />
-                }
-              >
-                Shop
-              </Menu.Item>
+              <Link href="/shop">
+                <Menu.Item
+                  leftSection={
+                    <IconShoppingBag style={{ width: rem(14), height: rem(14) }} />
+                  }
+                >
+                  Shop
+                </Menu.Item>
+              </Link>
               <Menu.Item
                 onClick={open}
                 leftSection={
@@ -90,39 +93,69 @@ function Miscelenious() {
               >
                 Profile
               </Menu.Item>
-              <Menu.Divider />
+              
+              {user?.shop ? (
+                <Link href="/dashboard">
+                  <Menu.Item
+                    leftSection={
+                      <IconDiamond style={{ width: rem(14), height: rem(14) }} />
+                    }
+                  >
+                    Admin
+                  </Menu.Item>
+                </Link>
+              ) : (
+                ''
+              )}
+              {user ? (
+                <>
+                  <Menu.Divider />
+                  <Menu.Label>Danger zone</Menu.Label>
+                  <Menu.Item
+                    color="red"
+                    onClick={() => {
+                      logout();
+                      setUser(null);
+                    }}
+                    leftSection={
+                      <IconLogout style={{ width: rem(14), height: rem(14) }} />
+                    }
+                  >
+                    Logout
+                  </Menu.Item>
 
-              <Menu.Label>Danger zone</Menu.Label>
-              <Menu.Item
-                color="red"
-                onClick={() => {
-                  redirect('/');
-                  setUser(null);
-                }}
-                leftSection={
-                  <IconLogout style={{ width: rem(14), height: rem(14) }} />
-                }
-              >
-                Logout
-              </Menu.Item>
-
-              <Menu.Item
-                leftSection={
-                  <IconArrowsLeftRight
-                    style={{ width: rem(14), height: rem(14) }}
-                  />
-                }
-              >
-                Transfer my data
-              </Menu.Item>
-              <Menu.Item
-                color="red"
-                leftSection={
-                  <IconTrash style={{ width: rem(14), height: rem(14) }} />
-                }
-              >
-                Delete my account
-              </Menu.Item>
+                  <Menu.Item
+                    leftSection={
+                      <IconArrowsLeftRight
+                        style={{ width: rem(14), height: rem(14) }}
+                      />
+                    }
+                  >
+                    Transfer my data
+                  </Menu.Item>
+                  <Menu.Item
+                    color="red"
+                    leftSection={
+                      <IconTrash style={{ width: rem(14), height: rem(14) }} />
+                    }
+                  >
+                    Delete my account
+                  </Menu.Item>
+                </>
+              ) : (
+                <>
+                  <Menu.Divider />
+                  <Menu.Label>Login / Register</Menu.Label>
+                  <Menu.Item>
+                    <ButtonGroup>
+                      <Link href="/login">
+                        <Button>Login</Button>
+                      </Link>
+                      <Link href="/login"></Link>
+                    </ButtonGroup>
+                  </Menu.Item>
+                </>
+              )}
             </Menu.Dropdown>
           </Menu>
           {user ? (

@@ -2,14 +2,12 @@ import {
   Box,
   Center,
   Group,
-  PasswordInput,
+  Input,
   Progress,
   Text
 } from '@mantine/core';
-import { UseFormReturnType } from '@mantine/form';
-// import { useInputState } from '@mantine/hooks';
 import { IconCheck, IconX } from '@tabler/icons-react';
-
+import classes from "./Signup.module.css";
 function PasswordRequirement({
   meets,
   label
@@ -32,8 +30,8 @@ function PasswordRequirement({
 }
 
 const requirements = [
-  { re: /[0-9]/, label: 'Inclides number' },
-  { re: /[a-z]/, label: 'Inludes lowercase letter' },
+  { re: /[0-9]/, label: 'Includes number' },
+  { re: /[a-z]/, label: 'Includes lowercase letter' },
   { re: /[A-Z]/, label: 'Includes uppercase letter' },
   { re: /[$&+,:;=?@#|'<>.^*()%!-']/, label: 'Includes special symbol' }
 ];
@@ -49,38 +47,14 @@ function getStrength(password: string) {
 
   return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 0);
 }
-type ChildComponentProps = {
-  form: UseFormReturnType<
-    {
-      email: string;
-      firstName: string;
-      lastName: string;
-      password: string;
-      terms: boolean;
-    },
-    (values: {
-      email: string;
-      firstName: string;
-      lastName: string;
-      password: string;
-      terms: boolean;
-    }) => {
-      email: string;
-      firstName: string;
-      lastName: string;
-      password: string;
-      terms: boolean;
-    }
-  >;
-};
-export default function PasswordStrength({ form }: ChildComponentProps) {
-  const strength = getStrength(form.values.password);
+export default function PasswordStrength({ value, setPassword }: {value: string, setPassword: (text: string) => void}) {
+  const strength = getStrength(value);
 
   const checks = requirements.map((requirement, index) => (
     <PasswordRequirement
       key={index}
       label={requirement.label}
-      meets={requirement.re.test(form.values.password)}
+      meets={requirement.re.test(value)}
     />
   ));
 
@@ -90,7 +64,7 @@ export default function PasswordStrength({ form }: ChildComponentProps) {
       <Progress
         style={{ section: { transitionDuration: '0ms' } }}
         value={
-          form.values.password.length > 0 && index === 0
+          value.length > 0 && index === 0
             ? 100
             : strength >= ((index + 1) / 4) * 100
               ? 100
@@ -104,15 +78,18 @@ export default function PasswordStrength({ form }: ChildComponentProps) {
 
   return (
     <div>
-      <PasswordInput
-        value={form.values.password}
+      <Input
+        value={value}
         onChange={(event) =>
-          form.setFieldValue('password', event.currentTarget.value)
+          setPassword(event.target.value)
         }
         placeholder="Your password"
         c={'white'}
-        label="Password"
+        size='xl'
+        name='password'
+        type='password'
         required
+        classNames={{ input: classes.input }}
       />
 
       <Group gap={5} grow mt="xs" mb="md">
@@ -121,7 +98,7 @@ export default function PasswordStrength({ form }: ChildComponentProps) {
 
       <PasswordRequirement
         label="Has at least 6 characters"
-        meets={form.values.password.length > 5}
+        meets={value.length > 5}
       />
       {checks}
     </div>

@@ -14,7 +14,7 @@ const protectedRoutes = ['/chat', '/dashboard',
   '/dashboard/jobs',
   '/dashboard/tenders',
   '/dashboard/resources'];
-const publicRoutes = ['/login'];
+const publicRoutes = ['/login', '/signup'];
 const shopOwnersRoutes = [
   '/dashboard',
   '/dashboard/products',
