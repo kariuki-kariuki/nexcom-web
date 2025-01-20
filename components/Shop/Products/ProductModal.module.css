@@ -6,14 +6,19 @@
 
 .body {
   background-color: light-dark(
-    var(--var-mantine-color-gray-2),
+    var(--mantine-color-gray-2),
     var(--mantine-color-coco-0)
   );
 }
 
+.content {
+  background-color: light-dark(var(--mantine-color-gray-2),
+        var(--mantine-color-coco-0));
+}
+
 .header {
   background-color: light-dark(
-    var(--var-mantine-color-gray-2),
+    var(--mantine-color-gray-2),
     var(--mantine-color-coco-0)
   );
 }

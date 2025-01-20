@@ -80,7 +80,7 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
       overlayProps={{
         h: '100vh'
       }}
-      classNames={{ body: classes.body, header: classes.header }}
+      classNames={{ body: classes.body, header: classes.header, content: classes.content }}
     >
       <LoadingOverlay
         visible={isLoading}
@@ -117,16 +117,13 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
                     Product Description
                   </Text>
                   <Text
-                    // bg={'purple'}
                     w={'fit-content'}
-                    // c={'white'}
-                    // p={'xs'}
                     fz={'xl'}
                     fw={'500'}
                     style={{ borderRadius: '10px' }}
                   >
                     {' '}
-                    Price: ${product?.price}
+                    Price: ${product?.product_sizes[0].price}
                   </Text>
                 </Group>
                 <Text
@@ -181,7 +178,7 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
                         +
                       </Button>
                     </Button.Group>
-                    <Text>Total {product?.price * quantity}</Text>
+                    <Text>Total {product?.product_sizes[0].price * quantity}</Text>
                   </Group>
                   <Group justify="center">
                     <Button

@@ -77,9 +77,9 @@ function ProductCard({ product, toggle, setViewing }: Iprops) {
               className={classes.price}
             >
               Ksh{' '}
-              {product.price > 1000
-                ? `${(product.price / 1000).toFixed(0)}k`
-                : product.price}
+              {product.product_sizes[0].price > 1000
+                ? `${(product.product_sizes[0].price / 1000).toFixed(0)}k`
+                : product.product_sizes[0].price}
             </Text>
             <Text span fz="sm" c="dimmed"></Text>
           </div>
