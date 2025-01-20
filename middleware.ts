@@ -3,25 +3,38 @@ import { NextRequest, NextResponse } from 'next/server';
 import { decodeJwt } from 'jose';
 
 // Define protected and public routes
-const protectedRoutes = [
-  '/products',
-  '/users',
-  '/settings',
-  '/projects',
-  '/blogs',
-  '/faq',
-  '/gallery',
-  '/jobs',
-  '/tenders',
-  '/resources',
-  '/chat'
-];
+const protectedRoutes = ['/chat', '/dashboard',
+  '/dashboard/products',
+  '/dashboard/users',
+  '/dashboard/settings',
+  '/dashboard/projects',
+  '/dashboard/blogs',
+  '/dashboard/faq',
+  '/dashboard/gallery',
+  '/dashboard/jobs',
+  '/dashboard/tenders',
+  '/dashboard/resources'];
 const publicRoutes = ['/login'];
-const shopOwnersRoutes = ['/dashboard'];
+const shopOwnersRoutes = [
+  '/dashboard',
+  '/dashboard/products',
+  '/dashboard/users',
+  '/dashboard/settings',
+  '/dashboard/projects',
+  '/dashboard/blogs',
+  '/dashboard/faq',
+  '/dashboard/gallery',
+  '/dashboard/jobs',
+  '/dashboard/tenders',
+  '/dashboard/resources',
+];
 
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
-  const token = (await cookies()).get('Authentication')?.value;
+
+  // Extract cookies asynchronously
+  const cookieStore = cookies();
+  const token = cookieStore.get('Authentication')?.value;
 
   // Attempt to decrypt the session token
   const claims = await decrypt(token);
@@ -43,14 +56,14 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/login', req.nextUrl));
   }
 
-  // Redirect authenticated users from other public routes to /products
+  // Redirect authenticated users from public routes to '/chat'
   if (isPublicRoute && isAuthenticated) {
-    return NextResponse.redirect(new URL('/products', req.nextUrl));
+    return NextResponse.redirect(new URL('/chat', req.nextUrl));
   }
 
-  // Restrict access to manager and admin roles for specific routes
-  if (isShopOwnerRoute && shopId) {
-    return NextResponse.redirect(new URL('/products', req.nextUrl));
+  // Restrict access to shop owner routes to authenticated users with a shopId
+  if (isShopOwnerRoute && !shopId) {
+    return NextResponse.redirect(new URL('/chat', req.nextUrl));
   }
 
   // Proceed if all checks pass
@@ -64,7 +77,7 @@ async function decrypt(token: string | undefined) {
   try {
     return decodeJwt(token);
   } catch (error) {
-    console.log('Failed to verify session:', error);
+    console.error('Failed to verify session token:', error);
     return null;
   }
 }
