@@ -17,6 +17,7 @@ import {
 import classes from './Signup.module.css';
 import SignupPost from './SignupPost';
 import PasswordStrength from './PasswordStrenght';
+import Link from 'next/link';
 
 function SignUp() {
   const [state, formAction] = useFormState(SignupPost, { error: '' });
@@ -29,10 +30,10 @@ function SignUp() {
           <Text py="sm">Nexcom</Text>
         </Group>
       </Card>
-      <Flex align="center" h="70vh" justify="center">
+      <Flex align="center" h="fit-content" pt="md" justify="center">
         <form action={formAction}>
           <Stack gap="lg" align="center">
-            <Group justify="start" mb="xl">
+            <Group justify="start" mb="md">
               <Avatar size="lg" src="/logos/logo.png" />
               <Text py="sm">SignUp</Text>
             </Group>
@@ -67,11 +68,13 @@ function SignUp() {
               />
             </InputWrapper>
             <PasswordStrength value={password} setPassword={setPassword}/>
-            <Group justify="center">
+            <Stack justify="center" gap={"md"}>
+              <Text>Have an account? <Link href="/auth/login" className='text-blue-700 hover:text-gray-500'>Login.</Link></Text>
+
               <Button type="submit" size="lg" radius="xl" color="coco.0">
                 SignUp
               </Button>
-            </Group>
+            </Stack>
           </Stack>
         </form>
       </Flex>

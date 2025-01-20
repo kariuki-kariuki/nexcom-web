@@ -16,7 +16,7 @@ function PasswordRequirement({
   label: string;
 }) {
   return (
-    <Text component="div" c={meets ? 'teal' : 'red'} mt={5} size="sm">
+    <Text component="div" ta="center" c={meets ? 'teal' : 'red'} mt={5} size="sm">
       <Center inline>
         {meets ? (
           <IconCheck size={'0.9rem'} stroke={1.5} />

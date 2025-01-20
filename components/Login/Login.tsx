@@ -16,6 +16,7 @@ import {
 } from '@mantine/core';
 import classes from './Login.module.css';
 import loginSSR from './loginssr';
+import Link from 'next/link';
 
 function Login() {
   const [state, formAction] = useFormState(loginSSR, { error: '' });
@@ -54,11 +55,12 @@ function Login() {
                 classNames={{ input: classes.input }}
               />
             </InputWrapper>
-            <Group justify="center">
-              <Button type="submit" size="lg" radius="xl" color="scode.8">
+            <Stack justify="center" gap={"md"} >
+              <Text>Don't have an account? <Link href="/auth/signup" className='text-blue-700 hover:text-gray-500'>Signup.</Link></Text>
+              <Button type="submit" size="lg" radius="xl" color="coco.0">
                 Login
               </Button>
-            </Group>
+            </Stack>
           </Stack>
         </form>
       </Flex>
