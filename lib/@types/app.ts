@@ -42,6 +42,7 @@ export interface Message {
   files: string[] | null;
   updated_at: string;
   state?: MessageState;
+  created_at: string;
 }
 
 // Chat State Type

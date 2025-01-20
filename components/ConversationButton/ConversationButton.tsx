@@ -42,7 +42,7 @@ export function ConversationButton({
   open,
 }: Props) {
   // const { user } = useContext(AppContext) as UserContextType;
-  const {state} = useWebSocket(conversation.id)
+  const { state } = useWebSocket(conversation.id)
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
   const { activeConversation, setActiveConversation } = useContext(
     ConversationContext
@@ -50,9 +50,18 @@ export function ConversationButton({
   const { newConversation, setNewConversation } = useContext(
     NewConversationContext
   ) as NewConversationType;
+  conversation = state.conversations.find((convo) => convo.id ===conversation.id) || conversation;
   const active: boolean = conversation.id === activeConversation?.id;
-  const [messages, setMessages] = useState(conversation.messages);
-  const lastMessage = messages ? messages[messages.length - 1] : null;
+  conversation.messages.sort((a, b) => {
+    const timeA = new Date(
+      a.created_at
+    ).getTime();
+    const timeB = new Date(
+      b.created_at
+    ).getTime();
+    return timeA - timeB;
+  });
+  const lastMessage = conversation.messages[conversation.messages.length - 1];
   const user: GlobalUser = conversation.users[0];
   const count = conversation.messages.reduce(
     (total: number, message: Message) =>

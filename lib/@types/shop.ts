@@ -45,7 +45,6 @@ export type ShopProduct = {
   colors?: string[];
   quantity: number;
   product_sizes: SizeWithPrice[];
-  price: number;
   discount: number | null;
 };
 

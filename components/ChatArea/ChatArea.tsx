@@ -27,6 +27,15 @@ function ChatArea({ closes, activeConvo }: CloseProps) {
       endOfMessagesRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [activeConvo]);
+  activeConvo?.messages.sort((a, b) => {
+    const timeA = new Date(
+      a.created_at
+    ).getTime();
+    const timeB = new Date(
+      b.created_at
+    ).getTime();
+    return timeA - timeB;
+  });
 
 
   const messages = activeConvo?.messages?.map((message, idx) => (
