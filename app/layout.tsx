@@ -13,6 +13,7 @@ import './index.css';
 import ActiveConversationProvider from '@/lib/context/activeConversation';
 import AppProvider from '@/lib/context/appContext';
 import { ChatProvider } from '@/lib/context/ConversationContext';
+import { Notifications } from '@mantine/notifications';
 
 export default function RootLayout({
   children
@@ -36,6 +37,7 @@ export default function RootLayout({
               <ScreenProvider>
                 <ActiveConversationProvider>
                   <NewConversationProvider>
+                    <Notifications />
                     <div id="root">{children}</div>
                   </NewConversationProvider>
                 </ActiveConversationProvider>
