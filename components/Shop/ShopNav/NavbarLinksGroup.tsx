@@ -3,9 +3,11 @@ import { Group, Box, Collapse, Text, UnstyledButton, rem } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 import classes from './NavbarLinksGroup.module.css';
 import { Category } from '@/lib/@types/shop';
-import { FilterProps } from './NavbarNested';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import path from 'path';
 
-interface LinksGroupProps extends FilterProps {
+interface LinksGroupProps {
   name: string;
   initiallyOpened?: boolean;
   sub_category?: Category[];
@@ -15,48 +17,51 @@ export function LinksGroup({
   name,
   initiallyOpened,
   sub_category,
-  // filter,
-  setFilter
 }: LinksGroupProps) {
   const hasCategories = Array.isArray(sub_category);
   const [opened, setOpened] = useState(initiallyOpened || false);
-  const items = (hasCategories ? sub_category : []).map((category) => (
-    <Text<'a'>
-      component="a"
+  const pathname = usePathname()
+  const items = (hasCategories ? sub_category : []).map((category) => {
+    const link = `shop/${category.name.toLowerCase().split(' ').join('-')}`
+    
+    return <Link
       className={classes.link}
+      color={pathname === link ? 'orange.7': 'white'}
       key={category.name}
-      href={`${category.name}`}
+      href={link}
       onClick={(event) => {
         event.preventDefault();
-        setFilter(classes.link);
       }}
     >
       {category.name}
-    </Text>
-  ));
-
+    </Link>
+});
+  const link = `/shop/${name.toLowerCase().split(' ').join('-')}`
+  console.log(`link: ${link}, pathname: ${pathname}`,link === pathname)
   return (
     <>
       <UnstyledButton
         onClick={() => setOpened((o) => !o)}
         className={classes.control}
       >
-        <Group justify="space-between" gap={0}>
-          <Box style={{ display: 'flex', alignItems: 'center' }}>
-            <Box ml="md">{name}</Box>
-          </Box>
-          {hasCategories && sub_category.length > 1 && (
-            <IconChevronRight
-              className={classes.chevron}
-              stroke={1.5}
-              style={{
-                width: rem(16),
-                height: rem(16),
-                transform: opened ? 'rotate(-90deg)' : 'none'
-              }}
-            />
-          )}
-        </Group>
+        <Link href={`${name.toLowerCase().split(' ').join('-')}`}>
+          <Group justify="space-between" gap={0}>
+            <Box style={{ display: 'flex', alignItems: 'center' }}>
+              <Box ml="md" c={`${link}` === pathname ? "orange.8": 'white' }>{name}</Box>
+            </Box>
+            {hasCategories && sub_category.length > 1 && (
+              <IconChevronRight
+                className={classes.chevron}
+                stroke={1.5}
+                style={{
+                  width: rem(16),
+                  height: rem(16),
+                  transform: opened ? 'rotate(-90deg)' : 'none'
+                }}
+              />
+            )}
+          </Group>
+        </Link>
       </UnstyledButton>
       {hasCategories ? <Collapse in={opened}>{items}</Collapse> : null}
     </>

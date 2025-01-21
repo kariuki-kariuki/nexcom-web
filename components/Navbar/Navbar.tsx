@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   IconBlockquote,
   IconDesk,
@@ -22,11 +22,8 @@ import classes from './Navbar.module.css';
 
 const data = [
   { link: '/products', label: 'Products', icon: IconListTree },
-  { link: '/messages', label: 'Messages', icon: IconMessage },
   { link: '/users', label: 'Followers', icon: IconUser },
   { link: '/faq', label: 'FAQs', icon: IconBlockquote },
-  { link: '/resources', label: 'Resources', icon: IconPdf },
-  { link: '/gallery', label: 'Gallery', icon: IconPropeller },
   { link: '/jobs', label: 'Jobs', icon: IconDesk },
   { link: '/tenders', label: 'Tenders', icon: IconHeartHandshake }
 ];
@@ -35,6 +32,7 @@ export function Navbar() {
   const [active, setActive] = useState('Products');
   const router = useRouter();
   const [opened, { toggle }] = useDisclosure();
+  const pathname = usePathname()
   const links = data.map((item) => (
     <Link
       className={classes.link}
@@ -64,7 +62,8 @@ export function Navbar() {
           </Code>
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" />
         </Group>
-        <Box visibleFrom="sm">{links}</Box>
+        <Box visibleFrom="sm">
+          {links}</Box>
       </div>
 
       <Box className={classes.footer} visibleFrom="sm">

@@ -1,23 +1,17 @@
+'use client';
 import { Group, Code, ScrollArea } from '@mantine/core';
 import classes from './NavbarNested.module.css';
 import { LinksGroup } from './NavbarLinksGroup';
 import MenuDrop from '@/components/Menudrop/MenuDrop';
-import useFetch from '@/lib/bhooks/useFetchHooks';
 import { Category } from '@/lib/@types/shop';
-export interface FilterProps {
-  filter: string;
-  setFilter: (filter: string) => void;
-}
 
-export function NavbarNested({ filter, setFilter }: FilterProps) {
-  const { response, isLoading } = useFetch<Category[]>('categories');
-  if (isLoading) return <div>Loading</div>;
-  const links = response?.map((item: Category) => (
+
+export function NavbarNested({ categories }: {categories: Category[]}) {
+
+  const links = categories?.map((item: Category) => (
     <LinksGroup
       {...item}
       key={item.name}
-      filter={filter}
-      setFilter={setFilter}
     />
   ));
 
@@ -30,7 +24,10 @@ export function NavbarNested({ filter, setFilter }: FilterProps) {
       </div>
 
       <ScrollArea className={classes.links}>
-        <div className={classes.linksInner}>{links}</div>
+        
+        <div className={classes.linksInner}>
+          {links}
+          </div>
       </ScrollArea>
 
       <div className={classes.footer}>

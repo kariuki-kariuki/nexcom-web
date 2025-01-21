@@ -4,7 +4,7 @@
   padding: var(--mantine-spacing-md);
   display: flex;
   flex-direction: column;
-  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-scode-9));
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-1));
   border-right: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 
   @media (max-width: $mantine-breakpoint-sm) {
