@@ -31,7 +31,7 @@ import { notifications } from '@mantine/notifications';
 import { GlobalUser } from '../../lib/@types/app';
 import { update } from '../../lib/hooks/useFetchHooks';
 import SimpleRoute from '../SimpleRoute/SimpleRoute';
-import classes from './AllUsers.module.css';
+import classes from './Follow.module.css';
 
 interface ITableRow {
   item: GlobalUser;
@@ -174,7 +174,7 @@ const TableRowNotification = ({ item, updateRole }: ITableRow) => (
     </Group>
   </Notification>
 );
-export function AllUsers({ dbusers }: { dbusers: GlobalUser[] }) {
+export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
   const [users, setUsers] = useState(dbusers);
   const [active, setActive] = useState('All');
 

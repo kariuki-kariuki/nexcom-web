@@ -4,12 +4,12 @@ import {
   IconDotsVertical,
   IconLayoutDashboardFilled,
   IconLogout,
-  IconMessageCircle,
   IconShoppingBag,
-  IconTrash
+  IconTrash,
+  IconX
   // IconVideo,
 } from '@tabler/icons-react';
-import { Box, Button, ButtonGroup, Menu, rem, Text, Tooltip } from '@mantine/core';
+import { Box, Button, ButtonGroup, Flex, Menu, rem, Tooltip } from '@mantine/core';
 import Dashboard from '../Profile/ProfileDashboard';
 import classes from './Miscelenious.module.css';
 import { useDisclosure } from '@mantine/hooks';
@@ -23,7 +23,6 @@ import {
   NewConversationContext,
   NewConversationType
 } from '@/lib/context/newConversation';
-import { redirect } from 'next/navigation';
 import { UserContextType } from '@/lib/@types/app';
 import Link from 'next/link';
 import logout from '@/utils/logout';
@@ -38,37 +37,29 @@ function Miscelenious() {
   ) as NewConversationType;
 
   return (
-    <div className="flex justify-around">
-      {/* <div className="p-3">
-        <IconVideo />
-      </div>
-      <div className="p-3">
-        <IconPhoneCalling />
-      </div> */}
+    <Flex justify="space-between" align="center" content='center'>
       {activeConversation || newConversation ? (
         <div className="p-3">
           <Tooltip label="Close this conversation">
-            <Text
-              fw={500}
-              c="red"
+            <IconX
+              color="red"
+              stroke={1.5}
               onClick={() => {
                 setActiveConversation(null);
                 setNewConversation(null);
               }}
-            >
-              X
-            </Text>
+            />
           </Tooltip>
         </div>
       ) : (
         ''
       )}
-      <div className="p-3">
+      <Box p={"md"}>
         <Box p={0} className={classes.menu}>
           <Menu shadow="md" width={200}>
             <Menu.Target>
               <div>
-                <IconDotsVertical />
+                <IconDotsVertical stroke={1.5}/>
               </div>
             </Menu.Target>
 
@@ -164,8 +155,8 @@ function Miscelenious() {
             ''
           )}
         </Box>
-      </div>
-    </div>
+      </Box>
+    </Flex>
   );
 }
 

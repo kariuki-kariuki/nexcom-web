@@ -1,8 +1,6 @@
 .nav {
-  /* border-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-gray-6)); */
-  background-color: light-dark(var(--mantine-color-coco-0),
+  background-color: light-dark(var(--mantine-color-body),
       var(--mantine-color-coco-0));
-  /* border-radius: var(--mantine-spacing-md); */
 }
 
 .navText {
@@ -10,9 +8,7 @@
 }
 
 .flex {
-  border-radius: var(--mantine-spacing-md);
   position: relative;
-  /* background-color: light-dark(var(--mantine-color-gray-2), #06141b); */
 }
 
 .group {

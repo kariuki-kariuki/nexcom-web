@@ -18,6 +18,11 @@ export default withBundleAnalyzer({
         source: '/dashboard',
         destination: '/dashboard/products',
         permanent: false
+      },
+      {
+        source: '/shop',
+        destination: '/shop/all',
+        permanent: false
       }
     ];
   }

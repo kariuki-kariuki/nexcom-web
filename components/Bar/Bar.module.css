@@ -1,5 +1,5 @@
 .bar {
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));
   /* margin-bottom: var(--mantine-spacing-sm); */
   box-shadow: 5px 5px 5px light-dark(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
   border-radius: var(--mantine-spacing-xs) var(--mantine-spacing-xs) 0px 0px;

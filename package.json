@@ -25,6 +25,7 @@
     "@mantine/hooks": "^7.9.1",
     "@mantine/notifications": "^7.12.1",
     "@mantinex/dev-icons": "^1.0.2",
+    "@material-tailwind/react": "^2.1.10",
     "@next/bundle-analyzer": "^15.1.4",
     "@tabler/icons-react": "^3.2.0",
     "axios": "^1.7.3",
