@@ -6,39 +6,43 @@ import {
   Indicator,
   Popover
 } from '@mantine/core';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import classes from './PictureUpdate.module.css';
-import { AppContext } from '../../../lib/context/appContext';
-import { API_URL } from '@/lib/common/constans';
-import { UserContextType } from '@/lib/@types/app';
+import { useGlobalContext } from '../../../lib/context/appContext';
+import { datasource } from '@/lib/common/datasource';
+import { notifications } from '@mantine/notifications';
 const PictureUpdate = ({ image }: { image: string }) => {
-  const token = localStorage.getItem('token');
   const [value, setValue] = useState<File | null>(null);
-  const { user, setUser } = useContext(AppContext) as UserContextType;
-  function handleSubmit() {
+  const { user, setUser } = useGlobalContext()
+  const handleSubmit = async () => {
     if (value) {
       const formdata = new FormData();
       formdata.append('file', value);
 
-      fetch(`${API_URL}/users/avatar`, {
-        method: 'PATCH',
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-        body: formdata
-      })
-        .then((res) => {
-          if (res.ok) {
-            res.json().then((res) => {
-              if (user) {
-                user.photo = res.link;
-                setUser(user);
-              }
-              setValue(null);
-            });
-          }
+      const { data, error } = await datasource.update<{ link: string }>(formdata, 'users/avatar', false);
+      if (error) {
+        notifications.show({
+          title: 'Error',
+          color: 'red.7',
+          message: error,
         })
-        .catch((e) => alert(e));
+        return;
+      }
+      if (error) {
+       
+      }
+
+      if (data && user) {
+        user.photo = data.link;
+        notifications.show({
+          title: 'Success',
+          color: 'teal.7',
+          message: 'Updated profile succefully',
+        })
+        setUser(user);
+        setValue(null);
+
+      }
     }
   }
   return (
