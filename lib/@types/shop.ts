@@ -86,3 +86,7 @@ export interface Category {
   name: string;
   categories?: SubCategory[];
 }
+
+export interface CategoryWithProducts extends Category {
+  products: ProductWithShop[]
+}

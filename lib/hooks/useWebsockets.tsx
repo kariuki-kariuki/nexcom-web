@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { datasource } from "../common/datasource";
 import { useChat } from "../context/ConversationContext";
 import { NewMessage, PayloadMessage } from "../@types/app";
@@ -11,7 +11,7 @@ const useWebSocket = (conversationId: string) => {
   const socket = datasource.getSocket(); // Use a single socket instance
   const { user } = useGlobalContext();
   const { activeConversation } = useActiveConversation();
-
+  const [count, setCount] = useState(0)
   const markMessageState = useCallback((state: MessageState, conversationId: string) => {
     socket.emit('message-state', {
       state,
@@ -41,8 +41,6 @@ const useWebSocket = (conversationId: string) => {
   useEffect(() => {
     // Listener for message-state updates
     socket.emit('join', conversationId);
-    
-
     // Attach socket event listeners
     socket.on("message-state", handleMessageState);
     socket.on("message", handleIncomingMessage);
@@ -58,9 +56,9 @@ const useWebSocket = (conversationId: string) => {
       socket.off("message", handleIncomingMessage);
       socket.off("error");
     };
-  }, [socket, dispatch, handleIncomingMessage, handleMessageState]);
+  }, [socket, dispatch, handleIncomingMessage, handleMessageState, count]);
 
-  return { state };
+  return { state, socket };
 };
 
 export default useWebSocket;

@@ -13,7 +13,7 @@ interface IFetch {
   method: CRUDMETHODS;
   path: string;
   body?: any;
-  contentType?: string;
+  contentType?: boolean;
 }
 
 export interface ReturnType<T> {
@@ -30,19 +30,21 @@ class DataSource {
   async get<T>(path: string): Promise<ReturnType<T>> {
     return this.handleFetch<T>({ method: CRUDMETHODS.GET, path });
   }
-  async post<T>(formData: any, path: string): Promise<ReturnType<T>> {
+  async post<T>(formData: any, path: string, contentType?: boolean): Promise<ReturnType<T>> {
     return this.handleFetch<T>({
       method: CRUDMETHODS.POST,
       path,
-      body: formData
+      body: formData,
+      contentType
     });
   }
 
-  async update<T>(path: string, formData: any): Promise<ReturnType<T>> {
+  async update<T>(formData: any, path: string, contentType?: boolean): Promise<ReturnType<T>> {
     return this.handleFetch<T>({
       method: CRUDMETHODS.PATCH,
       path,
-      body: formData
+      body: formData,
+      contentType
     });
   }
 
@@ -50,19 +52,22 @@ class DataSource {
     return this.handleFetch<T>({ method: CRUDMETHODS.DELETE, path });
   }
 
-  async handleFetch<T>({ method, path, body, contentType }: IFetch) {
+  async handleFetch<T>({ method, path, body, contentType = true }: IFetch) {
     let loading = true;
     let data: T | null = null;
     const token = await this.getJwtToken();
     try {
       const res = await fetch(`${this.API_URL}/${path}`, {
         method,
-        headers: {
-          'Content-Type': contentType ?? 'application/json',
+        headers: contentType ? {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
+        } : {
+          Authorization: `Bearer ${token}`
+
         },
         cache: "no-store",
-        body: JSON.stringify(body)
+        body: contentType ? JSON.stringify(body) : body,
       });
 
       if (!res.ok) {
