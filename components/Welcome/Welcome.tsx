@@ -5,7 +5,6 @@ import { GlobalUser } from '@/lib/@types/app';
 import { redirect } from 'next/navigation';
 
 export function Welcome({ user }: { user: GlobalUser | null }) {
-  if (user) redirect('/chat');
   return (
     <div className={classes.bg}>
       <Box className={classes.main}>

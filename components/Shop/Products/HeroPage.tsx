@@ -1,48 +1,35 @@
+'use client';
+
 import { Flex, Grid, ScrollArea } from '@mantine/core';
 import ProductCard from './ProductCard';
-import { ProductWithShop } from '@/lib/@types/shop';
-import { useDisclosure } from '@mantine/hooks';
-import { useState } from 'react';
-import ProductModal from './ProductModal';
+import { CategoryWithProducts } from '@/lib/@types/shop';
 import classes from './hero.module.css';
 import { HeaderSearch } from '@/components/HeaderSearch/HeaderSearch';
 
 interface Iprop {
-  products: ProductWithShop[];
+  categories: CategoryWithProducts[];
+  tag: string;
 }
 const links = [
   { link: '/', label: 'Home' },
   { link: '/chat', label: 'Chat' },
   { link: '/cart', label: 'Cart' }
 ];
-function HeroPage({ products }: Iprop) {
-  const [opened, { toggle }] = useDisclosure(false);
-  const [viewing, setVeiwing] = useState<ProductWithShop>(products[0]);
-  const product = products?.map((product: ProductWithShop, index) => (
-    <ProductCard
-      product={product}
-      setViewing={setVeiwing}
-      toggle={toggle}
-      key={index}
-    />
-  ));
-
+function HeroPage({ categories }: Iprop) {
   return (
-    <Flex className={classes.hero} mx={{ sm: 'md' }} direction={'column'}>
+    <Flex className={classes.hero} direction={'column'}>
       <HeaderSearch links={links} />
       <ScrollArea className={classes.scroll} scrollbars="y">
-        <Grid p={0} gutter={'xs'}>
-          {product}
-        </Grid>
+          {categories.map((category) => (<div key={category.id}>
+
+            <p className='font-sans text-2xl font-semibold p-2'>{category.name}</p>
+            <Grid p={0} gutter={'xs'}>
+              {category.products?.map((product) => <ProductCard product={product} key={product.id}/>) }
+            </Grid>
+
+          </div>))}
       </ScrollArea>
-      {viewing && (
-        <ProductModal
-          opened={opened}
-          toggle={toggle}
-          product={viewing}
-          shopId={viewing.shop.id}
-        />
-      )}
+     
     </Flex>
   );
 }

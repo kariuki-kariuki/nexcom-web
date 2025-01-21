@@ -1,8 +1,20 @@
 .price {
-  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-coco-0));
 }
 
+.carouselSlide {
+  height: 200px;
+
+  @media (min-width: $mantine-breakpoint-sm) {
+    height: 400px;
+  }
+}
 .carousel {
+  height: 200px;
+  
+    @media (min-width: $mantine-breakpoint-sm) {
+      height: 400px;
+    }
   @mixin hover {
     .carouselControls {
       opacity: 1;
@@ -13,7 +25,7 @@
 .card {
   background-color: light-dark(var(--mantine-color-white),
       var(--mantine-color-coco-0));
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 .carouselControls {

@@ -20,6 +20,8 @@ import classes from './ProductModal.module.css';
 import { useMediaQuery } from '@mantine/hooks';
 import { UserContextType } from '@/lib/@types/app';
 import { API_URL } from '@/lib/common/constans';
+import { datasource } from '@/lib/common/datasource';
+import { notifications } from '@mantine/notifications';
 interface Iprops {
   opened: boolean;
   toggle: () => void;
@@ -36,33 +38,25 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
       {color}
     </Badge>
   ));
-  const token = localStorage.getItem('token');
-  function handleSubmit() {
-    setIsLoading(true);
-    fetch(`${API_URL}/orders`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ quantity, productId: product.id })
-    })
-      .then((res) => {
-        if (res.ok) {
-          res.json().then(() => {
-            setQuantity(1);
-            close();
-            setIsLoading(false);
-          });
-        } else {
-          res.json().then((r) => console.log(r));
-          setIsLoading(false);
-        }
+  async function handleSubmit() {
+    const {data, error, loading } = await datasource.post({ quantity, productId: product.id }, 'orders')
+    setIsLoading(loading);
+
+    if(error && !loading){
+      notifications.show({
+        title: "Error",
+        color: 'red.7',
+        message: error
       })
-      .catch((e) => {
-        console.log(e.message);
-        setIsLoading(false);
-      });
+    }
+    if(data && !loading){
+      notifications.show({
+        title: "Success",
+        color: 'teal.7',
+        message: 'Succesfully added item to cart'
+      })
+    }
+
   }
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
@@ -123,7 +117,7 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
                     style={{ borderRadius: '10px' }}
                   >
                     {' '}
-                    Price: ${product?.product_sizes[0].price}
+                    {product.product_sizes ? `Price: ${product?.product_sizes[0].price}` : ''}
                   </Text>
                 </Group>
                 <Text
