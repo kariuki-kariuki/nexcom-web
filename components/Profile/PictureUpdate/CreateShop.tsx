@@ -7,45 +7,18 @@ import {
   Text
 } from '@mantine/core';
 import { IconCirclePlusFilled } from '@tabler/icons-react';
-import { useContext, useState } from 'react';
 import classes from './CreateShop.module.css';
-import { AppContext } from '../../../lib/context/appContext';
+import { useGlobalContext } from '../../../lib/context/appContext';
 import { redirect } from 'next/navigation';
-import { UserContextType } from '@/lib/@types/app';
-import { API_URL } from '@/lib/common/constans';
+import { useFormState } from 'react-dom';
+import PostSrr from '@/lib/common/post';
 const CreateShop = () => {
-  const [name, setName] = useState('');
-  const [erros, setErrors] = useState(null);
-  const { user, setUser } = useContext(AppContext) as UserContextType;
-
-  function handleSubmit() {
-    setErrors(null);
-    const token = localStorage.getItem('token');
-    if (name) {
-      fetch(`${API_URL}/auth/register-shops`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name: name })
-      }).then((res) => {
-        if (res.ok) {
-          res.json().then((res) => {
-            if (user) {
-              user.shop = { name: res.name, id: res.id };
-              localStorage.setItem('token', res.token);
-              setUser(user);
-              redirect('/home');
-            }
-          });
-        } else {
-          res.json().then((r) => {
-            setErrors(r.message);
-          });
-        }
-      });
-    }
+  const { user, setUser } = useGlobalContext();
+  const [state, formAction] = useFormState(PostSrr, { error: '', name: '', id: 0 })
+  if (state.name && state.id && user) {
+    user.shop = { name: state.name, id: state.id };
+    setUser(user);
+    redirect('/dashboard');
   }
   return (
     <Popover withArrow>
@@ -62,21 +35,22 @@ const CreateShop = () => {
         </Group>
       </Popover.Target>
       <Popover.Dropdown className={classes.main}>
+        <form action={formAction}>
         <Text ta={'center'} c={'dimmed'}>
           New Shop
         </Text>
-        <InputWrapper label="Shop Name" error={erros}>
+        <InputWrapper label="Shop Name" error={state.error}>
           <Input
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name='name'
           />
         </InputWrapper>
         <Group justify="center" py={'md'}>
-          <Button w={'100%'} onClick={handleSubmit} color={'purple'}>
+          <Button w={'100%'} type='submit' value="submit" color={'purple'}>
             Submit
           </Button>
         </Group>
+        </form>
       </Popover.Dropdown>
     </Popover>
   );

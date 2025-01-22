@@ -12,7 +12,7 @@ import {
   useMantineTheme
 } from '@mantine/core';
 import { useContext, useState } from 'react';
-import { ProductWithShop, ShopProduct } from '@/lib/@types/shop';
+import { Product, ProductWithShop, ShopProduct } from '@/lib/@types/shop';
 import ImageCarousel from '../shopcomponents/ImageCarousel';
 import { IconBasketPlus, IconTool } from '@tabler/icons-react';
 import { AppContext } from '@/lib/context/appContext';
@@ -22,10 +22,11 @@ import { UserContextType } from '@/lib/@types/app';
 import { API_URL } from '@/lib/common/constans';
 import { datasource } from '@/lib/common/datasource';
 import { notifications } from '@mantine/notifications';
+import Link from 'next/link';
 interface Iprops {
   opened: boolean;
   toggle: () => void;
-  product: ProductWithShop | ShopProduct;
+  product: ProductWithShop | ShopProduct | Product;
   shopId?: number;
 }
 
@@ -33,23 +34,18 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(AppContext) as UserContextType;
-  const colors = product?.colors?.map((color, index) => (
-    <Badge variant="filled" color={color} key={index} p={'sm'}>
-      {color}
-    </Badge>
-  ));
   async function handleSubmit() {
-    const {data, error, loading } = await datasource.post({ quantity, productId: product.id }, 'orders')
+    const { data, error, loading } = await datasource.post({ quantity, productId: product.id }, 'orders')
     setIsLoading(loading);
 
-    if(error && !loading){
+    if (error && !loading) {
       notifications.show({
         title: "Error",
         color: 'red.7',
         message: error
       })
     }
-    if(data && !loading){
+    if (data && !loading) {
       notifications.show({
         title: "Success",
         color: 'teal.7',
@@ -130,16 +126,17 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
               </Box>
 
               <Group justify={'center'} wrap="nowrap" px={0}>
-                {colors}
               </Group>
               {shopId === user?.shop?.id ? (
                 <Group justify={'center'} w={'100%'} p={'lg'}>
-                  <Button
-                    bg={'teal'}
-                    leftSection={<IconTool size={14} color="white" />}
-                  >
-                    Edit
-                  </Button>
+                  <Link href={`/dashboard/products/edit/${product.id}`}>
+                    <Button
+                      bg={'teal'}
+                      leftSection={<IconTool size={14} color="white" />}
+                    >
+                      Edit
+                    </Button>
+                  </Link>
                 </Group>
               ) : (
                 <div>

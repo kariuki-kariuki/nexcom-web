@@ -40,7 +40,7 @@ export function RowNotification({ prd, setProducts }: IRow) {
       notifications.show({
         title: 'Success',
         message: `Succefully deleted ${product.name}`,
-        color: 'scode.8'
+        color: 'teal.8'
       });
       setProducts((prevProducts) =>
         prevProducts.filter((item) => item.id !== id)
@@ -63,7 +63,7 @@ export function RowNotification({ prd, setProducts }: IRow) {
       notifications.show({
         title: 'Success',
         message: `Succefully updated ${product.name} status to ${params}`,
-        color: 'scode.8'
+        color: 'teal.8'
       });
       setPrd((prevProduct) => ({ ...prevProduct, status: params }));
       setProducts((prevProducts) =>

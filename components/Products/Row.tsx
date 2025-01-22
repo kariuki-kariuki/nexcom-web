@@ -41,7 +41,7 @@ export function Row({ prd, setProducts }: IRow) {
       notifications.show({
         title: 'Success',
         message: `Succefully deleted ${product.name}`,
-        color: 'scode.8'
+        color: 'teal.8'
       });
       setProducts((prevProducts) =>
         prevProducts.filter((item) => item.id !== id)
@@ -64,7 +64,7 @@ export function Row({ prd, setProducts }: IRow) {
       notifications.show({
         title: 'Success',
         message: `Succefully updated ${product.name} status to ${params}`,
-        color: 'scode.8'
+        color: 'teal.8'
       });
       setPrd((prevProduct) => ({ ...prevProduct, status: params }));
       setProducts((prevProducts) =>
@@ -78,7 +78,7 @@ export function Row({ prd, setProducts }: IRow) {
     } else {
       notifications.show({
         title: 'Failed',
-        message: `Failed to updat ${product.name} status to ${params}`,
+        message: `Failed to update ${product.name} status to ${params}`,
         color: 'orange.7'
       });
     }

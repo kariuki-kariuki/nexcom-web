@@ -1,6 +1,12 @@
 import { FileWithPath } from '@mantine/dropzone';
 import { SizeWithPrice } from './product-price-size';
 
+export interface creteShopDto {
+  name: string,
+  id: number,
+  token: string,
+}
+
 export enum ProductStatus {
   PUBLISHED = 'Published',
   DRAFT = 'Draft',
@@ -65,7 +71,7 @@ export interface ProductWithShop extends ShopProduct {
 }
 
 export interface ShopWithProducts extends Shop {
-  products: ShopProduct[];
+  products: Product[];
 }
 
 export interface Order {

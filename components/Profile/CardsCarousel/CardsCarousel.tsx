@@ -1,32 +1,43 @@
 import { Carousel } from '@mantine/carousel';
 import { rem, Card, Text, Button, useMantineTheme, Group } from '@mantine/core';
-import { ShopProduct } from '../../../lib/@types/shop';
+import { ShopProduct, ShopWithProducts } from '../../../lib/@types/shop';
 import { CarouselCard } from '../CarouselCard/CarouselCard';
 import classes from './CardsCarousel.module.css';
 import { IconCirclePlusFilled } from '@tabler/icons-react';
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { useMediaQuery } from '@mantine/hooks';
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../../lib/context/appContext';
 import { GlobalUser, UserContextType } from '@/lib/@types/app';
-import useFetch from '@/lib/bhooks/useFetchHooks';
-import NewProduct from '@/components/Admin/products/NewProduct/NewProduct';
+import { datasource } from '@/lib/common/datasource';
+import { notifications } from '@mantine/notifications';
+import Link from 'next/link';
 export interface IProps {
   products: ShopProduct[];
 }
 export function CardsCarousel({ userClicked }: { userClicked: GlobalUser }) {
   const { user } = useContext(AppContext) as UserContextType;
-  const [products, setProducts] = useState<ShopProduct[]>([]);
-  const { response } = useFetch<ShopProduct[]>(`shops/${userClicked.shop?.id}`);
-  const [opened, { toggle }] = useDisclosure();
+  const [shop, setShop] = useState<ShopWithProducts | null>(null);
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   useEffect(() => {
-    if (response) {
-      return setProducts(response);
+    const getShop = async () => {
+      const { data, error } = await datasource.get<ShopWithProducts>(`shops/${userClicked.shop?.id}`);
+      if(error){
+        notifications.show({
+          title: 'Error',
+          color: 'red.7',
+          message: error,
+        })
+      }
+      if(data){
+        setShop(data)
+      }
     }
-  }, [response]);
+    getShop()
+   
+  }, []);
 
-  const slides = products?.map((item) => (
+  const slides = shop?.products?.map((item) => (
     <Carousel.Slide key={item.id}>
       {userClicked.shop ? (
         <CarouselCard product={item} shopId={userClicked.shop?.id} />
@@ -39,20 +50,22 @@ export function CardsCarousel({ userClicked }: { userClicked: GlobalUser }) {
     <Card className={classes.card}>
       {user?.id === userClicked.id ? (
         <Group justify="center">
+          <Link href='/dashboard/products/create'>
+
           <Button
             radius="md"
             variant="default"
             leftSection={<IconCirclePlusFilled size={18} color="white" />}
-            onClick={toggle}
             bg="teal"
           >
             New Product
           </Button>
+          </Link>
         </Group>
       ) : (
         ''
       )}
-      {products?.[0] ? (
+      {shop?.products?.[0] ? (
         <Card px={0} shadow="xl" className={classes.card}>
           <Text ta={'center'} fw={500} fz={'xl'}>
             Browse
@@ -71,7 +84,6 @@ export function CardsCarousel({ userClicked }: { userClicked: GlobalUser }) {
       ) : (
         ''
       )}
-      <NewProduct opened={opened} toggle={toggle} setProducts={setProducts} />
     </Card>
   );
 }

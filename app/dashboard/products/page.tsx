@@ -4,15 +4,15 @@ import { IconCirclePlusFilled } from '@tabler/icons-react';
 import { Button, Group, Text } from '@mantine/core';
 import { Products } from '../../../components/Products/Products';
 import SimpleRoute from '../../../components/SimpleRoute/SimpleRoute';
-import { Product } from '../../../lib/@types/shop';
+import { Product, ShopWithProducts } from '../../../lib/@types/shop';
 import get from '../../../utils/fetch';
 
 const Page = async () => {
-  const products = await get<Product[]>('products');
+  const shop = await get<ShopWithProducts>('shops/myshop');
   return (
     <div>
       <SimpleRoute tag="All Products" main="Products" />
-      {!products && (
+      {!shop && (
         <>
           <Group justify="space-between">
             <Text>No Products Yet</Text>
@@ -28,7 +28,7 @@ const Page = async () => {
           </Group>
         </>
       )}
-      {products && <Products products={products} />}
+      {shop && <Products products={shop.products} />}
     </div>
   );
 };

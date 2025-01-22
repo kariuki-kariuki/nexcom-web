@@ -1,12 +1,12 @@
 import { Image, Card, Button } from '@mantine/core';
-import { ShopProduct } from '../../../lib/@types/shop';
+import { Product, ShopProduct } from '../../../lib/@types/shop';
 import { IconArrowUpRight } from '@tabler/icons-react';
 import classes from './CarouselCard.module.css';
 
 import { useDisclosure } from '@mantine/hooks';
 import ProductModal from '@/components/Shop/Products/ProductModal';
 interface Iprop {
-  product: ShopProduct;
+  product: Product;
   shopId: number;
 }
 export function CarouselCard({ product, shopId }: Iprop) {

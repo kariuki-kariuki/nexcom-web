@@ -136,7 +136,7 @@ function EditProduct({
                   Images
                 </Text>
                 <Button
-                  color="scode.8"
+                  color="teal.8"
                   leftSection={<IconImageInPicture size={18} color="white" />}
                   onClick={toggle}
                 >

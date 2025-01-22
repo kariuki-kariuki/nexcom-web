@@ -106,6 +106,7 @@ class DataSource {
     }
     return errors[0];
   }
+
 }
 
 export const datasource = new DataSource(API_URL, WS_URL);
