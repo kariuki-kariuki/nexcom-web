@@ -3,10 +3,12 @@ import { Box, Button, Group, Text, Title } from '@mantine/core';
 import classes from './Welcome.module.css';
 import { GlobalUser } from '@/lib/@types/app';
 import { redirect } from 'next/navigation';
+import SimpleHeader from '../SimpleHeader/SimpleHeader';
 
 export function Welcome({ user }: { user: GlobalUser | null }) {
   return (
     <div className={classes.bg}>
+      <SimpleHeader />
       <Box className={classes.main}>
         <section className={classes.section}>
           <Title className={classes.title} ta="center" mt={100}>

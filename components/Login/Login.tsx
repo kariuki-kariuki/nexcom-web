@@ -17,17 +17,13 @@ import {
 import classes from './Login.module.css';
 import loginSSR from './loginssr';
 import Link from 'next/link';
+import SimpleHeader from '../SimpleHeader/SimpleHeader';
 
 function Login() {
   const [state, formAction] = useFormState(loginSSR, { error: '' });
   return (
     <Box className={classes.main} mih="100vh">
-      <Card shadow="lg" className={classes.card}>
-        <Group justify="start">
-          <Avatar src="/logos/logo.png" />
-          <Text py="sm">Nexcom</Text>
-        </Group>
-      </Card>
+      <SimpleHeader />
       <Flex align="center" h="70vh" justify="center">
         <form action={formAction}>
           <Stack gap="lg" align="center">

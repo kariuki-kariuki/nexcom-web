@@ -15,7 +15,6 @@
 
 .bg {
   background-image: url('/images/bg.jpg');
-  background-color: light-dark(var(--mantine-color-black), var(--mantine-color-coco-0));
   background-position: center;
   background-size: cover;
 }
@@ -25,5 +24,5 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: rgba(0, 0, 0, .95);
+  background-color: rgba(0, 0, 0, .9);
 }

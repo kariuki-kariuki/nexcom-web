@@ -18,18 +18,14 @@ import classes from './Signup.module.css';
 import SignupPost from './SignupPost';
 import PasswordStrength from './PasswordStrenght';
 import Link from 'next/link';
+import SimpleHeader from '../SimpleHeader/SimpleHeader';
 
 function SignUp() {
   const [state, formAction] = useFormState(SignupPost, { error: '' });
   const [password, setPassword] = useState('');
   return (
     <Box className={classes.main} mih="100vh">
-      <Card shadow="lg" className={classes.card}>
-        <Group justify="start">
-          <Avatar src="/logos/logo.png" />
-          <Text py="sm">Nexcom</Text>
-        </Group>
-      </Card>
+      <SimpleHeader />
       <Flex align="center" h="fit-content" pt="md" justify="center">
         <form action={formAction}>
           <Stack gap="lg" align="center">

@@ -1,0 +1,7 @@
+.card {
+    background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
+
+    &:hover {
+        box-shadow: 5px 5px 10px light-dark(var(--mantine), var(--mantine-color-dark-9));
+    }
+}
