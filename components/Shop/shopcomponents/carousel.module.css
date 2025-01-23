@@ -1,4 +1,5 @@
 .control {
+  background-color: purple;
     &[data-inactive] {
       opacity: 0;
       cursor: default;
@@ -7,13 +8,21 @@
   }
 
 .indicators {
+  background-color: purple;
     &[data-active] {
         background-color: blue;
     }
 }
 
-/* .image {
-  height: 100%;
-  width: 50%;
-} */
+.slide {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  height: auto;
+  width: 100%;
+}
 

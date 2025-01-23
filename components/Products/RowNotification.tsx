@@ -94,6 +94,7 @@ export function RowNotification({ prd, setProducts }: IRow) {
             : 'red.9'
       }
       mb="xs"
+      classNames={{ root: classes.notification, body: classes.notification }}
     >
       <div>
         <Group gap="sm" wrap="nowrap" justify="space-between">

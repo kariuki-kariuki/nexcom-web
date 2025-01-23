@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, ButtonGroup, Menu, rem } from '@mantine/core';
+import { Box, Button, ButtonGroup, Menu, MenuItem, rem, useMantineColorScheme } from '@mantine/core';
 import {
   IconMessageCircle,
   IconTrash,
@@ -8,7 +8,9 @@ import {
   IconLogout,
   IconLayoutDashboardFilled,
   IconShoppingBag,
-  IconDiamond
+  IconDiamond,
+  IconSunMoon,
+  IconSunFilled
 } from '@tabler/icons-react';
 import ToggleButton from './ToggleButton';
 import { useContext } from 'react';
@@ -21,6 +23,8 @@ import { UserContextType } from '@/lib/@types/app';
 import logout from '@/utils/logout';
 export default function MenuDrop() {
   const [opened, { open, close }] = useDisclosure();
+  const { toggleColorScheme, colorScheme } = useMantineColorScheme();
+
   const { user, setUser } = useContext(AppContext) as UserContextType;
   return (
     <Box px={'md'} py={'sm'} className={classes.menu}>
@@ -63,6 +67,15 @@ export default function MenuDrop() {
               Chat
             </Menu.Item>
           </Link>
+          <Menu.Item leftSection={colorScheme === 'dark' ? (
+            <IconSunFilled className={classes.linkIcon} style={{width: rem(14), height: rem(14)}} />
+          ) : (
+            <IconSunMoon className={classes.linkIcon} stroke={1.5} />
+          )}
+          onClick={toggleColorScheme} >
+
+            <span>{colorScheme === 'dark' ? 'light' : 'Dark'}</span>
+          </Menu.Item>
           {user?.shop ? (
             <Link href="/dashboard">
               <Menu.Item

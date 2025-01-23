@@ -12,26 +12,19 @@ import {
 } from '@mantine/core';
 import classes from './Cart.module.css';
 import { CartTable } from './CartTable/CartTable';
-import useFetch from '@/lib/bhooks/useFetchHooks';
 import { Order } from '@/lib/@types/shop';
 import { IconEyeDollar } from '@tabler/icons-react';
-import { useEffect, useState } from 'react';
-// import mpesa from '../../../assets/mpesa.png';
-// const links = [
-//   { link: '/', label: 'Home' },
-//   { link: '/chat', label: 'Chat' },
-//   { link: '/shop', label: 'Shop' }
-// ];
-const Cart = () => {
-  const { response } = useFetch<Order[] | null>('orders');
-  const [orders, setOrders] = useState<Order[]>([]);
+import { useState } from 'react';
+import SimpleHeader from '@/components/SimpleHeader/SimpleHeader';
+
+const Cart = ({orderss}: {orderss: Order[] | null}) => {
+  const [orders, setOrders] = useState(orderss);
   const [total, setTotal] = useState(0);
 
-  useEffect(() => {
-    if (response) {
-      setOrders(response);
-    }
-  }, [response]);
+  if (!orders) return <>
+  <SimpleHeader />
+  <Text>No Items</Text></>
+
   return (
     <Paper className={classes.main} h={'100vh'}>
       <Flex

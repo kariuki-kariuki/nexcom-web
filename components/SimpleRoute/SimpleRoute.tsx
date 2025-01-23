@@ -9,7 +9,6 @@ function SimpleRoute({ tag, main }: { tag: string; main: string }) {
   return (
     <Group
       py={{ base: 'xs', sm: 'md' }}
-      color="scode.8"
       justify="space-between"
       visibleFrom="sm"
     >
@@ -25,7 +24,7 @@ function SimpleRoute({ tag, main }: { tag: string; main: string }) {
           <Text>{main}</Text>
           <IconChevronRight />
         </Link>
-        <Text c="scode.8">{tag}</Text>
+        <Text>{tag}</Text>
       </Group>
       <MenuDrop />
     </Group>

@@ -40,6 +40,7 @@ export type Product = {
   category: string;
   stock: number;
   created_at: string;
+  shop?: Shop
 };
 
 

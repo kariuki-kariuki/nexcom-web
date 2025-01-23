@@ -1,0 +1,15 @@
+.grid {
+  width: 100%;
+  height: fit-content;
+  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
+  border-radius: var(--mantine-border-sm);
+
+  @media (min-width: $mantine-breakpoint-sm) {
+    width: 70%;
+    background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));;
+  }
+}
+
+.card {
+  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
+}

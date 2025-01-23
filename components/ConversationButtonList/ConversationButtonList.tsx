@@ -115,7 +115,7 @@ const Links = () => {
         <IconShoppingBag size={18} onClick={() => router.push('/shop')} />
       </Tooltip>
       <Tooltip label="Cart" color="teal">
-        <IconShoppingCart size={18} onClick={() => router.push('/cart')} />
+        <IconShoppingCart size={18} onClick={() => router.push('/shop/cart')} />
       </Tooltip>
     </Group>
   );

@@ -11,19 +11,18 @@ function ImageCarousel({ images }: Iprops) {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const slides = images.map((image, index: number) => (
-    <Carousel.Slide key={index}>
-      <Image src={image.url} className={classes.image} radius="md" />
+    <Carousel.Slide key={index} className={classes.slide}>
+      <Image src={image.url} className={classes.image} radius="lg" />
     </Carousel.Slide>
   ));
   return (
     <Carousel
       withIndicators
-      slideSize={{ base: '51%', sm: '51%' }}
       slideGap={{ base: 'md', sm: 'md' }}
       align="start"
       loop
       draggable
-      slidesToScroll={mobile ? 1 : 2}
+      slidesToScroll={mobile ? 1 : 1}
     >
       {slides}
     </Carousel>

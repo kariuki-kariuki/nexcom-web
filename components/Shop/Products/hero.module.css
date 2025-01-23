@@ -1,13 +1,29 @@
 .hero {
   background-color: light-dark(var(--mantine-color-white),
       var(--mantine-color-coco-0));
-  height: 100vh;
-  width: 100%);
+  min-height: 100vh;
+  width: 100%;
 
   @media (min-width: $mantine-breakpoint-sm) {
-    border-radius: var(--mantine-spacing-md);
     border: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
   }
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: row;
+  gap: var(--mantine-spacing-md);
+  padding-bottom: 20px;
+}
+
+.categoryTitle {
+  font-family: sans-serif;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+
 }
 
 .scroll {
@@ -21,6 +37,5 @@
 
   @media (min-width: $mantine-breakpoint-sm) {
     padding: 10px;
-    border-radius: var(--mantine-spacing-md);
   }
 }

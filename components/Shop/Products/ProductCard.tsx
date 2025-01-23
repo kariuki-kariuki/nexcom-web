@@ -4,17 +4,14 @@ import {
   Grid,
   Group,
   Text,
-  Button,
   Image,
-  rem,
   useMantineTheme,
   Box
 } from '@mantine/core';
 import { ProductWithShop } from '@/lib/@types/shop';
 import classes from './ProductCard.module.css';
-import { IconShoppingCartPlus, IconStar } from '@tabler/icons-react';
-import { Carousel } from '@mantine/carousel';
 import { useMediaQuery } from '@mantine/hooks';
+import Link from 'next/link';
 interface Iprops {
   product: ProductWithShop;
 }
@@ -24,10 +21,11 @@ function ProductCard({ product }: Iprops) {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   return (
-    <Grid.Col span={{ base: 6, sm: 6, lg: 3 }} p={{ base: 'none', sm: 'sm' }}>
       <Card className={classes.card} p={0}>
-        <Box h={{base: 200, sm: 200}}>
-          <Image src={product.images[0].url} h={'100%'}/>
+      <Link href={`/shop/product/${product.id}`} className={classes.link}>
+
+        <Box  >
+          <Image src={product.images[0].url} className={classes.image}/>
         </Box>
         <Group justify="space-between" bg="gray.2" py="lg" px="lg" wrap="nowrap">
           <Text
@@ -55,8 +53,8 @@ function ProductCard({ product }: Iprops) {
             </Text>
           </Group>
         </Group>
+      </Link>
       </Card>
-    </Grid.Col>
   );
 }
 

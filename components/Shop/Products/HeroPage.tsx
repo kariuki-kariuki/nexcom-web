@@ -1,10 +1,11 @@
 'use client';
 
-import { Flex, Grid, ScrollArea } from '@mantine/core';
+import { Box, Flex, Grid, ScrollArea } from '@mantine/core';
 import ProductCard from './ProductCard';
 import { CategoryWithProducts } from '@/lib/@types/shop';
 import classes from './hero.module.css';
 import { HeaderSearch } from '@/components/HeaderSearch/HeaderSearch';
+import Link from 'next/link';
 
 interface Iprop {
   categories: CategoryWithProducts[];
@@ -22,10 +23,10 @@ function HeroPage({ categories }: Iprop) {
       <ScrollArea className={classes.scroll} scrollbars="y">
           {categories.map((category) => (<div key={category.id}>
 
-            <p className='font-sans text-2xl font-semibold p-2'>{category.name}</p>
-            <Grid p={0} gutter={'xs'}>
-              {category.products?.map((product) => <ProductCard product={product} key={product.id}/>) }
-            </Grid>
+            <p className={classes.categoryTitle}>{category.name}</p>
+            <div className={classes.flex}>
+              {category.products?.map((product) => <ProductCard product={product} key={product.id} />) }
+            </div>
 
           </div>))}
       </ScrollArea>

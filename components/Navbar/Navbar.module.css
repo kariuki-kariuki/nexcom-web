@@ -4,13 +4,17 @@
   padding: var(--mantine-spacing-md);
   display: flex;
   flex-direction: column;
-  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-1));
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));
   border-right: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 
   @media (max-width: $mantine-breakpoint-sm) {
     height: fit-content;
     padding: 2%;
   }
+}
+
+.root {
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));
 }
 
 .navbarMain {

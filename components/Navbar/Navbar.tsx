@@ -81,7 +81,7 @@ export function Navbar() {
           <span>Logout</span>
         </a>
       </Box>
-      <Drawer opened={opened} onClose={toggle} withCloseButton>
+      <Drawer opened={opened} onClose={toggle} withCloseButton classNames={{body: classes.root, content: classes.root, header: classes.root}}>
         <Stack justify="space-between" h="80vh">
           <div>{links}</div>
           <Box className={classes.footer}>

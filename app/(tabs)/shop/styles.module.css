@@ -1,0 +1,5 @@
+.main {
+  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-1)) ;
+
+  min-height: 100vh;
+}
