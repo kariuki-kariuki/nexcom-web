@@ -22,6 +22,7 @@ function AddSize({ product, setProduct }: IAddSize) {
             placeholder="2l"
             type="text"
             id="size"
+            size='lg'
             value={size.size}
             onChange={(e) =>
               setSize((prevProduct) => ({
@@ -35,6 +36,7 @@ function AddSize({ product, setProduct }: IAddSize) {
           <Input
             placeholder="0.0"
             type="number"
+            size='lg'
             id="price"
             value={size.price}
             onChange={(e) =>

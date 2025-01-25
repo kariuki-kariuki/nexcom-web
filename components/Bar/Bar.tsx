@@ -31,12 +31,12 @@ const Bar = ({ closes }: CloseProps) => {
   return (
     <>
       <Group
-        p={{ base: 'sm', sm: 'lg' }}
-        h={{ base: 'fit-content', md: '80' }}
+      px={'lg'}
+        h={'100'}
         justify="space-between"
         align="center"
         className={classes.bar}
-      >
+    >
         <Group bg={'none'}>
           <Paper variant="outline" hiddenFrom="sm" bd={'none'}>
             <IconArrowBadgeLeftFilled

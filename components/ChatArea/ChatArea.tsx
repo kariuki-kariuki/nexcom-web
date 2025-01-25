@@ -1,6 +1,6 @@
 import Message from '../../components/MessageCard/MessageCard';
 import Bar from '../Bar/Bar';
-import { Box, Flex, Paper, ScrollArea } from '@mantine/core';
+import { Box, Flex, Image, Paper, ScrollArea } from '@mantine/core';
 import NewMessageBox from '../../components/NewMessageBox/NewMessageBox';
 import classes from './ChatArea.module.css';
 import {
@@ -54,14 +54,14 @@ function ChatArea({ closes, activeConvo }: CloseProps) {
         <ScrollArea
           h={'100%'}
           py={0}
-          px={{ sm: 'xl' }}
           className={classes.scroll}
           scrollbars="y"
         >
           {activeConversation ? (
             <Box className={classes.clearfix}>{messages}</Box>
           ) : (
-            ''
+            <Box className={classes.empty}>
+            </Box>
           )}
           <div ref={endOfMessagesRef} />
         </ScrollArea>

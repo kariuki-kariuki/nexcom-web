@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, ButtonGroup, Menu, MenuItem, rem, useMantineColorScheme } from '@mantine/core';
+import { Box, Button, ButtonGroup, Menu, rem, useMantineColorScheme } from '@mantine/core';
 import {
   IconMessageCircle,
   IconTrash,
@@ -13,19 +13,17 @@ import {
   IconSunFilled
 } from '@tabler/icons-react';
 import ToggleButton from './ToggleButton';
-import { useContext } from 'react';
-import { AppContext } from '../../lib/context/appContext';
+import { useGlobalContext } from '../../lib/context/appContext';
 import classes from './MenuDrop.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import Dashboard from '../Profile/ProfileDashboard';
 import Link from 'next/link';
-import { UserContextType } from '@/lib/@types/app';
 import logout from '@/utils/logout';
 export default function MenuDrop() {
   const [opened, { open, close }] = useDisclosure();
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
 
-  const { user, setUser } = useContext(AppContext) as UserContextType;
+  const { user, setUser } = useGlobalContext();
   return (
     <Box px={'md'} py={'sm'} className={classes.menu}>
       <Menu shadow="md" width={200}>

@@ -55,9 +55,9 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
       <Text ta="center" fz="sm" c="dimmed">
         {userClicked.status}
       </Text>
-      <Group my="md" justify="center" gap={30}>
+      {/* <Group my="md" justify="center" gap={30}>
         {userClicked.shop ? items : ''}
-      </Group>
+      </Group> */}
       {active ? (
         <Group justify="center">{user?.shop ? '' : <CreateShop />}</Group>
       ) : (

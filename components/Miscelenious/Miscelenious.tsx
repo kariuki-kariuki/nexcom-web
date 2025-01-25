@@ -5,36 +5,35 @@ import {
   IconLayoutDashboardFilled,
   IconLogout,
   IconShoppingBag,
+  IconSunFilled,
+  IconSunMoon,
   IconTrash,
   IconX
-  // IconVideo,
 } from '@tabler/icons-react';
-import { Box, Button, ButtonGroup, Flex, Menu, rem, Tooltip } from '@mantine/core';
+import { Box, Button, ButtonGroup, Flex, Menu, rem, Tooltip, useMantineColorScheme } from '@mantine/core';
 import Dashboard from '../Profile/ProfileDashboard';
 import classes from './Miscelenious.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { useContext } from 'react';
-import { AppContext } from '@/lib/context/appContext';
+import { useGlobalContext } from '@/lib/context/appContext';
 import {
-  activeConversatonType,
-  ConversationContext
+  useActiveConversation
 } from '@/lib/context/activeConversation';
 import {
   NewConversationContext,
   NewConversationType
 } from '@/lib/context/newConversation';
-import { UserContextType } from '@/lib/@types/app';
 import Link from 'next/link';
 import logout from '@/utils/logout';
 function Miscelenious() {
   const [opened, { open, close }] = useDisclosure();
-  const { user, setUser } = useContext(AppContext) as UserContextType;
-  const { activeConversation, setActiveConversation } = useContext(
-    ConversationContext
-  ) as activeConversatonType;
+  const { user, setUser } = useGlobalContext();
+  const { activeConversation, setActiveConversation } = useActiveConversation();
   const { newConversation, setNewConversation } = useContext(
     NewConversationContext
   ) as NewConversationType;
+    const { toggleColorScheme, colorScheme } = useMantineColorScheme();
+  
 
   return (
     <Flex justify="space-between" align="center" content='center'>
@@ -83,6 +82,15 @@ function Miscelenious() {
                 }
               >
                 Profile
+              </Menu.Item>
+              <Menu.Item leftSection={colorScheme === 'dark' ? (
+                <IconSunFilled className={classes.linkIcon} style={{ width: rem(14), height: rem(14) }} />
+              ) : (
+                <IconSunMoon className={classes.linkIcon} stroke={1.5} />
+              )}
+                onClick={toggleColorScheme} >
+
+                <span>{colorScheme === 'dark' ? 'light' : 'Dark'}</span>
               </Menu.Item>
               
               {user?.shop ? (

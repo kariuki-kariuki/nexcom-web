@@ -11,6 +11,7 @@ function SimpleRoute({ tag, main }: { tag: string; main: string }) {
       py={{ base: 'xs', sm: 'md' }}
       justify="space-between"
       visibleFrom="sm"
+      className={classes.main}
     >
       <Group>
         <Link href="/dashboard/products" className={classes.link}>

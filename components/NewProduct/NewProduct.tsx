@@ -15,12 +15,12 @@ import { FileWithPath } from '@mantine/dropzone';
 import { notifications } from '@mantine/notifications';
 import { Category } from '../../lib/@types/category';
 import { INewProduct, ProductStatus } from '../../lib/@types/shop';
-import { API_URL } from '../../lib/common/constans';
 import { DropzoneButton } from '../DropzoneButton/DropzoneButton';
 import Previews from '../Previews/Previews';
 import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import ProductCard from './ProductCard';
 import classes from './NewProduct.module.css';
+import { datasource } from '@/lib/common/datasource';
 
 const prd: INewProduct = {
   name: '',
@@ -80,52 +80,35 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
     // Append each file to FormData
     files.forEach((file) => {
       formData.append('files', file);
+
     });
-    // console.log(product);
-    const token = localStorage.getItem('token');
-    try {
-      // Send the form data using fetch or axios
-      fetch(`${API_URL}/products`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-        body: formData
-      }).then((res) => {
-        if (res.ok) {
-          res.json().then(() => {
-            setLoading((prevState) => !prevState);
-            setProduct(prd);
-            setFiles([]);
-          });
-        } else {
-          res.json().then(() => {
-            setLoading((prevState) => !prevState);
 
-            notifications.show({
-              title: 'Error',
-              message: 'Failed to create',
-              color: 'red.9'
-            });
-          });
-        }
-      });
-    } catch (error) {
-      // Handle network error
+    console.log(formData.get('sizes'))
+
+    const { data, error, loading } = await datasource.post(formData, 'products', false)
+    setLoading(loading)
+    if (data && !loading) {
       setLoading((prevState) => !prevState);
-
-      alert('An network error occurred, please try again');
+      setProduct(prd);
+      setFiles([]);
     }
-  };
-
+    if (error && !loading) {
+      notifications.show({
+        title: 'Error',
+        message: error,
+        color: 'red.9'
+      });
+    }
+    setLoading(false);
+  }
   return (
-    <Box px="md">
+    <Box>
       <LoadingOverlay
         visible={loading}
         loaderProps={{ color: 'scode.8', type: 'oval' }}
       />
       <SimpleRoute tag="New Product" main="Products" />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={classes.form}>
         <Group justify="space-between" pb="sm">
           <Text fw="bold">Create New Product</Text>
           <Group>
@@ -133,7 +116,7 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
               variant={
                 product.status === ProductStatus.DRAFT ? 'outline' : 'default'
               }
-              color="orange.7"
+              color="coco.3"
               type="submit"
               onClick={() =>
                 setProduct((prevProduct) => ({
@@ -163,7 +146,7 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
             </Button>
           </Group>
         </Group>
-        <Card w="100%" bg="none" withBorder radius="md" shadow="lg">
+        <Card w="100%" withBorder radius="md" shadow="lg" className={classes.card}>
           <Flex
             gap="md"
             direction={{ base: 'column', sm: 'row' }}

@@ -33,15 +33,16 @@ function ProductCard({
     <>
       <Box pb="md">
         <Input.Wrapper
-          label="New Product"
+          label="Name"
           withAsterisk
-          // // error="Input error"
         >
           <Input
             placeholder="Product Name"
             type="text"
             required
             id="name"
+            c="coco.0"
+            size='lg'
             name="productName"
             value={product.name}
             onChange={(e) =>
@@ -58,6 +59,7 @@ function ProductCard({
           placeholder="Product description"
           label="Description"
           minRows={3}
+          size='lg'
           maxRows={4}
           value={product.description}
           onChange={(e) =>
@@ -80,7 +82,8 @@ function ProductCard({
             placeholder="0"
             type="number"
             required
-            id="name"
+            id="stock"
+            size='lg'
             value={product.stock}
             onChange={(e) =>
               setProduct((prevProduct) => ({
@@ -98,6 +101,7 @@ function ProductCard({
         <Select
           my="sm"
           label="Select Category"
+          size='lg'
           value={product.category.toString()}
           onChange={(_value, option) =>
             setProduct((prevProduct) => ({

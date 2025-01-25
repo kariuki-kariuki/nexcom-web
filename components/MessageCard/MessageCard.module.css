@@ -22,7 +22,7 @@
 }
 
 .box_right {
-  background-color: var(--mantine-color-teal-7);
+  background-color: var(--mantine-color-coco-3);
   border-radius: 10px 0px 10px 10px;
   padding: 5px 10px;
 }
@@ -38,10 +38,6 @@
   padding: 0;
 }
 
-/* .textarea {
-    padding: 10;
-    background-color: wheat;
-} */
 
 .send {
   padding: 10;

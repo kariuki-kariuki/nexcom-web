@@ -82,6 +82,7 @@ export function ConversationButton({
           conversationId: conversation.id
         });
       }}
+      radius={0}
     >
       <Group onClick={open}>
         <Avatar src={user.photo} radius="xl" />

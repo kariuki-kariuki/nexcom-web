@@ -5,10 +5,10 @@
   transition-duration: 1s;
   padding: 5px 8px;
   border-radius: var(--mantine-radius-md);
-  color: var(--mantine-color-orange-7);
+  color: var(--mantine-color-coco-3);
 
   &:hover {
-    background-color: light-dark(var(--mantine-color-scode-8));
+    background-color: light-dark(var(--mantine-color-coco-0));
     color: white;
   }
 
@@ -16,4 +16,8 @@
     padding: 5px 1px;
   }
 }
-  
+
+.main {
+  background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-coco-0));
+  margin-bottom: 10px;
+}

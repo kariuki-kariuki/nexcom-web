@@ -20,7 +20,7 @@ export function CarouselCard({ product, shopId }: Iprop) {
         <Button
           radius="0px"
           w={'100%'}
-          bg={'teal'}
+          bg={'coco.3'}
           rightSection={<IconArrowUpRight size={12} color="white" />}
           onClick={toggle}
         >

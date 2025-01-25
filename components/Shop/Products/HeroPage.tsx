@@ -6,6 +6,7 @@ import { CategoryWithProducts } from '@/lib/@types/shop';
 import classes from './hero.module.css';
 import { HeaderSearch } from '@/components/HeaderSearch/HeaderSearch';
 import Link from 'next/link';
+import SimpleHeader from '@/components/SimpleHeader/SimpleHeader';
 
 interface Iprop {
   categories: CategoryWithProducts[];
@@ -19,7 +20,7 @@ const links = [
 function HeroPage({ categories }: Iprop) {
   return (
     <Flex className={classes.hero} direction={'column'}>
-      <HeaderSearch links={links} />
+      <SimpleHeader />
       <ScrollArea className={classes.scroll} scrollbars="y">
           {categories.map((category) => (<div key={category.id}>
 

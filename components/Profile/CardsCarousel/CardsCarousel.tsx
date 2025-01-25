@@ -56,7 +56,7 @@ export function CardsCarousel({ userClicked }: { userClicked: GlobalUser }) {
             radius="md"
             variant="default"
             leftSection={<IconCirclePlusFilled size={18} color="white" />}
-            bg="teal"
+            bg="coco.3"
           >
             New Product
           </Button>

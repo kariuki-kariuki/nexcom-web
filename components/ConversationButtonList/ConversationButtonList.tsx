@@ -84,6 +84,7 @@ export default function ConversationButtonList({
         <Group
           h={'80'}
           px={{ base: 'lg', sm: 'lg' }}
+          p={{ base: 'sm', sm: 'lg' }}
           justify="space-between"
           align="center"
           classNames={{ root: classes.group }}
@@ -93,7 +94,7 @@ export default function ConversationButtonList({
           <Links />
         </Group>
 
-        <ScrollArea p={'5px'} bg={'none'} type="scroll" h={'100%'}>
+        <ScrollArea px={'lg'} bg={'none'} type="scroll" h={'100%'}>
           {conversation}
         </ScrollArea>
         <AddPop open={open} />

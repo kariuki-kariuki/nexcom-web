@@ -47,7 +47,7 @@ export function LinksGroup({
         <Link href={`${name.toLowerCase().split(' ').join('-')}`}>
           <Group justify="space-between" gap={0}>
             <Box style={{ display: 'flex', alignItems: 'center' }}>
-              <Box ml="md" c={`${link}` === pathname ? "orange.8": 'white' }>{name}</Box>
+              <Box ml="md" c={`${link}` === pathname ? "orange.8": '' }>{name}</Box>
             </Box>
             {hasCategories && sub_category.length > 1 && (
               <IconChevronRight

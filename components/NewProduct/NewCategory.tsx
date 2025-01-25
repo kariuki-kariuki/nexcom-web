@@ -3,6 +3,7 @@ import { Button, Dialog, Group, Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { Category } from '../../lib/@types/category';
 import { create } from '../../lib/hooks/useFetchHooks';
+import classes from './NewCategory.module.css'
 
 interface Props {
   opened: boolean;
@@ -41,6 +42,7 @@ function NewCategory({ opened, toggle, setCategories }: Props) {
       size="lg"
       radius="md"
       position={{ bottom: '20%', left: '30%' }}
+      classNames={{root: classes.main}}
     >
       <Text size="sm" mb="xs" fw={500}>
         Create a new category
@@ -51,6 +53,7 @@ function NewCategory({ opened, toggle, setCategories }: Props) {
           placeholder="Biomas"
           style={{ flex: 1 }}
           value={name}
+          size='xl'
           onChange={(e) => setNewCategory(e.target.value)}
         />
         <Button onClick={handleSubmit}>Submit</Button>

@@ -131,7 +131,7 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
                 <Group justify={'center'} w={'100%'} p={'lg'}>
                   <Link href={`/dashboard/products/edit/${product.id}`}>
                     <Button
-                      bg={'teal'}
+                      bg={'coco.3'}
                       leftSection={<IconTool size={14} color="white" />}
                     >
                       Edit
@@ -175,7 +175,7 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
                     <Button
                       leftSection={<IconBasketPlus size={20} />}
                       onClick={handleSubmit}
-                      bg={'teal.7'}
+                      bg={'coco.3'}
                     >
                       Add To Cart
                     </Button>

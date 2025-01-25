@@ -1,6 +1,8 @@
 .nav {
   background-color: light-dark(var(--mantine-color-body),
       var(--mantine-color-coco-0));
+      border-right: 1px solid light-dark(var(--mantine-color-gray-3),
+          var(--mantine-color-gray-8));
 }
 
 .navText {
@@ -14,6 +16,7 @@
 .group {
   border-radius: var(--mantine-spacing-md) var(--mantine-spacing-md) 0px 0px;
   background-color: light-dark(var(--mantine-color-white-0), var(--mantine-color-coco-0));
+  border-bottom: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-8));
 }
 
 /* .relative {

@@ -7,8 +7,8 @@ interface Params {
   slug: string
 }
 const page = async ({ params }: { params: Params }) => {
-  const { data, loading } = await datasource.get<Product>(`products/${params.slug}`)
-  if (!data && !loading) return redirect('/shop')
+  const { data, error, loading } = await datasource.get<Product>(`products/${params.slug}`)
+  if (error && !loading) return redirect('/shop')
   return (
     <>
       {data && <ProductPage product={data} />}
