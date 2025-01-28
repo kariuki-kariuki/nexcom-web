@@ -14,9 +14,10 @@
 }
 
 .bg {
-  background-image: url('/images/bg.jpg');
+  /* background-image: url('/images/bg.jpg'); */
   background-position: center;
   background-size: cover;
+  color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));
 }
 
 .main {
@@ -24,5 +25,5 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: rgba(0, 0, 0, .9);
+  /* background-color: rgba(0, 0, 0, .9); */
 }

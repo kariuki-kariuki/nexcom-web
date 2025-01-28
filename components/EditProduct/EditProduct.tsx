@@ -89,7 +89,9 @@ function EditProduct({
     setLoading((prevState) => !prevState);
   };
   return (
-    <Box p="sm">
+    <>
+    <SimpleRoute main='Products' tag={`Edit product ${product.id}`} />
+    <Box>
       <LoadingOverlay
         visible={loading}
         loaderProps={{ type: 'bars', color: 'teal.9' }}
@@ -111,7 +113,6 @@ function EditProduct({
           )}
         </div>
       </Dialog>
-      <SimpleRoute tag={`Edit Product ${product.id}`} main="Products" />
       <Group justify="space-between" pb="sm" pr="sm">
         <Text fw="bold" style={{ flex: 1 }}>
           Name: {product.name}
@@ -122,45 +123,49 @@ function EditProduct({
           </Button>
         </Group>
       </Group>
-      <Card w="100%" bg="none" withBorder radius="md" shadow="lg">
+      <Card w="100%" className={classes.card} withBorder radius="md" shadow="lg">
         <Flex
           direction={{ base: 'column', sm: 'row' }}
           gap="md"
           p={{ base: '0px', sm: 'lg' }}
           mih={{ base: 'fit-content', sm: '70vh' }}
         >
-          <Box w={{ base: '100%', sm: '50%' }}>
+          <Box w={{ base: '100%', sm: '30%' }}>
             <Card shadow="lg" className={classes.card} h="100%">
               <Group justify="space-between" py="md">
                 <Text my="md" component="h5" fz="xl" fw="bold">
                   Images
                 </Text>
                 <Button
-                  color="teal.8"
+                  color="coco.3"
                   leftSection={<IconImageInPicture size={18} color="white" />}
                   onClick={toggle}
                 >
                   Add Image
                 </Button>
               </Group>
+              <Box h={"50vh"}>
               <ProductCorousel
                 images={product.images}
                 toggle={toggle}
                 setProduct={setProduct}
               />
+              </Box>
             </Card>
           </Box>
-          <Box w={{ base: '100%', sm: '50%' }}>
+          <Box w={{ base: '100%', sm: '70%' }}>
             <Box pb="md">
               <Input.Wrapper
                 label="Name"
-                // // error="Input error"
+              // // error="Input error"
               >
                 <Input
                   placeholder="Product Name"
                   type="text"
                   required
                   id="name"
+                  classNames={{ input: classes.input }}
+                  size='lg'
                   name="productName"
                   value={product.name}
                   onChange={(e) =>
@@ -175,9 +180,11 @@ function EditProduct({
             <Box pb="md">
               <Textarea
                 placeholder="Product description"
-                label="Description"
+                label="Description" 
+                classNames={{ input: classes.input }}
                 minRows={4}
                 maxRows={7}
+                size='lg'
                 onChange={(e) =>
                   setProduct((prevProduct) => ({
                     ...prevProduct,
@@ -195,13 +202,15 @@ function EditProduct({
               <Input.Wrapper
                 label="Quantity of Products"
                 withAsterisk
-                // error="Input error"
+              // error="Input error"
               >
                 <Input
                   placeholder="0"
                   type="number"
                   required
-                  id="name"
+                  id="name" 
+                  classNames={{ input: classes.input }}
+                  size='lg'
                   value={product.stock}
                   onChange={(e) =>
                     setProduct((prevProduct) => ({
@@ -213,11 +222,10 @@ function EditProduct({
               </Input.Wrapper>
             </Box>
             <Card mb="md" className={classes.card} shadow="lg">
-              <Text c="dimmed" fw="bold">
-                Category
-              </Text>
               <NativeSelect
                 my="sm"
+                classNames={{input: classes.input}}
+                size='lg'
                 label="Select Category"
                 data={['Modern Cookers', ' Biomass Products', 'LPG']}
               />
@@ -226,6 +234,7 @@ function EditProduct({
         </Flex>
       </Card>
     </Box>
+    </>
   );
 }
 

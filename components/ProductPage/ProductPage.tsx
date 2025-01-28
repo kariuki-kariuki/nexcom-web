@@ -50,7 +50,7 @@ const ProductPage = ({ product }: { product: Product }) => {
       />
       <SimpleHeader />
       <Flex h={'100%'} bg={'none'} justify={'center'} content='center' align={'center'} >
-        <Box className={classes.grid} my={'md'}>
+        <Card className={classes.grid} withBorder my={'md'}>
           <Flex h={'fit-content'} direction={{ base: 'column', sm: 'row'}}>
             <Box w={{ base: '100%', sm: '40%' }} h={'100%'}>
               <Card
@@ -161,7 +161,7 @@ const ProductPage = ({ product }: { product: Product }) => {
               </Card>
             </Box>
           </Flex>
-        </Box>
+        </Card>
       </Flex>
     </Box   >
   )

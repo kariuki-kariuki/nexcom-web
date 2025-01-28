@@ -6,7 +6,7 @@ import { useActiveConversation } from "../context/activeConversation";
 import { useGlobalContext } from "../context/appContext";
 import { MessageState } from "../common/common";
 
-const useWebSocket = (conversationId: string) => {
+const useWebSocket = () => {
   const { state, dispatch } = useChat();
   const socket = datasource.getSocket(); // Use a single socket instance
   const { user } = useGlobalContext();
@@ -25,7 +25,7 @@ const useWebSocket = (conversationId: string) => {
         if (res.conversation.id === activeConversation?.id) {
            markMessageState(MessageState.READ, activeConversation.id)
         } else {
-          markMessageState(MessageState.DELIVERED, conversationId)
+          markMessageState(MessageState.DELIVERED, res.conversation.id)
         }
       }
       // Dispatch the new message to the chat state
@@ -35,12 +35,13 @@ const useWebSocket = (conversationId: string) => {
   );
   const handleMessageState = (res: PayloadMessage) => {
     // console.log(`Message state ${res.email} convo: ${res.conversationId}, state: ${res.state}`)
+    console.log(res);
     dispatch({ type: "UPDATE_MESSAGE", payload: res });
   };
 
   useEffect(() => {
     // Listener for message-state updates
-    socket.emit('join', conversationId);
+    socket.emit('join', {userId: user?.id});
     // Attach socket event listeners
     socket.on("message-state", handleMessageState);
     socket.on("message", handleIncomingMessage);
@@ -58,7 +59,7 @@ const useWebSocket = (conversationId: string) => {
     };
   }, [socket, dispatch, handleIncomingMessage, handleMessageState, count]);
 
-  return { state, socket };
+  return { state};
 };
 
-export default useWebSocket;
+// export default useWebSocket;

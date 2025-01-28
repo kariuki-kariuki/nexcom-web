@@ -10,8 +10,7 @@ import {
 } from '@mantine/core';
 import classes from './ConversationButton.module.css';
 import {
-  useContext,
-  useEffect} from 'react';
+  useContext} from 'react';
 import { IconCheck, IconChecks } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { ConversationProps, GlobalUser, Message } from '@/lib/@types/app';
@@ -26,7 +25,6 @@ import {
 import { ScreenContext, screenContextType } from '@/lib/context/screenContext';
 import { MessageState } from '@/lib/common/common';
 import { datasource } from '@/lib/common/datasource';
-import useWebSocket from '@/lib/hooks/useWebsockets';
 
 interface Props {
   conversation: ConversationProps;
@@ -38,7 +36,6 @@ export function ConversationButton({
   open,
 }: Props) {
   // const { user } = useContext(AppContext) as UserContextType;
-  const { state } = useWebSocket(conversation.id)
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
   const { activeConversation, setActiveConversation } = useContext(
     ConversationContext
@@ -46,7 +43,6 @@ export function ConversationButton({
   const { newConversation, setNewConversation } = useContext(
     NewConversationContext
   ) as NewConversationType;
-  conversation = state.conversations.find((convo) => convo.id ===conversation.id) || conversation;
   const active: boolean = conversation.id === activeConversation?.id;
   conversation.messages.sort((a, b) => {
     const timeA = new Date(

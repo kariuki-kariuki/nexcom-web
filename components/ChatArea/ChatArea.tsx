@@ -1,23 +1,20 @@
 import Message from '../../components/MessageCard/MessageCard';
 import Bar from '../Bar/Bar';
-import { Box, Flex, Image, Paper, ScrollArea } from '@mantine/core';
+import { Box, Flex, Paper, ScrollArea } from '@mantine/core';
 import NewMessageBox from '../../components/NewMessageBox/NewMessageBox';
 import classes from './ChatArea.module.css';
 import {
-  activeConversatonType,
-  ConversationContext
+  useActiveConversation
 } from '@/lib/context/activeConversation';
-import { useContext, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { ConversationProps } from '@/lib/@types/app';
+import { useChat } from '@/lib/context/ConversationContext';
 interface CloseProps {
   closes: () => void;
   activeConvo?: ConversationProps | null;
 }
 
 function ChatArea({ closes, activeConvo }: CloseProps) {
-  const { activeConversation } = useContext(
-    ConversationContext
-  ) as activeConversatonType;
 
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
@@ -57,7 +54,7 @@ function ChatArea({ closes, activeConvo }: CloseProps) {
           className={classes.scroll}
           scrollbars="y"
         >
-          {activeConversation ? (
+          {activeConvo ? (
             <Box className={classes.clearfix}>{messages}</Box>
           ) : (
             <Box className={classes.empty}>

@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import PaginationDemo from '../PaginationDemo/PaginationDemo';
 import classes from './UserTable.module.css';
 import { API_URL } from '@/lib/common/constans';
+import { GlobalUser } from '@/lib/@types/app';
 
 interface Person {
   id: string;
@@ -26,7 +27,7 @@ interface Person {
 }
 
 export function UsersTable() {
-  const [user_data, setUserData] = useState<Person[]>([]);
+  const [user_data, setUserData] = useState<GlobalUser[]>([]);
   const [activePage, setPage] = useState<number>(1);
 
   useEffect(() => {
@@ -61,7 +62,7 @@ export function UsersTable() {
 
       <Table.Td>
         <Anchor component="button" size="sm" lineClamp={1}>
-          {user.email}
+          {user.shop?.name}
         </Anchor>
       </Table.Td>
       {/* <Table.Td>
@@ -99,8 +100,7 @@ export function UsersTable() {
         <Table.Thead>
           <Table.Tr>
             <Table.Th>Customer</Table.Th>
-            {/* <Table.Th>Job title</Table.Th> */}
-            <Table.Th>Email</Table.Th>
+            <Table.Th>Shop</Table.Th>
             <Table.Th />
           </Table.Tr>
         </Table.Thead>

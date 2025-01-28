@@ -14,6 +14,7 @@ import { notifications } from '@mantine/notifications';
 import { SizeWithPrice } from '../../../lib/@types/product-price-size';
 import { Product } from '../../../lib/@types/shop';
 import { create, update } from '../../../lib/hooks/useFetchHooks';
+import classes from './PriceSize.module.css'
 
 interface IProps {
   product: Product;
@@ -112,6 +113,8 @@ function PriceSize({ product, setProduct }: IProps) {
           <Input
             placeholder="e.g., 2 liters"
             value={size.size}
+            size='lg'
+            classNames={{ input: classes.input }}
             onChange={(e) => setSize({ ...size, size: e.target.value })}
           />
         </InputWrapper>
@@ -120,6 +123,8 @@ function PriceSize({ product, setProduct }: IProps) {
             type="number"
             placeholder="0.0"
             value={size.price}
+            size='lg'
+            classNames={{input: classes.input}}
             onChange={(e) =>
               setSize({ ...size, price: parseFloat(e.target.value) || 0 })
             }
@@ -141,8 +146,8 @@ function PriceSize({ product, setProduct }: IProps) {
           {product.product_sizes.map((prdSize, idx) => (
             <div key={idx}>
               <Button
-                color="scode.8"
-                variant="outline"
+                color="coco.3"
+                variant=""
                 rightSection={<IconPencil size={18} />}
                 onClick={() => {
                   setEditSize(prdSize);

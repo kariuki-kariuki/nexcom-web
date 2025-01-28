@@ -36,7 +36,7 @@ const MessageCard = ({ message }: Props) => {
                 hour12: true
               })}`}
             </Text>
-            {message.state == MessageState.SENT && (
+            {/* {message.state == MessageState.SENT && (
               <IconCheck size={14} />
             ) }
             {message.state == MessageState.DELIVERED && (
@@ -45,7 +45,7 @@ const MessageCard = ({ message }: Props) => {
             )}
             { message.state == MessageState.READ && (
               <IconChecks color="lime" size={16} />
-            )}
+            )} */}
           </Group>
         </Box>
       </Card>

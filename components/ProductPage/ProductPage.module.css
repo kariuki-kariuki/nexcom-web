@@ -2,6 +2,7 @@
   width: 100%;
   height: fit-content;
   background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
+  
   border-radius: var(--mantine-border-sm);
 
   @media (min-width: $mantine-breakpoint-sm) {

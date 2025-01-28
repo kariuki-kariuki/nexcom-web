@@ -36,16 +36,16 @@ export default function RootLayout({
       <body>
         <MantineProvider theme={theme} defaultColorScheme="dark">
           <AppProvider>
+            <ActiveConversationProvider>
             <ChatProvider>
               <ScreenProvider>
-                <ActiveConversationProvider>
                   <NewConversationProvider>
                     <Notifications />
                     <div id="root">{children}</div>
                   </NewConversationProvider>
-                </ActiveConversationProvider>
               </ScreenProvider>
             </ChatProvider>
+            </ActiveConversationProvider>
           </AppProvider>
         </MantineProvider>
       </body>

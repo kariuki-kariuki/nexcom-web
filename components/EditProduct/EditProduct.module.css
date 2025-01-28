@@ -3,9 +3,14 @@
 }
 
 .card {
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-9));
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
 }
 
 .overlay {
   padding: 0px;
+}
+
+.input {
+  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
+  color: white;
 }

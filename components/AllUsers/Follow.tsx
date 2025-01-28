@@ -49,7 +49,7 @@ const TableRow = ({ item, updateRole }: ITableRow) => (
     </Table.Td>
     <Table.Td>{item.email}</Table.Td>
     <Table.Td>{item.role}</Table.Td>
-    <Table.Td>
+    {/* <Table.Td>
       {item.email !== 'mkmartinoes@gmail.com' ? (
         <Menu classNames={{ dropdown: classes.menu }} trigger="click-hover">
           <MenuTarget>
@@ -100,8 +100,8 @@ const TableRow = ({ item, updateRole }: ITableRow) => (
         </Menu>
       ) : (
         <IconDots />
-      )}
-    </Table.Td>
+      )} */}
+    {/* </Table.Td> */}
   </Table.Tr>
 );
 
@@ -221,13 +221,15 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
     ));
 
   return (
-    <Box px="md">
+     
+    <>
       <SimpleRoute tag="All Users" main="Users" />
+    <Box px="md">
       <Group justify="space-between" pb="xs">
         <SegmentedControl
           radius="xl"
           size="xs"
-          data={['All', 'Admin', 'Manager', 'Employee']}
+          data={['All', 'Following', 'Followers']}
           classNames={classes}
           onChange={setActive}
         />
@@ -248,9 +250,9 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
             <Table.Thead>
               <Table.Tr>
                 <Table.Th>User</Table.Th>
-                <Table.Th>Email</Table.Th>
-                <Table.Th>Job</Table.Th>
-                <Table.Th>Action</Table.Th>
+                <Table.Th>Shop</Table.Th>
+                <Table.Th>Status</Table.Th>
+                {/* <Table.Th>Action</Table.Th> */}
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>{rows}</Table.Tbody>
@@ -258,5 +260,6 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
         </Box>
       </ScrollArea>
     </Box>
+    </>
   );
 }
