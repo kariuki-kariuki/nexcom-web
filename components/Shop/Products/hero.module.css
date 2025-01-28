@@ -13,6 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: start;
+  flex-wrap: wrap;
   height: 100%;
   flex-direction: row;
   gap: var(--mantine-spacing-md);

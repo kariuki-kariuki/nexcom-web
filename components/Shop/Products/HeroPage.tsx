@@ -4,8 +4,6 @@ import { Box, Flex, Grid, ScrollArea } from '@mantine/core';
 import ProductCard from './ProductCard';
 import { CategoryWithProducts } from '@/lib/@types/shop';
 import classes from './hero.module.css';
-import { HeaderSearch } from '@/components/HeaderSearch/HeaderSearch';
-import Link from 'next/link';
 import SimpleHeader from '@/components/SimpleHeader/SimpleHeader';
 
 interface Iprop {
@@ -20,7 +18,7 @@ const links = [
 function HeroPage({ categories }: Iprop) {
   return (
     <Flex className={classes.hero} direction={'column'}>
-      <SimpleHeader />
+      <Box visibleFrom='sm'><SimpleHeader /></Box>
       <ScrollArea className={classes.scroll} scrollbars="y">
           {categories.map((category) => (<div key={category.id}>
 
