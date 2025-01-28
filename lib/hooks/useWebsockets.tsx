@@ -8,12 +8,12 @@ import { MessageState } from "../common/common";
 
 const useWebSocket = () => {
   const { state, dispatch } = useChat();
-  const socket = datasource.getSocket(); // Use a single socket instance
+  const socket = datasource.getSocket(); 
   const { user } = useGlobalContext();
   const { activeConversation } = useActiveConversation();
   const [count, setCount] = useState(0)
   const markMessageState = useCallback((state: MessageState, conversationId: string) => {
-    socket.emit('message-state', {
+    datasource.getSocket().emit('message-state', {
       state,
       conversationId
     });
@@ -23,9 +23,12 @@ const useWebSocket = () => {
     (res: NewMessage) => {
       if (res.user.id !== user?.id) {
         if (res.conversation.id === activeConversation?.id) {
-           markMessageState(MessageState.READ, activeConversation.id)
+          markMessageState(MessageState.READ, res.conversation.id)
         } else {
-          markMessageState(MessageState.DELIVERED, res.conversation.id)
+          const conv = state.conversations.find(conv => conv.id === res.conversation.id);
+          if(conv){
+            markMessageState(MessageState.DELIVERED, res.conversation.id)
+          }
         }
       }
       // Dispatch the new message to the chat state
@@ -33,15 +36,14 @@ const useWebSocket = () => {
     },
     [activeConversation, dispatch, socket, state.conversations, user?.id, markMessageState]
   );
-  const handleMessageState = (res: PayloadMessage) => {
-    // console.log(`Message state ${res.email} convo: ${res.conversationId}, state: ${res.state}`)
-    console.log(res);
+  const handleMessageState = useCallback((res: PayloadMessage) => {
+    console.log('received a state change')
     dispatch({ type: "UPDATE_MESSAGE", payload: res });
-  };
+  }, [dispatch])
 
   useEffect(() => {
     // Listener for message-state updates
-    socket.emit('join', {userId: user?.id});
+    socket.emit('join');
     // Attach socket event listeners
     socket.on("message-state", handleMessageState);
     socket.on("message", handleIncomingMessage);
@@ -62,4 +64,4 @@ const useWebSocket = () => {
   return { state};
 };
 
-// export default useWebSocket;
+export default useWebSocket;

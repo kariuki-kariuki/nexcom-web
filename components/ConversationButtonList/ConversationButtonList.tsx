@@ -94,7 +94,7 @@ export default function ConversationButtonList({
           <Links />
         </Group>
 
-        <ScrollArea px={'lg'} bg={'none'} type="scroll" h={'100%'}>
+        <ScrollArea px={{sm:'lg'}} bg={'none'} type="scroll" h={'100%'}>
           {conversation}
         </ScrollArea>
         <AddPop open={open} />

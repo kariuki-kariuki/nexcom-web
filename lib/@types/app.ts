@@ -9,8 +9,7 @@ export type UserContextType = {
 };
 
 export interface GlobalUser {
-  id: number;
-  email?: string;
+  id: string;
   photo: string;
   firstName: string;
   lastName: string;
@@ -54,7 +53,7 @@ export interface ChatState {
 export interface PayloadMessage {
   conversationId: string;
   state: MessageState;
-  email: string;
+  userId: string;
 }
 
 // New Message type

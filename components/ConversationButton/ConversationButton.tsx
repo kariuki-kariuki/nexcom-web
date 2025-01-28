@@ -57,7 +57,7 @@ export function ConversationButton({
   const user: GlobalUser = conversation.users[0];
   const count = conversation.messages.reduce(
     (total: number, message: Message) =>
-      message.user.email === user.email &&
+      message.user.id === user.id &&
         (message.state === MessageState.DELIVERED ||
           message.state === MessageState.SENT)
         ? (total += 1)
@@ -120,7 +120,7 @@ interface ILastMessage {
   user: GlobalUser;
 }
 function LastMessage({ message, user }: ILastMessage) {
-  if (message.user.email !== user.email) {
+  if (message.user.id !== user.id) {
     if (message.state === MessageState.SENT) {
       return <IconCheck size={14} />;
     } else if (message.state === MessageState.DELIVERED) {
