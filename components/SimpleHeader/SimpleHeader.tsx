@@ -4,7 +4,7 @@ import classes from './SimpleHeader.module.css'
 
 const SimpleHeader = () => {
     return (
-        <Card shadow="lg" className={classes.card}>
+        <Card radius={0} shadow="lg" className={classes.card}>
             <Group justify="start">
                 <Avatar src="/logos/logo.png" />
                 <Text py="sm">Nexcom</Text>

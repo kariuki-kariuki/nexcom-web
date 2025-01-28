@@ -12,6 +12,7 @@ import {
 } from '@/lib/context/activeConversation';
 import ConversationButtonList from '../ConversationButtonList/ConversationButtonList';
 import { useChat } from '@/lib/context/ConversationContext';
+import useWebSocket from '@/lib/hooks/useWebsockets';
 export type SocketType = Socket | null;
 export type activeType = (active: any) => void;
 
@@ -21,7 +22,7 @@ function Chat() {
   ) as activeConversatonType;
 
   const [opened, { open, close }] = useDisclosure(false);
-  const { state } = useChat();
+  const { state } = useWebSocket();
   const activeCNV = state.conversations.find((conv) => conv.id === activeConversation?.id)
   return (
     <Flex

@@ -3,24 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import {
-  IconDots,
-  IconPencil,
-  IconTrash,
   IconUsersPlus
 } from '@tabler/icons-react';
 import {
   Avatar,
   Box,
   Button,
-  Divider,
   Group,
-  Menu,
-  MenuDropdown,
-  MenuItem,
-  MenuLabel,
-  MenuTarget,
   Notification,
-  rem,
   ScrollArea,
   SegmentedControl,
   Stack,
@@ -35,9 +25,9 @@ import classes from './Follow.module.css';
 
 interface ITableRow {
   item: GlobalUser;
-  updateRole: (role: string, id: number) => void;
+  updateFollowStatus: (role: string, id: string) => void;
 }
-const TableRow = ({ item, updateRole }: ITableRow) => (
+const TableRow = ({ item, updateFollowStatus }: ITableRow) => (
   <Table.Tr key={item.id}>
     <Table.Td>
       <Group gap="sm">
@@ -47,65 +37,11 @@ const TableRow = ({ item, updateRole }: ITableRow) => (
         </Text>
       </Group>
     </Table.Td>
-    <Table.Td>{item.email}</Table.Td>
-    <Table.Td>{item.role}</Table.Td>
-    {/* <Table.Td>
-      {item.email !== 'mkmartinoes@gmail.com' ? (
-        <Menu classNames={{ dropdown: classes.menu }} trigger="click-hover">
-          <MenuTarget>
-            <IconDots />
-          </MenuTarget>
-          <MenuDropdown>
-            <Link
-              href={`users/edit/${item.id}`}
-              style={{ textDecoration: 'none' }}
-            >
-              <MenuItem
-                leftSection={
-                  <IconPencil style={{ width: rem(14), height: rem(14) }} />
-                }
-              >
-                Edit
-              </MenuItem>
-            </Link>
-            <Divider />
-            <MenuLabel>Update To</MenuLabel>
-            {item.role !== 'Employee' && (
-              <MenuItem onClick={() => updateRole('Employee', item.id)}>
-                Employee
-              </MenuItem>
-            )}
-            {item.role !== 'Manager' && (
-              <MenuItem onClick={() => updateRole('Manager', item.id)}>
-                Manager
-              </MenuItem>
-            )}
-            {item.role !== 'Admin' && (
-              <MenuItem onClick={() => updateRole('Admin', item.id)}>
-                Admin
-              </MenuItem>
-            )}
-
-            <Divider />
-            <MenuLabel>Danger</MenuLabel>
-            <MenuItem
-              color="red"
-              leftSection={
-                <IconTrash style={{ width: rem(14), height: rem(14) }} />
-              }
-            >
-              Delete
-            </MenuItem>
-          </MenuDropdown>
-        </Menu>
-      ) : (
-        <IconDots />
-      )} */}
-    {/* </Table.Td> */}
+    <Table.Td>{item.shop?.name}</Table.Td>
   </Table.Tr>
 );
 
-const TableRowNotification = ({ item, updateRole }: ITableRow) => (
+const TableRowNotification = ({ item, updateFollowStatus }: ITableRow) => (
   <Notification key={item.id} withCloseButton={false} mb="sm">
     <Group wrap="nowrap" justify="space-around">
       <Avatar size={26} src={item.photo} radius={26} />
@@ -114,63 +50,11 @@ const TableRowNotification = ({ item, updateRole }: ITableRow) => (
           {`${item.firstName} ${item.lastName}`}
         </Text>
         <Text lineClamp={1} fz="xs">
-          {item.email}
+          {item.shop?.name}
         </Text>
         <Text c="dimmed">{item.role}</Text>
       </Stack>
-      <Box>
-        {item.email !== 'mkmartinoes@gmail.com' ? (
-          <Menu classNames={{ dropdown: classes.menu }} trigger="click-hover">
-            <MenuTarget>
-              <IconDots />
-            </MenuTarget>
-            <MenuDropdown>
-              <Link
-                href={`users/edit/${item.id}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <MenuItem
-                  leftSection={
-                    <IconPencil style={{ width: rem(14), height: rem(14) }} />
-                  }
-                >
-                  Edit
-                </MenuItem>
-              </Link>
-              <Divider />
-              <MenuLabel>Update To</MenuLabel>
-              {item.role !== 'Employee' && (
-                <MenuItem onClick={() => updateRole('Employee', item.id)}>
-                  Employee
-                </MenuItem>
-              )}
-              {item.role !== 'Manager' && (
-                <MenuItem onClick={() => updateRole('Manager', item.id)}>
-                  Manager
-                </MenuItem>
-              )}
-              {item.role !== 'Admin' && (
-                <MenuItem onClick={() => updateRole('Admin', item.id)}>
-                  Admin
-                </MenuItem>
-              )}
-
-              <Divider />
-              <MenuLabel>Danger</MenuLabel>
-              <MenuItem
-                color="red"
-                leftSection={
-                  <IconTrash style={{ width: rem(14), height: rem(14) }} />
-                }
-              >
-                Delete
-              </MenuItem>
-            </MenuDropdown>
-          </Menu>
-        ) : (
-          <IconDots />
-        )}
-      </Box>
+      
     </Group>
   </Notification>
 );
@@ -178,7 +62,7 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
   const [users, setUsers] = useState(dbusers);
   const [active, setActive] = useState('All');
 
-  const updateRole = async (role: string, id: number) => {
+  const updateFollowStatus = async (role: string, id: string) => {
     const res = await update({ resource: `users/${id}`, formData: { role } });
     if (!res) {
       notifications.show({
@@ -209,7 +93,7 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
       return active === rowUser.role;
     })
     .map((item) => (
-      <TableRow item={item} updateRole={updateRole} key={item.id} />
+      <TableRow item={item} updateFollowStatus={updateFollowStatus} key={item.id} />
     ));
   const rowsNotification = users
     .filter((rowUser) => {
@@ -217,7 +101,7 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
       return active === rowUser.role;
     })
     .map((item) => (
-      <TableRowNotification item={item} updateRole={updateRole} key={item.id} />
+      <TableRowNotification item={item} updateFollowStatus={updateFollowStatus} key={item.id} />
     ));
 
   return (

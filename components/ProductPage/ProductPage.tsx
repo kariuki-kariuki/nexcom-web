@@ -48,7 +48,9 @@ const ProductPage = ({ product }: { product: Product }) => {
         overlayProps={{ radius: 'sm', blur: 2 }}
         loaderProps={{ color: 'teal.7', type: 'bars' }}
       />
-      <SimpleHeader />
+      <Box visibleFrom='sm'>
+        <SimpleHeader />
+      </Box>
       <Flex h={'100%'} bg={'none'} justify={'center'} content='center' align={'center'} >
         <Card className={classes.grid} withBorder my={'md'}>
           <Flex h={'fit-content'} direction={{ base: 'column', sm: 'row'}}>
