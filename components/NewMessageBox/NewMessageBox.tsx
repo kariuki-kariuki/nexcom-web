@@ -23,12 +23,14 @@ import {
 } from '@/lib/context/newConversation';
 import { datasource } from '@/lib/common/datasource';
 import useWebSocket from '@/lib/hooks/useWebsockets';
+import { useGlobalContext } from '@/lib/context/appContext';
 interface Props {
   socket: SocketType;
 }
 const NewMessageBox = () => {
   const [message, setMessage] = useState<string>('');
   const socket = datasource.getSocket()
+  const { user } = useGlobalContext()
 
   const { activeConversation } = useContext(
     ConversationContext
@@ -63,7 +65,7 @@ const NewMessageBox = () => {
     if (newConversation && message) {
       const messageBody = {
         message,
-        email: newConversation.email
+        userId: user?.id
       };
       try {
         socket?.emit('new-conversation', messageBody);

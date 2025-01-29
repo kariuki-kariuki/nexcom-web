@@ -14,7 +14,7 @@ const stats = [
 
 function Profile({ userClicked }: { userClicked: GlobalUser }) {
   const { user } = useContext(AppContext) as UserContextType;
-  const active = userClicked.email === user?.email;
+  const active = userClicked.id === user?.id;
   userClicked.lastName = 'Doe';
   const items = stats.map((stat) => (
     <div key={stat.label}>

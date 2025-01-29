@@ -73,7 +73,7 @@ export function UserButton() {
             </Text>
 
             <Text c="dimmed" size="xs">
-              {user?.email}
+              {user?.shop && `@ ${user.shop.name}`}
             </Text>
           </div>
 

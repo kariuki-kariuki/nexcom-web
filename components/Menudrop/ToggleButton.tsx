@@ -13,7 +13,7 @@ const ToggleButton = () => {
         <div style={{ flex: 1 }}>
           <Text size="sm">{user?.firstName}</Text>
           <Text size="xs" lineClamp={1}>
-            {user?.email}
+             {user?.shop && `@ ${user.shop.name}`}
           </Text>
         </div>
         <IconChevronRight
