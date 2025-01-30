@@ -19,15 +19,17 @@ import SignupPost from './SignupPost';
 import PasswordStrength from './PasswordStrenght';
 import Link from 'next/link';
 import SimpleHeader from '../SimpleHeader/SimpleHeader';
+import { useGlobalContext } from '@/lib/context/appContext';
 
 function SignUp() {
   const [state, formAction] = useFormState(SignupPost, { error: '' });
+  const { setIsLoggedIn } = useGlobalContext()
   const [password, setPassword] = useState('');
   return (
     <Box className={classes.main} mih="100vh">
       <SimpleHeader />
       <Flex align="center" h="fit-content" pt="md" justify="center">
-        <form action={formAction}>
+        <form action={(e) => {formAction(e); setIsLoggedIn(false)}}>
           <Stack gap="lg" align="center">
             <Group justify="start" mb="md">
               <Avatar size="lg" src="/logos/logo.png" />

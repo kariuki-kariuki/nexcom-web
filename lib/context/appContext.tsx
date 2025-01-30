@@ -17,7 +17,7 @@ export const useGlobalContext = () => {
 const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = React.useState<GlobalUser | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [isLoggedIn, setIsLoggedin] = React.useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -30,14 +30,14 @@ const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
       if (!loading && data) {
         setUser(data);
-        setIsLoggedin(true);
+        setIsLoggedIn(true);
       }
       setIsLoading(false);
     }
     getUser();
-  }, []);
+  }, [isLoggedIn]);
   return (
-    <AppContext.Provider value={{ user, setUser, isLoading, isLoggedIn }}>
+    <AppContext.Provider value={{ user, setUser, isLoading, isLoggedIn, setIsLoggedIn }}>
       {children}
     </AppContext.Provider>
   );

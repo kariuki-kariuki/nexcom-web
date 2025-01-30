@@ -4,7 +4,7 @@ import { AppContext } from '../../../lib/context/appContext';
 import classes from './Profile.module.css';
 import { CardsCarousel } from '../CardsCarousel/CardsCarousel';
 import PictureUpdate from '../PictureUpdate/PictureUpdate';
-import CreateShop from '../PictureUpdate/CreateShop';
+import CreateShop from '../../CreateShop.tsx/CreateShop';
 import { GlobalUser, UserContextType } from '@/lib/@types/app';
 const stats = [
   { value: '34K', label: 'Followers' },

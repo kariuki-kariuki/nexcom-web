@@ -8,13 +8,14 @@ import {
 } from '@mantine/core';
 import { IconCirclePlusFilled } from '@tabler/icons-react';
 import classes from './CreateShop.module.css';
-import { useGlobalContext } from '../../../lib/context/appContext';
+import { useGlobalContext } from '../../lib/context/appContext';
 import { redirect } from 'next/navigation';
 import { useFormState } from 'react-dom';
 import PostSrr from '@/lib/common/post';
+import ShopSsr from './ShopSrr';
 const CreateShop = () => {
   const { user, setUser } = useGlobalContext();
-  const [state, formAction] = useFormState(PostSrr, { error: '', name: '', id: 0 })
+  const [state, formAction] = useFormState(ShopSsr, { error: '', name: '', id: 0 })
   if (state.name && state.id && user) {
     user.shop = { name: state.name, id: state.id };
     setUser(user);
@@ -35,7 +36,7 @@ const CreateShop = () => {
         </Group>
       </Popover.Target>
       <Popover.Dropdown className={classes.main}>
-        <form action={formAction}>
+        <form action={(e) => {formAction(e); }}>
         <Text ta={'center'} c={'dimmed'}>
           New Shop
         </Text>

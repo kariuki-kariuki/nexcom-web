@@ -3,6 +3,7 @@ import { Shop } from './shop';
 
 export type UserContextType = {
   user: GlobalUser | null;
+  setIsLoggedIn: (status: boolean) => void;
   setUser: (user: GlobalUser | null) => void;
   isLoading: boolean;
   isLoggedIn: boolean;
