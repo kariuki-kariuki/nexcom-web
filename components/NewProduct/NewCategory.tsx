@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Button, Dialog, Group, Text, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { Category } from '../../lib/@types/category';
-import { create } from '../../lib/hooks/useFetchHooks';
 import classes from './NewCategory.module.css'
 import { datasource } from '@/lib/common/datasource';
 
