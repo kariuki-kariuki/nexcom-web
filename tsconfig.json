@@ -20,6 +20,6 @@
     },
     "plugins": [{ "name": "next" }]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/ConversationButtonList"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/ConversationButtonList", "components/CreateShop"],
   "exclude": ["node_modules"]
 }

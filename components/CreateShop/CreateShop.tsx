@@ -11,10 +11,9 @@ import classes from './CreateShop.module.css';
 import { useGlobalContext } from '../../lib/context/appContext';
 import { redirect } from 'next/navigation';
 import { useFormState } from 'react-dom';
-import PostSrr from '@/lib/common/post';
 import ShopSsr from './ShopSrr';
 const CreateShop = () => {
-  const { user, setUser } = useGlobalContext();
+  const { user, setUser, setIsLoggedIn  } = useGlobalContext();
   const [state, formAction] = useFormState(ShopSsr, { error: '', name: '', id: 0 })
   if (state.name && state.id && user) {
     user.shop = { name: state.name, id: state.id };
@@ -36,7 +35,7 @@ const CreateShop = () => {
         </Group>
       </Popover.Target>
       <Popover.Dropdown className={classes.main}>
-        <form action={(e) => {formAction(e); }}>
+        <form action={(e) => {formAction(e); setIsLoggedIn(false) }}>
         <Text ta={'center'} c={'dimmed'}>
           New Shop
         </Text>

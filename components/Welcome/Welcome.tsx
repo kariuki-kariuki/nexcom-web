@@ -17,7 +17,7 @@ export function Welcome({ user }: { user: GlobalUser | null }) {
               inherit
               variant="gradient"
               component="span"
-              gradient={{ from: 'green', to: 'yellow' }}
+              gradient={{ from: 'orange', to: 'yellow' }}
             >
               Nex
             </Text>
