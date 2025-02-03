@@ -4,6 +4,7 @@ import { notifications } from '@mantine/notifications';
 import { Category } from '../../lib/@types/category';
 import { create } from '../../lib/hooks/useFetchHooks';
 import classes from './NewCategory.module.css'
+import { datasource } from '@/lib/common/datasource';
 
 interface Props {
   opened: boolean;
@@ -14,17 +15,16 @@ function NewCategory({ opened, toggle, setCategories }: Props) {
   const [name, setNewCategory] = useState('');
   async function handleSubmit() {
     if (name) {
-      const res = await create<Category>({
-        resource: 'categories',
-        formData: { name }
-      });
-      if (res) {
+      const {data} = await datasource.post<Category>(
+        { name }, 'categories'
+      );
+      if (data) {
         notifications.show({
           message: `Created ${name}`,
           title: 'Succesful'
         });
         toggle();
-        setCategories((prev) => [...prev, res]);
+        setCategories((prev) => [...prev, data]);
         return;
       }
       notifications.show({
