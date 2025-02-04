@@ -98,7 +98,7 @@ export function RowNotification({ prd, setProducts }: IRow) {
     >
       <div>
         <Group gap="sm" wrap="nowrap" justify="space-between">
-          <Avatar size={70} src={product.images[0].url} radius="md" />
+          <Avatar size={70} src={product.images[0]?.url} radius="md" />
           <Stack w="60%">
             <Text size="sm" fw={500} lineClamp={1}>
               {product.description}

@@ -21,7 +21,6 @@ import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { Category } from '../../lib/@types/category';
 import { Product, ProductImage } from '../../lib/@types/shop';
-import { update } from '../../lib/hooks/useFetchHooks';
 import { DropzoneButton } from '../DropzoneButton/DropzoneButton';
 import { ProductCorousel } from '../ImageCarousel/ImageCarousel';
 import Previews from '../Previews/Previews';
@@ -29,6 +28,7 @@ import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import { createImage } from './create';
 import PriceSize from './PriceSize/PriceSize';
 import classes from './EditProduct.module.css';
+import { datasource } from '@/lib/common/datasource';
 
 function EditProduct({
   productEdit
@@ -74,11 +74,16 @@ function EditProduct({
   const handleUpdate = async () => {
     setLoading((prevState) => !prevState);
     product.category = product.category.toString();
-    const res = await update({
-      resource: `products/${product.id}`,
-      formData: product
-    });
-    if (res) {
+    const { data, error } = await datasource.update<Product>(product,
+      `products/${product.id}`);
+      if(error){
+        setLoading((prevState) => !prevState);
+        notifications.show({
+          title: 'Error',
+          message: 'Failed to update'
+        });
+      }
+    if ( data && !error) {
       setLoading((prevState) => !prevState);
       notifications.show({
         title: 'Sucess',

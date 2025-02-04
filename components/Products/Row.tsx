@@ -26,6 +26,7 @@ import { notifications } from '@mantine/notifications';
 import { Product, ProductStatus } from '../../lib/@types/shop';
 import { Delete, update } from '../../lib/hooks/useFetchHooks';
 import classes from './Products.module.css';
+import { datasource } from '@/lib/common/datasource';
 
 interface IRow {
   prd: Product;
@@ -36,8 +37,8 @@ export function Row({ prd, setProducts }: IRow) {
   const [product, setPrd] = useState(prd);
   const date = new Date(product.created_at);
   const handleDelete = async (id: number) => {
-    const res = await Delete(`products/${id}`);
-    if (res) {
+    const { data , error} = await datasource.delete(`products/${id}`);
+    if (data && !error) {
       notifications.show({
         title: 'Success',
         message: `Succefully deleted ${product.name}`,
@@ -87,7 +88,7 @@ export function Row({ prd, setProducts }: IRow) {
     <Table.Tr>
       <Table.Td>
         <Group gap="sm" wrap="nowrap">
-          <Avatar size={50} src={product.images[0].url} radius="md" />
+          <Avatar size={50} src={product.images[0]?.url} radius="md" />
           <Text size="sm" fw={500}>
             {product.name}
           </Text>
