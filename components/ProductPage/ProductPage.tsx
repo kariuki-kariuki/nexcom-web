@@ -53,29 +53,29 @@ const ProductPage = ({ product }: { product: Product }) => {
       </Box>
       <Flex h={'100%'} bg={'none'} justify={'center'} content='center' align={'center'} >
         <Card className={classes.grid} withBorder my={'md'}>
+          <Text fw={'500'} fz={'lg'} my={"lg"} ta={'center'}>
+            {product?.name}
+          </Text>
           <Flex h={'fit-content'} direction={{ base: 'column', sm: 'row'}}>
-            <Box w={{ base: '100%', sm: '40%' }} h={'100%'}>
+            <Box w={{ base: '100%', sm: '50%' }} h={'100%'}>
               <Card
-                p={{ base: 'sm', md: 'xl' }}
+                p={{ base: 'lg', md: 'xl' }}
                 h={{ base: '100%', sm: '100%' }}
                 className={classes.card}
                 radius={'lg'}
               >
-                <Card.Section p={'lg'} className={classes.card} h={'100%'}>
+                <Card.Section className={classes.card} h={'100%'}>
                   <ImageCarousel images={product?.images} />
                 </Card.Section>
               </Card>
             </Box>
-            <Box w={{ base: '100%', sm: '60%' }}>
+            <Box w={{ base: '100%', sm: '50%' }}>
               <Card
-                p={{ base: 'sm', sm: 'xl' }}
+                p={{ base: 'sm', sm: 'sm' }}
                 h={'100%'}
                 className={classes.card}
               >
                 <Flex direction={'column'} gap={5} h={'100%'} justify={'center'}>
-                  <Text fw={'500'} fz={'lg'} ta={'center'}>
-                    {product?.name}
-                  </Text>
                   <Box>
                     <Group justify="space-between">
                       <Text fw={'400'} fs={'italic'} py={'md'}>

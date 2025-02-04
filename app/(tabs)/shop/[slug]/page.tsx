@@ -4,6 +4,10 @@ import { datasource } from '@/lib/common/datasource';
 import { Text } from '@mantine/core';
 import React from 'react';
 
+export const metadata = {
+    title: 'Shop | Gift | More',
+    description: 'Shop at your the convinience of you home'
+};
 interface Props {
     params: {
         slug: string

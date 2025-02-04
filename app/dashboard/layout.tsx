@@ -5,7 +5,7 @@ import classes from './styles.module.css';
 
 export const metadata = {
   title: 'Dashboard @ Nexcom',
-  description: 'Main Page'
+  description: 'Main Page Manage Your shop Effortlessly'
 };
 
 interface PageProps {

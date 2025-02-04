@@ -10,12 +10,12 @@ const ToggleButton = () => {
     <UnstyledButton p={0}>
       <Group align="center" h={'100%'} justify="center" w={'100%'}>
         <Avatar src={user?.photo} className="h-full" />
-        <div style={{ flex: 1 }}>
+        <Group style={{ flex: 1 }} gap={2}>
           <Text size="sm">{user?.firstName}</Text>
-          <Text size="xs" lineClamp={1}>
-             {user?.shop && `@ ${user.shop.name}`}
+          <Text size="sm" lineClamp={1}>
+            {user?.shop && `@ ${user.shop.name}`}
           </Text>
-        </div>
+        </Group>
         <IconChevronRight
           style={{ width: rem(14), height: rem(14) }}
           stroke={1.5}

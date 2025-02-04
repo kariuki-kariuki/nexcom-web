@@ -4,6 +4,7 @@ import { datasource } from '@/lib/common/datasource';
 import { Box, Flex, LoadingOverlay } from '@mantine/core';
 import React, { ReactNode } from 'react'
 import classes from './styles.module.css';
+
 const ShopLayout = async ({ children }: { children: ReactNode }) => {
   const { data, loading } = await datasource.get<Category[]>('categories');
   const all: Category = { id: 0, name: 'All'} 

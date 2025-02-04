@@ -27,7 +27,7 @@ export default function RootLayout({
         <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
         <meta
           name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
+          content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=yes"
         />
         <title>Nexcom</title>
         <meta name="description" content="Web site created..." />
