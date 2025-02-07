@@ -25,7 +25,7 @@ function ProductCard({ product }: Iprops) {
       <Link href={`/shop/product/${product.id}`} className={classes.link}>
 
         <Box  >
-          <Image src={product.images[0].url} className={classes.image}/>
+          <Image src={product.images[0]?.url} className={classes.image}/>
         </Box>
         <Group justify="space-between" bg="gray.2" py="lg" px="lg" wrap="nowrap">
           <Text

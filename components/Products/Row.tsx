@@ -37,7 +37,7 @@ export function Row({ prd, setProducts }: IRow) {
   const [product, setPrd] = useState(prd);
   const date = new Date(product.created_at);
   const handleDelete = async (id: number) => {
-    const { data , error} = await datasource.delete(`products/${id}`);
+    const { data, error } = await datasource.delete(`products/${id}`);
     if (data && !error) {
       notifications.show({
         title: 'Success',
@@ -57,26 +57,33 @@ export function Row({ prd, setProducts }: IRow) {
   };
 
   async function handleUpdate(params: ProductStatus) {
-    const res = await update({
-      resource: `products/${product.id}`,
-      formData: { status: params }
-    });
-    if (res) {
+    const { data, error } = await datasource.update<Product>(
+      { status: params }, `products/${product.id}`
+    );
+    if(product.images.length < 1 && params === ProductStatus.PUBLISHED){
+      notifications.show({
+        title: 'Failed',
+        message: `You cann't publish a product without images `,
+        color: 'red.7',
+      });
+      return;
+    }
+    if (data) {
       notifications.show({
         title: 'Success',
-        message: `Succefully updated ${product.name} status to ${params}`,
+        message: `Succefully updated ${product.name} status to ${data.status}`,
         color: 'teal.8'
       });
-      setPrd((prevProduct) => ({ ...prevProduct, status: params }));
+      setPrd((prevProduct) => ({ ...prevProduct, status: data.status }));
       setProducts((prevProducts) =>
         prevProducts.map((productX) => {
           if (productX.id === product.id) {
-            return { ...product, status: params };
+            return { ...product, status: data.status };
           }
           return productX;
         })
       );
-    } else {
+    } else if(error) {
       notifications.show({
         title: 'Failed',
         message: `Failed to update ${product.name} status to ${params}`,
@@ -89,10 +96,13 @@ export function Row({ prd, setProducts }: IRow) {
       <Table.Td>
         <Group gap="sm" wrap="nowrap">
           <Avatar size={50} src={product.images[0]?.url} radius="md" />
-          <Text size="sm" fw={500}>
-            {product.name}
-          </Text>
+          
         </Group>
+      </Table.Td>
+      <Table.Td>
+        <Text size="sm" fw={500}>
+          {product.name}
+        </Text>
       </Table.Td>
       <Table.Td>
         <Button
@@ -157,15 +167,15 @@ export function Row({ prd, setProducts }: IRow) {
             )}
             {(product.status === ProductStatus.PUBLISHED ||
               product.status === ProductStatus.ARCHIVED) && (
-              <MenuItem
-                leftSection={
-                  <IconNotesOff style={{ width: rem(14), height: rem(14) }} />
-                }
-                onClick={() => handleUpdate(ProductStatus.DRAFT)}
-              >
-                Draft
-              </MenuItem>
-            )}
+                <MenuItem
+                  leftSection={
+                    <IconNotesOff style={{ width: rem(14), height: rem(14) }} />
+                  }
+                  onClick={() => handleUpdate(ProductStatus.DRAFT)}
+                >
+                  Draft
+                </MenuItem>
+              )}
             <Divider />
             <MenuLabel>Danger</MenuLabel>
             <MenuItem

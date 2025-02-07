@@ -8,7 +8,8 @@ import {
   Text,
   rem,
   Image,
-  Paper
+  Paper,
+  Flex
 } from '@mantine/core';
 import classes from './CartTable.module.css';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
@@ -70,7 +71,6 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
       );
       setOrders(updatedOrders);
     };
-
     return (
       <Table.Tr
         key={order?.id}
@@ -89,16 +89,20 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
           <Group gap="sm" h={70}>
             <Image
               style={{ height: '100%' }}
-              src={order.product.images[0]}
+              src={order.product.images ? order.product.images[0] : '' }
               radius={'md'}
             />
-            <Text size="sm" fw={500}>
-              {order.product.name}
-            </Text>
           </Group>
         </Table.Td>
         <Table.Td>
-          <Group>
+          <Text size="sm" fw={500} flex={1} 
+            lineClamp={1}
+          >
+            {order.product.name}
+          </Text>
+        </Table.Td>
+        <Table.Td flex={1}>
+          <Flex direction={{base: 'column-reverse', sm: 'row'}} justify="center" gap="md" align="center">
             <IconMinus
               color="red"
               onClick={() => {
@@ -112,7 +116,7 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
               color="green"
               onClick={() => updateOrderQuantity(myOrder.quantity + 1)}
             />
-          </Group>
+          </Flex>
         </Table.Td>
         <Table.Td>{myOrder.quantity * order.product.product_sizes[0].price}</Table.Td>
       </Table.Tr>
@@ -120,12 +124,12 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
   });
 
   return (
-    <Paper className={classes.main}>
+    <Paper className='' bg="none">
       <ScrollArea>
         <Table
           miw={400}
           verticalSpacing="sm"
-          withRowBorders={false}
+          withRowBorders={true}
           stickyHeader
         >
           <Table.Thead>
@@ -139,7 +143,8 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
                   }
                 />
               </Table.Th>
-              <Table.Th>Product Name</Table.Th>
+              <Table.Th>Image</Table.Th>
+              <Table.Th>Name</Table.Th>
               <Table.Th>Quantity</Table.Th>
               <Table.Th>Total</Table.Th>
             </Table.Tr>

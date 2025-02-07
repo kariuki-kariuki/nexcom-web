@@ -68,10 +68,11 @@ export function Products({ products }: { products: Product[] }) {
       </Group>
       <ScrollArea h="80vh">
         <Box hiddenFrom="sm">{rowsNotification}</Box>
-        <Table miw={800} verticalSpacing="sm" visibleFrom="sm">
+        <Table miw={800} verticalSpacing="sm" striped highlightOnHover visibleFrom="sm">
           <Table.Thead>
             <Table.Tr>
-              <Table.Th>Name</Table.Th>
+              <Table.Th>Image</Table.Th>
+              <Table.Th>Product Name</Table.Th>
               <Table.Th>Status</Table.Th>
               <Table.Th>Price</Table.Th>
               <Table.Th>Created at</Table.Th>

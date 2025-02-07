@@ -1,12 +1,12 @@
 import Cart from '@/components/Shop/Cart/Cart'
 import { Order } from '@/lib/@types/shop'
-import { datasource } from '@/lib/common/datasource'
 import React from 'react'
+import get from '@/utils/fetch'
 
 const Page = async () => {
-  const { data } =await datasource.get<Order[]>('/orders');
+  const res = await get<Order[]>('orders');
   return (
-    <Cart orderss={data}/>
+    <Cart orderss={res}/>
   )
 }
 

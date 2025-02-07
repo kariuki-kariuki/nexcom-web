@@ -55,7 +55,7 @@ class DataSource {
   async handleFetch<T>({ method, path, body, contentType = true }: IFetch) {
     let loading = true;
     let data: T | null = null;
-    const token = await this.getJwtToken();
+    const token = this.getJwtToken();
     try {
       const res = await fetch(`${this.API_URL}/${path}`, {
         method,

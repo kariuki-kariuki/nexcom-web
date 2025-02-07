@@ -4,9 +4,7 @@
     var(--mantine-color-coco-1)
   );
   overflow: hidden;
-  @media (min-width: $mantine-breakpoint-md) {
-    padding: var(--mantine-spacing-md);
-  }
+  
 }
 
 .card {
@@ -14,10 +12,6 @@
     var(--mantine-color-white),
     var(--mantine-color-coco-0)
   );
-  
-  @media (min-width: $mantine-breakpoint-sm) {
-    border-radius: var(--mantine-spacing-md);
-  }
 }
 
 .inner_card {
@@ -27,15 +21,15 @@
   );
   margin: 0 auto;
   height: fit-content;
-  border-radius: var(--mantine-spacing-md);
 }
 
 .grid {
   flex: 0 1 auto;
 }
-.flex {
-  height: 100%;
-  @media (max-width: $mantine-breakpoint-sm) {
-    border-radius: var(--mantine-spacing-md);
-  }
+
+.box {
+  background-color: light-dark(
+    var(--mantine-color-body),
+    var(--mantine-color-coco-0)
+  );
 }

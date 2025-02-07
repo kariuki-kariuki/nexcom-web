@@ -7,3 +7,8 @@
         box-shadow: 5px 5px 10px light-dark(var(--mantine), var(--mantine-color-dark-9));
     }
 }
+
+.link {
+    color: light-dark(var(--mantine-color-coco-0), var(--mantine-color-coco-2));
+    margin-left: var(--mantine-spacing-md);
+}
