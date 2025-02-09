@@ -1,0 +1,32 @@
+.link {
+  color: light-dark(var(--mantine-color-coco-0), var(--mantine-color-coco-2));
+  padding: var(--mantine-spacing-sm);
+  border-radius: var(--mantine-spacing-sm);
+  font-weight: bold;
+
+  &:hover {
+    background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-coco-1));
+    ;
+  }
+}
+
+.bg {
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));
+  padding: 0;
+}
+
+.content {
+  height: 90%;
+  padding: 0%;
+}
+
+.card {
+  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-1));
+  border-bottom: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-8));
+  height: 80px;
+  padding: var(--mantine-spacing-sm);
+
+  &:hover {
+    box-shadow: 5px 5px 10px light-dark(var(--mantine), var(--mantine-color-dark-9));
+  }
+}

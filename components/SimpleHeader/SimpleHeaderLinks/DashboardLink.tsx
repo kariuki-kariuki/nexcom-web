@@ -3,7 +3,7 @@
 import { useGlobalContext } from '@/lib/context/appContext'
 import Link from 'next/link';
 import React from 'react';
-import classes from './SimpleHeader.module.css';
+import classes from './SimpleHeaderLinks.module.css';
 const DashboardLink = () => {
   const { user } = useGlobalContext();
   return (

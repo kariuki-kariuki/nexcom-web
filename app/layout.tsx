@@ -37,14 +37,14 @@ export default function RootLayout({
         <MantineProvider theme={theme} defaultColorScheme="dark">
           <AppProvider>
             <ActiveConversationProvider>
-            <ChatProvider>
-              <ScreenProvider>
+              <ChatProvider>
+                <ScreenProvider>
                   <NewConversationProvider>
                     <Notifications />
                     <div id="root">{children}</div>
                   </NewConversationProvider>
-              </ScreenProvider>
-            </ChatProvider>
+                </ScreenProvider>
+              </ChatProvider>
             </ActiveConversationProvider>
           </AppProvider>
         </MantineProvider>
