@@ -11,7 +11,8 @@ import {
 import { useContext, useState } from 'react';
 import {
   ConversationContext,
-  activeConversatonType
+  activeConversatonType,
+  useActiveConversation
 } from '@/lib/context/activeConversation';
 import { Theme } from 'emoji-picker-react';
 import classes from './NewMessageBox.module.css';
@@ -21,22 +22,20 @@ import { IconSend } from '@tabler/icons-react';
 import { SocketType } from '../Chat/Chat';
 import {
   NewConversationContext,
-  NewConversationType
+  NewConversationType,
+  useNewConverSationContext
 } from '@/lib/context/newConversation';
-import { datasource } from '@/lib/common/datasource';
-import useWebSocket from '@/lib/hooks/useWebsockets';
+import { useSocketContext } from '@/lib/hooks/useSocket';
 import { useGlobalContext } from '@/lib/context/appContext';
 interface Props {
   socket: SocketType;
 }
 const NewMessageBox = () => {
   const [message, setMessage] = useState<string>('');
-  const socket = datasource.getSocket()
+  const socket = useSocketContext()
   const { user } = useGlobalContext()
 
-  const { activeConversation } = useContext(
-    ConversationContext
-  ) as activeConversatonType;
+  const { activeConversation } = useActiveConversation();
   const { newConversation } = useContext(
     NewConversationContext
   ) as NewConversationType;

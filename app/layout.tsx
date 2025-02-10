@@ -14,6 +14,7 @@ import ActiveConversationProvider from '@/lib/context/activeConversation';
 import AppProvider from '@/lib/context/appContext';
 import { ChatProvider } from '@/lib/context/ConversationContext';
 import { Notifications } from '@mantine/notifications';
+import { SocketProvider } from '@/lib/hooks/useSocket';
 
 export default function RootLayout({
   children
@@ -35,6 +36,7 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider theme={theme} defaultColorScheme="dark">
+          <SocketProvider>
           <AppProvider>
             <ActiveConversationProvider>
               <ChatProvider>
@@ -47,6 +49,8 @@ export default function RootLayout({
               </ChatProvider>
             </ActiveConversationProvider>
           </AppProvider>
+        </SocketProvider>
+
         </MantineProvider>
       </body>
     </html>

@@ -15,7 +15,6 @@ import {
   Text
 } from '@mantine/core';
 import classes from './Signup.module.css';
-import SignupPost from './SignupPost';
 import PasswordStrength from './PasswordStrenght';
 import Link from 'next/link';
 import SimpleHeader from '../SimpleHeader/SimpleHeader';
@@ -52,8 +51,8 @@ function SignUp() {
     if(!error && data){
       await setToken(data.token).then(() =>{
         setIsLoggedIn(false)
+        router.push('/chat')
       });
-      router.push('/chat')
       setLoading(false)
     }
     if(error){

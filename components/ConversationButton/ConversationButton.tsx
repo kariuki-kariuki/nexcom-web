@@ -15,16 +15,11 @@ import { IconCheck, IconChecks } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { ConversationProps, GlobalUser, Message } from '@/lib/@types/app';
 import {
-  ConversationContext,
-  activeConversatonType
+  useActiveConversation
 } from '@/lib/context/activeConversation';
-import {
-  NewConversationContext,
-  NewConversationType
-} from '@/lib/context/newConversation';
 import { ScreenContext, screenContextType } from '@/lib/context/screenContext';
 import { MessageState } from '@/lib/common/common';
-import { datasource } from '@/lib/common/datasource';
+import { useSocketContext } from '@/lib/hooks/useSocket';
 
 interface Props {
   conversation: ConversationProps;
@@ -37,12 +32,8 @@ export function ConversationButton({
 }: Props) {
   // const { user } = useContext(AppContext) as UserContextType;
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
-  const { activeConversation, setActiveConversation } = useContext(
-    ConversationContext
-  ) as activeConversatonType;
-  const { newConversation, setNewConversation } = useContext(
-    NewConversationContext
-  ) as NewConversationType;
+  const { activeConversation, setActiveConversation } = useActiveConversation();
+  
   const active: boolean = conversation.id === activeConversation?.id;
   conversation.messages.sort((a, b) => {
     const timeA = new Date(
@@ -66,6 +57,7 @@ export function ConversationButton({
   );
 
   const date = lastMessage ? new Date(lastMessage?.updated_at) : null;
+  const socket = useSocketContext()
 
   return (
     <Card
@@ -73,7 +65,7 @@ export function ConversationButton({
       onClick={() => {
         setActiveConversation(conversation);
         updateActiveScreen('chat');
-        datasource.getSocket().emit('message-state', {
+        socket.emit('message-state', {
           state: MessageState.READ,
           conversationId: conversation.id
         });

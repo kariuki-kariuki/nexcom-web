@@ -90,7 +90,7 @@ class DataSource {
     return token;
   }
 
-  getSocket() {
+  getSocket(): Socket {
     const socket: Socket = io(this.WS_URL, {
       extraHeaders: {
         authorization: `Bearer ${this.getJwtToken()}`,

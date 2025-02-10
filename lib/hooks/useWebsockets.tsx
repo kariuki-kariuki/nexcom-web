@@ -1,19 +1,19 @@
-import { useEffect, useCallback, useState } from "react";
-import { datasource } from "../common/datasource";
+import { useEffect, useCallback, useState, useContext } from "react";
 import { useChat } from "../context/ConversationContext";
 import { NewMessage, PayloadMessage } from "../@types/app";
 import { useActiveConversation } from "../context/activeConversation";
 import { useGlobalContext } from "../context/appContext";
 import { MessageState } from "../common/common";
+import { SocketContext, useSocketContext } from "./useSocket";
 
 const useWebSocket = () => {
   const { state, dispatch } = useChat();
-  const socket = datasource.getSocket(); 
+  const socket =  useSocketContext(); 
   const { user } = useGlobalContext();
   const { activeConversation } = useActiveConversation();
   const [count, setCount] = useState(0)
   const markMessageState = useCallback((state: MessageState, conversationId: string) => {
-    datasource.getSocket().emit('message-state', {
+    socket.emit('message-state', {
       state,
       conversationId
     });
