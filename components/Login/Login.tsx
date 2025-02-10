@@ -1,39 +1,60 @@
 'use client';
 
-import React from 'react';
-import { useFormState } from 'react-dom';
+import React, { useState } from 'react';
 import {
   Avatar,
   Box,
   Button,
-  Card,
   Flex,
   Group,
   Input,
   InputWrapper,
+  LoadingOverlay,
   Stack,
   Text
 } from '@mantine/core';
 import classes from './Login.module.css';
-import loginSSR from './loginssr';
 import Link from 'next/link';
 import SimpleHeader from '../SimpleHeader/SimpleHeader';
 import { useGlobalContext } from '@/lib/context/appContext';
+import { datasource } from '@/lib/common/datasource';
+import setToken from '@/utils/setToken';
 
 function Login() {
-  const [state, formAction] = useFormState(loginSSR, { error: '' });
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: ''
+  })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const {setIsLoggedIn} = useGlobalContext()
+  const handleSubmit = async () => {
+    setLoading(true);
+    setError('');
+    const { data, error, loading} = await datasource.post<{token: string}>({formData: loginData, path: 'auth/login'})
+
+    if(!error && !loading && data) {
+      setToken(data.token);
+      setLoading(false);
+      setIsLoggedIn(true);
+    }
+
+    if(error && !loading){
+      setError(error);
+    }
+
+  }
   return (
     <Box className={classes.main} mih="100vh">
+      <LoadingOverlay />
       <SimpleHeader />
       <Flex align="center" h="70vh" justify="center">
-        <form action={(e) => {formAction(e); setIsLoggedIn(false)}}>
           <Stack gap="lg" align="center">
             <Group justify="start" mb="xl">
               <Avatar size="lg" src="/logos/logo.png" />
               <Text py="sm">Login</Text>
             </Group>
-            <InputWrapper label="" error={state.error}>
+            <InputWrapper label="" error={error}>
               <Input
                 type="email"
                 name="email"
@@ -43,7 +64,7 @@ function Login() {
                 classNames={{ input: classes.input }}
               />
             </InputWrapper>
-            <InputWrapper label="" error={state.error}>
+            <InputWrapper label="" error={error}>
               <Input
                 type="password"
                 name="password"
@@ -60,7 +81,6 @@ function Login() {
               </Button>
             </Stack>
           </Stack>
-        </form>
       </Flex>
     </Box>
   );

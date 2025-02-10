@@ -15,7 +15,7 @@ function NewCategory({ opened, toggle, setCategories }: Props) {
   async function handleSubmit() {
     if (name) {
       const {data} = await datasource.post<Category>(
-        { name }, 'categories'
+        { formData: { name }, path: 'categories'}
       );
       if (data) {
         notifications.show({

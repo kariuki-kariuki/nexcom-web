@@ -85,7 +85,7 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
 
     console.log(formData.get('sizes'))
 
-    const { data, error, loading } = await datasource.post(formData, 'products', false)
+    const { data, error, loading } = await datasource.post({formData, path: 'products', contentType: false})
     setLoading(loading)
     if (data && !loading) {
       setLoading((prevState) => !prevState);

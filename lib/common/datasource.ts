@@ -30,7 +30,7 @@ class DataSource {
   async get<T>(path: string): Promise<ReturnType<T>> {
     return this.handleFetch<T>({ method: CRUDMETHODS.GET, path });
   }
-  async post<T>(formData: any, path: string, contentType?: boolean): Promise<ReturnType<T>> {
+  async post<T>({formData, path, contentType}:{formData: any, path: string, contentType?: boolean}): Promise<ReturnType<T>> {
     return this.handleFetch<T>({
       method: CRUDMETHODS.POST,
       path,

@@ -19,7 +19,7 @@ const ProductPage = ({ product }: { product: Product }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(AppContext) as UserContextType;
   async function handleSubmit() {
-    const { data, error, loading } = await datasource.post({ quantity, productId: product.id }, 'orders')
+    const { data, error, loading } = await datasource.post({ formData: { quantity, productId: product.id }, path: 'orders'})
     setIsLoading(loading);
 
     if (error && !loading) {
