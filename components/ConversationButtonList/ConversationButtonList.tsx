@@ -35,6 +35,7 @@ import {
   UserContextType
 } from '@/lib/@types/app';
 import { useChat } from '@/lib/context/ConversationContext';
+import Apps from '../Apps/Apps';
 interface Props {
   open: () => void;
 }
@@ -42,10 +43,6 @@ interface Props {
 export default function ConversationButtonList({
   open,
 }: Props) {
-  const { user } = useContext(AppContext) as UserContextType;
-  const { newConversation, setNewConversation } = useContext(
-    NewConversationContext
-  ) as NewConversationType;
   const { state } = useChat()
   const conversations = state.conversations.filter(
     (conversation) => conversation.messages.length !== 0
@@ -88,13 +85,14 @@ export default function ConversationButtonList({
           justify="space-between"
           align="center"
           classNames={{ root: classes.group }}
-          grow
         >
           <SmallComponent />
-          <Links />
+          <Box>
+          <Apps />
+          </Box>
         </Group>
 
-        <ScrollArea px={{sm:'lg'}} bg={'none'} type="scroll" h={'100%'}>
+        <ScrollArea  bg={'none'} type="scroll" h={'100%'}>
           {conversation}
         </ScrollArea>
         <AddPop open={open} />

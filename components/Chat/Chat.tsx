@@ -11,7 +11,6 @@ import {
   ConversationContext
 } from '@/lib/context/activeConversation';
 import ConversationButtonList from '../ConversationButtonList/ConversationButtonList';
-import { useChat } from '@/lib/context/ConversationContext';
 import useWebSocket from '@/lib/hooks/useWebsockets';
 export type SocketType = Socket | null;
 export type activeType = (active: any) => void;
@@ -33,7 +32,7 @@ function Chat() {
       <Box
         className={classes.overflow}
         h="100%"
-        w={{ sm: '40%', md: '30%' }}
+        w={{ sm: '30%', md: '25%' }}
         bd={'none'}
       >
         <ConversationButtonList
@@ -44,7 +43,7 @@ function Chat() {
         visibleFrom="sm"
         className={`${classes.overflow}`}
         p={0}
-        w={{ sm: '60%', md: '70%' }}
+        w={{ sm: '70%', md: '75%' }}
         h="100%"
         bd={'none'}
       >
