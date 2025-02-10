@@ -12,7 +12,7 @@ const links = [
   { label: 'Home', link: '/', icon: IconHome },
   { label: 'Shop', link: '/shop', icon: IconShoppingBag },
   { label: 'Cart', link: '/shop/cart', icon: IconShoppingCart },
-  { label: 'Chart', link: '/chart', icon: IconMessageCircle },
+  { label: 'Chart', link: '/chat', icon: IconMessageCircle },
 ]
 
 const SimpleHeaderLinks = () => {
