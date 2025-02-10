@@ -11,7 +11,8 @@ import Dashboard from '../Profile/ProfileDashboard';
 import { useDisclosure } from '@mantine/hooks';
 import {
   NewConversationContext,
-  NewConversationType
+  NewConversationType,
+  useNewConverSationContext
 } from '@/lib/context/newConversation';
 import { ConversationProps } from '@/lib/@types/app';
 interface CloseProps {
@@ -25,9 +26,7 @@ const Bar = ({ closes }: CloseProps) => {
   ) as activeConversatonType;
   const user = activeConversation?.users[0];
   const [opened, { open, close }] = useDisclosure(false);
-  const { newConversation } = useContext(
-    NewConversationContext
-  ) as NewConversationType;
+  const { newConversation } = useNewConverSationContext();
   return (
     <>
       <Group
@@ -37,7 +36,7 @@ const Bar = ({ closes }: CloseProps) => {
         align="center"
         className={classes.bar}
     >
-        <Group bg={'none'}>
+        <Group bg={'none'} wrap='nowrap'>
           <Paper variant="outline" hiddenFrom="sm" bd={'none'}>
             <IconArrowBadgeLeftFilled
               size={40}
@@ -99,11 +98,11 @@ function Details({
   name
 }: IDetails) {
   return (
-    <Group onClick={open}>
+    <Group onClick={open} wrap='nowrap'>
       <Avatar src={avatar} />
-      <Stack gap={0}>
+      <Stack gap={0} >
         <Text>{name}</Text>
-        <Text fz={'xs'} c={'dimmed'}>
+        <Text fz={'xs'} c={'dimmed'} flex={1} lineClamp={1} w={{base: '100%', sm: '80%'}}>
           {status}
         </Text>
       </Stack>
