@@ -24,8 +24,8 @@ import {
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { Product, ProductStatus } from '../../lib/@types/shop';
-import { Delete, update } from '../../lib/hooks/useFetchHooks';
 import classes from './Products.module.css';
+import { datasource } from '@/lib/common/datasource';
 
 interface IRow {
   prd: Product;
@@ -35,53 +35,60 @@ interface IRow {
 export function RowNotification({ prd, setProducts }: IRow) {
   const [product, setPrd] = useState(prd);
   const handleDelete = async (id: number) => {
-    const res = await Delete(`products/${id}`);
-    if (res) {
-      notifications.show({
-        title: 'Success',
-        message: `Succefully deleted ${product.name}`,
-        color: 'teal.8'
-      });
-      setProducts((prevProducts) =>
-        prevProducts.filter((item) => item.id !== id)
+      const { data, error } = await datasource.delete(`products/${id}`);
+      if (data && !error) {
+        notifications.show({
+          title: 'Success',
+          message: `Succefully deleted ${product.name}`,
+          color: 'teal.8'
+        });
+        setProducts((prevProducts) =>
+          prevProducts.filter((item) => item.id !== id)
+        );
+      } else {
+        notifications.show({
+          title: 'Failed',
+          color: 'red.9',
+          message: `Failed to delete ${product.name}`
+        });
+      }
+    };
+  
+    async function handleUpdate(params: ProductStatus) {
+      const { data, error } = await datasource.update<Product>(
+        { status: params }, `products/${product.id}`
       );
-    } else {
-      notifications.show({
-        title: 'Failed',
-        color: 'red.9',
-        message: `Failed to delete ${product.name}`
-      });
+      if(product.images.length < 1 && params === ProductStatus.PUBLISHED){
+        notifications.show({
+          title: 'Failed',
+          message: `You cann't publish a product without images `,
+          color: 'red.7',
+        });
+        return;
+      }
+      if (data) {
+        notifications.show({
+          title: 'Success',
+          message: `Succefully updated ${product.name} status to ${data.status}`,
+          color: 'teal.8'
+        });
+        setPrd((prevProduct) => ({ ...prevProduct, status: data.status }));
+        setProducts((prevProducts) =>
+          prevProducts.map((productX) => {
+            if (productX.id === product.id) {
+              return { ...product, status: data.status };
+            }
+            return productX;
+          })
+        );
+      } else if(error) {
+        notifications.show({
+          title: 'Failed',
+          message: `Failed to update ${product.name} status to ${params}`,
+          color: 'orange.7'
+        });
+      }
     }
-  };
-
-  async function handleUpdate(params: ProductStatus) {
-    const res = await update({
-      resource: `/dashboard/products/${product.id}`,
-      formData: { status: params }
-    });
-    if (res) {
-      notifications.show({
-        title: 'Success',
-        message: `Succefully updated ${product.name} status to ${params}`,
-        color: 'teal.8'
-      });
-      setPrd((prevProduct) => ({ ...prevProduct, status: params }));
-      setProducts((prevProducts) =>
-        prevProducts.map((productX) => {
-          if (productX.id === product.id) {
-            return { ...product, status: params };
-          }
-          return productX;
-        })
-      );
-    } else {
-      notifications.show({
-        title: 'Failed',
-        message: `Failed to updat ${product.name} status to ${params}`,
-        color: 'orange.7'
-      });
-    }
-  }
   return (
     <Notification
       title={product.name}

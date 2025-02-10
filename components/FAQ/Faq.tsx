@@ -14,9 +14,9 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { create, Delete, update } from '../../lib/hooks/useFetchHooks';
 import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import classes from './Faq.module.css';
+import { datasource } from '@/lib/common/datasource';
 
 export interface IFaq {
   id?: number;
@@ -57,9 +57,9 @@ function Header({ setFaqs }: Ihaeder) {
       return;
     }
 
-    const res = await create<IFaq>({ resource: 'faqs', formData: newFaq });
-    if (res) {
-      setFaqs((prev: IFaq[]) => [...prev, { ...newFaq, id: res.id }]);
+      const {data, error} = await datasource.post<IFaq>({ path: 'faqs', formData: newFaq });
+    if (data) {
+      setFaqs((prev: IFaq[]) => [...prev, { ...newFaq, id: data.id }]);
       notifications.show({
         title: 'Success',
         message: 'New FAQ created successfully.',
@@ -124,12 +124,12 @@ const FAQ = ({ item, setFaqs }: IFAQ) => {
   const handleDelete = async () => {
     if (!item.id) return; // Ensure item has an ID to delete
     try {
-      const res = await Delete(`faqs/${item.id}`);
-      if (res) {
+      const {data, error} = await datasource.delete(`faqs/${item.id}`);
+      if (data) {
         notifications.show({
           title: 'Success',
           message: `Deleted FAQ ${item.id}`,
-          color: 'green'
+          color: 'teal'
         });
         setFaqs((prevFaqs) =>
           prevFaqs.filter((faqItem) => faqItem.id !== item.id)
@@ -209,8 +209,8 @@ function Edit({ faq, setFaq, toggle }: IEdit) {
       return;
     }
 
-    const res = await update({ resource: `faqs/${faq.id}`, formData: item });
-    if (res) {
+    const {data, error} = await datasource.update(item, `faqs/${faq.id}`);
+    if (data) {
       notifications.show({
         title: 'Success',
         message: 'FAQ updated successfully.',
@@ -221,7 +221,7 @@ function Edit({ faq, setFaq, toggle }: IEdit) {
     } else {
       notifications.show({
         title: 'Update Failure',
-        message: 'Failed to update FAQ.',
+        message: error,
         color: 'red'
       });
     }

@@ -14,9 +14,9 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { Resource } from '../../lib/@types/resource';
-import { Delete } from '../../lib/hooks/useFetchHooks';
 import { createImage } from '../EditProduct/create';
 import SimpleRoute from '../SimpleRoute/SimpleRoute';
+import { datasource } from '@/lib/common/datasource';
 
 function Resources({ resourcedb }: { resourcedb: Resource[] | null }) {
   const [resources, setResources] = useState(resourcedb);
@@ -25,8 +25,8 @@ function Resources({ resourcedb }: { resourcedb: Resource[] | null }) {
   const [opened, { toggle }] = useDisclosure();
 
   const handleDelete = async (id: number) => {
-    const res = await Delete(`resource-files/${id}`);
-    if (res) {
+    const {data} = await datasource.delete(`resource-files/${id}`);
+    if (data) {
       setResources((prev) =>
         prev ? prev.filter((resourceFile) => resourceFile.id !== id) : prev
       );

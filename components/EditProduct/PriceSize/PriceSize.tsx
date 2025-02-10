@@ -13,8 +13,8 @@ import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { SizeWithPrice } from '../../../lib/@types/product-price-size';
 import { Product } from '../../../lib/@types/shop';
-import { create, update } from '../../../lib/hooks/useFetchHooks';
 import classes from './PriceSize.module.css'
+import { datasource } from '@/lib/common/datasource';
 
 interface IProps {
   product: Product;
@@ -36,16 +36,16 @@ function PriceSize({ product, setProduct }: IProps) {
       return;
     }
 
-    const res = await create({
-      resource: 'product-sizes',
+    const {data, error} = await datasource.post({
+      path: 'product-sizes',
       formData: { ...size, productId: product.id }
     });
 
-    if (!res) {
+    if (error) {
       notifications.show({
         title: 'Error',
         color: 'red.7',
-        message: 'Failed to add'
+        message: error
       });
       return;
     }
@@ -65,14 +65,14 @@ function PriceSize({ product, setProduct }: IProps) {
 
   const handleUpdateSize = async (id: number) => {
     if (!editSize) return;
-    const res = await update({
-      formData: editSize,
-      resource: `product-sizes/${editSize.id}`
-    });
-    if (!res) {
+    const {data, error} = await datasource.update(
+      editSize,
+      `product-sizes/${editSize.id}`
+    );
+    if (error) {
       notifications.show({
         title: 'Error',
-        message: 'Failed to update',
+        message: error,
         color: 'red.7'
       });
       return;
@@ -83,7 +83,7 @@ function PriceSize({ product, setProduct }: IProps) {
       return {
         ...prevProduct,
         product_sizes: updatedSizes.map((sizeE) => {
-          if (sizeE.id === id) return editSize;
+          if (size.id === id) return editSize;
           return sizeE;
         })
       };

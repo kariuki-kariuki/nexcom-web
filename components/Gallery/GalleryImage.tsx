@@ -11,7 +11,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { IconTrashXFilled } from '@tabler/icons-react';
 import { IGallery, ImageGallery } from '../../lib/@types/gallery';
-import { Delete, update } from '../../lib/hooks/useFetchHooks';
+import { datasource } from '@/lib/common/datasource';
 
 interface Iprops {
   image: ImageGallery;
@@ -21,14 +21,13 @@ function GalleryImage({ image, setGalleries }: Iprops) {
   const [opened, { toggle }] = useDisclosure();
   const [imageUpdate, setImageUpdate] = useState(image);
   const handleUpdate = async () => {
-    const res = await update({
-      resource: `gallery-images/${image.id}`,
-      formData: { altText: imageUpdate.altText }
-    });
-    if (!res) {
+    const {error} = await datasource.update({ altText: imageUpdate.altText },
+      `gallery-images/${image.id}` 
+    );
+    if (error) {
       notifications.show({
         title: 'Error',
-        message: 'Failed to update',
+        message: error,
         color: 'red.7'
       });
       return;
@@ -49,11 +48,11 @@ function GalleryImage({ image, setGalleries }: Iprops) {
   };
 
   const handleDelete = async () => {
-    const res = await Delete(`gallery-images/${image.id}`);
-    if (!res) {
+    const {error}= await datasource.delete(`gallery-images/${image.id}`);
+    if (error) {
       notifications.show({
         title: 'Error',
-        message: 'Failed to delete Image',
+        message: error,
         color: 'red.9'
       });
       return;

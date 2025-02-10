@@ -17,9 +17,9 @@ import {
 import { DatePickerInput } from '@mantine/dates';
 import { notifications } from '@mantine/notifications';
 import { JobInterface, JobState } from '../../lib/@types/jobs';
-import { create } from '../../lib/hooks/useFetchHooks';
 import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import Editrequirements from './EditRequirements';
+import { datasource } from '@/lib/common/datasource';
 
 const jobState: JobInterface = {
   title: '',
@@ -44,7 +44,7 @@ function CreateJob() {
 
   const handleUpdate = async () => {
     job.deadline = value?.toDateString() ?? '';
-    const res = await create({ resource: 'jobs', formData: job });
+    const res = await datasource.post({ path: 'jobs', formData: job });
 
     if (!res) {
       notifications.show({

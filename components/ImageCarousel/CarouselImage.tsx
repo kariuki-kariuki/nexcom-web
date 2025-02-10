@@ -11,7 +11,7 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { Product, ProductImage } from '../../lib/@types/shop';
-import { Delete, update } from '../../lib/hooks/useFetchHooks';
+import { datasource } from '@/lib/common/datasource';
 
 interface Iprops {
   image: ProductImage;
@@ -21,10 +21,8 @@ function CarouselImage({ image, setProduct }: Iprops) {
   const [opened, { toggle }] = useDisclosure();
   const [imageUpdate, setImageUpdate] = useState(image);
   const handleUpdate = async () => {
-    const res = await update({
-      resource: `images/${image.id}`,
-      formData: { altText: imageUpdate.altText }
-    });
+    const res = await datasource.update(
+      { altText: imageUpdate.altText }, `images/${image.id}`, true);
     if (!res) {
       notifications.show({
         title: 'Error',
@@ -50,8 +48,8 @@ function CarouselImage({ image, setProduct }: Iprops) {
   };
 
   const handleDelete = async () => {
-    const res = await Delete(`images/${image.id}`);
-    if (!res) {
+    const {error} = await datasource.delete(`images/${image.id}`);
+    if (error) {
       notifications.show({
         title: 'Error',
         message: 'Failed to delete Image',

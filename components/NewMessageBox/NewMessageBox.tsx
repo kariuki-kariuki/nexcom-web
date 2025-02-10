@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ActionIcon,
   Flex,
@@ -98,19 +100,15 @@ const NewMessageBox = () => {
           }
         />
       </Flex>
-      {activeConversation || newConversation ? (
         <EmojiPicker
           width={'100%'}
-          lazyLoadEmojis={false}
-          height={350}
-          open={opened}
+          lazyLoadEmojis={true}
+          height={opened && activeConversation ? 350 : 0 }
           theme={theme()}
+          open={true}
           className={classes.emoji}
           searchDisabled
         />
-      ) : (
-        ''
-      )}
     </Paper>
   );
 };

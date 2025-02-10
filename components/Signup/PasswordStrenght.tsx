@@ -8,6 +8,7 @@ import {
 } from '@mantine/core';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import classes from "./Signup.module.css";
+import { IDetails } from './Signup';
 function PasswordRequirement({
   meets,
   label
@@ -47,7 +48,7 @@ function getStrength(password: string) {
 
   return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 0);
 }
-export default function PasswordStrength({ value, setPassword }: {value: string, setPassword: (text: string) => void}) {
+export default function PasswordStrength({ value, setPassword }: {value: string, setPassword: (updator: (value: IDetails) => IDetails) => void}) {
   const strength = getStrength(value);
 
   const checks = requirements.map((requirement, index) => (
@@ -81,7 +82,7 @@ export default function PasswordStrength({ value, setPassword }: {value: string,
       <Input
         value={value}
         onChange={(event) =>
-          setPassword(event.target.value)
+          setPassword(prev => ({...prev, password: event.target.value}))
         }
         placeholder="Your password"
         c={'white'}

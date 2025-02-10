@@ -20,11 +20,7 @@ import SmallComponent from './SmallComponent';
 import { useContext } from 'react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import NewMessage from '../NewMessage/NewMessage';
-import { AppContext } from '../../lib/context/appContext';
-import {
-  NewConversationContext,
-  NewConversationType
-} from '../../lib/context/newConversation';
+
 import {
   activeConversatonType,
   ConversationContext
@@ -56,9 +52,6 @@ export default function ConversationButtonList({
     ).getTime();
     return timeB - timeA;
   });
-  const { setActiveConversation } = useContext(
-    ConversationContext
-  ) as activeConversatonType;
 
   const conversation = conversations?.map((convo: ConversationProps, index) => (
     <ConversationButton
@@ -100,25 +93,6 @@ export default function ConversationButtonList({
     </Paper>
   );
 }
-const Links = () => {
-  const theme = useMantineTheme();
-  const router = useRouter()
-
-  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
-  return (
-    <Group gap={mobile ? '20%' : '20%'} justify="end">
-      <Tooltip label="home" color="teal">
-        <IconHome size={18} onClick={() => router.push('/')} />
-      </Tooltip>
-      <Tooltip label="Shop" color="teal">
-        <IconShoppingBag size={18} onClick={() => router.push('/shop')} />
-      </Tooltip>
-      <Tooltip label="Cart" color="teal">
-        <IconShoppingCart size={18} onClick={() => router.push('/shop/cart')} />
-      </Tooltip>
-    </Group>
-  );
-};
 
 interface IAddPopMenu {
   open: () => void;

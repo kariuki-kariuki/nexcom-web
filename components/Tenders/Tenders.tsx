@@ -14,9 +14,9 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { TenderInterface } from '../../lib/@types/tender';
-import { Delete } from '../../lib/hooks/useFetchHooks';
 import { createImage } from '../EditProduct/create';
 import SimpleRoute from '../SimpleRoute/SimpleRoute';
+import { datasource } from '@/lib/common/datasource';
 
 function Tenders({ tenderdb }: { tenderdb: TenderInterface[] | null }) {
   const [tenders, setTenders] = useState(tenderdb);
@@ -25,7 +25,7 @@ function Tenders({ tenderdb }: { tenderdb: TenderInterface[] | null }) {
   const [opened, { toggle }] = useDisclosure();
 
   const handleDelete = async (id: number) => {
-    const res = await Delete(`tender-files/${id}`);
+    const res = await datasource.delete(`tender-files/${id}`);
     if (res) {
       setTenders((prev) =>
         prev ? prev.filter((tenderFile) => tenderFile.id !== id) : prev

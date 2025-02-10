@@ -20,10 +20,10 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { JobDto, JobState } from '../../lib/@types/jobs';
-import { update } from '../../lib/hooks/useFetchHooks';
 import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import { UploadImage } from '../SimpleRoute/uploadImage';
 import Editrequirements from './Editrequirements';
+import { datasource } from '@/lib/common/datasource';
 
 function EditJob({ jobdb }: { jobdb: JobDto | null }) {
   if (!jobdb) {
@@ -53,28 +53,27 @@ function EditJob({ jobdb }: { jobdb: JobDto | null }) {
       return;
     }
     formData.append('file', file);
-    const res = await UploadImage<{ link: string }>({
-      resource: `jobs/jd/${job.id}`,
-      formData
-    });
-    if (typeof res === 'string') {
+    const {data, error} = await datasource.post<{ link: string }>({formData,
+       path: `jobs/jd/${job.id}`}
+    );
+    if (error) {
       notifications.show({
-        message: res,
+        message: 'Failed to update',
         title: 'Error',
         color: 'red'
       });
       setFile(null);
-    } else {
-      setJob((prev) => ({ ...prev, jd: res.link }));
+    } else if(data){
+      setJob((prev) => ({ ...prev, jd: data.link }));
       setFile(null);
       toggle();
     }
   };
 
   const handleUpdate = async () => {
-    const res = await update({ resource: `jobs/${job.id}`, formData: job });
+    const {data, error} = await datasource.update(job, `jobs/${job.id}`);
 
-    if (!res) {
+    if (error) {
       notifications.show({
         title: 'Error',
         message: 'Failed ToUpdate The Product',

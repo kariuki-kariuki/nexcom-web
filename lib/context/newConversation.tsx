@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { GlobalUser } from '../@types/app';
 
 export type NewConversationType = {
@@ -30,5 +30,13 @@ const NewConversationProvider: React.FC<{ children: React.ReactNode }> = ({
     </NewConversationContext.Provider>
   );
 };
+
+export const useNewConverSationContext = () => {
+  const context = useContext(NewConversationContext);
+  if(!context){
+    throw new Error('NewConversationContext must be used within a context')
+  }
+  return context;
+}
 
 export default NewConversationProvider;

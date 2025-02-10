@@ -19,9 +19,9 @@ import {
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { GlobalUser } from '../../lib/@types/app';
-import { update } from '../../lib/hooks/useFetchHooks';
 import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import classes from './Follow.module.css';
+import { datasource } from '@/lib/common/datasource';
 
 interface ITableRow {
   item: GlobalUser;
@@ -63,7 +63,7 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
   const [active, setActive] = useState('All');
 
   const updateFollowStatus = async (role: string, id: string) => {
-    const res = await update({ resource: `users/${id}`, formData: { role } });
+    const res = await datasource.update({role}, '');
     if (!res) {
       notifications.show({
         title: 'Failed',

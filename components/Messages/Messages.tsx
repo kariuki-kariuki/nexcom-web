@@ -25,10 +25,10 @@ import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { UserContextType } from '../../lib/@types/app';
 import { Message } from '../../lib/@types/messages';
-import { update } from '../../lib/hooks/useFetchHooks';
 import ReadMessage from './ReadMessage';
 import classes from './Messages.module.css';
 import { AppContext } from '@/lib/context/appContext';
+import { datasource } from '@/lib/common/datasource';
 
 interface IRow {
   message: Message;
@@ -185,14 +185,14 @@ export function Messages({ messagesDb }: { messagesDb: Message[] }) {
   const [scrolled, setScrolled] = useState(false);
 
   const handleUpdate = async (message: Message, status: string) => {
-    const res = await update({
-      resource: `messages/${message.id}`,
-      formData: { status }
-    });
-    if (res) {
+    const {error} = await datasource.update({ status },
+      `messages/${message.id}`,
+      
+    );
+    if (!error) {
       notifications.show({
         title: 'Success',
-        message: `Succefully updated message from ${message.name} status to ${status}`,
+        message: error,
         color: 'scode.8'
       });
       setMessage((prevmSages) =>

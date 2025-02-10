@@ -2,10 +2,6 @@
   height: 100%;
   background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-gray-8));
   padding: 0;
-
-  @media (min-width: $mantine-breakpoint-sm) {
-    padding: var(--mantine-spacing-md);
-  }
 }
 
 .rood {
@@ -13,13 +9,9 @@
 }
 
 .box {
-  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-1));
-
-  @media (min-width: $mantine-breakpoint-sm) {
-    border-radius: var(--mantine-spacing-md);
-  }
+  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-0));
 }
 
 .card {
-  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-0));
+  background-color: light-dark(var(--mantine-color-coco-2), var(--mantine-color-coco-1));
 }
