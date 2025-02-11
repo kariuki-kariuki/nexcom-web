@@ -3,16 +3,17 @@
 import { UserContextType } from '@/lib/@types/app';
 import { datasource } from '@/lib/common/datasource';
 import { AppContext } from '@/lib/context/appContext';
-import { useMantineTheme, Modal, LoadingOverlay, Grid, Card, Flex, Box, Group, Button, Text, Paper } from '@mantine/core';
+import { useMantineTheme, Modal, LoadingOverlay, Grid, Card, Flex, Box, Group, Button, Text, Paper, Affix } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { IconTool, IconBasketPlus } from '@tabler/icons-react';
+import { IconTool, IconBasketPlus, IconMessage } from '@tabler/icons-react';
 import Link from 'next/link';
 import React, { useContext, useState } from 'react'
 import ImageCarousel from '../Shop/shopcomponents/ImageCarousel';
 import classes from './ProductPage.module.css'
 import { Product } from '@/lib/@types/shop';
 import SimpleHeader from '../SimpleHeader/SimpleHeader';
+import ContactSeller from '../ContactSeller/ContactSeller';
 
 const ProductPage = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
@@ -48,6 +49,7 @@ const ProductPage = ({ product }: { product: Product }) => {
         overlayProps={{ radius: 'sm', blur: 2 }}
         loaderProps={{ color: 'teal.7', type: 'bars' }}
       />
+      <ContactSeller product={product} />
       <Box visibleFrom='sm'>
         <SimpleHeader />
       </Box>

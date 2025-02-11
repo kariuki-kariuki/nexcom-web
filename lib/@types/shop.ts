@@ -1,5 +1,6 @@
 import { FileWithPath } from '@mantine/dropzone';
 import { SizeWithPrice } from './product-price-size';
+import { GlobalUser } from './app';
 
 export interface creteShopDto {
   name: string,
@@ -14,7 +15,7 @@ export enum ProductStatus {
 }
 
 export interface ProductImage {
-  id: number;
+  id: string;
   name: string | null;
   url: string;
   altText: string;
@@ -31,7 +32,7 @@ export type INewProduct = {
 };
 
 export type Product = {
-  id: number;
+  id: string;
   name: string;
   description: string;
   status: ProductStatus;
@@ -65,6 +66,7 @@ export interface IProduct {
 export interface Shop {
   name: string;
   id: number;
+  user?: GlobalUser;
 }
 
 export interface ProductWithShop extends ShopProduct {

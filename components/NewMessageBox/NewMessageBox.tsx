@@ -21,24 +21,22 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconSend } from '@tabler/icons-react';
 import { SocketType } from '../Chat/Chat';
 import {
-  NewConversationContext,
-  NewConversationType,
   useNewConverSationContext
 } from '@/lib/context/newConversation';
 import { useSocketContext } from '@/lib/hooks/useSocket';
 import { useGlobalContext } from '@/lib/context/appContext';
-interface Props {
-  socket: SocketType;
+
+interface INewMessageBox {
+  productId?: string;
+  close?: () => void;
 }
-const NewMessageBox = () => {
+const NewMessageBox = ({ productId, close }: INewMessageBox) => {
   const [message, setMessage] = useState<string>('');
   const socket = useSocketContext()
   const { user } = useGlobalContext()
 
   const { activeConversation } = useActiveConversation();
-  const { newConversation } = useContext(
-    NewConversationContext
-  ) as NewConversationType;
+  const { newConversation } = useNewConverSationContext();
 
   const [opened, { toggle }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();
@@ -59,6 +57,7 @@ const NewMessageBox = () => {
       try {
         socket.emit('message', messageBody);
         setMessage('');
+        {close && close()}
       } catch (e) {
         console.log(e);
       }
@@ -66,11 +65,14 @@ const NewMessageBox = () => {
     if (newConversation && message) {
       const messageBody = {
         message,
-        userId: user?.id
+        userId: user?.id,
+        productId,
+
       };
       try {
         socket?.emit('new-conversation', messageBody);
         setMessage('');
+        {close && close()}
       } catch (e) {
         console.log(e);
       }
@@ -102,7 +104,7 @@ const NewMessageBox = () => {
         <EmojiPicker
           width={'100%'}
           lazyLoadEmojis={true}
-          height={opened && activeConversation ? 350 : 0 }
+          height={opened && (activeConversation || newConversation) ? 350 : 0 }
           theme={theme()}
           open={true}
           className={classes.emoji}

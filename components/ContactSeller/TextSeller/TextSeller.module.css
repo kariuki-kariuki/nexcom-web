@@ -1,0 +1,13 @@
+.msg {
+  background-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-coco-0)
+  );
+}
+
+.emoji {
+  background-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-coco-0)
+  );
+}

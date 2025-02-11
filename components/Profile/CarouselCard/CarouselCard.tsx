@@ -14,7 +14,7 @@ export function CarouselCard({ product, shopId }: Iprop) {
   return (
     <Card radius="md" withBorder padding="xl" className={classes.card}>
       <Card.Section h={200}>
-        <Image src={product.images[0].url} height={'100%'} />
+        <Image src={product.images[0]?.url} height={'100%'} />
       </Card.Section>
       <Card.Section>
         <Button
