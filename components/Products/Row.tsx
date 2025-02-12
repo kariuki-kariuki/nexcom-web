@@ -35,7 +35,7 @@ interface IRow {
 export function Row({ prd, setProducts }: IRow) {
   const [product, setPrd] = useState(prd);
   const date = new Date(product.created_at);
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     const { data, error } = await datasource.delete(`products/${id}`);
     if (data && !error) {
       notifications.show({

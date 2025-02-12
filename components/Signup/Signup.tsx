@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useFormState } from 'react-dom';
 import {
   Avatar,
   Box,
@@ -57,6 +56,7 @@ function SignUp() {
     }
     if(error){
       setError(error)
+      setLoading(false)
     }
     setLoading(false)
   }
