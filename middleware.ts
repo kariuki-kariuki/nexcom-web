@@ -41,6 +41,10 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
+  if (path.startsWith('/shop')) {
+    return NextResponse.next();
+  }
+
   // Redirect to login if attempting to access a protected route without authentication
   if (isProtectedRoute && !isAuthenticated) {
     return NextResponse.redirect(new URL('/auth/login', req.nextUrl));

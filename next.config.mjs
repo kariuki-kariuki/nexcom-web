@@ -22,7 +22,7 @@ export default withBundleAnalyzer({
       {
         source: '/shop',
         destination: '/shop/all',
-        permanent: false
+        permanent: true,
       }
     ];
   }
