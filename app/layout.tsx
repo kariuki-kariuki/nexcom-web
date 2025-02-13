@@ -37,20 +37,19 @@ export default function RootLayout({
       <body>
         <MantineProvider theme={theme} defaultColorScheme="dark">
           <SocketProvider>
-          <AppProvider>
-            <ActiveConversationProvider>
-              <ChatProvider>
-                <ScreenProvider>
-                  <NewConversationProvider>
-                    <Notifications />
-                    <div id="root">{children}</div>
-                  </NewConversationProvider>
-                </ScreenProvider>
-              </ChatProvider>
-            </ActiveConversationProvider>
-          </AppProvider>
-        </SocketProvider>
-
+            <AppProvider>
+              <ActiveConversationProvider>
+                <ChatProvider>
+                  <ScreenProvider>
+                    <NewConversationProvider>
+                      <Notifications />
+                      <div id="root">{children}</div>
+                    </NewConversationProvider>
+                  </ScreenProvider>
+                </ChatProvider>
+              </ActiveConversationProvider>
+            </AppProvider>
+          </SocketProvider>
         </MantineProvider>
       </body>
     </html>

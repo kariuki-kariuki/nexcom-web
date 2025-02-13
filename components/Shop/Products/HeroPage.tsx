@@ -10,11 +10,7 @@ interface Iprop {
   categories: CategoryWithProducts[];
   tag: string;
 }
-const links = [
-  { link: '/', label: 'Home' },
-  { link: '/chat', label: 'Chat' },
-  { link: '/cart', label: 'Cart' }
-];
+
 function HeroPage({ categories }: Iprop) {
   return (
     <Flex className={classes.hero} direction={'column'}>
