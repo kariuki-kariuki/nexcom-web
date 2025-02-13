@@ -3,7 +3,7 @@ import { IconCirclePlusFilled, IconX } from '@tabler/icons-react';
 import { Button, Group, Input } from '@mantine/core';
 import { INewProduct } from '../../lib/@types/shop';
 import { SizeWithPrice } from '../../lib/@types/product-price-size';
-
+import classes from './NewProduct.module.css'
 interface IAddSize {
   product: INewProduct;
   setProduct: (updater: (product: INewProduct) => INewProduct) => void;
@@ -24,6 +24,7 @@ function AddSize({ product, setProduct }: IAddSize) {
             id="size"
             size='lg'
             value={size.size}
+            classNames={{ input: classes.input }}
             onChange={(e) =>
               setSize((prevProduct) => ({
                 ...prevProduct,
@@ -38,6 +39,7 @@ function AddSize({ product, setProduct }: IAddSize) {
             type="number"
             size='lg'
             id="price"
+            classNames={{ input: classes.input }}
             value={size.price}
             onChange={(e) =>
               setSize((prevSize) => ({

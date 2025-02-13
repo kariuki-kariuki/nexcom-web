@@ -49,13 +49,14 @@ function NewCategory({ opened, toggle, setCategories }: Props) {
 
       <Group align="flex-end">
         <TextInput
-          placeholder="Biomas"
+          placeholder="Bedding"
           style={{ flex: 1 }}
           value={name}
           size='xl'
+          classNames={{ input: classes.input }}
           onChange={(e) => setNewCategory(e.target.value)}
         />
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={handleSubmit} size='xl' color="coco.3">Submit</Button>
       </Group>
     </Dialog>
   );

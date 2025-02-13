@@ -3,7 +3,7 @@
 }
 
 .card {
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-1));
 }
 
 .overlay {
@@ -12,4 +12,8 @@
 
 .form {
   padding: var(--mantine-spacing-md);
+}
+
+.input {
+  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
 }

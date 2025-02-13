@@ -154,6 +154,9 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
             mih="75vh"
           >
             <Box w={{ base: '100%', sm: '60%' }}>
+              {/* 
+              - Add product details like name etc.
+               */}
               <ProductCard
                 product={product}
                 setCategories={setCategories}

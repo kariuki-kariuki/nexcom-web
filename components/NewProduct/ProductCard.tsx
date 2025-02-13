@@ -43,6 +43,7 @@ function ProductCard({
             id="name"
             c="coco.0"
             size='lg'
+            classNames={{ input: classes.input }}
             name="productName"
             value={product.name}
             onChange={(e) =>
@@ -61,6 +62,7 @@ function ProductCard({
           minRows={3}
           size='lg'
           maxRows={4}
+          classNames={{ input: classes.input }}
           value={product.description}
           onChange={(e) =>
             setProduct((prevProduct) => ({
@@ -84,6 +86,7 @@ function ProductCard({
             required
             id="stock"
             size='lg'
+            classNames={{ input: classes.input }}
             value={product.stock}
             onChange={(e) =>
               setProduct((prevProduct) => ({
@@ -94,14 +97,12 @@ function ProductCard({
           />
         </Input.Wrapper>
       </Box>
-      <Card mb="md" className={classes.card} shadow="lg">
-        <Text c="dimmed" fw="bold">
-          Category
-        </Text>
+      <Box mb="md" className={classes.card}>
         <Select
           my="sm"
           label="Select Category"
           size='lg'
+          classNames={{input: classes.input}}
           value={product.category.toString()}
           onChange={(_value, option) =>
             setProduct((prevProduct) => ({
@@ -114,7 +115,7 @@ function ProductCard({
             value: category.id.toString()
           }))}
         />
-        <Button w="fit-content" radius="xl" onClick={toggle}>
+        <Button w="fit-content" radius="xl" color='coco.3' size='lg' onClick={toggle}>
           Add New Category
         </Button>
         <NewCategory
@@ -122,7 +123,7 @@ function ProductCard({
           toggle={toggle}
           setCategories={setCategories}
         />
-      </Card>
+      </Box>
     </>
   );
 }
