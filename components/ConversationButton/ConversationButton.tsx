@@ -48,7 +48,7 @@ export function ConversationButton({
   const user: GlobalUser = conversation.users[0];
   const count = conversation.messages.reduce(
     (total: number, message: Message) =>
-      message.user.id === user.id &&
+      message.user.id === user?.id &&
         (message.state === MessageState.DELIVERED ||
           message.state === MessageState.SENT)
         ? (total += 1)

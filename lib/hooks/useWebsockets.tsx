@@ -1,17 +1,16 @@
 import { useEffect, useCallback, useState, useContext } from "react";
 import { useChat } from "../context/ConversationContext";
-import { NewMessage, PayloadMessage } from "../@types/app";
+import { ConversationProps, NewMessage, PayloadConversation, PayloadMessage } from "../@types/app";
 import { useActiveConversation } from "../context/activeConversation";
 import { useGlobalContext } from "../context/appContext";
 import { MessageState } from "../common/common";
-import { SocketContext, useSocketContext } from "./useSocket";
+import { useSocketContext } from "./useSocket";
 
 const useWebSocket = () => {
   const { state, dispatch } = useChat();
   const socket =  useSocketContext(); 
   const { user } = useGlobalContext();
-  const { activeConversation } = useActiveConversation();
-  const [count, setCount] = useState(0)
+  const { activeConversation, setActiveConversation } = useActiveConversation();
   const markMessageState = useCallback((state: MessageState, conversationId: string) => {
     socket.emit('message-state', {
       state,
@@ -37,9 +36,17 @@ const useWebSocket = () => {
     [activeConversation, dispatch, socket, state.conversations, user?.id, markMessageState]
   );
   const handleMessageState = useCallback((res: PayloadMessage) => {
-    console.log('received a state change')
     dispatch({ type: "UPDATE_MESSAGE", payload: res });
   }, [dispatch])
+
+  const handleNewConversation = useCallback((res: ConversationProps) => {
+    if(res.users[0].id === user?.id || res.users[1].id === user?.id) {
+      dispatch({ type: 'ADD_CONVERSATION', payload: res })
+    }
+    if(res.users[0].id === user?.id) {
+      res.users = [res.users[1]];
+      setActiveConversation(res)}
+  }, [dispatch, user]);
 
   useEffect(() => {
     // Listener for message-state updates
@@ -47,8 +54,7 @@ const useWebSocket = () => {
     // Attach socket event listeners
     socket.on("message-state", handleMessageState);
     socket.on("message", handleIncomingMessage);
-
-    // Error handling
+    socket.on('new-conversation', handleNewConversation)
     socket.on("error", (e) => {
       console.error("Socket error:", e);
     });
@@ -59,7 +65,7 @@ const useWebSocket = () => {
       socket.off("message", handleIncomingMessage);
       socket.off("error");
     };
-  }, [socket, dispatch, handleIncomingMessage, handleMessageState, count]);
+  }, [socket, dispatch, handleIncomingMessage, handleMessageState]);
 
   return { state};
 };

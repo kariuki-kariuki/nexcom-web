@@ -12,6 +12,7 @@ import { ChatAction, ChatState, ConversationProps } from '../@types/app';
 import { useGlobalContext } from './appContext';
 import { datasource } from '../common/datasource';
 import { MessageState } from '../common/common';
+import { useActiveConversation } from './activeConversation';
 
 const initialState: ChatState = {
   conversations: []
@@ -60,6 +61,7 @@ function chatReducer(state: ChatState, action: ChatAction) {
         ...state,
         conversations: action.payload
       };
+      
 
     default:
       return state;
@@ -88,7 +90,6 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
 
     fetchConverSations();
 
-    // return socket.off();
   }, [isLoggedIn]);
 
   return (

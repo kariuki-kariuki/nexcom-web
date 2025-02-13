@@ -1,5 +1,7 @@
 import {
+  Box,
   Button,
+  Dialog,
   Group,
   Input,
   InputWrapper,
@@ -11,48 +13,71 @@ import classes from './CreateShop.module.css';
 import { useGlobalContext } from '../../lib/context/appContext';
 import { redirect } from 'next/navigation';
 import { useFormState } from 'react-dom';
-import ShopSsr from './ShopSrr';
+import { useState } from 'react';
+import { useDisclosure } from '@mantine/hooks';
+import { datasource } from '@/lib/common/datasource';
+import setToken from '@/utils/setToken';
 const CreateShop = () => {
-  const { user, setUser, setIsLoggedIn  } = useGlobalContext();
-  const [state, formAction] = useFormState(ShopSsr, { error: '', name: '', id: 0 })
-  if (state.name && state.id && user) {
-    user.shop = { name: state.name, id: state.id };
-    setUser(user);
-    redirect('/dashboard');
+  const { user, setUser, setIsLoggedIn } = useGlobalContext();
+  const [name, setShopName] = useState('');
+  const [error, setError] = useState('');
+  const [opened, { toggle }] = useDisclosure();
+  const [loading, setLoading] = useState(false);
+
+  const handleCreateShop = async () => {
+    if (!name) {
+      setError('Name cannot be empty');
+      return;
+    }
+    setLoading(prev => !prev)
+    const { data, error, loading } = await datasource.post<{ token: string }>({ formData: { name }, path: 'auth/register-shop' })
+    if (error) {
+      setError(error);
+    }
+    if (data && !loading) {
+      setToken(data.token)
+      setIsLoggedIn(false);
+    }
+    setLoading(prev => !prev)
+
   }
+
   return (
-    <Popover withArrow>
-      <Popover.Target>
-        <Group justify="center" p={'md'}>
-          <Button
-            leftSection={<IconCirclePlusFilled size={18} color="teal" />}
-            w={'fit-content'}
-            variant="outline"
-            color="purple"
-          >
-            Create Shop
-          </Button>
-        </Group>
-      </Popover.Target>
-      <Popover.Dropdown className={classes.main}>
-        <form action={(e) => {formAction(e); setIsLoggedIn(false) }}>
-        <Text ta={'center'} c={'dimmed'}>
-          New Shop
+    <Box>
+      <Group justify="center" p={'md'}>
+        <Button
+          leftSection={<IconCirclePlusFilled size={18} color="teal" />}
+          w={'fit-content'}
+          variant="outline"
+          color="coco.3"
+          onClick={toggle}
+        >
+          Create Shop
+        </Button>
+      </Group>
+      <Dialog opened={opened} onClose={toggle} position={{top: '40%', left: '40%'}} withCloseButton withBorder>
+        <Text c={'dimmed'}>
+          Creat New Shop
         </Text>
-        <InputWrapper label="Shop Name" error={state.error}>
+        
+        <Group justify="center" py={'md'} align='flex-end'>
+        <InputWrapper error={error}
+            style={{ flex: 1 }}
+        >
           <Input
             type="text"
             name='name'
+            value={name}
+            placeholder='Choose name'
+            onChange={(event) => setShopName(event.target.value)}
           />
         </InputWrapper>
-        <Group justify="center" py={'md'}>
-          <Button w={'100%'} type='submit' value="submit" color={'purple'}>
+          <Button type='submit' value="submit" color={'coco.3'}>
             Submit
           </Button>
         </Group>
-        </form>
-      </Popover.Dropdown>
-    </Popover>
+      </Dialog>
+    </Box>
   );
 };
 

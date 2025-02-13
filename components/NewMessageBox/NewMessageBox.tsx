@@ -65,7 +65,7 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
     if (newConversation && message) {
       const messageBody = {
         message,
-        userId: user?.id,
+        userId: newConversation.id,
         productId,
 
       };

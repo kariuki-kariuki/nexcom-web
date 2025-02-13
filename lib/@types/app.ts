@@ -57,6 +57,10 @@ export interface PayloadMessage {
   userId: string;
 }
 
+export interface PayloadConversation {
+  conversation: ConversationProps;
+}
+
 // New Message type
 export interface NewMessage extends Message {
   conversation: ConversationProps;
