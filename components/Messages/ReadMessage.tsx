@@ -7,11 +7,11 @@ import styles from './ReadMessage.module.css';
 function ReadMessage({ message }: { message: Message }) {
   return (
     <Card className={styles.card} shadow="lg">
-      <Group c="scode.8" py="sm">
+      <Group c="coco.0" py="sm">
         <IconUserCircle style={{ height: rem(28), width: rem(28) }} />
         <Stack gap={2}>
-          <Text c="scode.8">{message.name}</Text>
-          <Text c="scode.8">{message.email}</Text>
+          <Text c="coco.0">{message.name}</Text>
+          <Text c="coco.0">{message.email}</Text>
         </Stack>
       </Group>
       <Divider className={styles.divider} />

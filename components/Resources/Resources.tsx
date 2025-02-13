@@ -72,7 +72,7 @@ function Resources({ resourcedb }: { resourcedb: Resource[] | null }) {
       <Table.Td>{element.name}</Table.Td>
       <Table.Td>
         <Button
-          color="scode.8"
+          color="coco.0"
           component="a"
           download={element.url}
           target="_blank"

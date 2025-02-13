@@ -36,7 +36,7 @@ function Jobs({ jobsdb }: { jobsdb: JobDto[] | null }): React.JSX.Element {
         <Accordion.Control
           c={
             job.status === JobState.Published
-              ? 'scode.8'
+              ? 'coco.0'
               : job.status === JobState.Draft
                 ? 'orange.7'
                 : 'red.7'
@@ -76,7 +76,7 @@ function Jobs({ jobsdb }: { jobsdb: JobDto[] | null }): React.JSX.Element {
           <Text>Location: {job.location}</Text>
           <Text>Type: {job.type}</Text>
           <Text>Deadline: {job.deadline}</Text>
-          <Anchor href="mailo:anastacia.njeri@scode.co.ke">Apply Now</Anchor>
+          <Anchor href="mailo:mkmartinoes@gmail.com">Apply Now</Anchor>
         </Accordion.Panel>
       </Accordion.Item>
     ));

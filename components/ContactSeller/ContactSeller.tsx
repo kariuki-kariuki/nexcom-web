@@ -49,7 +49,7 @@ const ContactSeller = ({ product }: { product: Product }) => {
                             <ImageCarousel images={product?.images} />
                         </Box>
                     </ScrollArea>
-                    <NewMessageBox productId={product.id}/>
+                    <NewMessageBox productId={product.id} close={toggle}/>
                 </Flex>
             </Dialog>
         </div>

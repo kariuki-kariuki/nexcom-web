@@ -25,6 +25,7 @@ const MessageCard = ({ message }: Props) => {
     >
       <Card bg={'none'} className={classes.right }>
         <Box className={classes.box_right } m={0}>
+          {message.productId && <Text>{message.productId}</Text>}
           <Text className="font-serif" c={'white'} pr={0}>
             {message?.message}
           </Text>
@@ -59,6 +60,8 @@ const MessageCard = ({ message }: Props) => {
   >
     <Card bg={'none'} className={classes.left}>
       <Box className={ classes.box_left} m={0}>
+      {message.productId && <Text>{message.productId}</Text>}
+
         <Text className="font-serif" c={'white'} pr={0}>
           {message?.message}
         </Text>

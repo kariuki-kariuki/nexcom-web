@@ -58,7 +58,7 @@ function CreateJob() {
     notifications.show({
       title: 'Success',
       message: 'Created the job succesfuly',
-      color: 'scode.8'
+      color: 'coco.0'
     });
   };
 
@@ -131,7 +131,7 @@ function CreateJob() {
             <Button
               leftSection={<IconCirclePlus />}
               size="xs"
-              color="scode.8"
+              color="coco.0"
               onClick={addRequirement}
             >
               New
@@ -170,7 +170,7 @@ function CreateJob() {
         </Box>
       </Flex>
       <Group justify="center">
-        <Button color="scode.8" onClick={handleUpdate}>
+        <Button color="coco.0" onClick={handleUpdate}>
           Update
         </Button>
       </Group>

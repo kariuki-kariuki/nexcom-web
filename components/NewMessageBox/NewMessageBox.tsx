@@ -52,7 +52,8 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
     if (activeConversation && message) {
       const messageBody = {
         message,
-        conversationId: activeConversation?.id
+        conversationId: activeConversation?.id,
+        productId
       };
       try {
         socket.emit('message', messageBody);

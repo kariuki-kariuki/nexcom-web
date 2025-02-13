@@ -85,7 +85,7 @@ function EditJob({ jobdb }: { jobdb: JobDto | null }) {
     notifications.show({
       title: 'Success',
       message: 'Updated the job succesfuly',
-      color: 'scode.8'
+      color: 'coco.0'
     });
   };
 
@@ -189,7 +189,7 @@ function EditJob({ jobdb }: { jobdb: JobDto | null }) {
             <Button
               leftSection={<IconCirclePlus />}
               size="xs"
-              color="scode.8"
+              color="coco.0"
               onClick={addRequirement}
             >
               New
@@ -228,7 +228,7 @@ function EditJob({ jobdb }: { jobdb: JobDto | null }) {
         </Box>
       </Flex>
       <Group justify="center">
-        <Button color="scode.8" onClick={handleUpdate}>
+        <Button color="coco.0" onClick={handleUpdate}>
           Update
         </Button>
       </Group>

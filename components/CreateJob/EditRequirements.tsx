@@ -34,7 +34,7 @@ function Editrequirements({ requirement, setJob }: Iprops) {
   return (
     <>
       <Button
-        color="scode.8"
+        color="coco.0"
         size="xs"
         onClick={toggle} // Placeholder for editing logic
       >
@@ -56,7 +56,7 @@ function Editrequirements({ requirement, setJob }: Iprops) {
             onChange={(e) => setRequirement(e.target.value)}
             style={{ flex: 1 }}
           />
-          <Button color="scode.8" onClick={handleSubmit}>
+          <Button color="coco.0" onClick={handleSubmit}>
             Submit
           </Button>
         </Group>

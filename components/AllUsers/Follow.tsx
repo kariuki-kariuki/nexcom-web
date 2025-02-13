@@ -84,7 +84,7 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
     notifications.show({
       title: 'Succes',
       message: `Succefully change user role to ${role}`,
-      color: 'scode.8'
+      color: 'coco.0'
     });
   };
   const rows = users

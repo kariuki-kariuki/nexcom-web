@@ -43,7 +43,7 @@ function GalleryImage({ image, setGalleries }: Iprops) {
     notifications.show({
       title: 'Succes',
       message: 'Update Successful',
-      color: 'scode.8'
+      color: 'coco.0'
     });
   };
 
@@ -67,7 +67,7 @@ function GalleryImage({ image, setGalleries }: Iprops) {
     notifications.show({
       title: 'Succes',
       message: 'Deleted Image Succesfully',
-      color: 'scode.8'
+      color: 'coco.0'
     });
   };
   return (

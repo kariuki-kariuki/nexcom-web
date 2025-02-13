@@ -126,7 +126,7 @@ function Gallery({ galleriesdb }: GalleryProp) {
                 {gallery.name}
               </Text>
               <Button
-                color={galleryId === gallery.id ? 'orange.7' : 'scode.8'}
+                color={galleryId === gallery.id ? 'orange.7' : 'coco.0'}
                 leftSection={<IconImageInPicture />}
                 size="xs"
                 onClick={() => {

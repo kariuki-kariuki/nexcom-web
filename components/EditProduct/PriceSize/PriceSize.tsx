@@ -56,7 +56,7 @@ function PriceSize({ product, setProduct }: IProps) {
     }));
     notifications.show({
       title: 'Success',
-      color: 'scode.8',
+      color: 'coco.0',
       message: 'Added a new Size'
     });
 
@@ -91,7 +91,7 @@ function PriceSize({ product, setProduct }: IProps) {
 
     notifications.show({
       title: 'Success',
-      color: 'scode.8',
+      color: 'coco.0',
       message: 'Updated size correctly'
     });
 

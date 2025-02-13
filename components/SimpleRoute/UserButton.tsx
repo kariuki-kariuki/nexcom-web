@@ -49,7 +49,7 @@ export function UserButton() {
         notifications.show({
           message: 'Uploaded Images Correctly',
           title: 'Success',
-          color: 'scode.8'
+          color: 'coco.0'
         });
         toggle();
       }

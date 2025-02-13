@@ -105,7 +105,7 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
     <Box>
       <LoadingOverlay
         visible={loading}
-        loaderProps={{ color: 'scode.8', type: 'oval' }}
+        loaderProps={{ color: 'coco.0', type: 'oval' }}
       />
       <SimpleRoute tag="New Product" main="Products" />
       <form onSubmit={handleSubmit} className={classes.form}>

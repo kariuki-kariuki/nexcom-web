@@ -193,7 +193,7 @@ export function Messages({ messagesDb }: { messagesDb: Message[] }) {
       notifications.show({
         title: 'Success',
         message: error,
-        color: 'scode.8'
+        color: 'coco.0'
       });
       setMessage((prevmSages) =>
         prevmSages.map((item) => {

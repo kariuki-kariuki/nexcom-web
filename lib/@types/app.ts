@@ -43,6 +43,7 @@ export interface Message {
   updated_at: string;
   state?: MessageState;
   created_at: string;
+  productId?: string;
 }
 
 // Chat State Type

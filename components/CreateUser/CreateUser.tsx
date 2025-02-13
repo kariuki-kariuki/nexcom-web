@@ -55,7 +55,7 @@ export function CreateUser() {
           />
           {state.error && <Text c="red.9">{state.error}</Text>}
           <Group py="md" justify="center">
-            <Button size="lg" bg="scode.8" radius="xl" type="submit">
+            <Button size="lg" bg="coco.0" radius="xl" type="submit">
               Create new User
             </Button>
           </Group>
