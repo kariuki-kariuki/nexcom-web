@@ -7,6 +7,8 @@ import { Category } from '@/lib/@types/shop';
 import { useDisclosure } from '@mantine/hooks';
 import SimpleHeaderToggle from '@/components/SimpleHeader/SimpleHeaderToggle';
 import { IconXboxA, IconXboxXFilled } from '@tabler/icons-react';
+import { datasource } from '@/lib/common/datasource';
+import { useState, useEffect } from 'react';
 
 interface INavbar {
   categories: Category[];
@@ -51,8 +53,25 @@ function NavbarNestedT({ categories, toggle, opened }: INavbar) {
 
 
 
-export function NavbarNested({ categories }: { categories: Category[] }) {
+export function NavbarNested() {
   const [opened, { toggle }] = useDisclosure()
+  const all: Category = { id: 0, name: 'All'}
+  const [categories, setCategories] = useState<Category[]>([all])
+
+  useEffect(() => {
+    const getCategories = async () => {
+
+    const { data, loading } = await datasource.get<Category[]>('categories');
+
+    if(!loading && data) {
+      setCategories(prev => ([...prev, ...data]))
+    }
+  }
+  getCategories()
+
+     
+  }, [])
+  console.log(categories)
 
   return (
     <Box h={'100%'}>
