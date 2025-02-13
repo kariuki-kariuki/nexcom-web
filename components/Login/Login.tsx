@@ -84,7 +84,7 @@ function Login() {
           </InputWrapper>
           <Stack justify="center" gap={"md"} >
             <Text>Don't have an account? <Link href="/auth/signup" className='text-blue-700 hover:text-gray-500'>Signup.</Link></Text>
-            <Button type="submit" size="lg" radius="xl" color="coco.0" onClick={handleSubmit}>
+            <Button type="submit" size="lg" radius="xl" className={classes.btn} onClick={handleSubmit}>
               Login
             </Button>
           </Stack>

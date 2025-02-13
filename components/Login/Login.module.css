@@ -4,5 +4,9 @@
 
 .input {
   background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
-  color: white;
+  color: var(--mantine-color-body);
+}
+
+.btn {
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));
 }
