@@ -19,6 +19,11 @@ export default withBundleAnalyzer({
         destination: '/dashboard/products',
         permanent: false
       },
+      {
+        source: '/shop',
+        destination: '/shop/all',
+        permanent: false
+      },
     ];
   }
 });
