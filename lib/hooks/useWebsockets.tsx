@@ -41,6 +41,7 @@ const useWebSocket = () => {
 
   const handleNewConversation = useCallback((res: ConversationProps) => {
     if(res.users[0].id === user?.id || res.users[1].id === user?.id) {
+      res.users = res.users.filter(usr => usr.id !== user.id);
       dispatch({ type: 'ADD_CONVERSATION', payload: res })
     }
     if(res.users[0].id === user?.id) {

@@ -50,3 +50,8 @@
 .msg {
   background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-0));
 }
+
+.link {
+  color: var(--mantine-color-blue-5);
+  max-width: 200px;
+}

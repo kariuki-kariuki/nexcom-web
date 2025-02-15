@@ -128,7 +128,7 @@ export default function MenuDrop() {
               <Menu.Label>Login / Register</Menu.Label>
               <Menu.Item>
                 <ButtonGroup>
-                  <Link href="/login">
+                  <Link href="/auth/login">
                     <Button>Login</Button>
                   </Link>
                   <Link href="/login"></Link>

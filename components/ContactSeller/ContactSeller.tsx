@@ -10,9 +10,10 @@ import React from 'react'
 import ImageCarousel from '../Shop/shopcomponents/ImageCarousel'
 import NewMessageBox from '../NewMessageBox/NewMessageBox'
 import classes from "./ContactSeller.module.css";
+import useWebSocket from '@/lib/hooks/useWebsockets'
 const ContactSeller = ({ product }: { product: Product }) => {
     const { setNewConversation } = useNewConverSationContext();
-    const { state } = useChat()
+    const { state } = useWebSocket()
     const { user } = useGlobalContext()
     const { setActiveConversation } = useActiveConversation();
     const [opened, { toggle }] = useDisclosure();

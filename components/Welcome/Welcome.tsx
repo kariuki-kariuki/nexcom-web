@@ -1,11 +1,9 @@
 import Link from 'next/link';
 import { Box, Button, Group, Text, Title } from '@mantine/core';
 import classes from './Welcome.module.css';
-import { GlobalUser } from '@/lib/@types/app';
-import { redirect } from 'next/navigation';
 import SimpleHeader from '../SimpleHeader/SimpleHeader';
 
-export function Welcome({ user }: { user: GlobalUser | null }) {
+export function Welcome() {
   return (
     <div className={classes.bg}>
       <SimpleHeader />
@@ -21,13 +19,13 @@ export function Welcome({ user }: { user: GlobalUser | null }) {
             >
               Nex
             </Text>
-            Com
+            com
           </Title>
           <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">
             The Future of Connected Commerce.
           </Text>
           <Group justify="center" mt="xl">
-            <Link href={user ? '/chat' : '/auth/login'}>
+            <Link href='/shop'>
               <Button size="xl" color="coco.0" radius="xl" fw="bold">
                 Get Started
               </Button>

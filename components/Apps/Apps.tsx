@@ -33,7 +33,7 @@ const Apps = () => {
             <Link href="/shop">
               <Menu.Item
                 leftSection={
-                  <IconShoppingBag stroke={1} />
+                  <IconShoppingBag style={{ width: rem(18), height: rem(18) }} />
                 }
               >
                 Shop
@@ -43,7 +43,7 @@ const Apps = () => {
               onClick={open}
               leftSection={
                 <IconUserCircle
-                  stroke={1}
+                  style={{ width: rem(18), height: rem(18) }}
                 />
               }
             >
@@ -52,16 +52,16 @@ const Apps = () => {
             <Link href="/cart">
               <Menu.Item
                 leftSection={
-                  <IconShoppingBag stroke={1} />
+                  <IconShoppingBag style={{ width: rem(18), height: rem(18) }} />
                 }
               >
                 Cart
               </Menu.Item>
             </Link>
             <Menu.Item leftSection={colorScheme === 'dark' ? (
-              <IconSunFilled className={classes.linkIcon} stroke={1} />
+              <IconSunFilled className={classes.linkIcon} style={{ width: rem(18), height: rem(18) }} />
             ) : (
-              <IconSunMoon className={classes.linkIcon} stroke={1} />
+              <IconSunMoon className={classes.linkIcon} style={{ width: rem(18), height: rem(18) }} />
             )}
               onClick={toggleColorScheme} >
 
@@ -72,7 +72,7 @@ const Apps = () => {
               <Link href="/dashboard">
                 <Menu.Item
                   leftSection={
-                    <IconDiamond stroke={1} />
+                    <IconDiamond style={{ width: rem(18), height: rem(18) }} />
                   }
                 >
                   Admin
@@ -92,7 +92,7 @@ const Apps = () => {
                     setUser(null);
                   }}
                   leftSection={
-                    <IconLogout stroke={1} />
+                    <IconLogout style={{ width: rem(18), height: rem(18) }} />
                   }
                 >
                   Logout
@@ -101,7 +101,7 @@ const Apps = () => {
                 <Menu.Item
                   leftSection={
                     <IconArrowsLeftRight
-                      stroke={1}
+                      style={{ width: rem(18), height: rem(18) }}
                     />
                   }
                 >
@@ -110,7 +110,7 @@ const Apps = () => {
                 <Menu.Item
                   color="red"
                   leftSection={
-                    <IconTrash stroke={1} />
+                    <IconTrash style={{ width: rem(18), height: rem(18) }} />
                   }
                 >
                   Delete my account

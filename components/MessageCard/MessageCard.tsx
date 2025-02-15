@@ -1,10 +1,15 @@
 import classes from './MessageCard.module.css';
-import { Box, Card, Group, Paper, rem, Text } from '@mantine/core';
-import { useContext } from 'react';
+import { Box, Card, Divider, Group, Image, Paper, rem, Text } from '@mantine/core';
+import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../lib/context/appContext';
 import { MessageState } from '../../lib/common/common';
 import { IconCheck, IconChecks } from '@tabler/icons-react';
 import { Message, UserContextType } from '@/lib/@types/app';
+import { Product } from '@/lib/@types/shop';
+import { datasource } from '@/lib/common/datasource';
+import { API_URL } from '@/lib/common/constans';
+import ImageCarousel from '../Shop/shopcomponents/ImageCarousel';
+import Link from 'next/link';
 
 interface Props {
   message: Message;
@@ -15,6 +20,17 @@ const MessageCard = ({ message }: Props) => {
   const { user } = useContext(AppContext) as UserContextType;
   const status = message.user.id === user?.id;
   const date = new Date(message.updated_at);
+  const [product, setProduct] = useState<Product | null>(null)
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data, error, loading } = await datasource.get<Product>(`products/${message.productId}`)
+      if (!loading && data) {
+        setProduct(data);
+      }
+    }
+    fetchProduct();
+  }, [])
   return status ? (
     <Paper
       className={`${status ? classes.float_right : classes.float_left}`}
@@ -23,12 +39,19 @@ const MessageCard = ({ message }: Props) => {
       mx={'md'}
       p={0}
     >
-      <Card bg={'none'} className={classes.right }>
-        <Box className={classes.box_right } m={0}>
-          {message.productId && <Text>{message.productId}</Text>}
+      <Card bg={'none'} className={classes.right} >
+        <Box className={classes.box_right} m={0} >
+
           <Text className="font-serif" c={'white'} pr={0}>
             {message?.message}
           </Text>
+
+          {message.productId && (<Box py="sm">
+            <Link className={classes.link} href={`/shop/product/${message.productId}`}><Text lineClamp={1} maw={200}>{`https://nexcom-ke.vercel.app/shop/product/${message.productId}`}</Text>
+              {product &&<Image src={product.images[0].url} maw={400} mah={400}/>}
+              </Link>
+          </Box>)}
+
           <Group align="center" mt={-5} pl={20} gap={'sm'} justify="end">
             <Text c={'gray'} fz={rem(10)} fw={100}>
               {`${date?.toLocaleString('en-US', {
@@ -39,17 +62,19 @@ const MessageCard = ({ message }: Props) => {
             </Text>
             {message.state == MessageState.SENT && (
               <IconCheck size={14} />
-            ) }
+            )}
             {message.state == MessageState.DELIVERED && (
               <IconChecks color="#EEEEEE" size={14} />
-            
+
             )}
-            { message.state == MessageState.READ && (
+            {message.state == MessageState.READ && (
               <IconChecks color="lime" size={16} />
             )}
           </Group>
         </Box>
+
       </Card>
+
     </Paper>
   ) : <Paper
     className={classes.float_left}
@@ -59,12 +84,16 @@ const MessageCard = ({ message }: Props) => {
     p={0}
   >
     <Card bg={'none'} className={classes.left}>
-      <Box className={ classes.box_left} m={0}>
-      {message.productId && <Text>{message.productId}</Text>}
-
+      <Box className={classes.box_left} m={0}>
         <Text className="font-serif" c={'white'} pr={0}>
           {message?.message}
         </Text>
+
+        {message.productId && (<Box py="sm">
+          <Link className={classes.link} href={`/shop/product/${message.productId}`}><Text lineClamp={2} maw={200}>{`https://nexcom-ke.vercel.app/shop/product/${message.productId}`}</Text>
+            {product &&<Image src={product.images[0].url} maw={400} mah={400}/>}
+          </Link>
+        </Box>)}
         <Group align="center" mt={-5} pl={20} gap={'sm'} justify="end">
           <Text c={'gray'} fz={rem(10)} fw={100}>
             {`${date?.toLocaleString('en-US', {
