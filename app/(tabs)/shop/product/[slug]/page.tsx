@@ -5,8 +5,11 @@ import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const id = params.slug;
+interface Param {
+  params: { slug: string };
+}
+export async function generateMetadata({ params }: Param): Promise<Metadata> {
+  const id = (await params).slug;
   const {data: product} = await datasource.get<Product>(`products/${id}`);
   if (!product) {
     return {};
@@ -32,9 +35,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     },
   };
 }
-interface Params {
-  params: { slug: string };
-}
+
 interface Params {
   slug: string
 }
