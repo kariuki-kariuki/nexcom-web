@@ -10,6 +10,7 @@ import {
   ScrollArea,
   SegmentedControl,
   Table,
+  useMantineColorScheme,
   useMantineTheme
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -23,7 +24,7 @@ export function Products({ products }: { products: Product[] }) {
   const [allPrds, setProducts] = useState<Product[]>(products);
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
-
+const {colorScheme} = useMantineColorScheme()
   const rows = allPrds
     ?.filter((product) => {
       if (active.toLowerCase() === 'all') return true;
@@ -68,7 +69,7 @@ export function Products({ products }: { products: Product[] }) {
       </Group>
       <ScrollArea h="80vh">
         <Box hiddenFrom="sm">{rowsNotification}</Box>
-        <Table miw={800} verticalSpacing="sm" striped highlightOnHover visibleFrom="sm">
+        <Table miw={800} verticalSpacing="sm" striped stripedColor={colorScheme === 'dark' ? 'gray.8' : 'gray.1'} highlightOnHover visibleFrom="sm">
           <Table.Thead>
             <Table.Tr>
               <Table.Th>Image</Table.Th>

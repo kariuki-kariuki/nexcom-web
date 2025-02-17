@@ -1,7 +1,7 @@
 import classes from './MessageCard.module.css';
 import { Box, Card, Divider, Group, Image, Paper, rem, Text } from '@mantine/core';
 import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../../lib/context/appContext';
+import { AppContext, useGlobalContext } from '../../lib/context/appContext';
 import { MessageState } from '../../lib/common/common';
 import { IconCheck, IconChecks } from '@tabler/icons-react';
 import { Message, UserContextType } from '@/lib/@types/app';
@@ -17,20 +17,10 @@ interface Props {
 
 // Sent and received message card
 const MessageCard = ({ message }: Props) => {
-  const { user } = useContext(AppContext) as UserContextType;
+  const { user } = useGlobalContext();
   const status = message.user.id === user?.id;
   const date = new Date(message.updated_at);
-  const [product, setProduct] = useState<Product | null>(null)
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const { data, error, loading } = await datasource.get<Product>(`products/${message.productId}`)
-      if (!loading && data) {
-        setProduct(data);
-      }
-    }
-    fetchProduct();
-  }, [])
   return status ? (
     <Paper
       className={`${status ? classes.float_right : classes.float_left}`}
@@ -48,12 +38,12 @@ const MessageCard = ({ message }: Props) => {
 
           {message.productId && (<Box py="sm">
             <Link className={classes.link} href={`/shop/product/${message.productId}`}><Text lineClamp={1} maw={200}>{`https://nexcom-ke.vercel.app/shop/product/${message.productId}`}</Text>
-              {product &&<Image src={product.images[0].url} maw={400} mah={400}/>}
+              {message.product &&<Image src={message.product.images[0].url} maw={400} mah={400}/>}
               </Link>
           </Box>)}
 
-          <Group align="center" mt={-5} pl={20} gap={'sm'} justify="end">
-            <Text c={'gray'} fz={rem(10)} fw={100}>
+          <Group align="center" mt={0} pl={20} gap={'sm'} justify="end">
+            <Text c={'gray.4'} fz={rem(10)} fw={100}>
               {`${date?.toLocaleString('en-US', {
                 hour: 'numeric',
                 minute: 'numeric',
@@ -91,11 +81,11 @@ const MessageCard = ({ message }: Props) => {
 
         {message.productId && (<Box py="sm">
           <Link className={classes.link} href={`/shop/product/${message.productId}`}><Text lineClamp={2} maw={200}>{`https://nexcom-ke.vercel.app/shop/product/${message.productId}`}</Text>
-            {product &&<Image src={product.images[0].url} maw={400} mah={400}/>}
+            {message.product &&<Image src={message.product.images[0].url} maw={400} mah={400}/>}
           </Link>
         </Box>)}
         <Group align="center" mt={-5} pl={20} gap={'sm'} justify="end">
-          <Text c={'gray'} fz={rem(10)} fw={100}>
+          <Text c={'gray.4'} fz={rem(10)} fw={100}>
             {`${date?.toLocaleString('en-US', {
               hour: 'numeric',
               minute: 'numeric',

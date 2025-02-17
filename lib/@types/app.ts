@@ -1,5 +1,5 @@
 import { MessageState } from '@/lib/common/common';
-import { Shop } from './shop';
+import { Product, Shop } from './shop';
 
 export type UserContextType = {
   user: GlobalUser | null;
@@ -44,6 +44,7 @@ export interface Message {
   state?: MessageState;
   created_at: string;
   productId?: string;
+  product?: Product;
 }
 
 // Chat State Type

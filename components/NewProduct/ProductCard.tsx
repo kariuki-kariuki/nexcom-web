@@ -112,7 +112,7 @@ function ProductCard({
           }
           data={categories.map((category) => ({
             label: category.name,
-            value: category.id.toString()
+            value: category.id
           }))}
         />
         <Button w="fit-content" radius="xl" color='coco.3' size='lg' onClick={toggle}>

@@ -10,8 +10,9 @@ import {
 } from '@mantine/core';
 import classes from './ConversationButton.module.css';
 import {
-  useContext} from 'react';
-import { IconCheck, IconChecks } from '@tabler/icons-react';
+  useContext,
+  useEffect} from 'react';
+import { IconCheck, IconChecks, IconShoppingBag } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { ConversationProps, GlobalUser, Message } from '@/lib/@types/app';
 import {
@@ -20,6 +21,8 @@ import {
 import { ScreenContext, screenContextType } from '@/lib/context/screenContext';
 import { MessageState } from '@/lib/common/common';
 import { useSocketContext } from '@/lib/hooks/useSocket';
+import { formatDate } from '@/utils/helpers';
+import { useGlobalContext } from '@/lib/context/appContext';
 
 interface Props {
   conversation: ConversationProps;
@@ -30,7 +33,7 @@ export function ConversationButton({
   conversation,
   open,
 }: Props) {
-  // const { user } = useContext(AppContext) as UserContextType;
+  const { user: gUser } = useGlobalContext();
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
   const { activeConversation, setActiveConversation } = useActiveConversation();
   
@@ -59,16 +62,24 @@ export function ConversationButton({
   const date = lastMessage ? new Date(lastMessage?.updated_at) : null;
   const socket = useSocketContext()
 
+ if(count > 0){
+  socket.emit('message-state', {
+    state: MessageState.DELIVERED,
+    conversationId: conversation.id
+  });
+ }
   return (
     <Card
       className={clsx({ [classes.active]: active, [classes.normal]: !active })}
       onClick={() => {
         setActiveConversation(conversation);
         updateActiveScreen('chat');
-        socket.emit('message-state', {
-          state: MessageState.READ,
-          conversationId: conversation.id
-        });
+        if(count > 0){
+          socket.emit('message-state', {
+            state: MessageState.READ,
+            conversationId: conversation.id
+          });
+        }
       }}
       radius={0}
     >
@@ -79,10 +90,12 @@ export function ConversationButton({
           <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
             {`${user.firstName} ${user.lastName}`}
           </Text>
-
+          <Group py="sm" wrap='nowrap'>
+          {lastMessage.productId && gUser?.id !== user.id ? <IconShoppingBag size={14}/> : ''}
           <Text c={active ? '' : 'dimmed'} size="xs" lineClamp={1}>
             {lastMessage?.message}
           </Text>
+          </Group>
         </div>
         <Flex direction={'column'} justify={'center'} align={'center'}>
           <Text c={active ? 'white' : 'lime'} size="xs">
@@ -123,27 +136,5 @@ function LastMessage({ message, user }: ILastMessage) {
   }
   return <Text style={{ color: rgba(`0 0 0`, 0) }}>--</Text>;
 }
-function formatDate(date: Date): string {
-  const today = new Date();
 
-  // Check if the date is the same as today's date
-  const isToday =
-    date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear();
 
-  if (isToday) {
-    // Return time in hh:mm AM/PM format
-    return date.toLocaleString('en-US', {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true
-    });
-  } else {
-    // Return date in dd/mm/yy format
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-    const year = String(date.getFullYear()).slice(-2);
-    return `${day}/${month}/${year}`;
-  }
-}
