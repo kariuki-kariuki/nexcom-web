@@ -1,14 +1,9 @@
 import classes from './MessageCard.module.css';
-import { Box, Card, Divider, Group, Image, Paper, rem, Text } from '@mantine/core';
-import { useContext, useEffect, useState } from 'react';
-import { AppContext, useGlobalContext } from '../../lib/context/appContext';
+import { Box, Card, Group, Image, Paper, rem, Text } from '@mantine/core';
+import { useGlobalContext } from '../../lib/context/appContext';
 import { MessageState } from '../../lib/common/common';
 import { IconCheck, IconChecks } from '@tabler/icons-react';
-import { Message, UserContextType } from '@/lib/@types/app';
-import { Product } from '@/lib/@types/shop';
-import { datasource } from '@/lib/common/datasource';
-import { API_URL } from '@/lib/common/constans';
-import ImageCarousel from '../Shop/shopcomponents/ImageCarousel';
+import { Message } from '@/lib/@types/app';
 import Link from 'next/link';
 
 interface Props {
