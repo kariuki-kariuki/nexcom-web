@@ -11,6 +11,7 @@ import ImageCarousel from '../Shop/shopcomponents/ImageCarousel'
 import NewMessageBox from '../NewMessageBox/NewMessageBox'
 import classes from "./ContactSeller.module.css";
 import useWebSocket from '@/lib/hooks/useWebsockets'
+import Link from 'next/link'
 const ContactSeller = ({ product }: { product: Product }) => {
     const { setNewConversation } = useNewConverSationContext();
     const { state } = useWebSocket()
@@ -22,19 +23,23 @@ const ContactSeller = ({ product }: { product: Product }) => {
     return (
         <div>
             <Affix position={{ bottom: 20, right: 20 }}>
-                <Button
-                    onClick={() => {
-                        if (user?.id === product.shop?.user?.id) return;
+                {user ?
+                    <Button
+                        color="coco.3"
+                        onClick={() => {
+                            if (user?.id === product.shop?.user?.id) return;
 
-                        if (convo) {
-                            setActiveConversation(convo);
+                            if (convo) {
+                                setActiveConversation(convo);
+                                toggle();
+                                return;
+                            }
+                            setActiveConversation(null);
+                            setNewConversation(product.shop?.user);
                             toggle();
-                            return;
-                        }
-                        setActiveConversation(null);
-                        setNewConversation(product.shop?.user);
-                        toggle();
-                    }} leftSection={<IconMessage stroke={1.5} />}>{`Contact ${product.shop?.user?.firstName}`}</Button>
+                        }} leftSection={<IconMessage stroke={1.5} />}>{`Contact ${product.shop?.user?.firstName}`}</Button> : <Link href="/auth/login"><Button
+                            color="coco.3"
+                        >Login To Contact Seller</Button></Link>}
             </Affix>
             <Dialog opened={opened} onClose={toggle} h={'90vh'} withCloseButton size={"lg"} classNames={{ root: classes.bg }}>
                 <Flex h={'100%'} direction={'column'}>
@@ -46,11 +51,11 @@ const ContactSeller = ({ product }: { product: Product }) => {
                         className={classes.scroll}
                         px="sm"
                     >
-                        <Box px={{ base: 'xs', sm: 'lg'}}>
+                        <Box px={{ base: 'xs', sm: 'lg' }}>
                             <ImageCarousel images={product?.images} />
                         </Box>
                     </ScrollArea>
-                    <NewMessageBox productId={product.id} close={toggle}/>
+                    <NewMessageBox productId={product.id} close={toggle} />
                 </Flex>
             </Dialog>
         </div>
