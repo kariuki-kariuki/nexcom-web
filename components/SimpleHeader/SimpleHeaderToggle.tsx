@@ -1,19 +1,78 @@
-import { Card, Group, Avatar, Text, Burger } from '@mantine/core'
-import React from 'react'
+import { useState, useRef } from 'react';
+import { ScrollArea, Popover, TextInput, UnstyledButton, Text, Box } from '@mantine/core';
+import { Category } from '@/lib/@types/shop';
 import classes from './SimpleHeader.module.css'
+import { useRouter } from 'next/navigation';
 
-function SimpleHeaderToggle({toggle}: {toggle: () => void}) {
+export default function SimpleHeaderToggle({categories}: {categories: Category[]}) {
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [query, setQuery] = useState('');
+  const [opened, setOpened] = useState(false);
+  const [hovered, setHovered] = useState(-1);
+  const router = useRouter()
+  const filtered = categories.filter((item) => item.name.toLowerCase().includes(query.toLowerCase()));
+  const items = filtered.map((item) => (
+    <UnstyledButton
+      data-list-item
+      key={item.id}
+      display="block"
+      bg={item.id === hovered ? 'var(--mantine-color-blue-light)' : undefined}
+      w="100%"
+      className={classes.btn}
+      p={5}
+      onClick={() => router.push(`${item.name.toLocaleLowerCase().split(' ').join('-')}`)}
+    >
+      {item.name}
+    </UnstyledButton>
+  ));
+
   return (
-    <Card radius={0} shadow="lg" className={classes.card}>
-      <Group justify='space-between' pr="sm">
-      <Group justify="start">
-        <Avatar src="/logos/logo.png" />
-        <Text py="sm">Nexcom</Text>
-      </Group>
-        <Burger onClick={toggle} />
-      </Group>
-    </Card>
-  )
-}
+    <Popover width="target" opened={opened}>
+      <Popover.Target>
+        <TextInput
+          value={query}
+          onFocus={() => setOpened(true)}
+          onBlur={() => setOpened(false)}
+          onChange={(event) => {
+            setQuery(event.currentTarget.value);
+            setHovered(-1);
+          }}
+          color='white'
+          size='lg'
+          classNames={{input: classes.input}}
+          onKeyDown={(event) => {
+            if (event.key === 'ArrowDown') {
+              event.preventDefault();
+              setHovered((current) => {
+                const nextIndex = current + 1 >= filtered.length ? current : current + 1;
+                viewportRef.current
+                  ?.querySelectorAll('[data-list-item]')
+                  ?.[nextIndex]?.scrollIntoView({ block: 'nearest' });
+                return nextIndex;
+              });
+            }
 
-export default SimpleHeaderToggle
+            if (event.key === 'ArrowUp') {
+              event.preventDefault();
+              setHovered((current) => {
+                const nextIndex = current - 1 < 0 ? current : current - 1;
+                viewportRef.current
+                  ?.querySelectorAll('[data-list-item]')
+                  ?.[nextIndex]?.scrollIntoView({ block: 'nearest' });
+                return nextIndex;
+              });
+            }
+          }}
+          placeholder="Filter Products"
+        />
+      </Popover.Target>
+      <Popover.Dropdown p={0}>
+        <ScrollArea.Autosize viewportRef={viewportRef} mah={200} type="always" scrollbars="y" className={classes.scroll}>
+          <Box px="xs" py={5}>
+            {items.length > 0 ? items : <Text c="dimmed">Nothing found</Text>}
+          </Box>
+        </ScrollArea.Autosize>
+      </Popover.Dropdown>
+    </Popover>
+  );
+}

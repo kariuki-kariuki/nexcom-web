@@ -50,9 +50,7 @@ const ProductPage = ({ product }: { product: Product }) => {
         loaderProps={{ color: 'teal.7', type: 'bars' }}
       />
       <ContactSeller product={product} />
-      <Box visibleFrom='sm'>
-        <SimpleHeader />
-      </Box>
+      
       <Flex h={'100%'} bg={'none'} justify={'center'} content='center' align={'center'} >
         <Card className={classes.grid} withBorder my={'md'}>
           <Text fw={'500'} fz={'lg'} my={"lg"} ta={'center'}>

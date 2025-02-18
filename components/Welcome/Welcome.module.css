@@ -17,6 +17,9 @@
   /* background-image: url('/images/bg.jpg'); */
   background-position: center;
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));
   background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-1));
 }
@@ -25,7 +28,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  /* background-color: rgba(0, 0, 0, .9); */
-  
+  flex: 1;
 }

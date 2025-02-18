@@ -5,6 +5,7 @@ import { MessageState } from '../../lib/common/common';
 import { IconCheck, IconChecks } from '@tabler/icons-react';
 import { Message } from '@/lib/@types/app';
 import Link from 'next/link';
+import OgMessage from '../OgMessage/OgMessage';
 
 interface Props {
   message: Message;
@@ -31,11 +32,7 @@ const MessageCard = ({ message }: Props) => {
             {message?.message}
           </Text>
 
-          {message.productId && (<Box py="sm">
-            <Link className={classes.link} href={`/shop/product/${message.productId}`}><Text lineClamp={1} maw={200}>{`https://nexcom-ke.vercel.app/shop/product/${message.productId}`}</Text>
-              {message.product &&<Image src={message.product.images[0].url} maw={400} mah={400}/>}
-              </Link>
-          </Box>)}
+          {message.product && (<OgMessage product={message.product} />)}
 
           <Group align="center" mt={0} pl={20} gap={'sm'} justify="end">
             <Text c={'gray.4'} fz={rem(10)} fw={100}>
@@ -74,11 +71,8 @@ const MessageCard = ({ message }: Props) => {
           {message?.message}
         </Text>
 
-        {message.productId && (<Box py="sm">
-          <Link className={classes.link} href={`/shop/product/${message.productId}`}><Text lineClamp={2} maw={200}>{`https://nexcom-ke.vercel.app/shop/product/${message.productId}`}</Text>
-            {message.product &&<Image src={message.product.images[0].url} maw={400} mah={400}/>}
-          </Link>
-        </Box>)}
+        {message.product && (<OgMessage product={message.product} />)}
+      
         <Group align="center" mt={-5} pl={20} gap={'sm'} justify="end">
           <Text c={'gray.4'} fz={rem(10)} fw={100}>
             {`${date?.toLocaleString('en-US', {

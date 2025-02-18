@@ -4,7 +4,7 @@
 
 .input {
   background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
-  color: var(--mantine-color-body);
+  /* color: var(--mantine-color-body); */
 }
 
 .btn {
