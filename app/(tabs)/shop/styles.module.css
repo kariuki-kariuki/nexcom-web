@@ -1,5 +1,17 @@
 .main {
   background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-1)) ;
-
-  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
 }
+
+.header {
+  height: 80px;
+}
+
+.section {
+  height: calc(100vh - 80px);
+}
+
+
+

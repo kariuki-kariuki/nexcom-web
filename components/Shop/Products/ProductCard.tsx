@@ -6,12 +6,14 @@ import {
   Text,
   Image,
   useMantineTheme,
-  Box
+  Box,
+  Stack
 } from '@mantine/core';
 import { ProductWithShop } from '@/lib/@types/shop';
 import classes from './ProductCard.module.css';
 import { useMediaQuery } from '@mantine/hooks';
 import Link from 'next/link';
+import ProductRating from '../ProductRating/ProductRating';
 interface Iprops {
   product: ProductWithShop;
 }
@@ -27,10 +29,10 @@ function ProductCard({ product }: Iprops) {
         <Box  >
           <Image src={product.images[0]?.url} className={classes.image}/>
         </Box>
-        <Group justify="space-between" bg="gray.2" py="lg" px="lg" wrap="nowrap">
+        <Stack align='center' className={classes.info} gap={2} p="sm">
           <Text
             fw={{ base: 200, sm: 500 }}
-            fz={{ base: 'xs', sm: 'lg' }}
+            fz={{ base: 'sm', sm: 'lg' }}
             lineClamp={1}
             c="coco.0"
             flex={1}
@@ -52,7 +54,8 @@ function ProductCard({ product }: Iprops) {
                 : product.product_sizes[0].price}
             </Text>
           </Group>
-        </Group>
+          <ProductRating />
+        </Stack>
       </Link>
       </Card>
   );

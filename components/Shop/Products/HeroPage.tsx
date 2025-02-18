@@ -13,20 +13,17 @@ interface Iprop {
 
 function HeroPage({ categories }: Iprop) {
   return (
-    <Flex className={classes.hero} direction={'column'}>
-      <Box visibleFrom='sm'><SimpleHeader /></Box>
-      <ScrollArea className={classes.scroll} scrollbars="y">
+    <div className={classes.hero}>
+      <div className={classes.scroll}>
           {categories.map((category) => (<div key={category.id}>
-
             <p className={classes.categoryTitle}>{category.name}</p>
             <div className={classes.flex}>
               {category.products?.map((product) => <ProductCard product={product} key={product.id} />) }
             </div>
 
           </div>))}
-      </ScrollArea>
-     
-    </Flex>
+      </div>
+    </div>
   );
 }
 

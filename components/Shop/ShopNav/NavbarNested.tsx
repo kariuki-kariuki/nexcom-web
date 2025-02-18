@@ -5,10 +5,10 @@ import { LinksGroup } from './NavbarLinksGroup';
 import MenuDrop from '@/components/Menudrop/MenuDrop';
 import { Category } from '@/lib/@types/shop';
 import { useDisclosure } from '@mantine/hooks';
-import SimpleHeaderToggle from '@/components/SimpleHeader/SimpleHeaderToggle';
 import { IconXboxA, IconXboxXFilled } from '@tabler/icons-react';
 import { datasource } from '@/lib/common/datasource';
 import { useState, useEffect } from 'react';
+import SimpleHeaderToggle from '@/components/SimpleHeader/SimpleHeaderToggle';
 
 interface INavbar {
   categories: Category[];
@@ -79,7 +79,7 @@ export function NavbarNested() {
         <NavbarNestedT categories={categories} />
       </Box>
       <Box hiddenFrom='sm'>
-        <SimpleHeaderToggle toggle={toggle} />
+        <SimpleHeaderToggle categories={categories} />
       </Box>
       <Drawer onClose={toggle} withCloseButton={false} opened={opened} classNames={{ content: classes.drawer, header: classes.bg, body: classes.drawer }}>
         <NavbarNestedT categories={categories} toggle={toggle} opened={opened} />
