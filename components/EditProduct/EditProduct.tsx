@@ -94,9 +94,9 @@ function EditProduct({
     setLoading((prevState) => !prevState);
   };
   return (
-    <>
+    <div>
     <SimpleRoute main='Products' tag={`Edit product ${product.id}`} />
-    <Box>
+    <Box className={classes.main}>
       <LoadingOverlay
         visible={loading}
         loaderProps={{ type: 'bars', color: 'teal.9' }}
@@ -249,7 +249,7 @@ function EditProduct({
         </Flex>
       </Card>
     </Box>
-    </>
+    </div>
   );
 }
 

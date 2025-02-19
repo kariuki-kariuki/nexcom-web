@@ -7,6 +7,9 @@
 .dropzone {
   border-width: rem(1px);
   padding-bottom: rem(20px);
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-1));
+
+
 }
 
 .icon {
@@ -18,7 +21,7 @@
   width: rem(250px);
   left: calc(50% - rem(125px));
   bottom: rem(-20px);
-  background-color:  var(--mantine-color-coco-0);
+  background-color:  var(--mantine-color-coco-3);
   transition-duration: 500ms;
   &:hover {
     background-color: var(--mantine-color-orange-7);
