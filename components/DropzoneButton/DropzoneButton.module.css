@@ -5,10 +5,14 @@
 }
 
 .dropzone {
+  display: none;
   border-width: rem(1px);
   padding-bottom: rem(20px);
   background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-1));
 
+  @media (min-width: $mantine-breakpoint-sm) {
+    display: block;
+  }
 
 }
 

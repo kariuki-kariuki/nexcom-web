@@ -150,7 +150,6 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
           <Flex
             gap="md"
             direction={{ base: 'column', sm: 'row' }}
-            p="lg"
             mih="75vh"
           >
             <Box w={{ base: '100%', sm: '60%' }}>

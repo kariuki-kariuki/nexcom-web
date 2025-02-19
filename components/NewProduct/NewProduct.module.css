@@ -11,7 +11,11 @@
 }
 
 .form {
-  padding: var(--mantine-spacing-md);
+  padding: 0%;
+
+  @media (min-width: $mantine-breakpoint-sm) {
+    padding: var(--mantine-spacing-sm);
+  }
 }
 
 .input {
