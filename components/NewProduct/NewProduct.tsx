@@ -22,15 +22,7 @@ import ProductCard from './ProductCard';
 import classes from './NewProduct.module.css';
 import { datasource } from '@/lib/common/datasource';
 
-const prd: INewProduct = {
-  name: '',
-  description: '',
-  category: '1',
-  sizes: [],
-  files: [],
-  status: ProductStatus.DRAFT,
-  stock: 0
-};
+
 
 function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
   const [loading, setLoading] = useState(false);
@@ -89,7 +81,15 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
     setLoading(loading)
     if (data && !loading) {
       setLoading((prevState) => !prevState);
-      setProduct(prd);
+      setProduct({
+        name: '',
+    description: '',
+    category: categories[0].id.toString(),
+    sizes: [],
+    files: [],
+    status: ProductStatus.DRAFT,
+    stock: 0
+      });
       setFiles([]);
     }
     if (error && !loading) {

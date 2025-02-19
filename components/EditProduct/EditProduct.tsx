@@ -13,6 +13,7 @@ import {
   Input,
   LoadingOverlay,
   NativeSelect,
+  Select,
   Text,
   Textarea
 } from '@mantine/core';
@@ -31,7 +32,7 @@ import classes from './EditProduct.module.css';
 import { datasource } from '@/lib/common/datasource';
 
 function EditProduct({
-  productEdit
+  productEdit, categories
 }: {
   productEdit: Product;
   categories: Category[];
@@ -73,7 +74,6 @@ function EditProduct({
   };
   const handleUpdate = async () => {
     setLoading((prevState) => !prevState);
-    product.category = product.category.toString();
     const { data, error } = await datasource.update<Product>(product,
       `products/${product.id}`);
       if(error){
@@ -89,7 +89,7 @@ function EditProduct({
         title: 'Sucess',
         message: 'Updated succesfuly'
       });
-      router.push('/products');
+      router.push('/dashboard/products');
     }
     setLoading((prevState) => !prevState);
   };
@@ -227,13 +227,23 @@ function EditProduct({
               </Input.Wrapper>
             </Box>
             <Card mb="md" className={classes.card} shadow="lg">
-              <NativeSelect
-                my="sm"
-                classNames={{input: classes.input}}
-                size='lg'
-                label="Select Category"
-                data={['Modern Cookers', ' Biomass Products', 'LPG']}
-              />
+            <Select
+          my="sm"
+          label="Select Category"
+          size='lg'
+          classNames={{input: classes.input}}
+          value={product.category.id}
+          onChange={(_value, option) =>
+            setProduct((prevProduct) => ({
+              ...prevProduct,
+              category: {name: option.label, id: option.value}
+            }))
+          }
+          data={categories.map((category) => ({
+            label: category.name,
+            value: category.id
+          }))}
+        />
             </Card>
           </Box>
         </Flex>

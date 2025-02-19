@@ -38,7 +38,7 @@ export type Product = {
   status: ProductStatus;
   product_sizes: SizeWithPrice[];
   images: ProductImage[];
-  category: string;
+  category: Category;
   stock: number;
   created_at: string;
   shop?: Shop
@@ -91,7 +91,7 @@ export interface SubCategory {
   name: string;
 }
 export interface Category {
-  id: number;
+  id: string;
   name: string;
   categories?: SubCategory[];
 }
