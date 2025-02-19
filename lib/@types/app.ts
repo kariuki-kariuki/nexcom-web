@@ -28,6 +28,11 @@ export interface UserProps {
   email: string;
 }
 
+export interface AuthResponse { 
+  token: string, 
+  user: GlobalUser 
+}
+
 export interface ConversationProps {
   id: string;
   users: GlobalUser[];

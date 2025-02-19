@@ -7,7 +7,7 @@
   width: 45%;
 
   @media (min-width: $mantine-breakpoint-sm) {
-    width: 25%;
+    width: 24%;
   }
   &:hover {
     scale: 1.04;
