@@ -20,6 +20,7 @@ import { useGlobalContext } from '@/lib/context/appContext';
 import { datasource } from '@/lib/common/datasource';
 import setToken from '@/utils/setToken';
 import { useRouter } from 'next/navigation';
+import { AuthResponse, GlobalUser } from '@/lib/@types/app';
 
 function Login() {
   const [loginData, setLoginData] = useState({
@@ -29,17 +30,16 @@ function Login() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { setIsLoggedIn } = useGlobalContext();
+  const { setIsLoggedIn, setUser } = useGlobalContext();
   const handleSubmit = async () => {
     setLoading(true);
     setError('');
-    const { data, error, loading } = await datasource.post<{ token: string }>({ formData: loginData, path: 'auth/login' })
+    const { data, error, loading } = await datasource.post<AuthResponse>({ formData: loginData, path: 'auth/login' })
 
     if (!error && !loading && data) {
-      await setToken(data.token).then(() => {
-        setIsLoggedIn(false);
-        router.push('/chat')
-      });
+      await setToken(data.token);
+      setIsLoggedIn(true);
+      setUser(data.user);
       setLoading(false);
     }
 
@@ -83,7 +83,7 @@ function Login() {
             />
           </InputWrapper>
           <Stack justify="center" gap={"md"} >
-            <Text>Don't have an account? <Link href="/auth/signup" className='text-blue-700 hover:text-gray-500'>Signup.</Link></Text>
+            <Text>Don't have an account? <Link href="/auth/signup">Signup.</Link></Text>
             <Button type="submit" size="lg" radius="xl" className={classes.btn} onClick={handleSubmit}>
               Login
             </Button>
