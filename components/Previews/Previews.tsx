@@ -3,6 +3,7 @@ import { IconX } from '@tabler/icons-react';
 import { Box, Button, Group, Image, rem, SimpleGrid } from '@mantine/core';
 import { FileWithPath } from '@mantine/dropzone';
 import { Carousel, CarouselSlide } from '@mantine/carousel';
+import classes from './Previews.module.css';
 
 interface Props {
   files: FileWithPath[];
@@ -13,35 +14,40 @@ function Previews({ files, setFiles }: Props) {
     const imageUrl = URL.createObjectURL(file);
     return (
       <CarouselSlide key={index}>
-        <Box h={300}>
-          <Image
-            key={index}
-            src={imageUrl}
-            w="auto"
-            h='100%'
-            onLoad={() => URL.revokeObjectURL(imageUrl)}
-            radius="sm"
-          />
-        </Box>
-        <Button
-          color="red.9"
-          radius="sm"
-          w="100%"
-          onClick={() => setFiles(files.filter((item) => item !== file))}
-        >
-          <IconX color="white" size={20} />{' '}
-        </Button>
+        <div className={classes.box}>
+          <Box h={300}>
+            <Image
+              key={index}
+              src={imageUrl}
+              w="auto"
+              h='100%'
+              onLoad={() => URL.revokeObjectURL(imageUrl)}
+            />
+          </Box>
+          <Button
+            color="red.9"
+            w="100%"
+            className={classes.btn}
+            onClick={() => setFiles(files.filter((item) => item !== file))}
+          >
+            <IconX color="white" size={20} />{' '}
+          </Button>
+        </div>
       </CarouselSlide>
     );
   });
   return (
-    <Carousel slidesToScroll={1}
-      slideSize={{ base: '30%', sm: '30%' }}
-      slideGap={{ base: rem(2), sm: 'md' }}
-      loop
-    >
-      {previews}
-    </Carousel>
+    <>
+      {/* {files.length > 0 && */}
+        <Carousel slidesToScroll={1}
+          slideSize={{ base: '33%', sm: '50%' }}
+          slideGap={{ base: rem(5), sm: 'lg' }}
+          loop
+        >
+          {previews}
+        </Carousel>
+      {/* } */}
+    </>
   );
 }
 

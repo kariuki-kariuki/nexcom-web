@@ -9,6 +9,7 @@ import {
   Flex,
   Group,
   LoadingOverlay,
+  rem,
   Text
 } from '@mantine/core';
 import { FileWithPath } from '@mantine/dropzone';
@@ -149,7 +150,7 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
         <Card w="100%" withBorder radius="md" shadow="lg" className={classes.card}>
           <Flex
             gap="md"
-            direction={{ base: 'column', sm: 'row' }}
+            direction={{ base: 'column-reverse', sm: 'row' }}
             mih="75vh"
           >
             <Box w={{ base: '100%', sm: '60%' }}>
@@ -164,13 +165,8 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
               />
             </Box>
             <Box w={{ base: '100%', sm: '40%' }}>
-              <Card shadow="lg" className={classes.card} h="100%">
-                <Group justify="center">
-                  <Text component="h5" fz="xl" fw="bold" ta="center">
-                    Product Images
-                  </Text>
-                  <IconImageInPicture />
-                </Group>
+              <Card shadow="lg" className={classes.card} h="100%" p={0}>
+                
                 <DropzoneButton setFiles={setFiles} />
                 <Previews files={files} setFiles={setFiles} />
               </Card>

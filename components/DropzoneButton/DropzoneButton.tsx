@@ -1,18 +1,19 @@
 'use client';
 
 import { useRef } from 'react';
-import { IconCloudUpload, IconDownload, IconX } from '@tabler/icons-react';
+import { IconCloudUpload, IconDownload, IconImageInPicture, IconX } from '@tabler/icons-react';
 import { Button, Group, rem, Text, useMantineTheme } from '@mantine/core';
 import { Dropzone, FileWithPath, MIME_TYPES } from '@mantine/dropzone';
 import classes from './DropzoneButton.module.css';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface Props {
   setFiles: (files: FileWithPath[]) => void;
 }
 export function DropzoneButton({ setFiles }: Props) {
-  const theme = useMantineTheme();
   const openRef = useRef<() => void>(null);
-
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
   return (
     <div className={classes.wrapper}>
       <Dropzone
@@ -25,6 +26,7 @@ export function DropzoneButton({ setFiles }: Props) {
       >
         <div style={{ pointerEvents: 'none' }}>
           <Group justify="center">
+
             <Dropzone.Accept>
               <IconDownload
                 style={{ width: rem(50), height: rem(50) }}
@@ -61,7 +63,7 @@ export function DropzoneButton({ setFiles }: Props) {
 
       <Button
         className={classes.control}
-        size="md"
+        size={mobile ? 'sm' : 'md'}
         radius="xl"
         onClick={() => openRef.current?.()}
       >

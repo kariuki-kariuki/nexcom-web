@@ -6,9 +6,10 @@ import {
   Input,
   Select,
   Text,
-  Textarea
+  Textarea,
+  useMantineTheme
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { Category } from '../../lib/@types/category';
 import { INewProduct } from '../../lib/@types/shop';
 import NewCategory from './NewCategory';
@@ -29,6 +30,8 @@ function ProductCard({
   setCategories
 }: IproductCard) {
   const [opened, { toggle }] = useDisclosure(false);
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
   return (
     <>
       <Box pb="md">
@@ -78,14 +81,14 @@ function ProductCard({
         <Input.Wrapper
           label="Quantity of Products"
           withAsterisk
-          // error="Input error"
+        // error="Input error"
         >
           <Input
             placeholder="0"
             type="number"
             required
             id="stock"
-            size='lg'
+            size={mobile ? 'sm' : 'lg'}
             classNames={{ input: classes.input }}
             value={product.stock}
             onChange={(e) =>
@@ -101,8 +104,8 @@ function ProductCard({
         <Select
           my="sm"
           label="Select Category"
-          size='lg'
-          classNames={{input: classes.input}}
+          size={mobile ? 'sm' : 'lg'}
+          classNames={{ input: classes.input }}
           value={product.category.toString()}
           onChange={(_value, option) =>
             setProduct((prevProduct) => ({
@@ -115,7 +118,9 @@ function ProductCard({
             value: category.id
           }))}
         />
-        <Button w="fit-content" radius="xl" color='coco.3' size='lg' onClick={toggle}>
+        <Button w="fit-content" radius="xl" color='coco.3'
+          size={mobile ? 'sm' : 'lg'}
+          onClick={toggle}>
           Add New Category
         </Button>
         <NewCategory
