@@ -89,7 +89,7 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
           <Group gap="sm" h={70}>
             <Image
               style={{ height: '100%' }}
-              src={order.product.images ? order.product.images[0] : '' }
+              src={order.product.images ? order.product.images[0].url : '' }
               radius={'md'}
             />
           </Group>
