@@ -55,7 +55,7 @@ function NavbarNestedT({ categories, toggle, opened }: INavbar) {
 
 export function NavbarNested() {
   const [opened, { toggle }] = useDisclosure()
-  const all: Category = { id: 0, name: 'All'}
+  const all: Category = { id: 'averyuniqueid123xoxo', name: 'All'}
   const [categories, setCategories] = useState<Category[]>([all])
 
   useEffect(() => {

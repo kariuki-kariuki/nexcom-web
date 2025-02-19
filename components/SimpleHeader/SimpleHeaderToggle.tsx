@@ -11,12 +11,12 @@ export default function SimpleHeaderToggle({categories}: {categories: Category[]
   const [hovered, setHovered] = useState(-1);
   const router = useRouter()
   const filtered = categories.filter((item) => item.name.toLowerCase().includes(query.toLowerCase()));
-  const items = filtered.map((item) => (
+  const items = filtered.map((item, index) => (
     <UnstyledButton
       data-list-item
       key={item.id}
       display="block"
-      bg={item.id === hovered ? 'var(--mantine-color-blue-light)' : undefined}
+      bg={index === hovered ? 'var(--mantine-color-blue-light)' : undefined}
       w="100%"
       className={classes.btn}
       p={5}
