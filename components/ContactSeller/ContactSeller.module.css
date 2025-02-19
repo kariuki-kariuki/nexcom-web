@@ -8,7 +8,16 @@
   height: 80px;
 }
 
+.btn {
+  background-color: var(--mantine-color-coco-4);
+}
+
 .scroll {
   background-color: light-dark(var(--mantine-color-white),
       var(--mantine-color-coco-1));
+}
+
+.affix {
+  top: 20;
+  left: 20;
 }

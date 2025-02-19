@@ -42,7 +42,7 @@ const ProductPage = ({ product }: { product: Product }) => {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   return (
-    <Box mih='100vh' bg={"none"} >
+    <Box h='100%' bg={"none"} >
       <LoadingOverlay
         visible={isLoading}
         zIndex={1000}
