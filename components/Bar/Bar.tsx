@@ -99,7 +99,7 @@ function Details({
 }: IDetails) {
   return (
     <Group onClick={open} wrap='nowrap'>
-      <Avatar src={avatar} />
+      <Avatar src={avatar} size="lg"/>
       <Stack gap={0} >
         <Text>{name}</Text>
         <Text fz={'xs'} c={'dimmed'} flex={1} lineClamp={1} w={{base: '100%', sm: '80%'}}>

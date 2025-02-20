@@ -2,6 +2,7 @@ import { ConversationButton } from '../ConversationButton/ConversationButton';
 import {
   ActionIcon,
   Box,
+  Divider,
   Flex,
   Group,
   Paper,
@@ -32,6 +33,7 @@ import {
 } from '@/lib/@types/app';
 import { useChat } from '@/lib/context/ConversationContext';
 import Apps from '../Apps/Apps';
+import SearchBar from '../SearchBar/SearchBar';
 interface Props {
   open: () => void;
 }
@@ -71,19 +73,8 @@ export default function ConversationButtonList({
         m={0}
         className={classes.flex}
       >
-        <Group
-          h={'80'}
-          px={{ base: 'lg', sm: 'lg' }}
-          p={{ base: 'sm', sm: 'lg' }}
-          justify="space-between"
-          align="center"
-          classNames={{ root: classes.group }}
-        >
-          <SmallComponent />
-          <Box>
-          <Apps />
-          </Box>
-        </Group>
+
+        <SearchBar />
 
         <ScrollArea  bg={'none'} type="scroll" h={'100%'}>
           {conversation}

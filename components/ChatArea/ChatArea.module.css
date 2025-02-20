@@ -7,6 +7,7 @@
 .scroll {
   background-color: light-dark(var(--mantine-color-white),
       var(--mantine-color-coco-1));
+      flex: 1;
 }
 
 .ps {

@@ -102,15 +102,16 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
           }
         />
       </Flex>
+      {false && 
         <EmojiPicker
           width={'100%'}
           lazyLoadEmojis={true}
-          height={opened && (activeConversation || newConversation) ? 350 : 0 }
+          height={350}
           theme={theme()}
           open={true}
           className={classes.emoji}
           searchDisabled
-        />
+        /> }
     </Paper>
   );
 };

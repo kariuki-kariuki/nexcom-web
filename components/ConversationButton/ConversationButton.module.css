@@ -3,9 +3,9 @@
     width: 100%;
     padding: var(--mantine-spacing-md);
     color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
-    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));
-    margin-bottom: 2px;
-    border-bottom: 1px solid light-dark(var(--mantine-color-gray-0), var(--mantine-color-gray-8));
+    background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+    margin-bottom: var;
+    /* border-bottom: 1px solid light-dark(var(--mantine-color-gray-0), var(--mantine-color-gray-8)); */
     @mixin hover {
       background-color: light-dark(var(--mantine-color-black-0), var(--mantine-color-coco-1));
     }

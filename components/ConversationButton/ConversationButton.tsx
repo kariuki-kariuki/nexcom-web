@@ -81,16 +81,16 @@ export function ConversationButton({
           });
         }
       }}
-      radius={0}
+      radius={5}
+      shadow='lg'
     >
       <Group onClick={open}>
         <Avatar src={user.photo} radius="xl" />
-
         <div style={{ flex: 1 }}>
           <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
             {`${user.firstName} ${user.lastName}`}
           </Text>
-          <Group py="sm" wrap='nowrap'>
+          <Group py="3px" wrap='nowrap'>
           {lastMessage.productId && gUser?.id !== user.id ? <IconShoppingBag size={14}/> : ''}
           <Text c={active ? '' : 'dimmed'} size="xs" lineClamp={1}>
             {lastMessage?.message}

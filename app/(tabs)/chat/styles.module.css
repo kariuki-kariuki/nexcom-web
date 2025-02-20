@@ -1,0 +1,13 @@
+.main {
+  display: flex;
+  height: 100vh;
+}
+
+.nav {
+  width: fit-content;
+}
+
+.children {
+  width: 95%;
+  flex: 1;
+}

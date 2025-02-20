@@ -4,16 +4,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
-  IconBlockquote,
-  IconDesk,
-  IconHeartHandshake,
+  IconHome,
   IconListTree,
   IconLogout,
   IconMessage,
-  IconPdf,
-  IconPropeller,
-  IconUser
-} from '@tabler/icons-react';
+  IconShoppingBag,
+  IconShoppingCart} from '@tabler/icons-react';
 import { Avatar, Box, Burger, Code, Drawer, Group, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import logout from '../../utils/logout';
@@ -22,10 +18,10 @@ import classes from './Navbar.module.css';
 
 const data = [
   { link: '/products', label: 'Products', icon: IconListTree },
-  { link: '/users', label: 'Followers', icon: IconUser },
-  { link: '/faq', label: 'FAQs', icon: IconBlockquote },
-  { link: '/jobs', label: 'Jobs', icon: IconDesk },
-  { link: '/tenders', label: 'Tenders', icon: IconHeartHandshake }
+  { link: '/', label: 'Home', icon: IconHome },
+  { link: '/cart', label: 'Cart', icon: IconShoppingCart },
+  { link: '/chat', label: 'Chat', icon: IconMessage },
+  { link: '/shop', label: 'Shop', icon: IconShoppingBag },
 ];
 
 export function Navbar() {

@@ -1,0 +1,12 @@
+.input {
+  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-gray-8));
+  border-radius: var(--mantine-spacing-sm);
+}
+
+.main {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-gray-8));
+  margin-bottom: 10px;
+
+}

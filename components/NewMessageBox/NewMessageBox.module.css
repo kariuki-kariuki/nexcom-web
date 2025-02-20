@@ -5,6 +5,18 @@
   );
 }
 
+.textarea {
+  background-color: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-gray-8)
+  );
+}
+
+.emojiPickerContainer {
+  width: 100%;
+  max-height: 350px;
+  overflow-y: auto; /* Handle emoji overflow inside the picker */
+}
 .emoji {
   background-color: light-dark(
     var(--mantine-color-gray-3),
