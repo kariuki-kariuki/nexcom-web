@@ -37,10 +37,13 @@ function Login() {
     const { data, error, loading } = await datasource.post<AuthResponse>({ formData: loginData, path: 'auth/login' })
 
     if (!error && !loading && data) {
-      await setToken(data.token);
-      setIsLoggedIn(true);
-      setUser(data.user);
-      setLoading(false);
+      await setToken(data.token).then(() => {
+        setIsLoggedIn(true);
+        setUser(data.user);
+        setLoading(false);
+        router.push('/chat')
+      });
+
     }
 
     if (error && !loading) {

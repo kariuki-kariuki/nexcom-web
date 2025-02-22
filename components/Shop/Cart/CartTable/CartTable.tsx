@@ -14,6 +14,8 @@ import {
 import classes from './CartTable.module.css';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
 import { Order } from '@/lib/@types/shop';
+import { useColorScheme } from '@mantine/hooks';
+import { datasource } from '@/lib/common/datasource';
 
 interface IProps {
   orders: Order[];
@@ -23,7 +25,7 @@ interface IProps {
 
 export function CartTable({ orders, setTotal, setOrders }: IProps) {
   const [selection, setSelection] = useState([orders?.[0]?.id.toString()]);
-
+  const colorScheme = useColorScheme();
   // Toggle selection of individual row
   const toggleRow = (id: string) =>
     setSelection((current) =>
@@ -63,13 +65,16 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
     const [myOrder, setMyOrder] = useState(order); // Separate state for each order
 
     // Update order quantity and recalculate total
-    const updateOrderQuantity = (newQuantity: number) => {
+    const updateOrderQuantity = async (newQuantity: number) => {
       const updatedOrder = { ...myOrder, quantity: newQuantity };
       setMyOrder(updatedOrder);
-      const updatedOrders = orders.map((item) =>
-        item.id === order.id ? updatedOrder : item
-      );
-      setOrders(updatedOrders);
+      const { data } = await datasource.update(updatedOrder, `orders/${order.id}`)
+      if(data) {
+        const updatedOrders = orders.map((item) =>
+          item.id === order.id ? updatedOrder : item
+        );
+        setOrders(updatedOrders);
+      }
     };
     return (
       <Table.Tr
@@ -131,6 +136,8 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
           verticalSpacing="sm"
           withRowBorders={true}
           stickyHeader
+          striped
+          stripedColor={colorScheme === 'dark' ? 'coco.0' : ''}
         >
           <Table.Thead>
             <Table.Tr>

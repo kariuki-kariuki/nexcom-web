@@ -2,12 +2,6 @@
   background-color: light-dark(var(--mantine-color-gray-2),var(--mantine-color-gray-8));
 }
 
-.color {
-  background-color: light-dark(
-    var(--mantine-color-gray-0),
-    var(--mantine-color-coco-0)
-  );
-}
 
 .main {
   background-color: light-dark(

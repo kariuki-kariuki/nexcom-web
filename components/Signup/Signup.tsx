@@ -48,11 +48,13 @@ function SignUp() {
     const { data, error } = await datasource.post<AuthResponse>({ formData: details, path: 'auth/register' })
 
     if (!error && data) {
-      await setToken(data.token)
-      setUser(data.user)
-      setIsLoggedIn(true)
-      router.push('/chat')
-      setLoading(false)
+      await setToken(data.token).then(() => {
+        setUser(data.user)
+        setIsLoggedIn(true)
+        router.push('/chat')
+        setLoading(false)
+      })
+      
     }
     if (error) {
       setError(error)
