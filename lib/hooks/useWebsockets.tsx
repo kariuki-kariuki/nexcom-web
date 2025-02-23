@@ -40,6 +40,7 @@ const useWebSocket = () => {
   }, [dispatch])
 
   const handleNewConversation = useCallback((res: ConversationProps) => {
+    if(res.users.length !== 2) return;
     if (res.users[0].id === user?.id || res.users[1].id === user?.id) {
       res.users = res.users.filter(usr => usr.id !== user.id);
       dispatch({ type: 'ADD_CONVERSATION', payload: res })

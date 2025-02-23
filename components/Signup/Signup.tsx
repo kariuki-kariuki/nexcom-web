@@ -9,6 +9,7 @@ import {
   Group,
   Input,
   InputWrapper,
+  LoadingOverlay,
   Stack,
   Text
 } from '@mantine/core';
@@ -47,7 +48,7 @@ function SignUp() {
     setError('');
     const { data, error } = await datasource.post<AuthResponse>({ formData: details, path: 'auth/register' })
 
-    if (!error && data) {
+    if (!error && data && !loading) {
       await setToken(data.token).then(() => {
         setUser(data.user)
         setIsLoggedIn(true)
@@ -65,6 +66,7 @@ function SignUp() {
   return (
     <Box className={classes.main} mih="100vh">
       <SimpleHeader />
+      <LoadingOverlay visible={loading} />
       <Flex align="center" h="fit-content" pt="md" justify="center">
         <Stack gap="lg" align="center">
           <Group justify="start" mb="md">

@@ -85,10 +85,10 @@ export function ConversationButton({
       shadow='lg'
     >
       <Group onClick={open}>
-        <Avatar src={user.photo} radius="xl" />
+        <Avatar src={user?.photo} radius="xl" />
         <div style={{ flex: 1 }}>
           <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
-            {`${user.firstName} ${user.lastName}`}
+            {`${user?.firstName} ${user?.lastName}`}
           </Text>
           <Group py="3px" wrap='nowrap'>
           {lastMessage.productId && gUser?.id !== user.id ? <IconShoppingBag size={14}/> : ''}

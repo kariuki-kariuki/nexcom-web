@@ -1,10 +1,8 @@
 'use client';
-import { Group, Box, Burger, Drawer, Avatar, Stack, useMantineColorScheme } from '@mantine/core'
+import { Box, Avatar, Stack, useMantineColorScheme } from '@mantine/core'
 import { IconHome, IconShoppingBag, IconShoppingCart, IconMessageCircle, IconDiamond, IconSunFilled, IconSunMoon, IconLogout } from '@tabler/icons-react'
 import Link from 'next/link'
 import React from 'react'
-import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle'
-import DashboardLink from '../SimpleHeader/SimpleHeaderLinks/DashboardLink'
 import classes from './styles.module.css';
 import { useGlobalContext } from '@/lib/context/appContext';
 import logout from '@/utils/logout';

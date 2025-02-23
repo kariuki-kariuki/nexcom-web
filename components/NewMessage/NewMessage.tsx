@@ -70,6 +70,7 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
   const handleSubmit = async () => {
     setError('')
     setLoading(true);
+    console.log("Called submit")
     const { data, error } = await datasource.post<GlobalUser[]>({ formData: { text: value }, path: 'users/search' })
     if (data) {
       if (data.length === 0) {
@@ -105,11 +106,16 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
           >
             <TextInput
               rightSection={
-                <IconSearch size={20} color="teal" onClick={handleSubmit} />
+                <IconSearch size={20} color="teal" onClick={handleSubmit} style={{ cursor: 'pointer'}}/>
               }
               placeholder="Enter name, email or phone"
               value={value}
               onChange={(e) => setValue(e.target.value)}
+              onKeyDown={(e) => {
+                if(e.key === "Enter"){
+                  handleSubmit()
+                }
+              }}
               my={'md'}
               size='lg'
             />

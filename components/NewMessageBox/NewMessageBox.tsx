@@ -36,7 +36,7 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
   const { user } = useGlobalContext()
 
   const { activeConversation } = useActiveConversation();
-  const { newConversation } = useNewConverSationContext();
+  const { newConversation, setNewConversation } = useNewConverSationContext();
 
   const [opened, { toggle }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();
@@ -73,6 +73,7 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
       try {
         socket?.emit('new-conversation', messageBody);
         setMessage('');
+        setNewConversation(null)
         {close && close()}
       } catch (e) {
         console.log(e);
@@ -90,6 +91,11 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
           value={message}
           className={classes.textarea}
           onChange={(event) => setMessage(event.currentTarget.value)}
+          onKeyDown={(event) => {
+            if(event.key === 'Enter'){
+              handleSubmit();
+            }
+          }}
           w={'100%'}
           c={'white'}
           disabled={activeConversation || newConversation ? false : true}
