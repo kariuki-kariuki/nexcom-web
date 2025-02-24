@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState, useContext } from "react";
 import { useChat } from "../context/ConversationContext";
-import { ConversationProps, NewMessage, PayloadConversation, PayloadMessage } from "../@types/app";
+import { ConversationProps, NewMessage, PayloadConversation, PayloadMessage, UpdateProfile } from "../@types/app";
 import { useActiveConversation } from "../context/activeConversation";
 import { useGlobalContext } from "../context/appContext";
 import { MessageState } from "../common/common";
@@ -39,6 +39,10 @@ const useWebSocket = () => {
     dispatch({ type: "UPDATE_MESSAGE", payload: res });
   }, [dispatch])
 
+  const handleUpdateProfile= useCallback((res: UpdateProfile)  => {
+    dispatch({ type: 'UPDATE_PROFILE', payload: res})
+  }, [dispatch])
+
   const handleNewConversation = useCallback((res: ConversationProps) => {
     if(res.users.length !== 2) return;
     if (res.users[0].id === user?.id || res.users[1].id === user?.id) {
@@ -60,6 +64,7 @@ const useWebSocket = () => {
       socket.on("message-state", handleMessageState);
       socket.on("message", handleIncomingMessage);
       socket.on('new-conversation', handleNewConversation)
+      socket.on('updateProfile', handleUpdateProfile)
       socket.on("error", (e) => {
         console.error("Socket error:", e);
       });
@@ -68,9 +73,11 @@ const useWebSocket = () => {
     return () => {
       socket.off("message-state", handleMessageState);
       socket.off("message", handleIncomingMessage);
+      socket.off("updateProfile", handleUpdateProfile);
+      socket.off("new-conversation", handleNewConversation);
       socket.off("error");
     };
-  }, [socket, dispatch, handleIncomingMessage, handleMessageState]);
+  }, [socket, dispatch, handleIncomingMessage, handleMessageState, handleUpdateProfile, handleNewConversation]);
 
   return { state };
 };

@@ -51,7 +51,7 @@ function chatReducer(state: ChatState, action: ChatAction) {
           conv.id === action.payload.conversationId
             ? {
               ...conv,
-              messages: conv.messages.map((msg) => msg.user.id !== action.payload.userId && msg.state !== MessageState.READ ? {...msg, state: action.payload.state} : msg)
+              messages: conv.messages.map((msg) => msg.user.id !== action.payload.userId && msg.state !== MessageState.READ ? { ...msg, state: action.payload.state } : msg)
             }
             : conv
         )
@@ -61,6 +61,25 @@ function chatReducer(state: ChatState, action: ChatAction) {
         ...state,
         conversations: action.payload
       };
+
+      case 'UPDATE_PROFILE':
+        return {
+          ...state,
+          conversations: state.conversations.map(convo => {
+            if (convo.users[0].id === action.payload.userId) {
+              return {
+                ...convo,
+                users: [
+                  {
+                    ...convo.users[0],
+                    photo: action.payload.link // Assuming `photo` is in `action.payload`.
+                  },
+                ]
+              };
+            }
+            return convo;
+          })
+        };
       
 
     default:

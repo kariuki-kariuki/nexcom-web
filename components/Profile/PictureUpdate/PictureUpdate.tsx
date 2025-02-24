@@ -9,40 +9,21 @@ import {
 import { useState } from 'react';
 import classes from './PictureUpdate.module.css';
 import { useGlobalContext } from '../../../lib/context/appContext';
-import { datasource } from '@/lib/common/datasource';
-import { notifications } from '@mantine/notifications';
+import { useSocketContext } from '@/lib/hooks/useSocket';
 const PictureUpdate = ({ image }: { image: string }) => {
   const [value, setValue] = useState<File | null>(null);
   const { user, setUser } = useGlobalContext()
+  const socket = useSocketContext()
   const handleSubmit = async () => {
     if (value) {
-      const formdata = new FormData();
-      formdata.append('file', value);
+      socket.emit('updateProfile', { mimetype: value.type, buffer: value }, (res: { link: string }) => {
+        if (user) {
+          setValue(null)
+          user.photo = res.link;
+          setUser(user);
+        }
 
-      const { data, error } = await datasource.update<{ link: string }>(formdata, 'users/avatar', false);
-      if (error) {
-        notifications.show({
-          title: 'Error',
-          color: 'red.7',
-          message: error,
-        })
-        return;
-      }
-      if (error) {
-       
-      }
-
-      if (data && user) {
-        user.photo = data.link;
-        notifications.show({
-          title: 'Success',
-          color: 'teal.7',
-          message: 'Updated profile succefully',
-        })
-        setUser(user);
-        setValue(null);
-
-      }
+      })
     }
   }
   return (
@@ -57,7 +38,7 @@ const PictureUpdate = ({ image }: { image: string }) => {
             withBorder
           >
             <Avatar
-              src={value ? URL.createObjectURL(value) : image}
+              src={value ? URL.createObjectURL(value) : user?.photo}
               size={80}
               radius={80}
               mt={-30}

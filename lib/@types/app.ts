@@ -28,9 +28,9 @@ export interface UserProps {
   email: string;
 }
 
-export interface AuthResponse { 
-  token: string, 
-  user: GlobalUser 
+export interface AuthResponse {
+  token: string,
+  user: GlobalUser
 }
 
 export interface ConversationProps {
@@ -73,6 +73,11 @@ export interface NewMessage extends Message {
   conversation: ConversationProps;
 }
 
+export interface UpdateProfile {
+  link: string;
+  userId: string
+}
+
 // Action Types
 export type ChatAction =
   | {
@@ -87,4 +92,8 @@ export type ChatAction =
   | {
     type: 'SET_CONVERSATIONS';
     payload: ConversationProps[];
+  } | {
+    type: 'UPDATE_PROFILE';
+    payload: UpdateProfile;
   };
+;
