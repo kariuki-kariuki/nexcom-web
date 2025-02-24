@@ -8,10 +8,8 @@ import {
   TextInput,
   useMantineColorScheme
 } from '@mantine/core';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import {
-  ConversationContext,
-  activeConversatonType,
   useActiveConversation
 } from '@/lib/context/activeConversation';
 import { Theme } from 'emoji-picker-react';
@@ -19,7 +17,6 @@ import classes from './NewMessageBox.module.css';
 import EmojiPicker from 'emoji-picker-react';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSend } from '@tabler/icons-react';
-import { SocketType } from '../Chat/Chat';
 import {
   useNewConverSationContext
 } from '@/lib/context/newConversation';
@@ -66,10 +63,11 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
     if (newConversation && message) {
       const messageBody = {
         message,
-        userId: newConversation.id,
+        receiverId: newConversation.id,
         productId,
 
       };
+      debugger
       try {
         socket?.emit('new-conversation', messageBody);
         setMessage('');

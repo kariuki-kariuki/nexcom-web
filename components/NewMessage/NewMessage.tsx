@@ -1,6 +1,8 @@
 import {
   Avatar,
+  Burger,
   Card,
+  Divider,
   Drawer,
   Flex,
   Group,
@@ -99,10 +101,13 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
       }}
       withCloseButton={false}
     >
-      <Flex h={'100%'} className={classes.box} p={'md'} direction={'column'}>
+      <Flex h={'100%'} className={classes.box} px="md" direction={'column'}>
+        <Group justify='end' py="sm">
+          <Burger opened={opened} color='red' onClick={toggle} />
+        </Group>
         <Group >
-          <InputWrapper error={error} size='lg'
-            w={'80%'}
+          <InputWrapper error={error}
+            w={'100%'}
           >
             <TextInput
               rightSection={
@@ -116,12 +121,12 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
                   handleSubmit()
                 }
               }}
-              my={'md'}
-              size='lg'
+              radius={"lg"}
+              size='md'
             />
           </InputWrapper>
-          <IconX color="red" onClick={toggle} />
         </Group>
+        <Divider my="md"/>
         <ScrollArea h={'100%'}>{usersFound}</ScrollArea>
       </Flex>
     </Drawer>
