@@ -19,10 +19,11 @@ import { useDisclosure } from '@mantine/hooks';
 import Dashboard from '../Profile/ProfileDashboard';
 import Link from 'next/link';
 import logout from '@/utils/logout';
+import { useChat } from '@/lib/context/ConversationContext';
 export default function MenuDrop() {
   const [opened, { open, close }] = useDisclosure();
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
-
+  const { dispatch } = useChat()
   const { user, setUser } = useGlobalContext();
   return (
     <Box px={'md'} py={'sm'} className={classes.menu}>
@@ -95,6 +96,7 @@ export default function MenuDrop() {
                 color="red"
                 onClick={() => {
                   logout();
+                  dispatch({ type: 'SET_CONVERSATIONS', payload: [] })
                   setUser(null);
                 }}
                 leftSection={

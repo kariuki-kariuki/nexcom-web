@@ -29,7 +29,7 @@ export default async function middleware(req: NextRequest) {
   // Attempt to decrypt the session token
   const claims = await decrypt(token);
   const shopId = claims?.shopId;
-  const isAuthenticated = !!claims?.user_id;
+  const isAuthenticated = !!claims?.userId;
 
   // Route access determination
   const isProtectedRoute = protectedRoutes.includes(path);

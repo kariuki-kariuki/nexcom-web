@@ -10,10 +10,12 @@ import React from 'react';
 import classes from './TabsNavigation.module.css'
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 import logout from '@/utils/logout';
+import { useChat } from '@/lib/context/ConversationContext';
 
 function TabsNavigation() {
     const { user } = useGlobalContext();
     const pathname = usePathname();
+    const { dispatch } = useChat()
 
     const getPathName = (route: string) => {
         return pathname.startsWith(route) 
@@ -49,6 +51,8 @@ function TabsNavigation() {
                     onClick={(event) => {
                         event.preventDefault();
                         logout();
+                    dispatch({ type: 'SET_CONVERSATIONS', payload: [] })
+
                     }}
                 >
                     <IconLogout className={classes.linkIcon} stroke={1.5} />

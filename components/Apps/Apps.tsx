@@ -9,12 +9,13 @@ import Dashboard from '../Profile/ProfileDashboard';
 import classes from './Apps.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { useGlobalContext } from '@/lib/context/appContext';
+import { useChat } from '@/lib/context/ConversationContext';
 
 const Apps = () => {
   const [opened, { open, close }] = useDisclosure();
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
   const { user, setUser } = useGlobalContext();
-
+  const {dispatch} = useChat()
 
   return (
     <div>
@@ -89,6 +90,7 @@ const Apps = () => {
                   color="red"
                   onClick={() => {
                     logout();
+                    dispatch({ type: 'SET_CONVERSATIONS', payload: [] })
                     setUser(null);
                   }}
                   leftSection={

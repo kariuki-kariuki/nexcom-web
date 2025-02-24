@@ -15,6 +15,7 @@ import { useDisclosure } from '@mantine/hooks';
 import logout from '../../utils/logout';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 import classes from './Navbar.module.css';
+import { useChat } from '@/lib/context/ConversationContext';
 
 const data = [
   { link: '/products', label: 'Products', icon: IconListTree },
@@ -29,6 +30,7 @@ export function Navbar() {
   const router = useRouter();
   const [opened, { toggle }] = useDisclosure();
   const pathname = usePathname()
+  const { dispatch } = useChat()
   const links = data.map((item) => (
     <Link
       className={classes.link}
@@ -71,6 +73,8 @@ export function Navbar() {
           onClick={(event) => {
             event.preventDefault();
             logout();
+            dispatch({ type: 'SET_CONVERSATIONS', payload: [] })
+
           }}
         >
           <IconLogout className={classes.linkIcon} stroke={1.5} />
@@ -89,6 +93,7 @@ export function Navbar() {
               onClick={(event) => {
                 event.preventDefault();
                 logout();
+                dispatch({ type: 'SET_CONVERSATIONS', payload: [] })
               }}
             >
               <IconLogout className={classes.linkIcon} stroke={1.5} />
