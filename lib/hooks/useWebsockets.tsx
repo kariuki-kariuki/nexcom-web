@@ -20,7 +20,6 @@ const useWebSocket = () => {
 
   const handleIncomingMessage = useCallback(
     (res: NewMessage) => {
-      if (res.user.id !== user?.id) {
         if (res.conversation.id === activeConversation?.id) {
           markMessageState(MessageState.READ, res.conversation.id)
         } else {
@@ -28,7 +27,6 @@ const useWebSocket = () => {
           if (conv) {
             markMessageState(MessageState.DELIVERED, res.conversation.id)
           }
-        }
       }
       // Dispatch the new message to the chat state
       dispatch({ type: "ADD_MESSAGE", payload: res });
@@ -44,16 +42,8 @@ const useWebSocket = () => {
   }, [dispatch])
 
   const handleNewConversation = useCallback((res: ConversationProps) => {
-    if(res.users.length !== 2) return;
-    if (res.users[0].id === user?.id || res.users[1].id === user?.id) {
-      res.users = res.users.filter(usr => usr.id !== user.id);
       dispatch({ type: 'ADD_CONVERSATION', payload: res })
-    }
-    if (res.users[0].id === user?.id) {
-      res.users = [res.users[1]];
-      setActiveConversation(res)
-    }
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   useEffect(() => {
     // Listener for message-state updates

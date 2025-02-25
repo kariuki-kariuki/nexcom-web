@@ -11,10 +11,11 @@ import {
 import classes from './ConversationButton.module.css';
 import {
   useContext,
-  useEffect} from 'react';
+  useEffect
+} from 'react';
 import { IconCheck, IconChecks, IconShoppingBag } from '@tabler/icons-react';
 import clsx from 'clsx';
-import { ConversationProps, GlobalUser, Message } from '@/lib/@types/app';
+import { ConversationProps, GlobalUser, Message, PayloadMessage } from '@/lib/@types/app';
 import {
   useActiveConversation
 } from '@/lib/context/activeConversation';
@@ -23,6 +24,7 @@ import { MessageState } from '@/lib/common/common';
 import { useSocketContext } from '@/lib/hooks/useSocket';
 import { formatDate } from '@/utils/helpers';
 import { useGlobalContext } from '@/lib/context/appContext';
+import { useChat } from '@/lib/context/ConversationContext';
 
 interface Props {
   conversation: ConversationProps;
@@ -36,7 +38,8 @@ export function ConversationButton({
   const { user: gUser } = useGlobalContext();
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
   const { activeConversation, setActiveConversation } = useActiveConversation();
-  
+  const { dispatch } = useChat();
+
   const active: boolean = conversation.id === activeConversation?.id;
   conversation.messages.sort((a, b) => {
     const timeA = new Date(
@@ -62,22 +65,29 @@ export function ConversationButton({
   const date = lastMessage ? new Date(lastMessage?.updated_at) : null;
   const socket = useSocketContext()
 
- if(count > 0){
-  socket.emit('message-state', {
-    state: MessageState.DELIVERED,
-    conversationId: conversation.id
-  });
- }
+  if (count > 0) {
+    socket.emit('message-state', {
+      state: MessageState.DELIVERED,
+      conversationId: conversation.id,
+      receiverId: conversation.users[0]
+    }, (res: PayloadMessage) => {
+      dispatch({ type: "UPDATE_MESSAGE", payload: res })
+    });
+  }
   return (
     <Card
       className={clsx({ [classes.active]: active, [classes.normal]: !active })}
       onClick={() => {
         setActiveConversation(conversation);
         updateActiveScreen('chat');
-        if(count > 0){
+        console.log(count)
+        if (count > 0) {
           socket.emit('message-state', {
             state: MessageState.READ,
-            conversationId: conversation.id
+            conversationId: conversation.id,
+            receiverId: conversation.users[0].id
+          }, (res: PayloadMessage) => {
+            dispatch({ type: "UPDATE_MESSAGE", payload: res })
           });
         }
       }}
@@ -91,10 +101,10 @@ export function ConversationButton({
             {`${user?.firstName} ${user?.lastName}`}
           </Text>
           <Group py="3px" wrap='nowrap'>
-          {lastMessage.productId && gUser?.id !== user.id ? <IconShoppingBag size={14}/> : ''}
-          <Text c={active ? '' : 'dimmed'} size="xs" lineClamp={1}>
-            {lastMessage?.message}
-          </Text>
+            {lastMessage.productId && gUser?.id !== user.id ? <IconShoppingBag size={14} /> : ''}
+            <Text c={active ? '' : 'dimmed'} size="xs" lineClamp={1}>
+              {lastMessage?.message}
+            </Text>
           </Group>
         </div>
         <Flex direction={'column'} justify={'center'} align={'center'}>

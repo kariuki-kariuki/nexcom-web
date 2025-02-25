@@ -8,7 +8,8 @@ import { useContext } from 'react';
 import { Socket } from 'socket.io-client';
 import {
   activeConversatonType,
-  ConversationContext
+  ConversationContext,
+  useActiveConversation
 } from '@/lib/context/activeConversation';
 import ConversationButtonList from '../ConversationButtonList/ConversationButtonList';
 import useWebSocket from '@/lib/hooks/useWebsockets';
@@ -16,9 +17,7 @@ export type SocketType = Socket | null;
 export type activeType = (active: any) => void;
 
 function Chat() {
-  const { activeConversation, setActiveConversation } = useContext(
-    ConversationContext
-  ) as activeConversatonType;
+  const { activeConversation } = useActiveConversation()
 
   const [opened, { open, close }] = useDisclosure(false);
   const { state } = useWebSocket();

@@ -14,7 +14,7 @@ interface CloseProps {
 function ChatArea({ closes, activeConvo }: CloseProps) {
 
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
-  const {user} = useGlobalContext()
+  
 
   // Auto-scroll to the bottom on new message or when conversation changes
   useEffect(() => {

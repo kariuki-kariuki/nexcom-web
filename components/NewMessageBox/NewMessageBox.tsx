@@ -22,6 +22,8 @@ import {
 } from '@/lib/context/newConversation';
 import { useSocketContext } from '@/lib/hooks/useSocket';
 import { useGlobalContext } from '@/lib/context/appContext';
+import { ConversationProps, NewMessage } from '@/lib/@types/app';
+import { useChat } from '@/lib/context/ConversationContext';
 
 interface INewMessageBox {
   productId?: string;
@@ -32,8 +34,9 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
   const socket = useSocketContext()
   const { user } = useGlobalContext()
 
-  const { activeConversation } = useActiveConversation();
+  const { activeConversation, setActiveConversation } = useActiveConversation();
   const { newConversation, setNewConversation } = useNewConverSationContext();
+  const { dispatch } = useChat()
 
   const [opened, { toggle }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();
@@ -50,12 +53,15 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
       const messageBody = {
         message,
         conversationId: activeConversation?.id,
-        productId
+        productId,
+        receiverId: activeConversation.users[0].id,
       };
       try {
-        socket.emit('message', messageBody);
+        socket.emit('message', messageBody, (res: NewMessage) => {
+          dispatch({ type: "ADD_MESSAGE", payload: res })
+        });
         setMessage('');
-        {close && close()}
+        { close && close() }
       } catch (e) {
         console.log(e);
       }
@@ -65,14 +71,16 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
         message,
         receiverId: newConversation.id,
         productId,
-
       };
-      debugger
       try {
-        socket?.emit('new-conversation', messageBody);
-        setMessage('');
-        setNewConversation(null)
-        {close && close()}
+        socket?.emit('new-conversation', messageBody, (res: ConversationProps) => {
+          setMessage('');
+          setNewConversation(null)
+          setActiveConversation(res)
+          dispatch({ type: 'ADD_CONVERSATION', payload: res})
+          { close && close() }
+        });
+
       } catch (e) {
         console.log(e);
       }
@@ -90,7 +98,7 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
           className={classes.textarea}
           onChange={(event) => setMessage(event.currentTarget.value)}
           onKeyDown={(event) => {
-            if(event.key === 'Enter'){
+            if (event.key === 'Enter') {
               handleSubmit();
             }
           }}
@@ -106,7 +114,7 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
           }
         />
       </Flex>
-      {false && 
+      {false &&
         <EmojiPicker
           width={'100%'}
           lazyLoadEmojis={true}
@@ -115,7 +123,7 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
           open={true}
           className={classes.emoji}
           searchDisabled
-        /> }
+        />}
     </Paper>
   );
 };
