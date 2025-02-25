@@ -1,30 +1,76 @@
-# React + TypeScript + Vite
+# Nexcom
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A bridge between commerce and communication. Nexcom is a Next.js-powered super app that combines shopping, selling, and seamless communication within a single platform. The app leverages real-time technologies and AI to simplify transactions, enhance user experiences, and empower businesses.
 
-Currently, two official plugins are available:
+## Table of Contents
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running Locally](#running-locally)
+- [Environment Variables](#environment-variables)
+- [Contributing](#contributing)
+- [License](#license)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
+- **Real-time Communication**: Integrated chat and video calls between buyers and sellers.
+![image](./public/images/chatty.png)
 
-- Configure the top-level `parserOptions` property like this:
+- **Customizable Shops**: Easy setup for sellers to showcase products.
+![image](./public/images/dashboard.png)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- **Streamlined Shopping**: Lightning-fast performance with intuitive navigation.
+![image](./public/images/shop.png)
+
+
+- **Scalable Backend**: Built for high-traffic environments with real-time WebSockets.
+![image](./public/images/product.png)
+
+
+---
+
+## Tech Stack
+- **Frontend**: [Next.js](https://nextjs.org/), [React](https://react.dev/)
+- **Backend**: [NestJS](https://nestjs.com/), WebSockets
+- **Styling**: Tailwind CSS
+- **Database**: MongoDB or PostgreSQL
+- **Hosting**: Vercel
+
+---
+
+## Getting Started
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- npm or yarn
+- Git installed locally
+
+### Environment Variables
+The following environment variables are required for the project:
+* NEXT_PUBLIC_URL: URL for the backend API
+* NEXT_PUBLIC_WS_URL: URL for the backend websocket API
+
+``` 
+NEXT_PUBLIC_URL=http://localhost:4000 
+NEXT_PUBLIC_WS_URL=http://localhost:4000 
 ```
+---
+## Contributing
+Contributions are currently not open. For inquiries, please contact the project owner.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+---
+## License
+
+This project is licensed under the Proprietary License.
+
+## Proprietary License Terms:
+* You are NOT allowed to copy, modify, distribute, or use this code or any derivative works without explicit permission from the project owner.
+
+* Commercial use, redistribution, or hosting of this project in any form is strictly prohibited.
+
+For license inquiries, please contact mkmartinoes@gmail.com
