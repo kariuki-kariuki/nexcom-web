@@ -5,13 +5,12 @@ import classes from './Bar.module.css';
 import { useContext } from 'react';
 import {
   activeConversatonType,
-  ConversationContext
+  ConversationContext,
+  useActiveConversation
 } from '@/lib/context/activeConversation';
 import Dashboard from '../Profile/ProfileDashboard';
 import { useDisclosure } from '@mantine/hooks';
 import {
-  NewConversationContext,
-  NewConversationType,
   useNewConverSationContext
 } from '@/lib/context/newConversation';
 import { ConversationProps } from '@/lib/@types/app';
@@ -21,9 +20,7 @@ interface CloseProps {
 }
 // Top Bar on the Chatbox Area
 const Bar = ({ closes }: CloseProps) => {
-  const { activeConversation, setActiveConversation } = useContext(
-    ConversationContext
-  ) as activeConversatonType;
+  const { activeConversation, setActiveConversation } = useActiveConversation();
   const user = activeConversation?.users[0];
   const [opened, { open, close }] = useDisclosure(false);
   const { newConversation } = useNewConverSationContext();
@@ -35,6 +32,7 @@ const Bar = ({ closes }: CloseProps) => {
         justify="space-between"
         align="center"
         className={classes.bar}
+        wrap='nowrap'
     >
         <Group bg={'none'} wrap='nowrap'>
           <Paper variant="outline" hiddenFrom="sm" bd={'none'}>

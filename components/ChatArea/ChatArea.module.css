@@ -1,13 +1,29 @@
 .chat_area {
   background-color: light-dark(var(--mantine-color-white),
       var(--mantine-color-coco-1));
+  display: flex;
 
 }
 
 .scroll {
   background-color: light-dark(var(--mantine-color-white),
       var(--mantine-color-coco-1));
-      flex: 1;
+  flex: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.flex {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: 100%;
+  flex-wrap: nowrap;
+  flex: 1;
 }
 
 .ps {

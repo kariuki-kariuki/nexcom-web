@@ -1,14 +1,11 @@
 import Message from '../../components/MessageCard/MessageCard';
 import Bar from '../Bar/Bar';
-import { Box, Flex, Paper, ScrollArea } from '@mantine/core';
+import { Box, Paper, ScrollArea } from '@mantine/core';
 import NewMessageBox from '../../components/NewMessageBox/NewMessageBox';
 import classes from './ChatArea.module.css';
-import {
-  useActiveConversation
-} from '@/lib/context/activeConversation';
 import { useEffect, useRef } from 'react';
 import { ConversationProps } from '@/lib/@types/app';
-import { useChat } from '@/lib/context/ConversationContext';
+import { useGlobalContext } from '@/lib/context/appContext';
 interface CloseProps {
   closes: () => void;
   activeConvo?: ConversationProps | null;
@@ -17,6 +14,7 @@ interface CloseProps {
 function ChatArea({ closes, activeConvo }: CloseProps) {
 
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
+  const {user} = useGlobalContext()
 
   // Auto-scroll to the bottom on new message or when conversation changes
   useEffect(() => {
@@ -40,12 +38,8 @@ function ChatArea({ closes, activeConvo }: CloseProps) {
   ));
   return (
     <Paper h={'100%'} p={'0px'} m={'0px'} className={classes.chat_area}>
-      <Flex
-        pos={'relative'}
-        direction={'column'}
-        h={'100%'}
-        p={'0px'}
-        m={'0px'}
+      <div
+        className={classes.flex}
       >
         <Bar closes={closes} />
         <ScrollArea
@@ -63,7 +57,8 @@ function ChatArea({ closes, activeConvo }: CloseProps) {
           <div ref={endOfMessagesRef} />
         </ScrollArea>
         <NewMessageBox />
-      </Flex>
+      </div>
+        {/* <Box visibleFrom='lg' w="40%">{user && activeConvo && <Profile userClicked={activeConvo.users[0]}/>}</Box> */}
     </Paper>
   );
 }
