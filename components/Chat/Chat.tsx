@@ -32,7 +32,7 @@ function Chat() {
       <Box
         className={classes.overflow}
         h="100%"
-        w={{ sm: '30%', md: '25%' }}
+        w={{ base: '100%', sm: '50%', md: '30%', lg: '25*' }}
         bd={'none'}
       >
         <ConversationButtonList
@@ -43,7 +43,7 @@ function Chat() {
         visibleFrom="sm"
         className={`${classes.overflow}`}
         p={0}
-        w={{ sm: '70%', md: '75%' }}
+        style={{ flex: 1}}
         h="100%"
         bd={'none'}
       >

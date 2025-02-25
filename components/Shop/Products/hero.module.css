@@ -17,7 +17,21 @@
   flex-wrap: wrap;
   height: 100%;
   flex-direction: row;
-  gap: var(--mantine-spacing-md);
+  gap: var(--mantine-spacing-xs);
+
+  @media (min-width: $mantine-breakpoint-sm) {
+    gap: var(--mantine-spacing-xs);
+
+  }
+
+  @media (min-width: $mantine-breakpoint-md) {
+    gap: var(--mantine-spacing-xs);
+
+  }
+
+  @media (min-width: $mantine-breakpoint-lg) {
+    gap: var(--mantine-spacing-xs);
+  }
 }
 
 .categoryTitle {

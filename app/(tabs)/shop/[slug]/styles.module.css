@@ -10,6 +10,18 @@
   /* display: none; */
   height: fit-content;
   @media (min-width: $mantine-breakpoint-sm) {
+    width: 40%;
+    height: 100%;
+    display: block;
+  }
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: 30%;
+    height: 100%;
+    display: block;
+  }
+
+  @media (min-width: $mantine-breakpoint-lg) {
     width: 20%;
     height: 100%;
     display: block;

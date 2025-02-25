@@ -4,9 +4,16 @@
   background-color: light-dark(var(--mantine-color-white),
       var(--mantine-color-gray-9));
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
-  width: 45%;
+  width: 48%;
 
   @media (min-width: $mantine-breakpoint-sm) {
+    width: 48%;
+  }
+
+  @media (min-width: $mantine-breakpoint-md) {
+    width: 32%;
+  }
+  @media (min-width: $mantine-breakpoint-lg) {
     width: 24%;
   }
   &:hover {
