@@ -23,7 +23,7 @@ const ContactSeller = ({ product }: { product: Product }) => {
 
     return (
         <div>
-            <Affix className={classes.affix} position={{right: 10, bottom: 10}}>
+         <Affix className={classes.affix} position={{ right: 10, bottom: 10 }}>
                 {user ?
                     <Button
                         className={classes.btn}
@@ -52,7 +52,7 @@ const ContactSeller = ({ product }: { product: Product }) => {
                 <Flex h={'100%'} direction={'column'}>
                     <Group className={classes.header} wrap='nowrap' py="sm">
                         <Avatar src={product.shop?.user?.photo} />
-                        <Text ta="center" fz={{base: 'xs', sm: 'lg'}}>{`Inquire About ${product.name}`}</Text>
+                        <Text ta="center" fz={{ base: 'xs', sm: 'lg' }}>{`Inquire About ${product.name}`}</Text>
                     </Group>
                     <ScrollArea h={'100%'} scrollbars={'y'}
                         className={classes.scroll}

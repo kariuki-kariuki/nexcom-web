@@ -1,6 +1,6 @@
 import Miscelenious from '../../components/Miscelenious/Miscelenious';
 import { IconArrowBadgeLeftFilled } from '@tabler/icons-react';
-import { Avatar, Group, Paper, Stack, Text } from '@mantine/core';
+import { Avatar, Group, Paper, Stack, Text, useMantineTheme } from '@mantine/core';
 import classes from './Bar.module.css';
 import { useContext } from 'react';
 import {
@@ -9,7 +9,7 @@ import {
   useActiveConversation
 } from '@/lib/context/activeConversation';
 import Dashboard from '../Profile/ProfileDashboard';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import {
   useNewConverSationContext
 } from '@/lib/context/newConversation';
@@ -95,11 +95,14 @@ function Details({
   status = 'Start A new Chat',
   name
 }: IDetails) {
+
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   return (
     <Group onClick={open} wrap='nowrap'>
-      <Avatar src={avatar} size="lg"/>
+      <Avatar src={avatar} size={mobile ? 'md': "lg"}/>
       <Stack gap={0} >
-        <Text>{name}</Text>
+        <Text fz={mobile ? 'xs' : 'am'}>{name}</Text>
         <Text fz={'xs'} c={'dimmed'} flex={1} lineClamp={1} w={{base: '100%', sm: '80%'}}>
           {status}
         </Text>
