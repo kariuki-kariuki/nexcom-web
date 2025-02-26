@@ -6,7 +6,8 @@ import {
   Badge,
   Flex,
   rgba,
-  Box
+  Box,
+  useMantineTheme
 } from '@mantine/core';
 import classes from './ConversationButton.module.css';
 import {
@@ -25,6 +26,7 @@ import { useSocketContext } from '@/lib/hooks/useSocket';
 import { formatDate } from '@/utils/helpers';
 import { useGlobalContext } from '@/lib/context/appContext';
 import { useChat } from '@/lib/context/ConversationContext';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface Props {
   conversation: ConversationProps;
@@ -39,7 +41,8 @@ export function ConversationButton({
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
   const { activeConversation, setActiveConversation } = useActiveConversation();
   const { dispatch } = useChat();
-
+  const theme = useMantineTheme()
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
   const active: boolean = conversation.id === activeConversation?.id;
   conversation.messages.sort((a, b) => {
     const timeA = new Date(
@@ -95,7 +98,7 @@ export function ConversationButton({
       shadow='lg'
     >
       <Group onClick={open}>
-        <Avatar src={user?.photo} size="lg" radius="xl" />
+        <Avatar src={user?.photo} size={mobile ? 'md' : 'lg'} radius="xl" />
         <div style={{ flex: 1 }}>
           <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
             {`${user?.firstName} ${user?.lastName}`}
