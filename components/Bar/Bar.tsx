@@ -65,7 +65,7 @@ const Bar = ({ closes }: CloseProps) => {
             </>
           )}
         </Group>
-        <Paper visibleFrom="sm" bg={'none'}>
+        <Paper bg={'none'}>
           <Miscelenious />
         </Paper>
       </Group>
