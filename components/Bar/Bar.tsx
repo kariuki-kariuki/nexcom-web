@@ -2,10 +2,7 @@ import Miscelenious from '../../components/Miscelenious/Miscelenious';
 import { IconArrowBadgeLeftFilled } from '@tabler/icons-react';
 import { Avatar, Group, Paper, Stack, Text, useMantineTheme } from '@mantine/core';
 import classes from './Bar.module.css';
-import { useContext } from 'react';
 import {
-  activeConversatonType,
-  ConversationContext,
   useActiveConversation
 } from '@/lib/context/activeConversation';
 import Dashboard from '../Profile/ProfileDashboard';
