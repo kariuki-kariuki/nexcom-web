@@ -1,11 +1,7 @@
 import { Box, Flex, Paper, ScrollArea } from '@mantine/core';
 import classes from './ChatArea.module.css';
-import {
-  useActiveConversation
-} from '@/lib/context/activeConversation';
 import { useEffect, useRef } from 'react';
 import { ConversationProps } from '@/lib/@types/app';
-import { useChat } from '@/lib/context/ConversationContext';
 import MessageCard from '@/components/MessageCard/MessageCard';
 import NewMessageBox from '@/components/NewMessageBox/NewMessageBox';
 import Bar from '@/components/Bar/Bar';

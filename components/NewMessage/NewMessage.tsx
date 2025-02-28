@@ -11,20 +11,14 @@ import {
   Text,
   TextInput
 } from '@mantine/core';
-import { IconSearch, IconX } from '@tabler/icons-react';
+import { IconSearch } from '@tabler/icons-react';
 import { useState } from 'react';
-import {
-  useNewConverSationContext
-} from '../../lib/context/newConversation';
-import {
-  useActiveConversation
-} from '../../lib/context/activeConversation';
 import classes from './NewMessage.module.css';
 import { GlobalUser } from '@/lib/@types/app';
 import { datasource } from '@/lib/common/datasource';
 import { notifications } from '@mantine/notifications';
 import { useGlobalContext } from '@/lib/context/appContext';
-import { useChat } from '@/lib/context/ConversationContext';
+import useGlobalStore from '@/lib/store/globalStore';
 
 interface DProps {
   opened: boolean;
@@ -35,12 +29,14 @@ interface DProps {
 const NewMessage = ({ opened = true, toggle, open }: DProps) => {
   const [value, setValue] = useState('');
   const [users, setUsers] = useState<GlobalUser[] | null>(null);
-  const { setNewConversation } = useNewConverSationContext();
-  const { state } = useChat()
+  const conversations = useGlobalStore((state) => state.conversations) ;
+  const setActiveConversation = useGlobalStore((state) => state.setActiveConversation);
+  const setNewConversation = useGlobalStore((state) => state.setNewConversation);
+  
   const [loading, setLoading] = useState(false)
   const { user } = useGlobalContext()
   const [error, setError] = useState('')
-  const { setActiveConversation } = useActiveConversation();
+
   const usersFound = users?.map((person) => (
     <Card
       radius={'md'}
@@ -50,13 +46,13 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
       onClick={() => {
         if (user?.id === person.id) return;
 
-        const convo = state.conversations.find(convo => convo.users[0].id === person.id);
+        const convo = conversations.find(convo => convo.users[0].id === person.id);
         if (convo) { 
           setActiveConversation(convo); 
           toggle(); 
           return; 
         }
-        setActiveConversation(null);
+        setActiveConversation(null); 
         setNewConversation(person);
         open();
         toggle();

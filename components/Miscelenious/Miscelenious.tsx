@@ -2,22 +2,14 @@ import {
   IconX
 } from '@tabler/icons-react';
 import { Group, Tooltip } from '@mantine/core';
-import { useContext } from 'react';
-import {
-  useActiveConversation
-} from '@/lib/context/activeConversation';
-import {
-  NewConversationContext,
-  NewConversationType
-} from '@/lib/context/newConversation';
 import Streaming from '../Streaming/Streaming';
+import useGlobalStore from '@/lib/store/globalStore';
 function Miscelenious() {
-  const { activeConversation, setActiveConversation } = useActiveConversation();
-  const { newConversation, setNewConversation } = useContext(
-    NewConversationContext
-  ) as NewConversationType;
-
-
+  
+  const newConversation = useGlobalStore(state => state.newConversation)
+  const activeConversation= useGlobalStore(state => state.activeConversation)
+  const setNewConversation= useGlobalStore((state) => state.setNewConversation)
+  const setActiveConversation= useGlobalStore((state) => state.setActiveConversation)
 
   return (
     <div>
@@ -30,8 +22,8 @@ function Miscelenious() {
                 color="red"
                 stroke={1.5}
                 onClick={() => {
-                  setActiveConversation(null);
                   setNewConversation(null);
+                  setActiveConversation(null);
                 }}
               />
             </Tooltip>

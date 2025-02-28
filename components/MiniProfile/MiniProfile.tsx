@@ -1,11 +1,8 @@
 import { useContext } from 'react';
 
-import {
-  ConversationContext,
-  activeConversatonType
-} from '@/lib/context/activeConversation';
 import { Avatar } from '@mantine/core';
 import classes from './MiniProfile.module.css';
+import useGlobalStore from '@/lib/store/globalStore';
 export interface MiniProfileProps {
   image: string;
   name: string;
@@ -13,9 +10,7 @@ export interface MiniProfileProps {
   status: string;
 }
 const MiniProfile = () => {
-  const { activeConversation } = useContext(
-    ConversationContext
-  ) as activeConversatonType;
+  const activeConversation = useGlobalStore((state) => state.activeConversation) ;
 
   const sender = activeConversation?.users[0];
   return (

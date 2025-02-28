@@ -4,24 +4,23 @@ import { Box, Card, Flex, Modal } from '@mantine/core';
 import classes from './Chat.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import ChatArea from '../ChatArea/ChatArea';
-import { useContext } from 'react';
 import { Socket } from 'socket.io-client';
-import {
-  activeConversatonType,
-  ConversationContext,
-  useActiveConversation
-} from '@/lib/context/activeConversation';
 import ConversationButtonList from '../ConversationButtonList/ConversationButtonList';
+import useGlobalStore from '@/lib/store/globalStore';
 import useWebSocket from '@/lib/hooks/useWebsockets';
-export type SocketType = Socket | null;
-export type activeType = (active: any) => void;
+import { useMemo, useState } from 'react';
+// import useWebSocket from '@/lib/hooks/useWebsockets';
 
 function Chat() {
-  const { activeConversation } = useActiveConversation()
-
   const [opened, { open, close }] = useDisclosure(false);
-  const { state } = useWebSocket();
-  const activeCNV = state.conversations.find((conv) => conv.id === activeConversation?.id)
+  const conversations = useGlobalStore((state) => state.conversations)
+  const activeConversation = useGlobalStore((state) => state.activeConversation)
+  const activeCNV = useMemo(
+    () => conversations.find((conv) => conv.id === activeConversation?.id),
+    [conversations, activeConversation]
+  );
+  const nullVal = useWebSocket()
+  console.log('Hello')
   return (
     <Flex
       wrap="nowrap"

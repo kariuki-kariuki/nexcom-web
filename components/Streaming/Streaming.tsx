@@ -1,15 +1,14 @@
-import { Group, Modal, ThemeIcon } from '@mantine/core';
-import { IconVideo, IconPhoneOutgoing, IconMicrophone, IconPhoneCalling } from '@tabler/icons-react';
+import { Group, Modal } from '@mantine/core';
+import { IconVideo, IconPhoneOutgoing } from '@tabler/icons-react';
 import React from 'react';
 import classes from './Streaming.module.css';
-import { useActiveConversation } from '@/lib/context/activeConversation';
-import useVideoStream from '@/lib/hooks/useVideoStream';
 import { useDisclosure } from '@mantine/hooks';
 import VideoPlayer from './VideoPlayer';
 import ReceiveCall from './ReceiveCall';
+import useGlobalStore from '@/lib/store/globalStore';
 
 function Streaming() {
-  const { activeConversation } = useActiveConversation();
+  const activeConversation = useGlobalStore((state) => state.activeConversation);
   const activeUser = activeConversation?.users[0]
   const [opened, {toggle}] = useDisclosure();
 

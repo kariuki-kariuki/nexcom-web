@@ -1,5 +1,3 @@
-import NewConversationProvider from '@/lib/context/newConversation';
-import ScreenProvider from '@/lib/context/screenContext';
 import { theme } from '@/theme';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import React from 'react';
@@ -10,17 +8,16 @@ import '@mantine/dropzone/styles.css';
 import '@mantine/carousel/styles.css';
 import '@mantine/notifications/styles.css';
 import './index.css';
-import ActiveConversationProvider from '@/lib/context/activeConversation';
 import AppProvider from '@/lib/context/appContext';
-import { ChatProvider } from '@/lib/context/ConversationContext';
 import { Notifications } from '@mantine/notifications';
-import { SocketProvider } from '@/lib/hooks/useSocket';
+import { SocketProvider } from '@/lib/context/SocketContext';
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <html lang="en">
       <head>
@@ -38,16 +35,10 @@ export default function RootLayout({
         <MantineProvider theme={theme} defaultColorScheme="dark">
           <SocketProvider>
             <AppProvider>
-              <ActiveConversationProvider>
-                <ChatProvider>
-                  <ScreenProvider>
-                    <NewConversationProvider>
-                      <Notifications />
-                      <div id="root">{children}</div>
-                    </NewConversationProvider>
-                  </ScreenProvider>
-                </ChatProvider>
-              </ActiveConversationProvider>
+                {/* <ScreenProvider> */}
+                <Notifications />
+                <div id="root">{children}</div>
+                {/* </ScreenProvider> */}
             </AppProvider>
           </SocketProvider>
         </MantineProvider>

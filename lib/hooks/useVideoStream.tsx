@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Peer, { SignalData } from "simple-peer";
 import { notifications } from "@mantine/notifications";
-import { useActiveConversation } from '../context/activeConversation';
-import { useSocketContext } from './useSocket';
 import { GlobalUser } from '../@types/app';
-import { useChat } from '../context/ConversationContext';
 import { useDisclosure } from '@mantine/hooks';
 import { OnlineStatus } from '../@types/streaming';
+import useGlobalStore from '../store/globalStore';
+import { useSocketContext } from '../context/SocketContext';
 
 export interface IncomingCall {
   caller: GlobalUser | null | undefined;
@@ -25,8 +24,8 @@ const useVideoStream = () => {
   const [opened, { toggle }] = useDisclosure(true);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const { activeConversation } = useActiveConversation();
-  const { state } = useChat();
+  const activeConversation = useGlobalStore((state) => state.activeConversation);
+  const conversations = useGlobalStore((state) => state.conversations);
   const incomingVideo = useRef<HTMLVideoElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const connectionRef = useRef<Peer.Instance>();
@@ -92,7 +91,7 @@ const useVideoStream = () => {
   }
 
   const handleIncomingCall = useCallback(({ callerId, signal }: { callerId: string, signal: Peer.SignalData }) => {
-    const caller = state.conversations.find((convo) => convo.users[0].id === callerId)?.users[0];
+    const caller = conversations.find((convo) => convo.users[0].id === callerId)?.users[0];
     console.log(`${caller?.firstName} is calling`);
     setCall({
       isReceivingCall: true,

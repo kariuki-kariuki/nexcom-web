@@ -2,38 +2,19 @@ import { ConversationButton } from '../ConversationButton/ConversationButton';
 import {
   ActionIcon,
   Box,
-  Divider,
   Flex,
-  Group,
   Paper,
-  ScrollArea,
-  Tooltip,
-  useMantineTheme
-} from '@mantine/core';
+  ScrollArea} from '@mantine/core';
 import {
-  IconCirclePlusFilled,
-  IconHome,
-  IconShoppingBag,
-  IconShoppingCart
-} from '@tabler/icons-react';
+  IconCirclePlusFilled} from '@tabler/icons-react';
 import classes from './ConversationButtonList.module.css';
-import SmallComponent from './SmallComponent';
-import { useContext } from 'react';
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import NewMessage from '../NewMessage/NewMessage';
 
 import {
-  activeConversatonType,
-  ConversationContext
-} from '../../lib/context/activeConversation';
-import { useRouter } from 'next/navigation';
-import {
-  ConversationProps,
-  UserContextType
-} from '@/lib/@types/app';
-import { useChat } from '@/lib/context/ConversationContext';
-import Apps from '../Apps/Apps';
+  ConversationProps} from '@/lib/@types/app';
 import SearchBar from '../SearchBar/SearchBar';
+import useGlobalStore from '@/lib/store/globalStore';
 interface Props {
   open: () => void;
 }
@@ -41,10 +22,8 @@ interface Props {
 export default function ConversationButtonList({
   open,
 }: Props) {
-  const { state } = useChat()
-  const conversations = state.conversations.filter(
-    (conversation) => conversation.messages.length !== 0
-  );
+
+  const conversations = useGlobalStore((state) => state.conversations)
   conversations.sort((a, b) => {
     const timeA = new Date(
       a.messages[a.messages.length - 1].updated_at

@@ -9,21 +9,15 @@ import {
   useMantineColorScheme
 } from '@mantine/core';
 import { useState } from 'react';
-import {
-  useActiveConversation
-} from '@/lib/context/activeConversation';
 import { Theme } from 'emoji-picker-react';
 import classes from './NewMessageBox.module.css';
 import EmojiPicker from 'emoji-picker-react';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSend } from '@tabler/icons-react';
-import {
-  useNewConverSationContext
-} from '@/lib/context/newConversation';
-import { useSocketContext } from '@/lib/hooks/useSocket';
 import { useGlobalContext } from '@/lib/context/appContext';
 import { ConversationProps, NewMessage } from '@/lib/@types/app';
-import { useChat } from '@/lib/context/ConversationContext';
+import useGlobalStore from '@/lib/store/globalStore';
+import { useSocketContext } from '@/lib/context/SocketContext';
 
 interface INewMessageBox {
   productId?: string;
@@ -33,10 +27,12 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
   const [message, setMessage] = useState<string>('');
   const socket = useSocketContext()
   const { user } = useGlobalContext()
-
-  const { activeConversation, setActiveConversation } = useActiveConversation();
-  const { newConversation, setNewConversation } = useNewConverSationContext();
-  const { dispatch } = useChat()
+  const addMessage = useGlobalStore((state) => state.addMessage)
+  const addConversation = useGlobalStore((state) => state.addConversation)
+  const setNewConversation = useGlobalStore((state) => state.setNewConversation)
+  const setActiveConversation = useGlobalStore((state) => state.setActiveConversation)
+  const activeConversation = useGlobalStore((state) => state.activeConversation)
+  const newConversation = useGlobalStore((state) => state.newConversation)
 
   const [opened, { toggle }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();
@@ -58,7 +54,7 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
       };
       try {
         socket.emit('message', messageBody, (res: NewMessage) => {
-          dispatch({ type: "ADD_MESSAGE", payload: res })
+          addMessage(res)
         });
         setMessage('');
         { close && close() }
@@ -77,7 +73,7 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
           setMessage('');
           setNewConversation(null)
           setActiveConversation(res)
-          dispatch({ type: 'ADD_CONVERSATION', payload: res})
+          addConversation(res);
           { close && close() }
         });
 

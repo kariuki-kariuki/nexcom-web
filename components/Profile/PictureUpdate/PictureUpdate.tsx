@@ -9,7 +9,7 @@ import {
 import { useState } from 'react';
 import classes from './PictureUpdate.module.css';
 import { useGlobalContext } from '../../../lib/context/appContext';
-import { useSocketContext } from '@/lib/hooks/useSocket';
+import { useSocketContext } from '@/lib/context/SocketContext';
 const PictureUpdate = ({ image }: { image: string }) => {
   const [value, setValue] = useState<File | null>(null);
   const { user, setUser } = useGlobalContext()

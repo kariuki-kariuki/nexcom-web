@@ -1,19 +1,22 @@
 import { useEffect, useCallback } from "react";
-import { useChat } from "../context/ConversationContext";
-import { ConversationProps, GlobalUser, NewMessage, PayloadMessage, UpdateProfile } from "../@types/app";
-import { useActiveConversation } from "../context/activeConversation";
+import { ConversationProps, NewMessage, PayloadMessage, UpdateProfile } from "../@types/app";
 import { useGlobalContext } from "../context/appContext";
 import { MessageState } from "../common/common";
-import { useSocketContext } from "./useSocket";
+import useGlobalStore from "../store/globalStore";
+import { useSocketContext } from "../context/SocketContext";
 
 
 
 
 const useWebSocket = () => {
-  const { state, dispatch } = useChat();
+  const state = useGlobalStore((state) => state)
+  const addMessage = useGlobalStore((state) => state.addMessage)
+  const updateMessage = useGlobalStore((state) => state.updateMessage)
+  const updateProfile = useGlobalStore((state) => state.updateProfile)
+  const addConversation = useGlobalStore((state) => state.addConversation)
   const socket = useSocketContext();
   const { user } = useGlobalContext();
-  const { activeConversation } = useActiveConversation();
+  const activeConversation = useGlobalStore((state) => state.activeConversation) ;
   
   // handle message states
   const markMessageState = useCallback((state: MessageState, conversationId: string) => {
@@ -34,21 +37,21 @@ const useWebSocket = () => {
         }
       }
       // Dispatch the new message to the chat state
-      dispatch({ type: "ADD_MESSAGE", payload: res });
+      addMessage(res)
     },
-    [activeConversation, dispatch, socket, state.conversations, user?.id, markMessageState]
+    [activeConversation, socket, state.conversations, user?.id, markMessageState]
   );
   const handleMessageState = useCallback((res: PayloadMessage) => {
-    dispatch({ type: "UPDATE_MESSAGE", payload: res });
-  }, [dispatch])
+    updateMessage(res)
+  }, [])
 
   const handleUpdateProfile = useCallback((res: UpdateProfile) => {
-    dispatch({ type: 'UPDATE_PROFILE', payload: res })
-  }, [dispatch])
+    updateProfile(res)
+  }, [])
 
   const handleNewConversation = useCallback((res: ConversationProps) => {
-    dispatch({ type: 'ADD_CONVERSATION', payload: res })
-  }, [dispatch]);
+    addConversation(res)
+  }, []);
 
   
 
@@ -75,9 +78,9 @@ const useWebSocket = () => {
       socket.off("new-conversation", handleNewConversation);
       socket.off("error");
     };
-  }, [socket, dispatch, handleIncomingMessage, handleMessageState, handleUpdateProfile, handleNewConversation]);
+  }, [socket, handleIncomingMessage, handleMessageState, handleUpdateProfile, handleNewConversation]);
 
-  return { state };
+  return null;
 };
 
 export default useWebSocket;

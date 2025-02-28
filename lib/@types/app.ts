@@ -95,5 +95,12 @@ export type ChatAction =
   } | {
     type: 'UPDATE_PROFILE';
     payload: UpdateProfile;
+  } | {
+    type: "SET_ACTIVE_COVERSATION",
+    payload: ConversationProps | null
+  } | {
+    type: "SET_NEW_CONVERSATION",
+    payload: GlobalUser | null
   };
 ;
+

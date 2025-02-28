@@ -10,23 +10,15 @@ import {
   useMantineTheme
 } from '@mantine/core';
 import classes from './ConversationButton.module.css';
-import {
-  useContext,
-  useEffect
-} from 'react';
 import { IconCheck, IconChecks, IconShoppingBag } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { ConversationProps, GlobalUser, Message, PayloadMessage } from '@/lib/@types/app';
-import {
-  useActiveConversation
-} from '@/lib/context/activeConversation';
-import { ScreenContext, screenContextType } from '@/lib/context/screenContext';
 import { MessageState } from '@/lib/common/common';
-import { useSocketContext } from '@/lib/hooks/useSocket';
 import { formatDate } from '@/utils/helpers';
 import { useGlobalContext } from '@/lib/context/appContext';
-import { useChat } from '@/lib/context/ConversationContext';
 import { useMediaQuery } from '@mantine/hooks';
+import useGlobalStore from '@/lib/store/globalStore';
+import { useSocketContext } from '@/lib/context/SocketContext';
 
 interface Props {
   conversation: ConversationProps;
@@ -34,25 +26,18 @@ interface Props {
   index: number;
 }
 export function ConversationButton({
-  conversation,
+  conversation: convo,
   open,
 }: Props) {
   const { user: gUser } = useGlobalContext();
-  const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
-  const { activeConversation, setActiveConversation } = useActiveConversation();
-  const { dispatch } = useChat();
+  const updateMessage = useGlobalStore((state) => state.updateMessage)
+  const setActiveConversation = useGlobalStore((state) => state.setActiveConversation)
+
+  const activeConversation = useGlobalStore((state) => state.activeConversation)
   const theme = useMantineTheme()
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
+  const conversation = sortConversations(convo);
   const active: boolean = conversation.id === activeConversation?.id;
-  conversation.messages.sort((a, b) => {
-    const timeA = new Date(
-      a.created_at
-    ).getTime();
-    const timeB = new Date(
-      b.created_at
-    ).getTime();
-    return timeA - timeB;
-  });
   const lastMessage = conversation.messages[conversation.messages.length - 1];
   const user: GlobalUser = conversation.users[0];
   const count = conversation.messages.reduce(
@@ -74,15 +59,14 @@ export function ConversationButton({
       conversationId: conversation.id,
       receiverId: conversation.users[0]
     }, (res: PayloadMessage) => {
-      dispatch({ type: "UPDATE_MESSAGE", payload: res })
+      updateMessage(res)
     });
   }
   return (
     <Card
       className={clsx({ [classes.active]: active, [classes.normal]: !active })}
       onClick={() => {
-        setActiveConversation(conversation);
-        updateActiveScreen('chat');
+        setActiveConversation( conversation)
         console.log(count)
         if (count > 0) {
           socket.emit('message-state', {
@@ -90,7 +74,7 @@ export function ConversationButton({
             conversationId: conversation.id,
             receiverId: conversation.users[0].id
           }, (res: PayloadMessage) => {
-            dispatch({ type: "UPDATE_MESSAGE", payload: res })
+            updateMessage(res)
           });
         }
       }}
@@ -148,6 +132,19 @@ function LastMessage({ message, user }: ILastMessage) {
     }
   }
   return <Text style={{ color: rgba(`0 0 0`, 0) }}>--</Text>;
+}
+
+function sortConversations(conversation: ConversationProps) {
+  conversation.messages = conversation.messages.sort((a, b) => {
+    const timeA = new Date(
+      a.created_at
+    ).getTime();
+    const timeB = new Date(
+      b.created_at
+    ).getTime();
+    return timeA - timeB;
+  });
+  return conversation;
 }
 
 
