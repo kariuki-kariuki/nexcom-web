@@ -19,6 +19,7 @@ export interface ProductImage {
   name: string | null;
   url: string;
   altText: string;
+  product?: Product
 }
 
 export type INewProduct = {

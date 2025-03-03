@@ -9,6 +9,7 @@ import { IconXboxA, IconXboxXFilled } from '@tabler/icons-react';
 import { datasource } from '@/lib/common/datasource';
 import { useState, useEffect } from 'react';
 import SimpleHeaderToggle from '@/components/SimpleHeader/SimpleHeaderToggle';
+import SearchByImage from '@/components/SearchByImage/SearchByImage';
 
 interface INavbar {
   categories: Category[];
@@ -31,6 +32,8 @@ function NavbarNestedT({ categories, toggle, opened }: INavbar) {
       <div className={classes.header}>
         <Group justify="space-between">
           <Code fw={700}>Filter</Code>
+          <SearchByImage />
+
           {toggle &&
             <Burger opened={opened} onClick={toggle} />
           }
@@ -55,21 +58,21 @@ function NavbarNestedT({ categories, toggle, opened }: INavbar) {
 
 export function NavbarNested() {
   const [opened, { toggle }] = useDisclosure()
-  const all: Category = { id: 'averyuniqueid123xoxo', name: 'All'}
+  const all: Category = { id: 'averyuniqueid123xoxo', name: 'All' }
   const [categories, setCategories] = useState<Category[]>([all])
 
   useEffect(() => {
     const getCategories = async () => {
 
-    const { data, loading } = await datasource.get<Category[]>('categories');
+      const { data, loading } = await datasource.get<Category[]>('categories');
 
-    if(!loading && data) {
-      setCategories(prev => ([...prev, ...data]))
+      if (!loading && data) {
+        setCategories(prev => ([...prev, ...data]))
+      }
     }
-  }
-  getCategories()
+    getCategories()
 
-     
+
   }, [])
   console.log(categories)
 
