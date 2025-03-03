@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
+  IconDiamondFilled,
   IconHome,
   IconListTree,
   IconLogout,
@@ -18,7 +19,8 @@ import classes from './Navbar.module.css';
 import { useChat } from '@/lib/context/ConversationContext';
 
 const data = [
-  { link: '/products', label: 'Products', icon: IconListTree },
+  { link: '/dashboard', label: 'Dashboard', icon: IconDiamondFilled },
+  { link: '/dashboard/products', label: 'Products', icon: IconListTree },
   { link: '/', label: 'Home', icon: IconHome },
   { link: '/cart', label: 'Cart', icon: IconShoppingCart },
   { link: '/chat', label: 'Chat', icon: IconMessage },
@@ -36,11 +38,11 @@ export function Navbar() {
       className={classes.link}
       data-active={item.label === active || undefined}
       key={item.label}
-      href={`/dashboard${item.link}`}
+      href={`${item.link}`}
       onClick={(event) => {
         event.preventDefault();
         setActive(item.label);
-        router.push(`/dashboard${item.link}`);
+        router.push(`${item.link}`);
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />

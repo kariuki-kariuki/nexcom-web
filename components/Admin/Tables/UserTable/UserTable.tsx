@@ -14,6 +14,7 @@ import PaginationDemo from '../PaginationDemo/PaginationDemo';
 import classes from './UserTable.module.css';
 import { API_URL } from '@/lib/common/constans';
 import { GlobalUser } from '@/lib/@types/app';
+import { useChat } from '@/lib/context/ConversationContext';
 
 interface Person {
   id: string;
@@ -27,25 +28,12 @@ interface Person {
 }
 
 export function UsersTable() {
-  const [user_data, setUserData] = useState<GlobalUser[]>([]);
-  const [activePage, setPage] = useState<number>(1);
-
-  useEffect(() => {
-    fetch(`${API_URL}/users`, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then((res) => {
-          setUserData(res);
-        });
-      } else {
-        alert('Failed to fetch user data');
-      }
-    });
-  }, [activePage]);
-  const rows = user_data.slice(0, 10).map((user, index) => (
+  // const [activePage, setPage] = useState<number>(1);
+  const { state } = useChat()
+  
+  const rows = state.conversations.map((conversation, index) => { 
+    const user = conversation.users[0]
+    return (
     <Table.Tr key={index}>
       <Table.Td>
         <Group gap="sm" wrap="nowrap">
@@ -85,7 +73,7 @@ export function UsersTable() {
         </Group>
       </Table.Td>
     </Table.Tr>
-  ));
+  )});
 
   return (
     <Table.ScrollContainer
@@ -106,7 +94,7 @@ export function UsersTable() {
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
-      <PaginationDemo activePage={activePage} setPage={setPage} />
+      {/* <PaginationDemo activePage={activePage} setPage={setPage} /> */}
     </Table.ScrollContainer>
   );
 }
