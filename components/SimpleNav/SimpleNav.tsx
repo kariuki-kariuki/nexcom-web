@@ -12,7 +12,7 @@ import { useChat } from '@/lib/context/ConversationContext';
 const links = [
   { label: 'Home', link: '/', icon: IconHome },
   { label: 'Shop', link: '/shop', icon: IconShoppingBag },
-  { label: 'Cart', link: '/shop/cart', icon: IconShoppingCart },
+  { label: 'Cart', link: '/cart', icon: IconShoppingCart },
   { label: 'Chats', link: '/chat', icon: IconMessageCircle },
 ]
 const SimpleNav = () => {
