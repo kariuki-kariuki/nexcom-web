@@ -117,7 +117,7 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
               variant={
                 product.status === ProductStatus.DRAFT ? 'outline' : 'default'
               }
-              color="coco.3"
+              color="coco.4"
               type="submit"
               onClick={() =>
                 setProduct((prevProduct) => ({

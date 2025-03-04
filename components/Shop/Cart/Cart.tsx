@@ -65,7 +65,7 @@ const Cart = ({ orderss }: { orderss: Order[] | null }) => {
           </InputWrapper>
           <Group p={'md'} justify="center">
             <Button
-              color="coco.3"
+              color="coco.4"
               w={'100%'}
               ff={'serif'}
               fullWidth

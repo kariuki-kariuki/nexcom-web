@@ -39,13 +39,13 @@ const SearchByImage = () => {
     <div>
       <LoadingOverlay  visible={isLoading} />
       <Group>
-        <Button leftSection={<IconFileSearch />} color='coco.3' onClick={toggle}>Search By Image</Button>
+        <Button leftSection={<IconFileSearch />} color='coco.4' onClick={toggle}>Search By Image</Button>
       </Group>
-      <Modal opened={opened} onClose={toggle} centered>
+      <Modal opened={opened} onClose={toggle} centered title="Search By Image">
         {file && <Image src={URL.createObjectURL(file)} width={400} height="auto"/>}
         <Group justify='center' my="md" wrap='nowrap'>
-              <FileInput onChange={setFile} flex={1} maw={300}/>
-            <Button color='coco.3' onClick={handleSearch}>Submit</Button>
+              <FileInput onChange={setFile} flex={1} maw={300} placeholder="Choose file"/>
+            <Button color='coco.4' onClick={handleSearch}>Submit</Button>
         </Group>
         <Stack>
           {images && images.map((image) => <SearchedImage image={image}/>)}

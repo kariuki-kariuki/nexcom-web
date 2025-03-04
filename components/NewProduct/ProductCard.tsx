@@ -118,7 +118,7 @@ function ProductCard({
             value: category.id
           }))}
         />
-        <Button w="fit-content" radius="xl" color='coco.3'
+        <Button w="fit-content" radius="xl" color='coco.4'
           size={mobile ? 'sm' : 'lg'}
           onClick={toggle}>
           Add New Category

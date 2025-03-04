@@ -47,7 +47,7 @@ const CreateShop = () => {
           leftSection={<IconCirclePlusFilled size={18} color="teal" />}
           w={'fit-content'}
           variant="outline"
-          color="coco.3"
+          color="coco.4"
           onClick={toggle}
         >
           Create Shop
@@ -70,7 +70,7 @@ const CreateShop = () => {
             onChange={(event) => setShopName(event.target.value)}
           />
         </InputWrapper>
-          <Button type='submit' value="submit" color={'coco.3'} onClick={handleCreateShop}>
+          <Button type='submit' value="submit" color={'coco.4'} onClick={handleCreateShop}>
             Submit
           </Button>
         </Group>

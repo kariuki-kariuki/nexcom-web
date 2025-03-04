@@ -56,7 +56,7 @@ function NewCategory({ opened, toggle, setCategories }: Props) {
           classNames={{ input: classes.input }}
           onChange={(e) => setNewCategory(e.target.value)}
         />
-        <Button onClick={handleSubmit} size='xl' color="coco.3">Submit</Button>
+        <Button onClick={handleSubmit} size='xl' color="coco.4">Submit</Button>
       </Group>
     </Dialog>
   );

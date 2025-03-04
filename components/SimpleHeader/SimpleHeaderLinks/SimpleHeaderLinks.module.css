@@ -1,5 +1,5 @@
 .link {
-  color: light-dark(var(--mantine-color-coco-0), var(--mantine-color-coco-2));
+  color: light-dark(var(--mantine-color-coco-0), var(--mantine-color-gray-6));
   padding: var(--mantine-spacing-sm);
   border-radius: var(--mantine-spacing-sm);
   font-weight: bold;

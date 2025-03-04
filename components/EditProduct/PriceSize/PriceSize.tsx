@@ -146,7 +146,7 @@ function PriceSize({ product, setProduct }: IProps) {
           {product.product_sizes.map((prdSize, idx) => (
             <div key={idx}>
               <Button
-                color="coco.3"
+                color="coco.4"
                 variant=""
                 rightSection={<IconPencil size={18} />}
                 onClick={() => {

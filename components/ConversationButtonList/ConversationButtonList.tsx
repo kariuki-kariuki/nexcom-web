@@ -2,37 +2,18 @@ import { ConversationButton } from '../ConversationButton/ConversationButton';
 import {
   ActionIcon,
   Box,
-  Divider,
   Flex,
-  Group,
   Paper,
-  ScrollArea,
-  Tooltip,
-  useMantineTheme
-} from '@mantine/core';
+  ScrollArea} from '@mantine/core';
 import {
-  IconCirclePlusFilled,
-  IconHome,
-  IconShoppingBag,
-  IconShoppingCart
-} from '@tabler/icons-react';
+  IconCirclePlusFilled} from '@tabler/icons-react';
 import classes from './ConversationButtonList.module.css';
-import SmallComponent from './SmallComponent';
-import { useContext } from 'react';
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import NewMessage from '../NewMessage/NewMessage';
 
 import {
-  activeConversatonType,
-  ConversationContext
-} from '../../lib/context/activeConversation';
-import { useRouter } from 'next/navigation';
-import {
-  ConversationProps,
-  UserContextType
-} from '@/lib/@types/app';
+  ConversationProps} from '@/lib/@types/app';
 import { useChat } from '@/lib/context/ConversationContext';
-import Apps from '../Apps/Apps';
 import SearchBar from '../SearchBar/SearchBar';
 interface Props {
   open: () => void;

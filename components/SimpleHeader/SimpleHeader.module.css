@@ -23,7 +23,7 @@
 
 .btn {
     &:hover {
-        background-color: var(--mantine-color-coco-3);
+        background-color: var(--mantine-color-coco-4);
     }
     border-radius: var(--mantine-spacing-sm);
 }

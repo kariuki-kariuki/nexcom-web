@@ -11,8 +11,8 @@
 .indicator {
   background-image: linear-gradient(
     to right,
-    var(--mantine-color-coco-3),
-    var(--mantine-color-coco-3)
+    var(--mantine-color-coco-4),
+    var(--mantine-color-coco-4)
   );
 }
 
