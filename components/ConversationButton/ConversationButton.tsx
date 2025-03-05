@@ -94,8 +94,9 @@ export function ConversationButton({
           });
         }
       }}
-      radius={5}
+      radius={0}
       shadow='lg'
+
     >
       <Group onClick={open}>
         <Avatar src={user?.photo} size={mobile ? 'md' : 'lg'} radius="xl" />
