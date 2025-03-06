@@ -24,7 +24,7 @@ import { GlobalUser } from '@/lib/@types/app';
 import { datasource } from '@/lib/common/datasource';
 import { notifications } from '@mantine/notifications';
 import { useGlobalContext } from '@/lib/context/appContext';
-import { useChat } from '@/lib/context/ConversationContext';
+import { useWebSocket } from '@/lib/hooks/useWebsockets';
 
 interface DProps {
   opened: boolean;
@@ -36,7 +36,7 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
   const [value, setValue] = useState('');
   const [users, setUsers] = useState<GlobalUser[] | null>(null);
   const { setNewConversation } = useNewConverSationContext();
-  const { state } = useChat()
+  const { state } = useWebSocket()
   const [loading, setLoading] = useState(false)
   const { user } = useGlobalContext()
   const [error, setError] = useState('')

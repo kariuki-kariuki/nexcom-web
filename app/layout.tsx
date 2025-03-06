@@ -17,6 +17,7 @@ import { Notifications } from '@mantine/notifications';
 import { SocketProvider } from '@/lib/hooks/useSocket';
 import { siteMetadata } from '@/lib/data/siteMetadata';
 import { Metadata } from 'next';
+import { WebSocketProvider } from '@/lib/hooks/useWebsockets';
 
 
 export const metadata: Metadata = {
@@ -88,16 +89,18 @@ export default function RootLayout({
         <MantineProvider theme={theme} defaultColorScheme="dark">
           <SocketProvider>
             <AppProvider>
-              <ActiveConversationProvider>
-                <ChatProvider>
-                  <ScreenProvider>
-                    <NewConversationProvider>
-                      <Notifications />
-                      <div id="root">{children}</div>
-                    </NewConversationProvider>
-                  </ScreenProvider>
-                </ChatProvider>
-              </ActiveConversationProvider>
+              <WebSocketProvider>
+                <ActiveConversationProvider>
+                  <ChatProvider>
+                    <ScreenProvider>
+                      <NewConversationProvider>
+                        <Notifications />
+                        <div id="root">{children}</div>
+                      </NewConversationProvider>
+                    </ScreenProvider>
+                  </ChatProvider>
+                </ActiveConversationProvider>
+              </WebSocketProvider>
             </AppProvider>
           </SocketProvider>
         </MantineProvider>

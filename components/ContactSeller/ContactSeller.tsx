@@ -8,9 +8,9 @@ import { IconMessage } from '@tabler/icons-react'
 import React from 'react'
 import NewMessageBox from '../NewMessageBox/NewMessageBox'
 import classes from "./ContactSeller.module.css";
-import useWebSocket from '@/lib/hooks/useWebsockets'
 import Link from 'next/link'
 import OgMessage from '../OgMessage/OgMessage';
+import { useWebSocket } from '@/lib/hooks/useWebsockets'
 
 const ContactSeller = ({ product }: { product: Product }) => {
     const { setNewConversation } = useNewConverSationContext();

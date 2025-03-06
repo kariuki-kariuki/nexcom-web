@@ -10,12 +10,11 @@ import React from 'react';
 import classes from './TabsNavigation.module.css'
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 import logout from '@/utils/logout';
-import { useChat } from '@/lib/context/ConversationContext';
 
 function TabsNavigation() {
     const { user } = useGlobalContext();
     const pathname = usePathname();
-    const { dispatch } = useChat()
+    const { dispatch } = useWebScoket()
 
     const getPathName = (route: string) => {
         return pathname.startsWith(route) 

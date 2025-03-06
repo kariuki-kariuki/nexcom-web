@@ -13,8 +13,8 @@ import NewMessage from '../NewMessage/NewMessage';
 
 import {
   ConversationProps} from '@/lib/@types/app';
-import { useChat } from '@/lib/context/ConversationContext';
 import SearchBar from '../SearchBar/SearchBar';
+import { useWebSocket } from '@/lib/hooks/useWebsockets';
 interface Props {
   open: () => void;
 }
@@ -22,7 +22,7 @@ interface Props {
 export default function ConversationButtonList({
   open,
 }: Props) {
-  const { state } = useChat()
+  const { state } = useWebSocket()
   const conversations = state.conversations.filter(
     (conversation) => conversation.messages.length !== 0
   );

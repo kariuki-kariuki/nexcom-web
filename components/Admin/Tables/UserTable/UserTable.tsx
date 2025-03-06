@@ -9,12 +9,8 @@ import {
   rem
 } from '@mantine/core';
 import { IconPencil, IconTrash } from '@tabler/icons-react';
-import { useEffect, useState } from 'react';
-import PaginationDemo from '../PaginationDemo/PaginationDemo';
 import classes from './UserTable.module.css';
-import { API_URL } from '@/lib/common/constans';
-import { GlobalUser } from '@/lib/@types/app';
-import { useChat } from '@/lib/context/ConversationContext';
+import { useWebSocket } from '@/lib/hooks/useWebsockets';
 
 interface Person {
   id: string;
@@ -29,7 +25,7 @@ interface Person {
 
 export function UsersTable() {
   // const [activePage, setPage] = useState<number>(1);
-  const { state } = useChat()
+  const { state } = useWebSocket()
   
   const rows = state.conversations.map((conversation, index) => { 
     const user = conversation.users[0]

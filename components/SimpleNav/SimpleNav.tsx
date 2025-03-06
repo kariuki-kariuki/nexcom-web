@@ -8,7 +8,7 @@ import { useGlobalContext } from '@/lib/context/appContext';
 import logout from '@/utils/logout';
 import Dashboard from '../Profile/ProfileDashboard';
 import { useDisclosure } from '@mantine/hooks';
-import { useChat } from '@/lib/context/ConversationContext';
+import { useWebSocket } from '@/lib/hooks/useWebsockets';
 const links = [
   { label: 'Home', link: '/', icon: IconHome },
   { label: 'Shop', link: '/shop', icon: IconShoppingBag },
@@ -19,7 +19,7 @@ const SimpleNav = () => {
   const { user } = useGlobalContext();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
   const [opened, {toggle}] = useDisclosure() 
-  const { dispatch } = useChat()
+  const { dispatch } = useWebSocket()
   return (
     <div className={classes.main}>
       <Stack justify='space-between' h="100%" align='center'>

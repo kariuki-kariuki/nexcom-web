@@ -23,7 +23,7 @@ import {
 import { useSocketContext } from '@/lib/hooks/useSocket';
 import { useGlobalContext } from '@/lib/context/appContext';
 import { ConversationProps, NewMessage } from '@/lib/@types/app';
-import { useChat } from '@/lib/context/ConversationContext';
+import { useWebSocket } from '@/lib/hooks/useWebsockets';
 
 interface INewMessageBox {
   productId?: string;
@@ -36,7 +36,7 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
 
   const { activeConversation, setActiveConversation } = useActiveConversation();
   const { newConversation, setNewConversation } = useNewConverSationContext();
-  const { dispatch } = useChat()
+  const { dispatch } = useWebSocket()
 
   const [opened, { toggle }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();

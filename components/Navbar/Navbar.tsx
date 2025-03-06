@@ -16,7 +16,7 @@ import { useDisclosure } from '@mantine/hooks';
 import logout from '../../utils/logout';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 import classes from './Navbar.module.css';
-import { useChat } from '@/lib/context/ConversationContext';
+import { useWebSocket } from '@/lib/hooks/useWebsockets';
 
 const data = [
   { link: '/dashboard', label: 'Dashboard', icon: IconDiamondFilled },
@@ -32,7 +32,7 @@ export function Navbar() {
   const router = useRouter();
   const [opened, { toggle }] = useDisclosure();
   const pathname = usePathname()
-  const { dispatch } = useChat()
+  const { dispatch } = useWebSocket()
   const links = data.map((item) => (
     <Link
       className={classes.link}

@@ -9,13 +9,13 @@ import Dashboard from '../Profile/ProfileDashboard';
 import classes from './Apps.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { useGlobalContext } from '@/lib/context/appContext';
-import { useChat } from '@/lib/context/ConversationContext';
+import { useWebSocket } from '@/lib/hooks/useWebsockets';
 
 const Apps = () => {
   const [opened, { open, close }] = useDisclosure();
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
   const { user, setUser } = useGlobalContext();
-  const {dispatch} = useChat()
+  const {dispatch} = useWebSocket()
 
   return (
     <div>

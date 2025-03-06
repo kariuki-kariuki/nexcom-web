@@ -1,24 +1,20 @@
 'use client';
 
-import { Box, Card, Flex, Modal } from '@mantine/core';
+import { Box, Flex, Modal } from '@mantine/core';
 import classes from './Chat.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import ChatArea from '../ChatArea/ChatArea';
-import { useContext } from 'react';
 import { Socket } from 'socket.io-client';
 import {
-  activeConversatonType,
-  ConversationContext,
   useActiveConversation
 } from '@/lib/context/activeConversation';
 import ConversationButtonList from '../ConversationButtonList/ConversationButtonList';
-import useWebSocket from '@/lib/hooks/useWebsockets';
+import { useWebSocket } from '@/lib/hooks/useWebsockets';
 export type SocketType = Socket | null;
 export type activeType = (active: any) => void;
 
 function Chat() {
   const { activeConversation } = useActiveConversation()
-
   const [opened, { open, close }] = useDisclosure(false);
   const { state } = useWebSocket();
   const activeCNV = state.conversations.find((conv) => conv.id === activeConversation?.id)

@@ -5,98 +5,121 @@ import {
   Card,
   Badge,
   Flex,
-  rgba,
   Box,
   useMantineTheme
 } from '@mantine/core';
-import classes from './ConversationButton.module.css';
-import {
-  useContext,
-  useEffect
-} from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { IconCheck, IconChecks, IconShoppingBag } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { ConversationProps, GlobalUser, Message, PayloadMessage } from '@/lib/@types/app';
-import {
-  useActiveConversation
-} from '@/lib/context/activeConversation';
+import { useActiveConversation } from '@/lib/context/activeConversation';
 import { ScreenContext, screenContextType } from '@/lib/context/screenContext';
 import { MessageState } from '@/lib/common/common';
 import { useSocketContext } from '@/lib/hooks/useSocket';
 import { formatDate } from '@/utils/helpers';
 import { useGlobalContext } from '@/lib/context/appContext';
-import { useChat } from '@/lib/context/ConversationContext';
 import { useMediaQuery } from '@mantine/hooks';
+import classes from './ConversationButton.module.css'
+import { useWebSocket } from '@/lib/hooks/useWebsockets';
 
 interface Props {
   conversation: ConversationProps;
   open: () => void;
   index: number;
 }
-export function ConversationButton({
-  conversation,
-  open,
-}: Props) {
+
+export function ConversationButton({ conversation, open }: Props) {
   const { user: gUser } = useGlobalContext();
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
   const { activeConversation, setActiveConversation } = useActiveConversation();
-  const { dispatch } = useChat();
-  const theme = useMantineTheme()
-  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
-  const active: boolean = conversation.id === activeConversation?.id;
-  conversation.messages.sort((a, b) => {
-    const timeA = new Date(
-      a.created_at
-    ).getTime();
-    const timeB = new Date(
-      b.created_at
-    ).getTime();
+  const { dispatch } = useWebSocket();
+  const [count, setCount] = useState(0);
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const active = conversation.id === activeConversation?.id;
+
+  // Sort messages outside of render
+  const sortedMessages = [...conversation.messages].sort((a, b) => {
+    const timeA = new Date(a.created_at).getTime();
+    const timeB = new Date(b.created_at).getTime();
     return timeA - timeB;
   });
-  const lastMessage = conversation.messages[conversation.messages.length - 1];
+
+  const lastMessage = sortedMessages[sortedMessages.length - 1];
   const user: GlobalUser = conversation.users[0];
-  const count = conversation.messages.reduce(
-    (total: number, message: Message) =>
-      message.user.id === user?.id &&
-        (message.state === MessageState.DELIVERED ||
-          message.state === MessageState.SENT)
-        ? (total += 1)
-        : total,
-    0
-  );
+
+  // Calculate unread messages count inside useEffect
+  useEffect(() => {
+    const unreadMessages = conversation.messages.reduce(
+      (total: number, message: Message) =>
+        message.user.id === user?.id &&
+          (message.state === MessageState.DELIVERED || message.state === MessageState.SENT)
+          ? total + 1
+          : total,
+      0
+    );
+    setCount(unreadMessages);
+  }, [conversation, user]);
 
   const date = lastMessage ? new Date(lastMessage?.updated_at) : null;
-  const socket = useSocketContext()
+  const socket = useSocketContext();
 
-  if (count > 0) {
-    socket.emit('message-state', {
-      state: MessageState.DELIVERED,
-      conversationId: conversation.id,
-      receiverId: conversation.users[0]
-    }, (res: PayloadMessage) => {
-      dispatch({ type: "UPDATE_MESSAGE", payload: res })
-    });
-  }
+  useEffect(() => {
+    if (count > 0) {
+
+      if (conversation.id === activeConversation?.id) {
+
+        socket.emit(
+          'message-state',
+          {
+            state: MessageState.READ,
+            conversationId: conversation.id,
+            receiverId: conversation.users[0].id
+          },
+          (res: PayloadMessage) => {
+            dispatch({ type: 'UPDATE_MESSAGE', payload: res });
+          }
+        );
+
+      } else {
+        socket.emit(
+          'message-state',
+          {
+            state: MessageState.DELIVERED,
+            conversationId: conversation.id,
+            receiverId: conversation.users[0].id
+          },
+          (res: PayloadMessage) => {
+            dispatch({ type: 'UPDATE_MESSAGE', payload: res });
+          }
+        );
+      }
+
+    }
+  }, [count, socket]);
+
   return (
     <Card
       className={clsx({ [classes.active]: active, [classes.normal]: !active })}
       onClick={() => {
         setActiveConversation(conversation);
         updateActiveScreen('chat');
-        console.log(count)
         if (count > 0) {
-          socket.emit('message-state', {
-            state: MessageState.READ,
-            conversationId: conversation.id,
-            receiverId: conversation.users[0].id
-          }, (res: PayloadMessage) => {
-            dispatch({ type: "UPDATE_MESSAGE", payload: res })
-          });
+          socket.emit(
+            'message-state',
+            {
+              state: MessageState.READ,
+              conversationId: conversation.id,
+              receiverId: conversation.users[0].id
+            },
+            (res: PayloadMessage) => {
+              dispatch({ type: 'UPDATE_MESSAGE', payload: res });
+            }
+          );
         }
       }}
       radius={0}
-      shadow='lg'
-
+      shadow="lg"
     >
       <Group onClick={open}>
         <Avatar src={user?.photo} size={mobile ? 'md' : 'lg'} radius="xl" />
@@ -104,8 +127,12 @@ export function ConversationButton({
           <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
             {`${user?.firstName} ${user?.lastName}`}
           </Text>
-          <Group py="3px" wrap='nowrap'>
-            {lastMessage.productId && gUser?.id !== user.id ? <IconShoppingBag size={14} /> : ''}
+          <Group py="3px" wrap="nowrap">
+            {lastMessage.productId && gUser?.id !== user.id ? (
+              <IconShoppingBag size={14} />
+            ) : (
+              ''
+            )}
             <Text c={active ? '' : 'dimmed'} size="xs" lineClamp={1}>
               {lastMessage?.message}
             </Text>
@@ -122,9 +149,7 @@ export function ConversationButton({
           ) : (
             <Box pt={'4px'}>
               <LastMessage
-                message={
-                  conversation.messages[conversation.messages.length - 1]
-                }
+                message={sortedMessages[sortedMessages.length - 1]}
                 user={user}
               />
             </Box>
@@ -134,10 +159,12 @@ export function ConversationButton({
     </Card>
   );
 }
+
 interface ILastMessage {
   message: Message;
   user: GlobalUser;
 }
+
 function LastMessage({ message, user }: ILastMessage) {
   if (message.user.id !== user.id) {
     if (message.state === MessageState.SENT) {
@@ -148,7 +175,5 @@ function LastMessage({ message, user }: ILastMessage) {
       return <IconChecks color="lime" size={16} />;
     }
   }
-  return <Text style={{ color: rgba(`0 0 0`, 0) }}>--</Text>;
+  return <Text style={{ color: "rgba(`0 0 0`, 0)" }}>--</Text>;
 }
-
-
