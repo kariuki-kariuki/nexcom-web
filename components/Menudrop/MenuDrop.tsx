@@ -19,11 +19,14 @@ import { useDisclosure } from '@mantine/hooks';
 import Dashboard from '../Profile/ProfileDashboard';
 import Link from 'next/link';
 import logout from '@/utils/logout';
-import { useWebSocket } from '@/lib/hooks/useWebsockets';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
+
+
 export default function MenuDrop() {
   const [opened, { open, close }] = useDisclosure();
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
-  const { dispatch } = useWebSocket()
+  const setConversations = useGlobalStore((store) => store.setConversations)
+
   const { user, setUser } = useGlobalContext();
   return (
     <Box px={'md'} py={'sm'} className={classes.menu}>
@@ -67,11 +70,11 @@ export default function MenuDrop() {
             </Menu.Item>
           </Link>
           <Menu.Item leftSection={colorScheme === 'dark' ? (
-            <IconSunFilled className={classes.linkIcon} style={{width: rem(14), height: rem(14)}} />
+            <IconSunFilled className={classes.linkIcon} style={{ width: rem(14), height: rem(14) }} />
           ) : (
             <IconSunMoon className={classes.linkIcon} stroke={1.5} />
           )}
-          onClick={toggleColorScheme} >
+            onClick={toggleColorScheme} >
 
             <span>{colorScheme === 'dark' ? 'light' : 'Dark'}</span>
           </Menu.Item>
@@ -96,7 +99,7 @@ export default function MenuDrop() {
                 color="red"
                 onClick={() => {
                   logout();
-                  dispatch({ type: 'SET_CONVERSATIONS', payload: [] })
+                  setConversations([])
                   setUser(null);
                 }}
                 leftSection={

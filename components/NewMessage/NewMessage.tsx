@@ -11,7 +11,7 @@ import {
   Text,
   TextInput
 } from '@mantine/core';
-import { IconSearch, IconX } from '@tabler/icons-react';
+import { IconSearch } from '@tabler/icons-react';
 import { useState } from 'react';
 import {
   useNewConverSationContext
@@ -24,7 +24,7 @@ import { GlobalUser } from '@/lib/@types/app';
 import { datasource } from '@/lib/common/datasource';
 import { notifications } from '@mantine/notifications';
 import { useGlobalContext } from '@/lib/context/appContext';
-import { useWebSocket } from '@/lib/hooks/useWebsockets';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 interface DProps {
   opened: boolean;
@@ -36,7 +36,7 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
   const [value, setValue] = useState('');
   const [users, setUsers] = useState<GlobalUser[] | null>(null);
   const { setNewConversation } = useNewConverSationContext();
-  const { state } = useWebSocket()
+  const conversations = useGlobalStore((store) => store.conversations);
   const [loading, setLoading] = useState(false)
   const { user } = useGlobalContext()
   const [error, setError] = useState('')
@@ -50,11 +50,11 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
       onClick={() => {
         if (user?.id === person.id) return;
 
-        const convo = state.conversations.find(convo => convo.users[0].id === person.id);
-        if (convo) { 
-          setActiveConversation(convo); 
-          toggle(); 
-          return; 
+        const convo = conversations.find(convo => convo.users[0].id === person.id);
+        if (convo) {
+          setActiveConversation(convo);
+          toggle();
+          return;
         }
         setActiveConversation(null);
         setNewConversation(person);
@@ -111,13 +111,13 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
           >
             <TextInput
               rightSection={
-                <IconSearch size={20} color="teal" onClick={handleSubmit} style={{ cursor: 'pointer'}}/>
+                <IconSearch size={20} color="teal" onClick={handleSubmit} style={{ cursor: 'pointer' }} />
               }
               placeholder="Enter name, email or phone"
               value={value}
               onChange={(e) => setValue(e.target.value)}
               onKeyDown={(e) => {
-                if(e.key === "Enter"){
+                if (e.key === "Enter") {
                   handleSubmit()
                 }
               }}
@@ -126,7 +126,7 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
             />
           </InputWrapper>
         </Group>
-        <Divider my="md"/>
+        <Divider my="md" />
         <ScrollArea h={'100%'}>{usersFound}</ScrollArea>
       </Flex>
     </Drawer>

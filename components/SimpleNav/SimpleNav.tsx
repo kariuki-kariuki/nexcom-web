@@ -8,7 +8,7 @@ import { useGlobalContext } from '@/lib/context/appContext';
 import logout from '@/utils/logout';
 import Dashboard from '../Profile/ProfileDashboard';
 import { useDisclosure } from '@mantine/hooks';
-import { useWebSocket } from '@/lib/hooks/useWebsockets';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 const links = [
   { label: 'Home', link: '/', icon: IconHome },
   { label: 'Shop', link: '/shop', icon: IconShoppingBag },
@@ -18,13 +18,15 @@ const links = [
 const SimpleNav = () => {
   const { user } = useGlobalContext();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
-  const [opened, {toggle}] = useDisclosure() 
-  const { dispatch } = useWebSocket()
+  const [opened, { toggle }] = useDisclosure()
+  const setConversations = useGlobalStore((store) => store.setConversations)
+
+
   return (
     <div className={classes.main}>
       <Stack justify='space-between' h="100%" align='center'>
         <Stack gap={"md"} align='center' py="sm">
-        <Avatar src={user?.photo} onClick={toggle}/>
+          <Avatar src={user?.photo} onClick={toggle} />
           {links.map((link, idx) => <Link href={link.link} className={classes.link} key={idx}><link.icon stroke={1.5} className={classes.linkIcon} /></Link>)}
           {user?.shop && <Link href='/dashboard' className={classes.link} ><IconDiamond stroke={1.5} className={classes.linkIcon} /></Link>}
         </Stack>
@@ -37,17 +39,16 @@ const SimpleNav = () => {
             )}
           </Box>
           <a
-          href="#"
-          className={classes.link}
-          onClick={(event) => {
-            event.preventDefault();
-            logout();
-            dispatch({ type: 'SET_CONVERSATIONS', payload: [] })
-
-          }}
-        >
-          <IconLogout className={classes.linkIcon} stroke={1.5} />
-        </a>
+            href="#"
+            className={classes.link}
+            onClick={(event) => {
+              event.preventDefault();
+              logout();
+              setConversations([])
+            }}
+          >
+            <IconLogout className={classes.linkIcon} stroke={1.5} />
+          </a>
         </div>
       </Stack>
       {user ? <Dashboard opened={opened} close={toggle} actUser={user} /> : ''}

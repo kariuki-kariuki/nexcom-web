@@ -9,15 +9,16 @@ import {
   useActiveConversation
 } from '@/lib/context/activeConversation';
 import ConversationButtonList from '../ConversationButtonList/ConversationButtonList';
-import { useWebSocket } from '@/lib/hooks/useWebsockets';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 export type SocketType = Socket | null;
 export type activeType = (active: any) => void;
 
 function Chat() {
   const { activeConversation } = useActiveConversation()
   const [opened, { open, close }] = useDisclosure(false);
-  const { state } = useWebSocket();
-  const activeCNV = state.conversations.find((conv) => conv.id === activeConversation?.id)
+  console.log('Hello I am not rerendering')
+  const conversations = useGlobalStore((state) => state.conversations);
+  const activeCNV = conversations.find((conv) => conv.id === activeConversation?.id)
   return (
     <Flex
       wrap="nowrap"

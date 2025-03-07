@@ -10,13 +10,14 @@ import {
   IconLogout,
   IconMessage,
   IconShoppingBag,
-  IconShoppingCart} from '@tabler/icons-react';
+  IconShoppingCart
+} from '@tabler/icons-react';
 import { Avatar, Box, Burger, Code, Drawer, Group, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import logout from '../../utils/logout';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 import classes from './Navbar.module.css';
-import { useWebSocket } from '@/lib/hooks/useWebsockets';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 const data = [
   { link: '/dashboard', label: 'Dashboard', icon: IconDiamondFilled },
@@ -32,7 +33,8 @@ export function Navbar() {
   const router = useRouter();
   const [opened, { toggle }] = useDisclosure();
   const pathname = usePathname()
-  const { dispatch } = useWebSocket()
+  const setConversations = useGlobalStore((store) => store.setConversations)
+
   const links = data.map((item) => (
     <Link
       className={classes.link}
@@ -75,7 +77,7 @@ export function Navbar() {
           onClick={(event) => {
             event.preventDefault();
             logout();
-            dispatch({ type: 'SET_CONVERSATIONS', payload: [] })
+            setConversations([])
 
           }}
         >
@@ -83,7 +85,7 @@ export function Navbar() {
           <span>Logout</span>
         </a>
       </Box>
-      <Drawer opened={opened} onClose={toggle} withCloseButton classNames={{body: classes.root, content: classes.root, header: classes.root}}>
+      <Drawer opened={opened} onClose={toggle} withCloseButton classNames={{ body: classes.root, content: classes.root, header: classes.root }}>
         <Stack justify="space-between" h="80vh">
           <div>{links}</div>
           <Box className={classes.footer}>
@@ -95,7 +97,7 @@ export function Navbar() {
               onClick={(event) => {
                 event.preventDefault();
                 logout();
-                dispatch({ type: 'SET_CONVERSATIONS', payload: [] })
+                setConversations([])
               }}
             >
               <IconLogout className={classes.linkIcon} stroke={1.5} />

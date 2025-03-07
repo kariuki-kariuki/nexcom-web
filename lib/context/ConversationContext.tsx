@@ -12,7 +12,6 @@ import { ChatAction, ChatState, ConversationProps } from '../@types/app';
 import { useGlobalContext } from './appContext';
 import { datasource } from '../common/datasource';
 import { MessageState } from '../common/common';
-import { useActiveConversation } from './activeConversation';
 
 const initialState: ChatState = {
   conversations: []

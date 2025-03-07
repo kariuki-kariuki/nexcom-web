@@ -10,15 +10,15 @@ import NewMessageBox from '../NewMessageBox/NewMessageBox'
 import classes from "./ContactSeller.module.css";
 import Link from 'next/link'
 import OgMessage from '../OgMessage/OgMessage';
-import { useWebSocket } from '@/lib/hooks/useWebsockets'
+import { useGlobalStore } from '@/lib/context/global-store.provider'
 
 const ContactSeller = ({ product }: { product: Product }) => {
     const { setNewConversation } = useNewConverSationContext();
-    const { state } = useWebSocket()
+    const conversations = useGlobalStore((store) => store.conversations)
     const { user } = useGlobalContext()
     const { setActiveConversation } = useActiveConversation();
     const [opened, { toggle }] = useDisclosure();
-    const convo = state.conversations.find(convo => convo.users[0].id === product.shop?.user?.id);
+    const convo = conversations.find(convo => convo.users[0].id === product.shop?.user?.id);
 
 
     return (

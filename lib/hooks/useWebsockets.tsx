@@ -5,6 +5,7 @@ import { useGlobalContext } from "../context/appContext";
 import { useSocketContext } from "./useSocket";
 import { MessageState } from "../common/common";
 import { datasource } from "../common/datasource";
+import { useGlobalStore } from "../context/global-store.provider";
 
 
 
@@ -56,25 +57,25 @@ function chatReducer(state: ChatState, action: ChatAction) {
         conversations: action.payload
       };
 
-      case 'UPDATE_PROFILE':
-        return {
-          ...state,
-          conversations: state.conversations.map(convo => {
-            if (convo.users[0].id === action.payload.userId) {
-              return {
-                ...convo,
-                users: [
-                  {
-                    ...convo.users[0],
-                    photo: action.payload.link // Assuming `photo` is in `action.payload`.
-                  },
-                ]
-              };
-            }
-            return convo;
-          })
-        };
-      
+    case 'UPDATE_PROFILE':
+      return {
+        ...state,
+        conversations: state.conversations.map(convo => {
+          if (convo.users[0].id === action.payload.userId) {
+            return {
+              ...convo,
+              users: [
+                {
+                  ...convo.users[0],
+                  photo: action.payload.link // Assuming `photo` is in `action.payload`.
+                },
+              ]
+            };
+          }
+          return convo;
+        })
+      };
+
 
     default:
       return state;
@@ -86,34 +87,33 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(chatReducer, initialState);
   const { isLoggedIn } = useGlobalContext();
   const [isLoading, setLoading] = useState(true);
+  const { setActiveConversation, setConversations, addConversation, addMessage, updateMessage, updateProfile } = useGlobalStore(state => state);
 
 
   const socket = useSocketContext();
   const { user } = useGlobalContext();
 
-  const handleIncomingMessage = useCallback(
-    (res: NewMessage) => {
-      dispatch({ type: "ADD_MESSAGE", payload: res });
-    },
-    []
-  );
+  const handleIncomingMessage = useCallback((res: NewMessage) => {
+    addMessage(res);
+  }, []);
+
   const handleMessageState = useCallback((res: PayloadMessage) => {
-    dispatch({ type: "UPDATE_MESSAGE", payload: res });
+    updateMessage(res);
   }, [])
 
   const handleUpdateProfile = useCallback((res: UpdateProfile) => {
-    dispatch({ type: 'UPDATE_PROFILE', payload: res })
+    updateProfile(res);
   }, [])
 
   const handleNewConversation = useCallback((res: ConversationProps) => {
-    dispatch({ type: 'ADD_CONVERSATION', payload: res })
+    addConversation(res)
   }, []);
 
   useEffect(() => {
     const getConversations = async () => {
-      const { data, error} = await  datasource.get<ConversationProps[]>('conversations')
-      if(data){
-        dispatch({ type: 'SET_CONVERSATIONS', payload: data })
+      const { data, error } = await datasource.get<ConversationProps[]>('conversations')
+      if (data) {
+        setConversations(data)
       }
     }
     getConversations();
@@ -138,7 +138,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
       socket.off("new-conversation", handleNewConversation);
       socket.off("error");
     };
-  }, [socket,user, handleIncomingMessage, handleMessageState, handleUpdateProfile, handleNewConversation]);
+  }, [socket, user, handleIncomingMessage, handleMessageState, handleUpdateProfile, handleNewConversation]);
 
   return (
     <WebSocketContext.Provider value={{ state, dispatch, isLoading }}>

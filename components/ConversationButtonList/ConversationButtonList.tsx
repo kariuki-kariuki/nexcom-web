@@ -14,7 +14,7 @@ import NewMessage from '../NewMessage/NewMessage';
 import {
   ConversationProps} from '@/lib/@types/app';
 import SearchBar from '../SearchBar/SearchBar';
-import { useWebSocket } from '@/lib/hooks/useWebsockets';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 interface Props {
   open: () => void;
 }
@@ -22,8 +22,8 @@ interface Props {
 export default function ConversationButtonList({
   open,
 }: Props) {
-  const { state } = useWebSocket()
-  const conversations = state.conversations.filter(
+  const conversationsState = useGlobalStore((state) => state.conversations)
+  const conversations = conversationsState.filter(
     (conversation) => conversation.messages.length !== 0
   );
   conversations.sort((a, b) => {

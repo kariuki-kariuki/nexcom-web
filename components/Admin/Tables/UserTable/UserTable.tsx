@@ -10,7 +10,7 @@ import {
 } from '@mantine/core';
 import { IconPencil, IconTrash } from '@tabler/icons-react';
 import classes from './UserTable.module.css';
-import { useWebSocket } from '@/lib/hooks/useWebsockets';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 interface Person {
   id: string;
@@ -24,10 +24,9 @@ interface Person {
 }
 
 export function UsersTable() {
-  // const [activePage, setPage] = useState<number>(1);
-  const { state } = useWebSocket()
+  const conversations = useGlobalStore((state) => state.conversations)
   
-  const rows = state.conversations.map((conversation, index) => { 
+  const rows = conversations.map((conversation, index) => { 
     const user = conversation.users[0]
     return (
     <Table.Tr key={index}>

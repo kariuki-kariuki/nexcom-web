@@ -20,7 +20,7 @@ import { formatDate } from '@/utils/helpers';
 import { useGlobalContext } from '@/lib/context/appContext';
 import { useMediaQuery } from '@mantine/hooks';
 import classes from './ConversationButton.module.css'
-import { useWebSocket } from '@/lib/hooks/useWebsockets';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 interface Props {
   conversation: ConversationProps;
@@ -32,7 +32,7 @@ export function ConversationButton({ conversation, open }: Props) {
   const { user: gUser } = useGlobalContext();
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
   const { activeConversation, setActiveConversation } = useActiveConversation();
-  const { dispatch } = useWebSocket();
+  const updateMessage = useGlobalStore((state) => state.updateMessage)
   const [count, setCount] = useState(0);
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
@@ -77,7 +77,7 @@ export function ConversationButton({ conversation, open }: Props) {
             receiverId: conversation.users[0].id
           },
           (res: PayloadMessage) => {
-            dispatch({ type: 'UPDATE_MESSAGE', payload: res });
+            updateMessage(res);
           }
         );
 
@@ -90,13 +90,13 @@ export function ConversationButton({ conversation, open }: Props) {
             receiverId: conversation.users[0].id
           },
           (res: PayloadMessage) => {
-            dispatch({ type: 'UPDATE_MESSAGE', payload: res });
+            updateMessage(res);
           }
         );
       }
 
     }
-  }, [count, socket]);
+  }, [count, socket, activeConversation]);
 
   return (
     <Card
@@ -113,7 +113,7 @@ export function ConversationButton({ conversation, open }: Props) {
               receiverId: conversation.users[0].id
             },
             (res: PayloadMessage) => {
-              dispatch({ type: 'UPDATE_MESSAGE', payload: res });
+              updateMessage(res);
             }
           );
         }

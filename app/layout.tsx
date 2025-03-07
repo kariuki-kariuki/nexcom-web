@@ -18,6 +18,7 @@ import { SocketProvider } from '@/lib/hooks/useSocket';
 import { siteMetadata } from '@/lib/data/siteMetadata';
 import { Metadata } from 'next';
 import { WebSocketProvider } from '@/lib/hooks/useWebsockets';
+import { GlobalStoreProvider } from '@/lib/context/global-store.provider';
 
 
 export const metadata: Metadata = {
@@ -87,22 +88,24 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider theme={theme} defaultColorScheme="dark">
-          <SocketProvider>
-            <AppProvider>
-              <WebSocketProvider>
-                <ActiveConversationProvider>
-                  <ChatProvider>
-                    <ScreenProvider>
-                      <NewConversationProvider>
-                        <Notifications />
-                        <div id="root">{children}</div>
-                      </NewConversationProvider>
-                    </ScreenProvider>
-                  </ChatProvider>
-                </ActiveConversationProvider>
-              </WebSocketProvider>
-            </AppProvider>
-          </SocketProvider>
+          <GlobalStoreProvider>
+            <SocketProvider>
+              <AppProvider>
+                <WebSocketProvider>
+                  <ActiveConversationProvider>
+                    <ChatProvider>
+                      <ScreenProvider>
+                        <NewConversationProvider>
+                          <Notifications />
+                          <div id="root">{children}</div>
+                        </NewConversationProvider>
+                      </ScreenProvider>
+                    </ChatProvider>
+                  </ActiveConversationProvider>
+                </WebSocketProvider>
+              </AppProvider>
+            </SocketProvider>
+          </GlobalStoreProvider>
         </MantineProvider>
       </body>
     </html>

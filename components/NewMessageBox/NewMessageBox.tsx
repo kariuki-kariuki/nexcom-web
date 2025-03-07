@@ -23,7 +23,7 @@ import {
 import { useSocketContext } from '@/lib/hooks/useSocket';
 import { useGlobalContext } from '@/lib/context/appContext';
 import { ConversationProps, NewMessage } from '@/lib/@types/app';
-import { useWebSocket } from '@/lib/hooks/useWebsockets';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 interface INewMessageBox {
   productId?: string;
@@ -36,8 +36,8 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
 
   const { activeConversation, setActiveConversation } = useActiveConversation();
   const { newConversation, setNewConversation } = useNewConverSationContext();
-  const { dispatch } = useWebSocket()
-
+  const addMessage = useGlobalStore((state) => state.addMessage)
+  const addConversation = useGlobalStore((state) => state.addConversation)
   const [opened, { toggle }] = useDisclosure(false);
   const { colorScheme } = useMantineColorScheme();
   function theme() {
@@ -58,7 +58,7 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
       };
       try {
         socket.emit('message', messageBody, (res: NewMessage) => {
-          dispatch({ type: "ADD_MESSAGE", payload: res })
+          addMessage(res)
         });
         setMessage('');
         { close && close() }
@@ -77,7 +77,7 @@ const NewMessageBox = ({ productId, close }: INewMessageBox) => {
           setMessage('');
           setNewConversation(null)
           setActiveConversation(res)
-          dispatch({ type: 'ADD_CONVERSATION', payload: res})
+          addConversation(res)
           { close && close() }
         });
 
