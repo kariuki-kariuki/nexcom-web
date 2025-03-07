@@ -1,5 +1,5 @@
 .control {
-  background-color: purple;
+  background-color: var(--mantine-color-orange-7);
     &[data-inactive] {
       opacity: 0;
       cursor: default;

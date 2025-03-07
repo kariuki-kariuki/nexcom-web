@@ -78,6 +78,7 @@ export function CardsCarousel({ userClicked }: { userClicked: GlobalUser }) {
             align="start"
             loop
             slidesToScroll={mobile ? 1 : 1}
+            classNames={{control: classes.control}}
           >
             {slides}
           </Carousel>

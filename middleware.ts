@@ -78,5 +78,5 @@ async function decrypt(token: string | undefined) {
 
 // Configure middleware to exclude specific routes and assets
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)']
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.(?:png|mp3)$).*)'],
 };

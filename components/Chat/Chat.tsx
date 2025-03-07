@@ -16,7 +16,6 @@ export type activeType = (active: any) => void;
 function Chat() {
   const { activeConversation } = useActiveConversation()
   const [opened, { open, close }] = useDisclosure(false);
-  console.log('Hello I am not rerendering')
   const conversations = useGlobalStore((state) => state.conversations);
   const activeCNV = conversations.find((conv) => conv.id === activeConversation?.id)
   return (

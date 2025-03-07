@@ -23,6 +23,7 @@ function ImageCarousel({ images }: Iprops) {
       loop
       draggable
       slidesToScroll={mobile ? 1 : 1}
+      classNames={{control: classes.control}}
     >
       {slides}
     </Carousel>

@@ -3,6 +3,7 @@ import { useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Product, ProductImage } from '../../lib/@types/shop';
 import CarouselImage from './CarouselImage';
+import classes from './ImageCarousel.module.css';
 
 interface Props {
   images: ProductImage[];
@@ -25,6 +26,7 @@ export function ProductCorousel({ images, setProduct }: Props) {
       slideGap={{ base: 0, sm: 'md' }}
       loop
       slidesToScroll={1}
+      classNames={{controls: classes.controls}}
       // orientation={mobile ? 'horizontal' : 'vertical'}
     >
       {slides}

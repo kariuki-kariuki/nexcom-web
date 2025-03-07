@@ -6,8 +6,7 @@ import { useSocketContext } from "./useSocket";
 import { MessageState } from "../common/common";
 import { datasource } from "../common/datasource";
 import { useGlobalStore } from "../context/global-store.provider";
-
-
+import useSound from "use-sound"
 
 const initialState: ChatState = {
   conversations: []
@@ -85,17 +84,26 @@ function chatReducer(state: ChatState, action: ChatAction) {
 
 export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(chatReducer, initialState);
-  const { isLoggedIn } = useGlobalContext();
   const [isLoading, setLoading] = useState(true);
-  const { setActiveConversation, setConversations, addConversation, addMessage, updateMessage, updateProfile } = useGlobalStore(state => state);
-
+  const { activeConversation, setConversations, addConversation, addMessage, updateMessage, updateProfile } = useGlobalStore(state => state);
+  const [play] = useSound('/sounds/message.mp3');
+  const [playFx] = useSound('/sounds/level-up.mp3');
 
   const socket = useSocketContext();
   const { user } = useGlobalContext();
-
   const handleIncomingMessage = useCallback((res: NewMessage) => {
+    try {
+      if(res.productId) {
+        playFx();
+      } else {
+        play()
+      }
+    }
+    catch (e) {
+      console.log(e)
+    }
     addMessage(res);
-  }, []);
+  }, [play, playFx]);
 
   const handleMessageState = useCallback((res: PayloadMessage) => {
     updateMessage(res);
@@ -111,7 +119,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const getConversations = async () => {
-      const { data, error } = await datasource.get<ConversationProps[]>('conversations')
+      const { data } = await datasource.get<ConversationProps[]>('conversations')
       if (data) {
         setConversations(data)
       }
