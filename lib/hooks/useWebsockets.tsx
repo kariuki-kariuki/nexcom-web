@@ -85,7 +85,11 @@ function chatReducer(state: ChatState, action: ChatAction) {
 export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(chatReducer, initialState);
   const [isLoading, setLoading] = useState(true);
-  const { activeConversation, setConversations, addConversation, addMessage, updateMessage, updateProfile } = useGlobalStore(state => state);
+  const setConversations = useGlobalStore(state => state.setConversations);
+  const addConversation = useGlobalStore(state => state.addConversation);
+  const addMessage = useGlobalStore(state => state.addMessage);
+  const updateMessage = useGlobalStore(state => state.updateMessage);
+  const updateProfile = useGlobalStore(state => state.updateProfile);
   const [play] = useSound('/sounds/message.mp3');
   const [playFx] = useSound('/sounds/level-up.mp3');
 
@@ -93,7 +97,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useGlobalContext();
   const handleIncomingMessage = useCallback((res: NewMessage) => {
     try {
-      if(res.productId) {
+      if (res.productId) {
         playFx();
       } else {
         play()

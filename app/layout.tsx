@@ -78,6 +78,7 @@ export default function RootLayout({
       <head>
         <meta charSet="UTF-8" />
         <link rel="icon" href="/favicon.ico" />
+        {process.env.NEXT_PUBLIC_NODE_ENV === 'development' && <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script>}
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
