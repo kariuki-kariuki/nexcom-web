@@ -7,7 +7,7 @@
 
 .flex {
   background-color: light-dark(
-    var(--mantine-color-white),
+    var(--mantine-color-gray-2),
     var(--mantine-color-coco-0)
   );
 
@@ -17,7 +17,7 @@
 
 
   @media (min-width: $mantine-breakpoint-sm) {
-    border-radius: var(--mantine-spacing-md);
+    /* border-radius: var(--mantine-spacing-md); */
   }
 }
 

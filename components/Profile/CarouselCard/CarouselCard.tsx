@@ -1,15 +1,17 @@
 import { Image, Card, Button } from '@mantine/core';
-import { Product, ShopProduct } from '../../../lib/@types/shop';
+import { Product, Shop } from '../../../lib/@types/shop';
 import { IconArrowUpRight } from '@tabler/icons-react';
 import classes from './CarouselCard.module.css';
 
 import { useDisclosure } from '@mantine/hooks';
 import ProductModal from '@/components/Shop/Products/ProductModal';
+import { GlobalUser } from '@/lib/@types/app';
 interface Iprop {
   product: Product;
-  shopId: number;
+  user: GlobalUser;
+  shop: Shop;
 }
-export function CarouselCard({ product, shopId }: Iprop) {
+export function CarouselCard({ product, user, shop }: Iprop) {
   const [opened, { toggle }] = useDisclosure();
   return (
     <Card radius="md" withBorder padding="xl" className={classes.card}>
@@ -30,7 +32,8 @@ export function CarouselCard({ product, shopId }: Iprop) {
           product={product}
           toggle={toggle}
           opened={opened}
-          shopId={shopId}
+          owner={user}
+          shop={shop}
         />
       </Card.Section>
     </Card>

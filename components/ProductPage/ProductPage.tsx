@@ -12,15 +12,15 @@ import React, { useContext, useState } from 'react'
 import ImageCarousel from '../Shop/shopcomponents/ImageCarousel';
 import classes from './ProductPage.module.css'
 import { Product } from '@/lib/@types/shop';
-import SimpleHeader from '../SimpleHeader/SimpleHeader';
 import ContactSeller from '../ContactSeller/ContactSeller';
 
 const ProductPage = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(AppContext) as UserContextType;
+  const owner = product.shop?.user;
   async function handleSubmit() {
-    const { data, error, loading } = await datasource.post({ formData: { quantity, productId: product.id }, path: 'orders'})
+    const { data, error, loading } = await datasource.post({ formData: { quantity, productId: product.id }, path: 'orders' })
     setIsLoading(loading);
 
     if (error && !loading) {
@@ -49,14 +49,14 @@ const ProductPage = ({ product }: { product: Product }) => {
         overlayProps={{ radius: 'sm', blur: 2 }}
         loaderProps={{ color: 'teal.7', type: 'bars' }}
       />
-      <ContactSeller product={product} />
-      
+      {(owner && owner.id !== user?.id && product.shop) && <ContactSeller product={product} owner={owner} shop={product.shop} />}
+
       <Flex h={'100%'} bg={'none'} justify={'center'} content='center' align={'center'} >
         <Card className={classes.grid} withBorder my={'md'}>
           <Text fw={'500'} fz={'lg'} my={"lg"} ta={'center'}>
             {product?.name}
           </Text>
-          <Flex h={'fit-content'} direction={{ base: 'column', sm: 'row'}}>
+          <Flex h={'fit-content'} direction={{ base: 'column', sm: 'row' }}>
             <Box w={{ base: '100%', sm: '50%' }} h={'100%'}>
               <Card
                 p={{ base: 'lg', md: 'xl' }}
@@ -151,7 +151,7 @@ const ProductPage = ({ product }: { product: Product }) => {
                           leftSection={<IconBasketPlus size={20} />}
                           onClick={handleSubmit}
                           bg={'teal.7'}
-                          w={{base: '100%'}}
+                          w={{ base: '100%' }}
                           size='lg'
                         >
                           Add To Cart

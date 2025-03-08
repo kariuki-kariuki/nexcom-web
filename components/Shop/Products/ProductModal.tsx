@@ -1,5 +1,4 @@
 import {
-  Badge,
   Box,
   Button,
   Card,
@@ -12,25 +11,26 @@ import {
   useMantineTheme
 } from '@mantine/core';
 import { useContext, useState } from 'react';
-import { Product, ProductWithShop, ShopProduct } from '@/lib/@types/shop';
+import { Product, Shop } from '@/lib/@types/shop';
 import ImageCarousel from '../shopcomponents/ImageCarousel';
 import { IconBasketPlus, IconTool } from '@tabler/icons-react';
 import { AppContext } from '@/lib/context/appContext';
 import classes from './ProductModal.module.css';
 import { useMediaQuery } from '@mantine/hooks';
-import { UserContextType } from '@/lib/@types/app';
-import { API_URL } from '@/lib/common/constans';
+import { GlobalUser, UserContextType } from '@/lib/@types/app';
 import { datasource } from '@/lib/common/datasource';
 import { notifications } from '@mantine/notifications';
 import Link from 'next/link';
+import ContactSeller from '@/components/ContactSeller/ContactSeller';
 interface Iprops {
   opened: boolean;
   toggle: () => void;
-  product: ProductWithShop | ShopProduct | Product;
-  shopId?: number;
+  product: Product;
+  owner: GlobalUser;
+  shop: Shop;
 }
 
-function ProductModal({ opened, toggle, product, shopId }: Iprops) {
+function ProductModal({ opened, toggle, product, owner, shop }: Iprops) {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(AppContext) as UserContextType;
@@ -72,6 +72,7 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
       }}
       classNames={{ body: classes.body, header: classes.header, content: classes.content }}
     >
+      {product && <ContactSeller product={product} owner={owner} shop={shop} />}
       <LoadingOverlay
         visible={isLoading}
         zIndex={1000}
@@ -127,7 +128,7 @@ function ProductModal({ opened, toggle, product, shopId }: Iprops) {
 
               <Group justify={'center'} wrap="nowrap" px={0}>
               </Group>
-              {shopId === user?.shop?.id ? (
+              {shop.id === user?.shop?.id ? (
                 <Group justify={'center'} w={'100%'} p={'lg'}>
                   <Link href={`/dashboard/products/edit/${product.id}`}>
                     <Button

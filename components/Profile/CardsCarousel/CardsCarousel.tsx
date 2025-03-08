@@ -40,7 +40,7 @@ export function CardsCarousel({ userClicked }: { userClicked: GlobalUser }) {
   const slides = shop?.products?.map((item) => (
     <Carousel.Slide key={item.id}>
       {userClicked.shop ? (
-        <CarouselCard product={item} shopId={userClicked.shop?.id} />
+        <CarouselCard product={item} user={userClicked} shop={shop}/>
       ) : (
         ''
       )}

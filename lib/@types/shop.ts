@@ -43,6 +43,7 @@ export type Product = {
   stock: number;
   created_at: string;
   shop?: Shop
+  user?: GlobalUser
 };
 
 

@@ -1,4 +1,4 @@
-import { Product } from '@/lib/@types/shop'
+import { Product, Shop } from '@/lib/@types/shop'
 import { useActiveConversation } from '@/lib/context/activeConversation'
 import { useGlobalContext } from '@/lib/context/appContext'
 import { useNewConverSationContext } from '@/lib/context/newConversation'
@@ -11,14 +11,17 @@ import classes from "./ContactSeller.module.css";
 import Link from 'next/link'
 import OgMessage from '../OgMessage/OgMessage';
 import { useGlobalStore } from '@/lib/context/global-store.provider'
+import { GlobalUser } from '@/lib/@types/app'
 
-const ContactSeller = ({ product }: { product: Product }) => {
+interface IProps { product: Product , owner: GlobalUser, shop: Shop }
+
+const ContactSeller = ({ product, owner}: IProps ) => {
     const { setNewConversation } = useNewConverSationContext();
     const conversations = useGlobalStore((store) => store.conversations)
     const { user } = useGlobalContext()
     const { setActiveConversation } = useActiveConversation();
     const [opened, { toggle }] = useDisclosure();
-    const convo = conversations.find(convo => convo.users[0].id === product.shop?.user?.id);
+    const convo = conversations.find(convo => convo.users[0].id === owner.id);
 
 
     return (
@@ -28,7 +31,7 @@ const ContactSeller = ({ product }: { product: Product }) => {
                     <Button
                         className={classes.btn}
                         onClick={() => {
-                            if (user?.id === product.shop?.user?.id) return;
+                            if (user?.id === owner?.id) return;
 
                             if (convo) {
                                 setActiveConversation(convo);
@@ -36,10 +39,10 @@ const ContactSeller = ({ product }: { product: Product }) => {
                                 return;
                             }
                             setActiveConversation(null);
-                            setNewConversation(product.shop?.user);
+                            setNewConversation(product.shop?.user || owner);
                             toggle();
                         }} leftSection={<IconMessage stroke={1.5} />}>
-                        <Text visibleFrom='sm'>{`Contact ${product.shop?.user?.firstName}`}</Text>
+                        <Text visibleFrom='sm'>{`Contact ${owner.firstName}`}</Text>
                     </Button> : <Link href="/auth/login">
                         <Button leftSection={<IconMessage stroke={1.5} />}
                             className={classes.btn}
