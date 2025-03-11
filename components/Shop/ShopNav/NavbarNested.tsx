@@ -74,7 +74,6 @@ export function NavbarNested() {
 
 
   }, [])
-  console.log(categories)
 
   return (
     <Box h={'100%'}>

@@ -2,7 +2,7 @@
 
 import { UserContextType } from '@/lib/@types/app';
 import { datasource } from '@/lib/common/datasource';
-import { AppContext } from '@/lib/context/appContext';
+import { AppContext, useGlobalContext } from '@/lib/context/appContext';
 import { useMantineTheme, Modal, LoadingOverlay, Grid, Card, Flex, Box, Group, Button, Text, Paper, Affix } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
@@ -17,7 +17,7 @@ import ContactSeller from '../ContactSeller/ContactSeller';
 const ProductPage = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useContext(AppContext) as UserContextType;
+  const { user } = useGlobalContext();
   const owner = product.shop?.user;
   async function handleSubmit() {
     const { data, error, loading } = await datasource.post({ formData: { quantity, productId: product.id }, path: 'orders' })
@@ -147,6 +147,7 @@ const ProductPage = ({ product }: { product: Product }) => {
                         <Text>Total {product?.product_sizes[0].price * quantity}</Text>
                       </Group>
                       <Group justify="center">
+                        
                         <Button
                           leftSection={<IconBasketPlus size={20} />}
                           onClick={handleSubmit}

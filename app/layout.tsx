@@ -78,7 +78,7 @@ export default function RootLayout({
       <head>
         <meta charSet="UTF-8" />
         <link rel="icon" href="/favicon.ico" />
-        {process.env.NEXT_PUBLIC_NODE_ENV === 'development' && <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script>}
+        {/* {process.env.NEXT_PUBLIC_NODE_ENV === 'development' && <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script>} */}
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
@@ -94,14 +94,12 @@ export default function RootLayout({
               <AppProvider>
                 <WebSocketProvider>
                   <ActiveConversationProvider>
-                    <ChatProvider>
-                      <ScreenProvider>
-                        <NewConversationProvider>
-                          <Notifications />
-                          <div id="root">{children}</div>
-                        </NewConversationProvider>
-                      </ScreenProvider>
-                    </ChatProvider>
+                    <ScreenProvider>
+                      <NewConversationProvider>
+                        <Notifications />
+                        <div id="root">{children}</div>
+                      </NewConversationProvider>
+                    </ScreenProvider>
                   </ActiveConversationProvider>
                 </WebSocketProvider>
               </AppProvider>

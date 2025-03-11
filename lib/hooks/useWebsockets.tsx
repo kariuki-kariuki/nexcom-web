@@ -94,7 +94,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const [playFx] = useSound('/sounds/level-up.mp3');
 
   const socket = useSocketContext();
-  const { user } = useGlobalContext();
+  const { user, isLoggedIn } = useGlobalContext();
   const handleIncomingMessage = useCallback((res: NewMessage) => {
     try {
       if (res.productId) {
@@ -129,7 +129,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
       }
     }
     getConversations();
-  }, [])
+  }, [isLoggedIn, user])
 
   useEffect(() => {
     if (!user) return;

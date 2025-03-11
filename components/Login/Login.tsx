@@ -49,7 +49,7 @@ function Login() {
     if (error && !loading) {
       setError(error);
     }
-
+    setLoading(false);
   }
   return (
     <Box className={classes.main} mih="100vh">

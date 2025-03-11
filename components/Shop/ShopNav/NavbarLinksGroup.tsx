@@ -5,7 +5,6 @@ import classes from './NavbarLinksGroup.module.css';
 import { Category } from '@/lib/@types/shop';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import path from 'path';
 
 interface LinksGroupProps {
   name: string;
@@ -37,7 +36,6 @@ export function LinksGroup({
     </Link>
 });
   const link = `/shop/${name.toLowerCase().split(' ').join('-')}`
-  console.log(`link: ${link}, pathname: ${pathname}`,link === pathname)
   return (
     <>
       <UnstyledButton
