@@ -7,6 +7,7 @@ import { notifications } from '@mantine/notifications';
 import { IconFileSearch } from '@tabler/icons-react';
 import React, { useState } from 'react';
 import SearchedImage from '../SearchedImage/SearchedImage';
+import { NODE_ENV } from '@/lib/common/constans';
 
 const SearchByImage = () => {
   const [opened, { toggle }] = useDisclosure(false)
@@ -16,6 +17,13 @@ const SearchByImage = () => {
 
   const handleSearch = async () => {
     if(!file) return;
+    if(NODE_ENV !== 'development'){
+      notifications.show({
+        message: 'Feature Not Available Yet',
+        color: 'yellow.8',
+      })
+      return;
+    }
     setLoading(true);
     const formData = new FormData();
   formData.append('file', file)
