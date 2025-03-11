@@ -8,7 +8,7 @@ const siteMetadata = {
   siteUrl: 'https://nexcom-ke.vercel.app',
   siteRepo: 'https://github.com/kariuk-kariuki/',
   siteLogo: `${process.env.BASE_PATH || ''}/logos/logo.png`,
-  socialBanner: `${process.env.BASE_PATH || ''}/images/dtx.png`,
+  socialBanner: `${process.env.BASE_PATH || ''}/images/og.png`,
   mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'business.kariukimartin@gmail.com',
   github: 'https://github.com/kariuki-karuki',
