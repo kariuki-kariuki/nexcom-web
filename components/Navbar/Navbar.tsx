@@ -29,7 +29,6 @@ const data = [
 ];
 
 export function Navbar() {
-  const [active, setActive] = useState('Products');
   const router = useRouter();
   const [opened, { toggle }] = useDisclosure();
   const pathname = usePathname()
@@ -38,12 +37,11 @@ export function Navbar() {
   const links = data.map((item) => (
     <Link
       className={classes.link}
-      data-active={item.label === active || undefined}
+      data-active={item.link === pathname || undefined}
       key={item.label}
       href={`${item.link}`}
       onClick={(event) => {
         event.preventDefault();
-        setActive(item.label);
         router.push(`${item.link}`);
       }}
     >
