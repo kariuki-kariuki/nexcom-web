@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react';
 import { UsersTable } from './Tables/UserTable/UserTable';
-import { Box, Flex } from '@mantine/core';
+import { Box, Card, Flex, Group, Text } from '@mantine/core';
 import { StatsGrid } from './components/StatsGrid/StatsGrid';
 import Header from './components/Header/Header';
 import StatsChart from './components/StatsChart/StatsChart';
@@ -22,22 +22,23 @@ function Admin() {
       >
         <Header active={active} setActive={setActive} />
         <div className={classes.scroll}>
-          <Flex direction={{ base: 'column', sm: 'row'}} gap={'md'}>
+          <StatsGrid />
+          
+          <Card>
+            <Group>
+              <Text>Stats</Text>
+            </Group>
+          <StartLine />
+          </Card>
+          <UsersTable />
+          <Flex direction={{ base: 'column', sm: 'row' }} gap={'md'}>
             <Box w={{ base: '100%', sm: '50%' }}>
-              <StatsGrid />
               <StatsBar />
-              <StatsSegments />
-              <UsersTable />
-              <StatsChart />
             </Box >
-            <Box 
+            <Box
               w={{ base: '100%', sm: '50%' }}
             >
-              <StatsChart />
-              <UsersTable />
-              <StartLine />
               <StatsSegments />
-              <AdminCalendar />
             </Box >
           </Flex>
         </div>

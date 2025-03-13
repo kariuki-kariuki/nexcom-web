@@ -21,18 +21,10 @@ export function StartLine() {
       <LineChart
         h={300}
         data={data}
-        series={[{ name: 'KPI', label: 'Avg. KPI' }]}
+        series={[{ name: 'KPI', label: 'Avg. KPI', color: 'yellow.7' }]}
         dataKey="date"
-        type="gradient"
-        gradientStops={[
-          { offset: 0, color: 'red.6' },
-          { offset: 20, color: 'orange.6' },
-          { offset: 40, color: 'yellow.5' },
-          { offset: 70, color: 'lime.5' },
-          { offset: 80, color: 'cyan.5' },
-          { offset: 100, color: 'blue.5' }
-        ]}
-        strokeWidth={5}
+        color='yellow.7'
+        strokeWidth={3}
         curveType="natural"
         yAxisProps={{ domain: [-25, 40] }}
         valueFormatter={(value) => `${value}°C`}

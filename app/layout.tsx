@@ -12,7 +12,6 @@ import '@mantine/notifications/styles.css';
 import './index.css';
 import ActiveConversationProvider from '@/lib/context/activeConversation';
 import AppProvider from '@/lib/context/appContext';
-import { ChatProvider } from '@/lib/context/ConversationContext';
 import { Notifications } from '@mantine/notifications';
 import { SocketProvider } from '@/lib/hooks/useSocket';
 import { siteMetadata } from '@/lib/data/siteMetadata';

@@ -1,0 +1,75 @@
+
+
+.card-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f4f4f9;
+}
+
+.business-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+  position: relative;
+}
+
+.profile-pic {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #5a67d8, #7f53ac);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.initials {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.card-details {
+  margin-top: 40px;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.title {
+  color: #555;
+  margin: 5px 0;
+}
+
+.contact {
+  color: #777;
+  margin: 2px 0;
+}
+
+.social-links {
+  margin-top: 15px;
+}
+
+.social-link {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #555;
+  transition: color 0.3s;
+}
+
+.social-link:hover {
+  color: #000;
+}

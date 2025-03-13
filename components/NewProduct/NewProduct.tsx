@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { IconImageInPicture } from '@tabler/icons-react';
 import {
   Box,
   Button,
@@ -9,7 +8,6 @@ import {
   Flex,
   Group,
   LoadingOverlay,
-  rem,
   Text
 } from '@mantine/core';
 import { FileWithPath } from '@mantine/dropzone';

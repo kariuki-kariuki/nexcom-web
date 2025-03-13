@@ -59,7 +59,6 @@ function PriceSize({ product, setProduct }: IProps) {
       color: 'coco.0',
       message: 'Added a new Size'
     });
-
     setSize({ size: '', price: 0 });
   };
 

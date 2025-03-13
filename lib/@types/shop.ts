@@ -79,10 +79,10 @@ export interface ShopWithProducts extends Shop {
   products: Product[];
 }
 
-export interface Order {
+export interface CartItem {
   quantity: number;
-  id: number;
-  size: string;
+  id: string;
+  size: SizeWithPrice;
   color: string;
   customer_description: string;
   product: ShopProduct;

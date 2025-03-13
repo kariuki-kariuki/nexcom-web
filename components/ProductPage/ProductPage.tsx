@@ -18,9 +18,10 @@ const ProductPage = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useGlobalContext();
+  const [sizeId, setSizedId] = useState(product.product_sizes[0].id) 
   const owner = product.shop?.user;
   async function handleSubmit() {
-    const { data, error, loading } = await datasource.post({ formData: { quantity, productId: product.id }, path: 'orders' })
+    const { data, error, loading } = await datasource.post({ formData: { quantity, productId: product.id, sizeId }, path: 'carts' })
     setIsLoading(loading);
 
     if (error && !loading) {

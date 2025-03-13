@@ -2,10 +2,8 @@ import React from 'react';
 import {
   Box,
   Button,
-  Card,
   Input,
   Select,
-  Text,
   Textarea,
   useMantineTheme
 } from '@mantine/core';

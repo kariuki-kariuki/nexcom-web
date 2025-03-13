@@ -14,16 +14,51 @@ import {
 } from '@mantine/core';
 import classes from './Cart.module.css';
 import { CartTable } from './CartTable/CartTable';
-import { Order } from '@/lib/@types/shop';
+import { CartItem } from '@/lib/@types/shop';
 import { IconEyeDollar } from '@tabler/icons-react';
 import { useState } from 'react';
 import SimpleHeader from '@/components/SimpleHeader/SimpleHeader';
+import { notifications } from '@mantine/notifications';
+import { datasource } from '@/lib/common/datasource';
 
-const Cart = ({ orderss }: { orderss: Order[] | null }) => {
-  const [orders, setOrders] = useState(orderss);
+const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
+  const [cartedItems, setCartItems] = useState(cartItems);
+  const [selection, setSelection] = useState<string[]>([]);
+  const [phone, setPhone] = useState('')
   const [total, setTotal] = useState(0);
+  const [error, setError] = useState('')
 
-  if (!orders) return <>
+  const handleCheckout = async () => {
+    setError('')
+    try{
+      let num = parseInt(phone)
+      console.log(num);
+    } catch (e) {
+      notifications.show({
+        title: "Error",
+        message: "Check the phone number.",
+        color: "red.7",
+      })
+      return;
+    }
+    if (selection.length < 1 && phone.length < 10) {
+      notifications.show({
+        title: "Error",
+        message: "Select Items to Checkout or Check the phone",
+        color: "red.7",
+      })
+      return;
+    }
+
+
+    const { data, error } = await datasource.post({ formData: { cartIds: selection, phone: parseInt(phone) }, path: 'orders' })
+    if(error){
+      setError(error)
+    }
+    console.log(data)
+  }
+
+  if (!cartedItems) return <>
     <SimpleHeader />
     <Text>No Items</Text></>
 
@@ -40,11 +75,13 @@ const Cart = ({ orderss }: { orderss: Order[] | null }) => {
         <Box
           w={{ base: '100%', sm: '70%' }}
         >
-          {orders.length > 0 ? (
+          {cartedItems.length > 0 ? (
             <CartTable
-              orders={orders}
+              cartItems={cartedItems}
               setTotal={setTotal}
-              setOrders={setOrders}
+              setCartItems={setCartItems}
+              selection={selection}
+              setSelection={setSelection}
             />
           ) : (
             ''
@@ -60,8 +97,8 @@ const Cart = ({ orderss }: { orderss: Order[] | null }) => {
             <Text ff={'serif'} fz="bold">Total</Text>{' '}
             <Text ff={'serif'}>Ksh {total}</Text>
           </Group>
-          <InputWrapper label={'Phone'} required p={'md'} ff={'serif'}>
-            <Input placeholder="+254 742075647" size='lg' ff={'serif'} />
+          <InputWrapper label={'Phone'} required p={'md'} ff={'serif'} error={error}>
+            <Input placeholder="+254 742075647" value={phone} onChange={(e) => setPhone(e.target.value)} size='lg' ff={'serif'} />
           </InputWrapper>
           <Group p={'md'} justify="center">
             <Button
@@ -70,6 +107,7 @@ const Cart = ({ orderss }: { orderss: Order[] | null }) => {
               ff={'serif'}
               fullWidth
               size='lg'
+              onClick={handleCheckout}
               leftSection={<IconEyeDollar style={{ height: rem(24), width: rem(24) }} />}
             >
               CheckOut
@@ -81,4 +119,4 @@ const Cart = ({ orderss }: { orderss: Order[] | null }) => {
   );
 };
 
-export default Cart;
+export default CartComponent;

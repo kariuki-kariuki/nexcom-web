@@ -2,6 +2,7 @@ import { Grid, Group, Paper, Text } from '@mantine/core';
 import { DonutChart } from '@mantine/charts';
 import { IconUserBolt, IconUserCheck } from '@tabler/icons-react';
 import classes from './StatsChart.module.css';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 const data = [
   { name: 'Kenya', value: 400, color: 'purple' },
@@ -19,21 +20,18 @@ const data2 = [
 
 const userData = [
   {
-    label: 'Users',
-    desc: 'Total Users',
+    label: 'Followers',
+    desc: 'Total',
     icon: IconUserCheck,
     data
   },
-  {
-    label: 'Active',
-    desc: 'Active Users',
-    icon: IconUserBolt,
-    data: data2
-  }
+  
 ];
 const StatsChart = () => {
+  const conversations = useGlobalStore((state) => state.conversations)
+
   const stats = userData.map((data) => (
-    <Grid.Col span={{ base: 12, sm: 6 }}>
+    <Grid.Col span={{ base: 12 }}>
       <Paper p={'md'} className={classes.main}>
         <div>
           <Group justify="space-between" mb={'md'}>
@@ -43,12 +41,8 @@ const StatsChart = () => {
           <Group justify="space-between">
             <div>
               <Text fz={'h1'} ff={'serif'}>
-                {data.data.reduce((acc, curr) => {
-                  return acc + curr.value;
-                }, 0) / 100}
-                K
-              </Text>
-              <Text fz={'xs'}>{data.desc}</Text>
+                {`${conversations.length} ${data.desc}`}
+                </Text>
             </div>
             <DonutChart data={data.data} size={70} />
           </Group>

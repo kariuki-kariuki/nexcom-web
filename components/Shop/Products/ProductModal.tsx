@@ -35,7 +35,7 @@ function ProductModal({ opened, toggle, product, owner, shop }: Iprops) {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(AppContext) as UserContextType;
   async function handleSubmit() {
-    const { data, error, loading } = await datasource.post({formData: { quantity, productId: product.id }, path: 'orders'})
+    const { data, error, loading } = await datasource.post({formData: { quantity, productId: product.id }, path: 'carts'})
     setIsLoading(loading);
 
     if (error && !loading) {

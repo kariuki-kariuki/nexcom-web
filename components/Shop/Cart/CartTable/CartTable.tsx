@@ -13,18 +13,19 @@ import {
 } from '@mantine/core';
 import classes from './CartTable.module.css';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
-import { Order } from '@/lib/@types/shop';
+import { CartItem } from '@/lib/@types/shop';
 import { useColorScheme } from '@mantine/hooks';
 import { datasource } from '@/lib/common/datasource';
 
 interface IProps {
-  orders: Order[];
+  cartItems: CartItem[];
   setTotal: (total: number) => void;
-  setOrders: (orders: Order[]) => void;
+  setCartItems: (cartItems: CartItem[]) => void;
+  selection: string[],
+  setSelection: (updater: (selections: string[]) => string[]) => void; 
 }
 
-export function CartTable({ orders, setTotal, setOrders }: IProps) {
-  const [selection, setSelection] = useState([orders?.[0]?.id.toString()]);
+export function CartTable({ cartItems, setTotal, setCartItems, selection, setSelection }: IProps) {
   const colorScheme = useColorScheme();
   // Toggle selection of individual row
   const toggleRow = (id: string) =>
@@ -37,48 +38,48 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
   // Toggle selection of all rows
   const toggleAll = () =>
     setSelection((current) =>
-      current?.length === orders.length
+      current?.length === cartItems.length
         ? []
-        : orders?.map((item) => item.id.toString())
+        : cartItems?.map((item) => item.id.toString())
     );
 
-  // Calculate the total based on selected orders
+  // Calculate the total based on selected cartItems
   const calculateTotal = () => {
-    const selectedOrders = orders?.filter((order) =>
-      selection.includes(order.id.toString())
+    const selectedItems = cartItems?.filter((cart) =>
+      selection.includes(cart.id.toString())
     );
     const newTotal =
-      selectedOrders?.reduce((sum, order) => {
-        return sum + order.product.product_sizes[0].price * order.quantity;
+      selectedItems?.reduce((sum, cartItem) => {
+        return sum + cartItem.size.price * cartItem.quantity;
       }, 0) || 0; // Default to 0 if no selection
     setTotal(newTotal);
   };
 
-  // Recalculate total when selection or orders change
+  // Recalculate total when selection or cartItems change
   useEffect(() => {
     calculateTotal();
-  }, [selection, orders]);
+  }, [selection, cartItems]);
 
-  // Render table rows for each order
-  const rows = orders?.map((order) => {
-    const selected = selection.includes(order?.id.toString());
-    const [myOrder, setMyOrder] = useState(order); // Separate state for each order
+  // Render table rows for each cart
+  const rows = cartItems?.map((cart) => {
+    const selected = selection.includes(cart?.id.toString());
+    const [mycart, setMycart] = useState(cart); // Separate state for each cart
 
-    // Update order quantity and recalculate total
-    const updateOrderQuantity = async (newQuantity: number) => {
-      const updatedOrder = { ...myOrder, quantity: newQuantity };
-      setMyOrder(updatedOrder);
-      const { data } = await datasource.update(updatedOrder, `orders/${order.id}`)
+    // Update cart quantity and recalculate total
+    const updatecartQuantity = async (newQuantity: number) => {
+      const updatedcart = { ...mycart, quantity: newQuantity };
+      setMycart(updatedcart);
+      const { data } = await datasource.update(updatedcart, `carts/${cart.id}`)
       if(data) {
-        const updatedOrders = orders.map((item) =>
-          item.id === order.id ? updatedOrder : item
+        const updatedcarts = cartItems.map((item) =>
+          item.id === cart.id ? updatedcart : item
         );
-        setOrders(updatedOrders);
+        setCartItems(updatedcarts);
       }
     };
     return (
       <Table.Tr
-        key={order?.id}
+        key={cart?.id}
         className={cx({
           [classes.rowSelected]: selected,
           [classes.color]: !selected
@@ -86,15 +87,15 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
       >
         <Table.Td>
           <Checkbox
-            checked={selection.includes(order.id.toString())}
-            onChange={() => toggleRow(order.id.toString())}
+            checked={selection.includes(cart.id.toString())}
+            onChange={() => toggleRow(cart.id.toString())}
           />
         </Table.Td>
         <Table.Td>
           <Group gap="sm" h={70}>
             <Image
               style={{ height: '100%' }}
-              src={order.product.images ? order.product.images[0].url : '' }
+              src={cart.product.images ? cart.product.images[0].url : '' }
               radius={'md'}
             />
           </Group>
@@ -103,7 +104,7 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
           <Text size="sm" fw={500} flex={1} 
             lineClamp={1}
           >
-            {order.product.name}
+            {cart.product.name}
           </Text>
         </Table.Td>
         <Table.Td flex={1}>
@@ -111,19 +112,19 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
             <IconMinus
               color="red"
               onClick={() => {
-                if (myOrder.quantity > 1) {
-                  updateOrderQuantity(myOrder.quantity - 1);
+                if (mycart.quantity > 1) {
+                  updatecartQuantity(mycart.quantity - 1);
                 }
               }}
             />
-            {myOrder.quantity}
+            {mycart.quantity}
             <IconPlus
               color="green"
-              onClick={() => updateOrderQuantity(myOrder.quantity + 1)}
+              onClick={() => updatecartQuantity(mycart.quantity + 1)}
             />
           </Flex>
         </Table.Td>
-        <Table.Td>{myOrder.quantity * order.product.product_sizes[0].price}</Table.Td>
+        <Table.Td>{mycart.quantity * cart.size.price}</Table.Td>
       </Table.Tr>
     );
   });
@@ -137,16 +138,16 @@ export function CartTable({ orders, setTotal, setOrders }: IProps) {
           withRowBorders={true}
           stickyHeader
           striped
-          stripedColor={colorScheme === 'dark' ? 'coco.0' : ''}
+          stripedColor={colorScheme === 'light' ? 'gray.2' : 'coco.0'}
         >
           <Table.Thead>
             <Table.Tr>
               <Table.Th style={{ width: rem(40) }}>
                 <Checkbox
                   onChange={toggleAll}
-                  checked={selection.length === orders.length}
+                  checked={selection.length === cartItems.length}
                   indeterminate={
-                    selection.length > 0 && selection.length !== orders.length
+                    selection.length > 0 && selection.length !== cartItems.length
                   }
                 />
               </Table.Th>
