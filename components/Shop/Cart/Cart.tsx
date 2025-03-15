@@ -41,7 +41,7 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
       })
       return;
     }
-    if (selection.length < 1 && phone.length < 10) {
+    if (selection.length < 1 && phone.length === 10) {
       notifications.show({
         title: "Error",
         message: "Select Items to Checkout or Check the phone",
@@ -51,7 +51,7 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
     }
 
 
-    const { data, error } = await datasource.post({ formData: { cartIds: selection, phone: parseInt(phone) }, path: 'orders' })
+    const { data, error } = await datasource.post({ formData: { cartIds: selection, phone }, path: 'orders' })
     if(error){
       setError(error)
     }
@@ -98,7 +98,7 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
             <Text ff={'serif'}>Ksh {total}</Text>
           </Group>
           <InputWrapper label={'Phone'} required p={'md'} ff={'serif'} error={error}>
-            <Input placeholder="+254 742075647" value={phone} onChange={(e) => setPhone(e.target.value)} size='lg' ff={'serif'} />
+            <Input placeholder="0742075647" value={phone} onChange={(e) => setPhone(e.target.value)} size='lg' ff={'serif'} />
           </InputWrapper>
           <Group p={'md'} justify="center">
             <Button
