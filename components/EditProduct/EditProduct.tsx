@@ -12,7 +12,6 @@ import {
   Group,
   Input,
   LoadingOverlay,
-  NativeSelect,
   Select,
   Text,
   Textarea
@@ -46,7 +45,6 @@ function EditProduct({
   const handleCreate = async () => {
     setLoading((prevState) => !prevState);
     const formData = new FormData();
-    // Append each file to FormData
     formData.append('productId', product.id.toString());
     files.forEach((file) => {
       formData.append('files', file);
@@ -84,14 +82,14 @@ function EditProduct({
         });
       }
     if ( data && !error) {
-      setLoading((prevState) => !prevState);
+      setLoading(false);
       notifications.show({
         title: 'Sucess',
         message: 'Updated succesfuly'
       });
       router.push('/dashboard/products');
     }
-    setLoading((prevState) => !prevState);
+    setLoading(false);
   };
   return (
     <div>

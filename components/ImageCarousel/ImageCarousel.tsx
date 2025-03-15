@@ -26,7 +26,7 @@ export function ProductCorousel({ images, setProduct }: Props) {
       slideGap={{ base: 0, sm: 'md' }}
       loop
       slidesToScroll={1}
-      classNames={{controls: classes.controls}}
+      classNames={{control: classes.controls}}
       // orientation={mobile ? 'horizontal' : 'vertical'}
     >
       {slides}

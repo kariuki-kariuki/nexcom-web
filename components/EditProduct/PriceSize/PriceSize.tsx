@@ -125,7 +125,7 @@ function PriceSize({ product, setProduct }: IProps) {
             size='lg'
             classNames={{input: classes.input}}
             onChange={(e) =>
-              setSize({ ...size, price: parseFloat(e.target.value) || 0 })
+              setSize({ ...size, price: parseInt(e.target.value) })
             }
           />
         </InputWrapper>
