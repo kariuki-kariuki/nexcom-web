@@ -1,5 +1,5 @@
 export type SizeWithPrice = {
-  id?: number;
+  id: string;
   size: string;
   price: number;
 };

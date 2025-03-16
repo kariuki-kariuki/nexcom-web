@@ -14,3 +14,9 @@
 .card {
   background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
 }
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--mantine-color-orange-7);
+}

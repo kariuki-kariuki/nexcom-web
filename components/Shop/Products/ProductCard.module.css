@@ -2,7 +2,11 @@
   background-color: light-dark(var(--mantine-color-white),
       var(--mantine-color-gray-9));
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
-  width: 48%;
+  width: 100%;
+  
+  @media (min-width: $mantine-breakpoint-xs) {
+    width: 48%;
+  }
 
   @media (min-width: $mantine-breakpoint-sm) {
     width: 48%;

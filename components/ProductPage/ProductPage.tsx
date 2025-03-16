@@ -1,14 +1,13 @@
 'use client';
 
-import { UserContextType } from '@/lib/@types/app';
 import { datasource } from '@/lib/common/datasource';
-import { AppContext, useGlobalContext } from '@/lib/context/appContext';
-import { useMantineTheme, Modal, LoadingOverlay, Grid, Card, Flex, Box, Group, Button, Text, Paper, Affix } from '@mantine/core';
+import { useGlobalContext } from '@/lib/context/appContext';
+import { useMantineTheme, LoadingOverlay, Card, Flex, Box, Group, Button, Text, SegmentedControl, ScrollArea, useMantineColorScheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { IconTool, IconBasketPlus, IconMessage } from '@tabler/icons-react';
+import { IconTool, IconBasketPlus, IconBasketHeart, IconHeartPlus } from '@tabler/icons-react';
 import Link from 'next/link';
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import ImageCarousel from '../Shop/shopcomponents/ImageCarousel';
 import classes from './ProductPage.module.css'
 import { Product } from '@/lib/@types/shop';
@@ -17,8 +16,12 @@ import ContactSeller from '../ContactSeller/ContactSeller';
 const ProductPage = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedPrice, setSelectedPrice] = useState(product.product_sizes[0].id)
   const { user } = useGlobalContext();
-  const [sizeId, setSizedId] = useState(product.product_sizes[0].id) 
+  const [sizeId, setSizedId] = useState(product.product_sizes[0].id)
+  const { colorScheme } = useMantineColorScheme()
+  const price = product.product_sizes.find((size) => size.id === selectedPrice)?.price;
+  const sizes = product.product_sizes;
   const owner = product.shop?.user;
   async function handleSubmit() {
     const { data, error, loading } = await datasource.post({ formData: { quantity, productId: product.id, sizeId }, path: 'carts' })
@@ -54,11 +57,8 @@ const ProductPage = ({ product }: { product: Product }) => {
 
       <Flex h={'100%'} bg={'none'} justify={'center'} content='center' align={'center'} >
         <Card className={classes.grid} withBorder my={'md'}>
-          <Text fw={'500'} fz={'lg'} my={"lg"} ta={'center'}>
-            {product?.name}
-          </Text>
           <Flex h={'fit-content'} direction={{ base: 'column', sm: 'row' }}>
-            <Box w={{ base: '100%', sm: '50%' }} h={'100%'}>
+            <Box w={{ base: '100%', sm: '50%', md: '30%' }} h={'100%'}>
               <Card
                 p={{ base: 'lg', md: 'xl' }}
                 h={{ base: '100%', sm: '100%' }}
@@ -70,7 +70,7 @@ const ProductPage = ({ product }: { product: Product }) => {
                 </Card.Section>
               </Card>
             </Box>
-            <Box w={{ base: '100%', sm: '50%' }}>
+            <Box w={{ base: '100%', sm: '50%', md: '30%' }}>
               <Card
                 p={{ base: 'sm', sm: 'sm' }}
                 h={'100%'}
@@ -78,6 +78,9 @@ const ProductPage = ({ product }: { product: Product }) => {
               >
                 <Flex direction={'column'} gap={5} h={'100%'} justify={'center'}>
                   <Box>
+                    <Text fw={'500'} my={"lg"} className={classes.title}>
+                      {product?.name}
+                    </Text>
                     <Group justify="space-between">
                       <Text fw={'400'} fs={'italic'} py={'md'}>
                         Product Description
@@ -89,7 +92,7 @@ const ProductPage = ({ product }: { product: Product }) => {
                         style={{ borderRadius: '10px' }}
                       >
                         {' '}
-                        {product.product_sizes ? `Price: ${product?.product_sizes[0].price}` : ''}
+                        {product.product_sizes ? `Price: ${price}` : ''}
                       </Text>
                     </Group>
                     <Text
@@ -100,24 +103,37 @@ const ProductPage = ({ product }: { product: Product }) => {
                       {product?.description}
                     </Text>
                   </Box>
+                  <ScrollArea scrollbars="x">
+                    <Text>Size</Text>
+                    <SegmentedControl
+                      color='orange.7'
+                      value={selectedPrice} onChange={setSelectedPrice} size='lg'
+                      radius="lg"
+                      bg={colorScheme === 'dark' ? "coco.1" : ''}
+                      data={sizes.map((size) => ({ label: `${size.size}: ${size.price}`, value: size.id }))}
+                    />
+                  </ScrollArea>
 
                   <Group justify={'center'} wrap="nowrap" px={0}>
                   </Group>
                   {product.shop?.id === user?.shop?.id ? (
-                    <Group justify={'center'} w={'100%'} p={'lg'}>
-                      <Link href={`/dashboard/products/edit/${product.id}`}>
-                        <Button
-                          bg={'teal'}
-                          leftSection={<IconTool size={14} color="white" />}
-                        >
-                          Edit
-                        </Button>
-                      </Link>
-                    </Group>
+                    // <Group justify={'center'} w={'100%'} p={'lg'}>
+                    <Link href={`/dashboard/products/edit/${product.id}`}>
+                      <Button
+                        bg={'teal'}
+                        size='lg'
+                        tw="200"
+                        fullWidth
+                        rightSection={<IconTool size={24} color="white" />}
+                      >
+                        Edit
+                      </Button>
+                    </Link>
+                    // </Group>
                   ) : (
                     <div>
                       <Group
-                        justify={mobile ? 'center' : 'space-between'}
+                        justify="space-between"
                         py={'md'}
                       >
                         <Button.Group>
@@ -145,18 +161,23 @@ const ProductPage = ({ product }: { product: Product }) => {
                             +
                           </Button>
                         </Button.Group>
-                        <Text>Total {product?.product_sizes[0].price * quantity}</Text>
+                        {price && <Text>Total {price * quantity}</Text>}
                       </Group>
-                      <Group justify="center">
-                        
+                      <Group justify="center" grow>
                         <Button
                           leftSection={<IconBasketPlus size={20} />}
                           onClick={handleSubmit}
                           bg={'teal.7'}
-                          w={{ base: '100%' }}
-                          size='lg'
                         >
                           Add To Cart
+                        </Button>
+                        <Button
+                          leftSection={<IconHeartPlus size={20} color='red' />}
+                          onClick={handleSubmit}
+                          variant='outline'
+                          color='teal.7'
+                        >
+                          Add To WishList
                         </Button>
                       </Group>{' '}
                     </div>
