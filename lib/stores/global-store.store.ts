@@ -9,8 +9,6 @@ type GlobalState = {
   conversations: ConversationProps[];
   activeConversation: ConversationProps | null;
   newConversation: GlobalUser | null;
-
-
 };
 
 type GlobalActions = {

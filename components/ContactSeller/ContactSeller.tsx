@@ -1,5 +1,4 @@
 import { Product, Shop } from '@/lib/@types/shop'
-import { useActiveConversation } from '@/lib/context/activeConversation'
 import { useGlobalContext } from '@/lib/context/appContext'
 import { useNewConverSationContext } from '@/lib/context/newConversation'
 import { Affix, Avatar, Box, Button, Dialog, Flex, Group, ScrollArea, Text } from '@mantine/core'
@@ -13,20 +12,20 @@ import OgMessage from '../OgMessage/OgMessage';
 import { useGlobalStore } from '@/lib/context/global-store.provider'
 import { GlobalUser } from '@/lib/@types/app'
 
-interface IProps { product: Product , owner: GlobalUser, shop: Shop }
+interface IProps { product: Product, owner: GlobalUser, shop: Shop }
 
-const ContactSeller = ({ product, owner}: IProps ) => {
+const ContactSeller = ({ product, owner }: IProps) => {
     const { setNewConversation } = useNewConverSationContext();
     const conversations = useGlobalStore((store) => store.conversations)
     const { user } = useGlobalContext()
-    const { setActiveConversation } = useActiveConversation();
+    const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
     const [opened, { toggle }] = useDisclosure();
     const convo = conversations.find(convo => convo.users[0].id === owner.id);
 
 
     return (
         <div>
-         <Affix className={classes.affix} position={{ right: 10, bottom: 10 }}>
+            <Affix className={classes.affix} position={{ right: 10, bottom: 10 }}>
                 {user ?
                     <Button
                         className={classes.btn}

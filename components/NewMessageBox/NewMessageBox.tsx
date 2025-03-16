@@ -9,9 +9,6 @@ import {
   useMantineColorScheme
 } from '@mantine/core';
 import { useState } from 'react';
-import {
-  useActiveConversation
-} from '@/lib/context/activeConversation';
 import { Theme } from 'emoji-picker-react';
 import classes from './NewMessageBox.module.css';
 import EmojiPicker from 'emoji-picker-react';
@@ -21,7 +18,6 @@ import {
   useNewConverSationContext
 } from '@/lib/context/newConversation';
 import { useSocketContext } from '@/lib/hooks/useSocket';
-import { useGlobalContext } from '@/lib/context/appContext';
 import { ConversationProps, NewMessage } from '@/lib/@types/app';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 
@@ -32,9 +28,8 @@ interface INewMessageBox {
 const NewMessageBox = ({ productId, close }: INewMessageBox) => {
   const [message, setMessage] = useState<string>('');
   const socket = useSocketContext()
-  const { user } = useGlobalContext()
-
-  const { activeConversation, setActiveConversation } = useActiveConversation();
+  const activeConversation = useGlobalStore(state => state.activeConversation);
+  const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
   const { newConversation, setNewConversation } = useNewConverSationContext();
   const addMessage = useGlobalStore((state) => state.addMessage)
   const addConversation = useGlobalStore((state) => state.addConversation)

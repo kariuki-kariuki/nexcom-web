@@ -12,7 +12,6 @@ import { useContext, useEffect, useState } from 'react';
 import { IconCheck, IconChecks, IconShoppingBag } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { ConversationProps, GlobalUser, Message, PayloadMessage } from '@/lib/@types/app';
-import { useActiveConversation } from '@/lib/context/activeConversation';
 import { ScreenContext, screenContextType } from '@/lib/context/screenContext';
 import { MessageState } from '@/lib/common/common';
 import { useSocketContext } from '@/lib/hooks/useSocket';
@@ -31,7 +30,9 @@ interface Props {
 export function ConversationButton({ conversation, open }: Props) {
   const { user: gUser } = useGlobalContext();
   const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
-  const { activeConversation, setActiveConversation } = useActiveConversation();
+  const activeConversation = useGlobalStore(state => state.activeConversation);
+  const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
+  const setActiveConvo = useGlobalStore((state) => state.setActiveConversation)
   const updateMessage = useGlobalStore((state) => state.updateMessage)
   const [count, setCount] = useState(0);
   const theme = useMantineTheme();
@@ -103,6 +104,7 @@ export function ConversationButton({ conversation, open }: Props) {
       className={clsx({ [classes.active]: active, [classes.normal]: !active })}
       onClick={() => {
         setActiveConversation(conversation);
+        setActiveConvo(conversation);
         updateActiveScreen('chat');
         if (count > 0) {
           socket.emit(

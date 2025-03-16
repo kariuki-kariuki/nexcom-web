@@ -3,24 +3,21 @@ import { IconArrowBadgeLeftFilled } from '@tabler/icons-react';
 import { Avatar, Group, Paper, Stack, Text, useMantineTheme } from '@mantine/core';
 import classes from './Bar.module.css';
 import { useContext } from 'react';
-import {
-  activeConversatonType,
-  ConversationContext,
-  useActiveConversation
-} from '@/lib/context/activeConversation';
 import Dashboard from '../Profile/ProfileDashboard';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import {
   useNewConverSationContext
 } from '@/lib/context/newConversation';
 import { ConversationProps } from '@/lib/@types/app';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 interface CloseProps {
   closes: () => void;
   activeConvo?: ConversationProps | null;
 }
 // Top Bar on the Chatbox Area
 const Bar = ({ closes }: CloseProps) => {
-  const { activeConversation, setActiveConversation } = useActiveConversation();
+  const activeConversation = useGlobalStore(state => state.activeConversation);
+  const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
   const user = activeConversation?.users[0];
   const [opened, { open, close }] = useDisclosure(false);
   const { newConversation } = useNewConverSationContext();

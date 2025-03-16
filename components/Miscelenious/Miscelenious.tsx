@@ -1,24 +1,19 @@
-import {
-  IconX
-} from '@tabler/icons-react';
-import { Box, Flex, Tooltip, useMantineColorScheme } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { IconX } from '@tabler/icons-react';
+import { Box, Flex, Tooltip } from '@mantine/core';
 import { useContext } from 'react';
-import { useGlobalContext } from '@/lib/context/appContext';
-import {
-  useActiveConversation
-} from '@/lib/context/activeConversation';
 import {
   NewConversationContext,
   NewConversationType
 } from '@/lib/context/newConversation';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 function Miscelenious() {
-  const { activeConversation, setActiveConversation } = useActiveConversation();
+  const activeConversation = useGlobalStore(state => state.activeConversation);
+  const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
   const { newConversation, setNewConversation } = useContext(
     NewConversationContext
   ) as NewConversationType;
-   
-  
+
+
 
   return (
     <Flex justify="space-between" align="center" content='center'>
@@ -39,7 +34,7 @@ function Miscelenious() {
         ''
       )}
       <Box p={"md"}>
-        
+
       </Box>
     </Flex>
   );

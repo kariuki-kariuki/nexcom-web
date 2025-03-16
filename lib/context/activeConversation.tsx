@@ -26,9 +26,6 @@ const ActiveConversationProvider: React.FC<{ children: React.ReactNode }> = ({
   const [activeConversation, setActiveConversation] =
     useState<ConversationProps | null>(null);
 
-  // const updateActiveConver = (active: ConversationProps) => {
-  //     setActiveConversation(active);
-  // }
   return (
     <ConversationContext.Provider
       value={{ activeConversation, setActiveConversation }}

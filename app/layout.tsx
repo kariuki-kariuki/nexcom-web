@@ -10,7 +10,6 @@ import '@mantine/dropzone/styles.css';
 import '@mantine/carousel/styles.css';
 import '@mantine/notifications/styles.css';
 import './index.css';
-import ActiveConversationProvider from '@/lib/context/activeConversation';
 import AppProvider from '@/lib/context/appContext';
 import { Notifications } from '@mantine/notifications';
 import { SocketProvider } from '@/lib/hooks/useSocket';
@@ -92,14 +91,12 @@ export default function RootLayout({
             <SocketProvider>
               <AppProvider>
                 <WebSocketProvider>
-                  <ActiveConversationProvider>
-                    <ScreenProvider>
-                      <NewConversationProvider>
-                        <Notifications />
-                        <div id="root">{children}</div>
-                      </NewConversationProvider>
-                    </ScreenProvider>
-                  </ActiveConversationProvider>
+                  <ScreenProvider>
+                    <NewConversationProvider>
+                      <Notifications />
+                      <div id="root">{children}</div>
+                    </NewConversationProvider>
+                  </ScreenProvider>
                 </WebSocketProvider>
               </AppProvider>
             </SocketProvider>

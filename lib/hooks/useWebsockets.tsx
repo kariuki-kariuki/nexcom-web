@@ -13,12 +13,8 @@ const initialState: ChatState = {
 };
 
 const WebSocketContext = createContext<{
-  state: ChatState;
-  dispatch: React.Dispatch<ChatAction>;
   isLoading: boolean;
 }>({
-  state: initialState,
-  dispatch: () => undefined,
   isLoading: true
 });
 
@@ -83,23 +79,24 @@ function chatReducer(state: ChatState, action: ChatAction) {
 
 
 export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(chatReducer, initialState);
   const [isLoading, setLoading] = useState(true);
   const setConversations = useGlobalStore(state => state.setConversations);
   const addConversation = useGlobalStore(state => state.addConversation);
   const addMessage = useGlobalStore(state => state.addMessage);
   const updateMessage = useGlobalStore(state => state.updateMessage);
   const updateProfile = useGlobalStore(state => state.updateProfile);
+  const activeConversation = useGlobalStore(state => state.activeConversation);
   const [play] = useSound('/sounds/message.mp3');
   const [playFx] = useSound('/sounds/level-up.mp3');
-
   const socket = useSocketContext();
   const { user, isLoggedIn } = useGlobalContext();
+
   const handleIncomingMessage = useCallback((res: NewMessage) => {
     try {
       if (res.productId) {
         playFx();
-      } else {
+      } else if(res.conversation.id !== activeConversation?.id) {
+        console.log(`resId ${res.conversation.id}: active: ${activeConversation?.id}`)
         play()
       }
     }
@@ -107,7 +104,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
       console.log(e)
     }
     addMessage(res);
-  }, [play, playFx]);
+  }, [play, playFx, activeConversation]);
 
   const handleMessageState = useCallback((res: PayloadMessage) => {
     updateMessage(res);
@@ -153,7 +150,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   }, [socket, user, handleIncomingMessage, handleMessageState, handleUpdateProfile, handleNewConversation]);
 
   return (
-    <WebSocketContext.Provider value={{ state, dispatch, isLoading }}>
+    <WebSocketContext.Provider value={{ isLoading }}>
       {children}
     </WebSocketContext.Provider>
   );

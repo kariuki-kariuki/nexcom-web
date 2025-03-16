@@ -5,19 +5,17 @@ import classes from './Chat.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import ChatArea from '../ChatArea/ChatArea';
 import { Socket } from 'socket.io-client';
-import {
-  useActiveConversation
-} from '@/lib/context/activeConversation';
 import ConversationButtonList from '../ConversationButtonList/ConversationButtonList';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 export type SocketType = Socket | null;
 export type activeType = (active: any) => void;
 
 function Chat() {
-  const { activeConversation } = useActiveConversation()
+   const activeConversation = useGlobalStore(state => state.activeConversation);
   const [opened, { open, close }] = useDisclosure(false);
   const conversations = useGlobalStore((state) => state.conversations);
   const activeCNV = conversations.find((conv) => conv.id === activeConversation?.id)
+  console.log('Render')
   return (
     <Flex
       wrap="nowrap"

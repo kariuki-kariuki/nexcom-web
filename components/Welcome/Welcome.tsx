@@ -1,9 +1,13 @@
+'use client';
 import Link from 'next/link';
 import { Box, Button, Group, Text, Title } from '@mantine/core';
 import classes from './Welcome.module.css';
 import SimpleHeader from '../SimpleHeader/SimpleHeader';
+import useSound from 'use-sound';
 
 export function Welcome() {
+  const [play] = useSound('/sounds/message.mp3');
+  const [playFx] = useSound('/sounds/level-up.mp3');
   return (
     <div className={classes.bg}>
       <SimpleHeader />
@@ -31,6 +35,7 @@ export function Welcome() {
               </Button>
             </Link>
           </Group>
+          <Button onClick={() => play()}>Play Sound</Button>
         </section>
       </Box>
     </div>

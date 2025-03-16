@@ -16,9 +16,6 @@ import { useState } from 'react';
 import {
   useNewConverSationContext
 } from '../../lib/context/newConversation';
-import {
-  useActiveConversation
-} from '../../lib/context/activeConversation';
 import classes from './NewMessage.module.css';
 import { GlobalUser } from '@/lib/@types/app';
 import { datasource } from '@/lib/common/datasource';
@@ -40,7 +37,7 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
   const [loading, setLoading] = useState(false)
   const { user } = useGlobalContext()
   const [error, setError] = useState('')
-  const { setActiveConversation } = useActiveConversation();
+  const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
   const usersFound = users?.map((person) => (
     <Card
       radius={'md'}
