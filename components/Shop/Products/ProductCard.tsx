@@ -1,7 +1,6 @@
 'use client';
 import {
   Card,
-  Grid,
   Group,
   Text,
   Image,
@@ -23,18 +22,16 @@ function ProductCard({ product }: Iprops) {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   return (
-      <Card className={classes.card} p={0}>
+    <Card className={classes.card} p={0}>
       <Link href={`/shop/product/${product.id}`} className={classes.link}>
-
-        <Box  >
-          <Image src={product.images[0]?.url} className={classes.image}/>
+        <Box>
+          <Image src={product.images[0]?.url} className={classes.image} />
         </Box>
         <Stack align='center' className={classes.info} gap={2} p="sm">
           <Text
             fw={{ base: 200, sm: 500 }}
             fz={{ base: 'sm', sm: 'lg' }}
             lineClamp={1}
-            c="coco.0"
             flex={1}
           >
             {product.name}
@@ -45,6 +42,7 @@ function ProductCard({ product }: Iprops) {
               fz={{ base: 'sm', sm: 'lg' }}
               span
               fw={500}
+              c="dimmed"
               flex={1}
               className={classes.price}
             >
@@ -57,7 +55,7 @@ function ProductCard({ product }: Iprops) {
           <ProductRating />
         </Stack>
       </Link>
-      </Card>
+    </Card>
   );
 }
 

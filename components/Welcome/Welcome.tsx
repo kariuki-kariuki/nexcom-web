@@ -35,7 +35,6 @@ export function Welcome() {
               </Button>
             </Link>
           </Group>
-          {/* <Button onClick={() => play()}>Play Sound</Button> */}
         </section>
       </Box>
     </div>
