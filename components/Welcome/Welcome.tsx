@@ -30,12 +30,12 @@ export function Welcome() {
           </Text>
           <Group justify="center" mt="xl">
             <Link href='/shop'>
-              <Button size="xl" color="coco.0" radius="xl" fw="bold">
+              <Button size="xl" color="coco.0" radius="xl" fw="bold" onClick={() => play()}>
                 Get Started
               </Button>
             </Link>
           </Group>
-          <Button onClick={() => play()}>Play Sound</Button>
+          {/* <Button onClick={() => play()}>Play Sound</Button> */}
         </section>
       </Box>
     </div>
