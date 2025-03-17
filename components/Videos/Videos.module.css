@@ -1,0 +1,8 @@
+.main {
+  padding: var(--mantine-spacing-md);
+}
+.videos {
+  display: flex;
+  justify-content: start;
+  gap: var(--mantine-spacing-sm);
+}

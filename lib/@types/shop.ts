@@ -101,3 +101,11 @@ export interface Category {
 export interface CategoryWithProducts extends Category {
   products: ProductWithShop[]
 }
+
+export interface ProductVideo {
+  id: string;
+  name: string | null;
+  url: string;
+  description: string;
+  product?: Product
+}
