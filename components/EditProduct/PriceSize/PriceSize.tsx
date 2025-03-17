@@ -7,13 +7,13 @@ import {
   Group,
   Input,
   InputWrapper,
-  Text
+  Text,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { SizeWithPrice } from '../../../lib/@types/product-price-size';
 import { Product } from '../../../lib/@types/shop';
-import classes from './PriceSize.module.css'
+import classes from './PriceSize.module.css';
 import { datasource } from '@/lib/common/datasource';
 
 interface IProps {
@@ -22,7 +22,7 @@ interface IProps {
 }
 
 function PriceSize({ product, setProduct }: IProps) {
-  const [size, setSize] = useState<SizeWithPrice>({ size: '', price: 0 });
+  const [size, setSize] = useState({ size: '', price: 0 });
   const [editSize, setEditSize] = useState<SizeWithPrice | null>(null);
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -31,77 +31,96 @@ function PriceSize({ product, setProduct }: IProps) {
       notifications.show({
         title: 'Error',
         color: 'red.7',
-        message: "Size can't be zero"
+        message: "Size and price must be valid",
       });
       return;
     }
 
-    const {data, error} = await datasource.post({
+    const { data, error, loading } = await datasource.post<SizeWithPrice>({
       path: 'product-sizes',
-      formData: { ...size, productId: product.id }
+      formData: { ...size, productId: product.id },
     });
 
     if (error) {
       notifications.show({
         title: 'Error',
         color: 'red.7',
-        message: error
+        message: error,
       });
       return;
     }
 
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      product_sizes: [...prevProduct.product_sizes, size]
-    }));
-    notifications.show({
-      title: 'Success',
-      color: 'coco.0',
-      message: 'Added a new Size'
-    });
-    setSize({ size: '', price: 0 });
+    if (!loading && data) {
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        product_sizes: [...prevProduct.product_sizes, data],
+      }));
+
+      notifications.show({
+        title: 'Success',
+        color: 'teal',
+        message: 'Added a new size',
+      });
+      setSize({ size: '', price: 0 });
+    }
   };
 
-  const handleUpdateSize = async (id: number) => {
+  const handleUpdateSize = async () => {
     if (!editSize) return;
-    const {data, error} = await datasource.update(
+
+    const { data, error } = await datasource.update<SizeWithPrice>(
       editSize,
       `product-sizes/${editSize.id}`
     );
+
     if (error) {
       notifications.show({
         title: 'Error',
         message: error,
-        color: 'red.7'
+        color: 'red.7',
       });
       return;
     }
-    setProduct((prevProduct) => {
-      const updatedSizes = [...prevProduct.product_sizes];
 
-      return {
+    if (data) {
+      setProduct((prevProduct) => ({
         ...prevProduct,
-        product_sizes: updatedSizes.map((sizeE) => {
-          if (size.id === id) return editSize;
-          return sizeE;
-        })
-      };
-    });
+        product_sizes: prevProduct.product_sizes.map((sizeE) =>
+          sizeE.id === data.id ? data : sizeE
+        ),
+      }));
+
+      notifications.show({
+        title: 'Success',
+        color: 'teal',
+        message: 'Updated size successfully',
+      });
+      close();
+    }
+  };
+
+  const handleDeleteSize = async (id: string) => {
+    const { error } = await datasource.delete(`product-sizes/${id}`);
+
+    if (error) {
+      notifications.show({
+        title: 'Error',
+        message: error,
+        color: 'red.7',
+      });
+      return;
+    }
+
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      product_sizes: prevProduct.product_sizes.filter((s) => s.id !== id),
+    }));
 
     notifications.show({
       title: 'Success',
-      color: 'coco.0',
-      message: 'Updated size correctly'
+      color: 'teal',
+      message: 'Deleted size successfully',
     });
-
-    close();
-  };
-
-  const handleDeleteSize = (index: number) => {
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      product_sizes: prevProduct.product_sizes.filter((s) => s.id !== index)
-    }));
     close();
   };
 
@@ -112,7 +131,7 @@ function PriceSize({ product, setProduct }: IProps) {
           <Input
             placeholder="e.g., 2 liters"
             value={size.size}
-            size='lg'
+            size="lg"
             classNames={{ input: classes.input }}
             onChange={(e) => setSize({ ...size, size: e.target.value })}
           />
@@ -122,10 +141,10 @@ function PriceSize({ product, setProduct }: IProps) {
             type="number"
             placeholder="0.0"
             value={size.price}
-            size='lg'
-            classNames={{input: classes.input}}
+            size="lg"
+            classNames={{ input: classes.input }}
             onChange={(e) =>
-              setSize({ ...size, price: parseInt(e.target.value) })
+              setSize({ ...size, price: parseFloat(e.target.value) || 0 })
             }
           />
         </InputWrapper>
@@ -142,11 +161,11 @@ function PriceSize({ product, setProduct }: IProps) {
 
       {product.product_sizes.length > 0 && (
         <Group>
-          {product.product_sizes.map((prdSize, idx) => (
-            <div key={idx}>
+          {product.product_sizes.map((prdSize) => (
+            <div key={prdSize.id}>
               <Button
-                color="coco.4"
-                variant=""
+                color="blue"
+                variant="outline"
                 rightSection={<IconPencil size={18} />}
                 onClick={() => {
                   setEditSize(prdSize);
@@ -168,11 +187,8 @@ function PriceSize({ product, setProduct }: IProps) {
                       size="md"
                       value={editSize?.size || ''}
                       onChange={(e) =>
-                        setEditSize(
-                          (prev) =>
-                            prev
-                              ? { ...prev, size: e.target.value }
-                              : { size: e.target.value, price: 0 } // Default price)
+                        setEditSize((prev) =>
+                          prev ? { ...prev, size: e.target.value } : null
                         )
                       }
                     />
@@ -183,31 +199,24 @@ function PriceSize({ product, setProduct }: IProps) {
                       type="number"
                       value={editSize?.price || 0}
                       onChange={(e) =>
-                        setEditSize(
-                          (prev) =>
-                            prev
-                              ? {
-                                  ...prev,
-                                  price: parseFloat(e.target.value) || 0
-                                }
-                              : {
-                                  size: '',
-                                  price: parseFloat(e.target.value) || 0
-                                } // Provide default size
+                        setEditSize((prev) =>
+                          prev
+                            ? {
+                                ...prev,
+                                price: parseFloat(e.target.value) || 0,
+                              }
+                            : null
                         )
                       }
                     />
                   </InputWrapper>
                 </Group>
                 <ButtonGroup mt="md">
+                  <Button onClick={handleUpdateSize}>Update</Button>
                   <Button
-                    onClick={() =>
-                      editSize?.id && handleUpdateSize(editSize?.id)
-                    }
+                    color="red"
+                    onClick={() => editSize?.id && handleDeleteSize(editSize.id)}
                   >
-                    Update
-                  </Button>
-                  <Button color="red" onClick={() => handleDeleteSize(idx)}>
                     Delete
                   </Button>
                 </ButtonGroup>

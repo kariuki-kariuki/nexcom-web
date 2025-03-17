@@ -1,5 +1,5 @@
 .grid {
-  width: 100%;
+  width: fit-content;
   height: fit-content;
   background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
   

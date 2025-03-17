@@ -2,7 +2,7 @@
 
 import { datasource } from '@/lib/common/datasource';
 import { useGlobalContext } from '@/lib/context/appContext';
-import { useMantineTheme, LoadingOverlay, Card, Flex, Box, Group, Button, Text, SegmentedControl, ScrollArea, useMantineColorScheme } from '@mantine/core';
+import { useMantineTheme, LoadingOverlay, Card, Flex, Box, Group, Button, Text, SegmentedControl, ScrollArea, useMantineColorScheme, Center } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { IconTool, IconBasketPlus, IconBasketHeart, IconHeartPlus } from '@tabler/icons-react';
@@ -56,8 +56,8 @@ const ProductPage = ({ product }: { product: Product }) => {
       {(owner && owner.id !== user?.id && product.shop) && <ContactSeller product={product} owner={owner} shop={product.shop} />}
 
       <Flex h={'100%'} bg={'none'} justify={'center'} content='center' align={'center'} >
-        <Card className={classes.grid} withBorder my={'md'}>
-          <Flex h={'fit-content'} direction={{ base: 'column', sm: 'row' }}>
+        <Card className={classes.grid} withBorder my={'md'}> 
+          <Flex h={'fit-content'} justify="center" direction={{ base: 'column', sm: 'row' }}>
             <Box w={{ base: '100%', sm: '50%', md: '30%' }} h={'100%'}>
               <Card
                 p={{ base: 'lg', md: 'xl' }}
@@ -70,7 +70,7 @@ const ProductPage = ({ product }: { product: Product }) => {
                 </Card.Section>
               </Card>
             </Box>
-            <Box w={{ base: '100%', sm: '50%', md: '30%' }}>
+            <Box w={{ base: '100%', sm: '50%', md: '40%' }}>
               <Card
                 p={{ base: 'sm', sm: 'sm' }}
                 h={'100%'}
@@ -126,7 +126,7 @@ const ProductPage = ({ product }: { product: Product }) => {
                         fullWidth
                         rightSection={<IconTool size={24} color="white" />}
                       >
-                        Edit
+                        EDIT
                       </Button>
                     </Link>
                     // </Group>
@@ -169,7 +169,7 @@ const ProductPage = ({ product }: { product: Product }) => {
                           onClick={handleSubmit}
                           bg={'teal.7'}
                         >
-                          Add To Cart
+                          ADD TO CART
                         </Button>
                         <Button
                           leftSection={<IconHeartPlus size={20} color='red' />}
@@ -177,7 +177,7 @@ const ProductPage = ({ product }: { product: Product }) => {
                           variant='outline'
                           color='teal.7'
                         >
-                          Add To WishList
+                          ADD TO WISHLIST
                         </Button>
                       </Group>{' '}
                     </div>
