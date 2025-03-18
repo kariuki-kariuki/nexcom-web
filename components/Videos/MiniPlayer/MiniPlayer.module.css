@@ -1,0 +1,20 @@
+.wrapper {
+  height: 400px;
+  width: 300px;
+  background-color: light-dark(var(--mantine-color-coco-3), var(--mantine-color-coco-1));
+  overflow: hidden;
+  border-radius: var(--mantine-spacing-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.innerWrapper {
+  /* height: 410; */
+  /* width: 310; */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* align-content: center; */
+}

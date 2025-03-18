@@ -1,7 +1,7 @@
 import { Button, Drawer, Group, Input, InputWrapper, LoadingOverlay } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks'
 import React, { useState } from 'react'
-import { VideoDropzoneButton } from '../VideoDropZone/VideoDrop';
+import { VideoDropzoneButton } from '../Videos/VideoDropZone/VideoDrop';
 import { FileWithPath } from '@mantine/dropzone';
 import ReactPlayer from 'react-player'
 import classes from './createvideo.module.css';

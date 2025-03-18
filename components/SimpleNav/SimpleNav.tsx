@@ -1,6 +1,6 @@
 'use client';
 import { Box, Avatar, Stack, useMantineColorScheme } from '@mantine/core'
-import { IconHome, IconShoppingBag, IconShoppingCart, IconMessageCircle, IconDiamond, IconSunFilled, IconSunMoon, IconLogout } from '@tabler/icons-react'
+import { IconHome, IconShoppingBag, IconShoppingCart, IconMessageCircle, IconDiamond, IconSunFilled, IconSunMoon, IconLogout, IconVideo, IconPlayerPlay } from '@tabler/icons-react'
 import Link from 'next/link'
 import React from 'react'
 import classes from './styles.module.css';
@@ -10,10 +10,13 @@ import Dashboard from '../Profile/ProfileDashboard';
 import { useDisclosure } from '@mantine/hooks';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 const links = [
-  { label: 'Home', link: '/', icon: IconHome },
+  { label: 'Chats', link: '/chat', icon: IconMessageCircle },
+  { label: 'Videos', link: '/videos', icon: IconPlayerPlay },
   { label: 'Shop', link: '/shop', icon: IconShoppingBag },
   { label: 'Cart', link: '/cart', icon: IconShoppingCart },
-  { label: 'Chats', link: '/chat', icon: IconMessageCircle },
+  { label: 'Home', link: '/', icon: IconHome },
+
+
 ]
 const SimpleNav = () => {
   const { user } = useGlobalContext();
