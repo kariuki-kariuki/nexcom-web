@@ -1,4 +1,5 @@
 # Nexcom
+![image](./public/images/og.png)
 
 A bridge between commerce and communication. Nexcom is a Next.js-powered super app that combines shopping, selling, and seamless communication within a single platform. The app leverages real-time technologies and AI to simplify transactions, enhance user experiences, and empower businesses.
 
