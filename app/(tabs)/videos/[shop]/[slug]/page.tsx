@@ -12,7 +12,7 @@ interface Params extends ParsedUrlQuery {
 const page = async ({ params }: { params: Params }) => {
   const { data } = await datasource.get<ProductVideo>(`product-videos/${params.slug}`)
   return (
-    <div>
+    <div style={{height: '100%'}}>
       {data && <VideoPage video={data} /> }
     </div>
   )

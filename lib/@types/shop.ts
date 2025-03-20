@@ -44,6 +44,7 @@ export type Product = {
   created_at: string;
   shop?: Shop
   user?: GlobalUser
+  comments: ProductComment[]
 };
 
 
@@ -107,5 +108,13 @@ export interface ProductVideo {
   name: string | null;
   url: string;
   description: string;
-  product?: Product
+  product: Product
+}
+
+// Product comment
+export interface ProductComment {
+  id: string;
+  content: string;
+  user: GlobalUser;
+  children: ProductComment[]
 }

@@ -1,8 +1,9 @@
 .main {
-  /* padding: var(--mantine-spacing-md); */
+  padding: var(--mantine-spacing-md);
 }
 .videos {
   display: flex;
   justify-content: start;
+  flex-wrap: wrap;
   gap: var(--mantine-spacing-sm);
 }

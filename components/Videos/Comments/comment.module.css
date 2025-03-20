@@ -1,0 +1,39 @@
+.name {
+  font-size: small;
+}
+
+.comments {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.commentSection {
+  display: flex;
+  padding: var(--mantine-spacing-sm);
+  height: 100%;
+  flex-direction: column;
+}
+
+
+.commentSectionMobile {
+  display: flex;
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  width: 80%;
+  padding: var(--mantine-spacing-sm);
+  border-radius: var(--mantine-spacing-sm);
+  height: 70vh;
+  flex-direction: column;
+  z-index: 40;
+  background-color: rgba(0, 0, 0, .8);
+
+  @media (min-width: $mantine-breakpoint-sm) {
+    height: 100%;
+    position: unset;
+  }
+}

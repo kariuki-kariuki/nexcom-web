@@ -8,7 +8,7 @@ interface IProps {
 }
 const VideoPlayer = ({playing, url}: IProps) => {
   return (
-    <ReactPlayer url={url} height={'100%'} width={'100%'} playing={playing} loop />
+    <ReactPlayer url={url} height={'100%'} width={'auto'} playing={playing} loop />
   )
 }
 
