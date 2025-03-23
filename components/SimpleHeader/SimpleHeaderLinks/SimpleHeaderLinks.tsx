@@ -12,7 +12,7 @@ const links = [
   { label: 'Home', link: '/', icon: IconHome },
   { label: 'Videos', link: '/videos', icon: IconMessageCircle },
   { label: 'Chats', link: '/chat', icon: IconMessageCircle },
-  { label: 'Shop', link: '/shop', icon: IconShoppingBag },
+  { label: 'Business', link: '/shop', icon: IconShoppingBag },
   { label: 'Cart', link: '/cart', icon: IconShoppingCart },
 ]
 

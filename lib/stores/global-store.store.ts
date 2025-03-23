@@ -5,7 +5,7 @@ import { MessageState } from "../common/common";
 
 
 type GlobalState = {
-  globalUser: GlobalUser | null;
+  user: GlobalUser | null;
   conversations: ConversationProps[];
   activeConversation: ConversationProps | null;
   newConversation: GlobalUser | null;
@@ -19,12 +19,13 @@ type GlobalActions = {
   updateProfile: (payload: UpdateProfile) => void;
   setActiveConversation: (payload: ConversationProps | null) => void;
   setNewConversation: (payload: GlobalUser | null) => void;
+  setUser: (payload: GlobalUser | null) => void;
 }
 
 export type GlobalStore = GlobalActions & GlobalState;
 
 export const defaultGlobalInitState: GlobalState = {
-  globalUser: null,
+  user: null,
   activeConversation: null,
   conversations: [],
   newConversation: null,
@@ -42,12 +43,12 @@ export const createGlobalStore = (initState: GlobalState = defaultGlobalInitStat
             : conv
         ),
       })),
-  
+
     addConversation: (payload: ConversationProps) =>
       set((state) => ({
         conversations: [...state.conversations, payload],
       })),
-  
+
     updateMessage: (payload: PayloadMessage) =>
       set((state) => ({
         conversations: state.conversations.map((conv) =>
@@ -64,12 +65,12 @@ export const createGlobalStore = (initState: GlobalState = defaultGlobalInitStat
             : conv
         ),
       })),
-  
+
     setConversations: (payload: ConversationProps[]) =>
       set(() => ({
         conversations: payload,
       })),
-  
+
     updateProfile: (payload: UpdateProfile) =>
       set((state) => ({
         conversations: state.conversations.map((convo) => {
@@ -87,16 +88,20 @@ export const createGlobalStore = (initState: GlobalState = defaultGlobalInitStat
           return convo;
         }),
       })),
-  
+
     setActiveConversation: (payload: ConversationProps | null) =>
       set(() => ({
         activeConversation: payload,
       })),
-  
+
     setNewConversation: (payload: GlobalUser | null) =>
       set(() => ({
         newConversation: payload,
       })),
+
+    setUser: (payload: GlobalUser | null) => set(() => ({
+      user: payload
+    }))
   }))
 }
 

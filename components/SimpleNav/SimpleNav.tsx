@@ -14,9 +14,6 @@ const links = [
   { label: 'Videos', link: '/videos', icon: IconPlayerPlay },
   { label: 'Shop', link: '/shop', icon: IconShoppingBag },
   { label: 'Cart', link: '/cart', icon: IconShoppingCart },
-  { label: 'Home', link: '/', icon: IconHome },
-
-
 ]
 const SimpleNav = () => {
   const { user } = useGlobalContext();

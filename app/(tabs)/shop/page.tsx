@@ -1,8 +1,12 @@
+import Shop from '@/components/Shop/Shop'
+import { Shop as Ishop } from '@/lib/@types/shop'
+import get from '@/utils/fetch'
 import React from 'react'
 
-function page() {
+const  page = async () => {
+  const shops = await get<Ishop[]>('shops')
   return (
-    <div>page</div>
+    <Shop shops={shops}/>
   )
 }
 

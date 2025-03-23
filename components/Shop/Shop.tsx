@@ -1,14 +1,18 @@
 import React from 'react'
 import ShopCard from '../ShopCard/ShopCard'
 import classes from './Shop.module.css';
+import { Shop } from '@/lib/@types/shop';
 
-const Shop = () => {
+interface IProps {
+  shops: Shop[] | null
+}
+const ShopComponent = ({shops}: IProps) => {
   return (
     <div className={classes.main}>
-      <ShopCard />
-      <ShopCard />
+      {shops && shops.map(shop => <ShopCard key={shop.id} shop={shop}/>)}
+      
     </div>
   )
 }
 
-export default Shop
+export default ShopComponent

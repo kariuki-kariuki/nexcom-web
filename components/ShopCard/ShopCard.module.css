@@ -1,0 +1,50 @@
+.card {
+  width: 335px;
+  height: 220px;
+  background-color: light-dark(var(--mantine-color-white), rgba(0, 0, 0, 0.4));
+  box-shadow: 4px 4px 4px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));
+  border-radius: var(--mantine-spacing-sm);
+  overflow: hidden;
+  border: 1px solid light-dark(var(--mantine-color-gray-1), var(--mantine-color-gray-9));
+
+  &:hover{
+    background-color: light-dark(var(--mantine-color-gray-2), rgba(0, 0, 0, 0.3));
+    scale: 1.05;
+  }
+
+  @media (min-width: var(--mantine-breakpoint-xs)) {
+    width: 30%;
+  }
+
+  @media (min-width: var(--mantine-breakpoint-sm)) {
+    width: 18%;
+  }
+}
+
+.innerCard {
+  padding: var(--mantine-spacing-md);
+  /* border-top: 2px solid; */
+  border-image-source: linear-gradient(to left,
+      var(--mantine-color-coco-4),
+      var(--mantine-color-coco-5));
+  border-image-slice: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  justify-content: space-between;
+}
+
+.qrcode {
+  height: 100%;
+  padding: var(--mantine-spacing-sm);
+
+}
+
+.innerWrapper {
+  display: flex;
+  padding: var(--mantine-spacing-sm);
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--mantine-color-coco-4);
+}

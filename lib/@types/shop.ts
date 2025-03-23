@@ -66,10 +66,20 @@ export interface IProduct {
   image: string[];
 }
 
+export interface BannerImage {
+  id: string;
+  name: string | null;
+  url: string;
+  altText: string;
+  shop: Shop;
+}
 export interface Shop {
   name: string;
   id: number;
   user?: GlobalUser;
+  bannerImage: BannerImage,
+  phone: number;
+  category: Category;
 }
 
 export interface ProductWithShop extends ShopProduct {

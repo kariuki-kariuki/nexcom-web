@@ -1,7 +1,7 @@
 .wrapper {
   width: 100%;
   height: auto;
-  background-color: light-dark(var(--mantine-color-coco-3), var(--mantine-color-coco-0));
+  background-color: light-dark(var(--mantine-color-coco-3), rgba(0, 0, 0, .2));
   overflow: hidden;
   border-radius: var(--mantine-spacing-md);
   display: flex;
@@ -20,8 +20,8 @@
   }
 
   @media (min-width: $mantine-breakpoint-md) {
-    height: 500px;
-    width: 18%;
+    height: 400px;
+    width: 19%;
   }
 
 }

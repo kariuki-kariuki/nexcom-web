@@ -15,11 +15,6 @@ export default withBundleAnalyzer({
   redirects() {
     return [
       {
-        source: '/shop',
-        destination: '/shop/all',
-        permanent: false
-      },
-      {
         source: '/videos',
         destination: '/videos/tags/all',
         permanent: false

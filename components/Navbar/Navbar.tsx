@@ -22,7 +22,7 @@ import { useGlobalStore } from '@/lib/context/global-store.provider';
 const data = [
   { link: '/dashboard', label: 'Dashboard', icon: IconDiamondFilled },
   { link: '/dashboard/products', label: 'Products', icon: IconListTree },
-  { link: '/', label: 'Home', icon: IconHome },
+  // { link: '/', label: 'Home', icon: IconHome },
   { link: '/cart', label: 'Cart', icon: IconShoppingCart },
   { link: '/chat', label: 'Chat', icon: IconMessage },
   { link: '/shop', label: 'Shop', icon: IconShoppingBag },

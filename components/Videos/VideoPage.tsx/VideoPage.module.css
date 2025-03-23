@@ -1,12 +1,12 @@
 .main {
   height: 100%;
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+  /* background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0)); */
   position: relative;
 
   @media (min-width: $mantine-breakpoint-sm) {
     display: flex;
     gap: var(--mantine-spacing-md);
-    padding: var(--mantine-spacing-md);
+    /* padding: var(--mantine-spacing-md); */
     position: unset;
     border-radius: var(--mantine-spacing-md);
   }
@@ -24,7 +24,7 @@
   align-content: center;
   display: flex;
   /* background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-1)); */
-  background-color: rgba(0, 0, 0, .3);
+  background-color: rgba(0, 0, 0, .1);
   height: 100%;
   border-radius: 0;
 
