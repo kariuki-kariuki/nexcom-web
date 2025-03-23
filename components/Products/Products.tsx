@@ -10,6 +10,7 @@ import {
   ScrollArea,
   SegmentedControl,
   Table,
+  Text,
   useMantineColorScheme,
   useMantineTheme
 } from '@mantine/core';
@@ -74,7 +75,7 @@ const {colorScheme} = useMantineColorScheme()
             <Table.Tr>
               <Table.Th>Image</Table.Th>
               <Table.Th>Product Name</Table.Th>
-              <Table.Th>Status</Table.Th>
+              <Table.Th><Text ta="center">Status</Text></Table.Th>
               <Table.Th>Price</Table.Th>
               <Table.Th>Created at</Table.Th>
               <Table.Th>Action</Table.Th>
