@@ -1,5 +1,5 @@
 import { LineChart } from '@mantine/charts';
-import { Card } from '@mantine/core';
+import { Card, Text } from '@mantine/core';
 import classes from './StartLine.module.css';
 const data = [
   { date: 'Jan', KPI: -25 },
@@ -17,7 +17,9 @@ const data = [
 ];
 export function StartLine() {
   return (
-    <Card my={'md'} className={classes.main}>
+    <Card className={classes.main}  p="md"  w={{ base: '100%', sm: '49%' }}>
+      <Text py="md">Stats</Text>
+
       <LineChart
         h={300}
         data={data}
@@ -27,7 +29,7 @@ export function StartLine() {
         strokeWidth={3}
         curveType="natural"
         yAxisProps={{ domain: [-25, 40] }}
-        valueFormatter={(value) => `${value}°C`}
+        valueFormatter={(value) => `${value}%`}
       />
     </Card>
   );

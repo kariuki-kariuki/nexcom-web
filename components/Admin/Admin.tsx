@@ -23,23 +23,11 @@ function Admin() {
         <Header active={active} setActive={setActive} />
         <div className={classes.scroll}>
           <StatsGrid />
-          
-          <Card>
-            <Group>
-              <Text>Stats</Text>
-            </Group>
-          <StartLine />
-          </Card>
-          <UsersTable />
-          <Flex direction={{ base: 'column', sm: 'row' }} gap={'md'}>
-            <Box w={{ base: '100%', sm: '50%' }}>
-              <StatsBar />
-            </Box >
-            <Box
-              w={{ base: '100%', sm: '50%' }}
-            >
-              <StatsSegments />
-            </Box >
+          <Flex wrap="wrap" justify="space-between" gap="md">
+            <StartLine />
+            <UsersTable />
+            <StatsBar />
+            <StatsSegments />
           </Flex>
         </div>
       </Flex>

@@ -11,7 +11,7 @@ const data = [
 ];
 const StatsBar = () => {
   return (
-    <Card mb={'sm'} className={classes.main}>
+    <Card mb={'sm'} className={classes.main} w={{base: "100%", sm: '49%'}}>
       <BarChart
         h={300}
         data={data}

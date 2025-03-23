@@ -32,6 +32,7 @@ export function StatsSegments() {
       key={stat.label}
       style={{ borderBottomColor: stat.color }}
       className={classes.stat}
+
     >
       <Text tt="uppercase" fz="xs" c="dimmed" fw={700}>
         {stat.label}
@@ -47,42 +48,46 @@ export function StatsSegments() {
   ));
 
   return (
-    <Paper withBorder p="md" radius="md" className={classes.stats}>
-      <Group justify="space-between">
-        <Group align="flex-end" gap="xs">
-          <Text fz="xl" fw={700}>
-            345,765
-          </Text>
-          <Text c="teal" className={classes.diff} fz="sm" fw={700}>
-            <span>18%</span>
-            <IconArrowUpRight
-              size="1rem"
-              style={{ marginBottom: rem(4) }}
-              stroke={1.5}
-            />
-          </Text>
+    <Paper withBorder p="md" radius="md" className={classes.stats} w={{ base: '100%', sm: '49%' }}>
+      <div>
+        <Group justify="space-between">
+          <Group align="flex-end" gap="xs">
+            <Text fz="xl" fw={700}>
+              345,765
+            </Text>
+            <Text c="teal" className={classes.diff} fz="sm" fw={700}>
+              <span>18%</span>
+              <IconArrowUpRight
+                size="1rem"
+                style={{ marginBottom: rem(4) }}
+                stroke={1.5}
+              />
+            </Text>
+          </Group>
+          <IconDeviceAnalytics
+            size="1.4rem"
+            className={classes.icon}
+            stroke={1.5}
+          />
         </Group>
-        <IconDeviceAnalytics
-          size="1.4rem"
-          className={classes.icon}
-          stroke={1.5}
-        />
-      </Group>
 
-      <Text c="dimmed" fz="sm">
-        Page views compared to previous month
-      </Text>
+        <Text c="dimmed" fz="sm">
+          Page views compared to previous month
+        </Text>
+      </div>
+      <div>
+        <Progress.Root
+          size={34}
+          classNames={{ label: classes.progressLabel }}
+          mt={40}
+        >
+          {segments}
+        </Progress.Root>
 
-      <Progress.Root
-        size={34}
-        classNames={{ label: classes.progressLabel }}
-        mt={40}
-      >
-        {segments}
-      </Progress.Root>
-      <SimpleGrid cols={{ base: 1, xs: 3 }} mt="xl">
-        {descriptions}
-      </SimpleGrid>
+        <SimpleGrid cols={{ base: 1, xs: 3 }} mt="xl">
+          {descriptions}
+        </SimpleGrid>
+      </div>
     </Paper>
   );
 }

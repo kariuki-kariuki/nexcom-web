@@ -21,6 +21,10 @@
   }
 }
 
+.card {
+  background-color: rgba(0, 0, 0, .3);
+}
+
 
 .scroll {
   width: 100%;
