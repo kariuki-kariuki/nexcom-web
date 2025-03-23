@@ -130,7 +130,7 @@ export function CartTable({ cartItems, setTotal, setCartItems, selection, setSel
   });
 
   return (
-    <Paper className='' bg="none">
+    <Paper className={classes.main} bg="none">
       <ScrollArea>
         <Table
           miw={400}
@@ -138,7 +138,7 @@ export function CartTable({ cartItems, setTotal, setCartItems, selection, setSel
           withRowBorders={true}
           stickyHeader
           striped
-          stripedColor={colorScheme === 'light' ? 'gray.2' : 'coco.0'}
+          stripedColor={colorScheme === 'light' ? 'gray.2' : 'gray.9'}
         >
           <Table.Thead>
             <Table.Tr>

@@ -125,7 +125,7 @@ function ProductModal({ opened, toggle, product, owner, shop }: Iprops) {
                     style={{ borderRadius: '10px' }}
                   >
                     {' '}
-                    {product.product_sizes ? `Price: ${product?.product_sizes[0].price}` : ''}
+                    {product.product_sizes ? `Price: ${price}` : ''}
                   </Text>
                 </Group>
                 <Text
