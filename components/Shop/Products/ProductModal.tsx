@@ -7,7 +7,10 @@ import {
   Group,
   LoadingOverlay,
   Modal,
+  ScrollArea,
+  SegmentedControl,
   Text,
+  useMantineColorScheme,
   useMantineTheme
 } from '@mantine/core';
 import { useContext, useState } from 'react';
@@ -22,6 +25,7 @@ import { datasource } from '@/lib/common/datasource';
 import { notifications } from '@mantine/notifications';
 import Link from 'next/link';
 import ContactSeller from '@/components/ContactSeller/ContactSeller';
+import CreateVideo from '@/components/CreateVideo/CreateVideo';
 interface Iprops {
   opened: boolean;
   toggle: () => void;
@@ -34,8 +38,15 @@ function ProductModal({ opened, toggle, product, owner, shop }: Iprops) {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(AppContext) as UserContextType;
+  const [selectedPrice, setSelectedPrice] = useState(product.product_sizes[0].id)
+  const sizes = product.product_sizes;
+  const { colorScheme } = useMantineColorScheme()
+  const price = product.product_sizes.find((size) => size.id === selectedPrice)?.price;
+
+  
+  
   async function handleSubmit() {
-    const { data, error, loading } = await datasource.post({formData: { quantity, productId: product.id }, path: 'carts'})
+    const { data, error, loading } = await datasource.post({ formData: { quantity, productId: product.id, sizeId: selectedPrice }, path: 'carts' })
     setIsLoading(loading);
 
     if (error && !loading) {
@@ -114,7 +125,7 @@ function ProductModal({ opened, toggle, product, owner, shop }: Iprops) {
                     style={{ borderRadius: '10px' }}
                   >
                     {' '}
-                    {product.product_sizes ? `Price: ${product?.product_sizes[0].price}` : ''}
+                    {product.product_sizes ? `Price: ${price}` : ''}
                   </Text>
                 </Group>
                 <Text
@@ -125,6 +136,16 @@ function ProductModal({ opened, toggle, product, owner, shop }: Iprops) {
                   {product?.description}
                 </Text>
               </Box>
+              <ScrollArea scrollbars="x">
+                <Text>Size</Text>
+                <SegmentedControl
+                  color='orange.7'
+                  value={selectedPrice} onChange={setSelectedPrice} size='lg'
+                  radius="lg"
+                  bg={colorScheme === 'dark' ? "coco.1" : ''}
+                  data={sizes.map((size) => ({ label: `${size.size}: ${size.price}`, value: size.id }))}
+                />
+              </ScrollArea>
 
               <Group justify={'center'} wrap="nowrap" px={0}>
               </Group>
@@ -138,6 +159,7 @@ function ProductModal({ opened, toggle, product, owner, shop }: Iprops) {
                       Edit
                     </Button>
                   </Link>
+                  <CreateVideo product={product}/>
                 </Group>
               ) : (
                 <div>
@@ -170,7 +192,7 @@ function ProductModal({ opened, toggle, product, owner, shop }: Iprops) {
                         +
                       </Button>
                     </Button.Group>
-                    <Text>Total {product?.product_sizes[0].price * quantity}</Text>
+                    {price && <Text>Total {price * quantity}</Text>}
                   </Group>
                   <Group justify="center">
                     <Button

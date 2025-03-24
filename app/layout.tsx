@@ -17,7 +17,7 @@ import { siteMetadata } from '@/lib/data/siteMetadata';
 import { Metadata } from 'next';
 import { WebSocketProvider } from '@/lib/hooks/useWebsockets';
 import { GlobalStoreProvider } from '@/lib/context/global-store.provider';
-
+import classes from './styles.module.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
@@ -85,7 +85,7 @@ export default function RootLayout({
         <meta name="description" content="Web site created..." />
         <ColorSchemeScript />
       </head>
-      <body>
+      <body className={classes.bg}>
         <MantineProvider theme={theme} defaultColorScheme="dark">
           <GlobalStoreProvider>
             <SocketProvider>

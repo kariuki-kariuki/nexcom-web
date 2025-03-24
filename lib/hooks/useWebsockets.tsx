@@ -86,6 +86,8 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const updateMessage = useGlobalStore(state => state.updateMessage);
   const updateProfile = useGlobalStore(state => state.updateProfile);
   const activeConversation = useGlobalStore(state => state.activeConversation);
+  // const activeConversation = useGlobalStore(state => state.se);  const activeConversation = useGlobalStore(state => state.activeConversation);
+
   const [play] = useSound('/sounds/message.mp3');
   const [playFx] = useSound('/sounds/level-up.mp3');
   const socket = useSocketContext();
@@ -117,14 +119,22 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const handleNewConversation = useCallback((res: ConversationProps) => {
     addConversation(res)
   }, []);
+  const getConversations = async () => {
+    const { data } = await datasource.get<ConversationProps[]>('conversations')
+    if (data) {
+      setConversations(data)
+    }
+  }
+
+  const getUser = async () => {
+    const { data } = await datasource.get<ConversationProps[]>('conversations')
+    if (data) {
+      (data)
+    }
+  }
 
   useEffect(() => {
-    const getConversations = async () => {
-      const { data } = await datasource.get<ConversationProps[]>('conversations')
-      if (data) {
-        setConversations(data)
-      }
-    }
+    
     getConversations();
   }, [isLoggedIn, user])
 

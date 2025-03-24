@@ -1,9 +1,12 @@
-import Business from '@/components/Business/Business'
+import Shop from '@/components/Shop/Shop'
+import { Shop as Ishop } from '@/lib/@types/shop'
+import get from '@/utils/fetch'
 import React from 'react'
 
-const page = () => {
+const  page = async () => {
+  const shops = await get<Ishop[]>('shops?name=all')
   return (
-    <Business />
+    <Shop shops={shops}/>
   )
 }
 

@@ -3,7 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { decodeJwt } from 'jose';
 
 // Define protected and public routes
-const protectedRoutes = ['/chat', '/dashboard',
+const protectedRoutes = [
+  '/chat', 
+  '/dashboard',
   '/dashboard/products',
   '/dashboard/users',
   '/dashboard/settings',
@@ -13,7 +15,9 @@ const protectedRoutes = ['/chat', '/dashboard',
   '/dashboard/gallery',
   '/dashboard/jobs',
   '/dashboard/tenders',
-  '/dashboard/resources'];
+  '/dashboard/resources',
+  '/shop/create'
+];
 const publicRoutes = ['/auth/login', '/auth/signup'];
 const shopOwnersRoutes = [
   '/dashboard',
@@ -34,10 +38,14 @@ export default async function middleware(req: NextRequest) {
   // Route access determination
   const isProtectedRoute = protectedRoutes.includes(path);
   const isPublicRoute = publicRoutes.includes(path);
-  
+
 
   // Allow access to the root route '/' for everyone
   if (path === '/') {
+    if (isAuthenticated) {
+      return NextResponse.redirect(new URL('/chat', req.nextUrl));
+
+    }
     return NextResponse.next();
   }
 

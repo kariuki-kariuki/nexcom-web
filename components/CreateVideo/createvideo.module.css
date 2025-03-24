@@ -1,0 +1,3 @@
+.video {
+  background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-coco-3));
+}

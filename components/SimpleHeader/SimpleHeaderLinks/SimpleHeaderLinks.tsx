@@ -10,9 +10,10 @@ import { useDisclosure } from '@mantine/hooks'
 
 const links = [
   { label: 'Home', link: '/', icon: IconHome },
-  { label: 'Shop', link: '/shop', icon: IconShoppingBag },
-  { label: 'Cart', link: '/cart', icon: IconShoppingCart },
+  { label: 'Videos', link: '/videos', icon: IconMessageCircle },
   { label: 'Chats', link: '/chat', icon: IconMessageCircle },
+  { label: 'Business', link: '/business', icon: IconShoppingBag },
+  { label: 'Products', link: '/business/product/tags/all', icon: IconShoppingCart },
 ]
 
 const SimpleHeaderLinks = () => {

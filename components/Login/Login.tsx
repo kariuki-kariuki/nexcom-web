@@ -20,7 +20,7 @@ import { useGlobalContext } from '@/lib/context/appContext';
 import { datasource } from '@/lib/common/datasource';
 import setToken from '@/utils/setToken';
 import { useRouter } from 'next/navigation';
-import { AuthResponse, GlobalUser } from '@/lib/@types/app';
+import { AuthResponse } from '@/lib/@types/app';
 
 function Login() {
   const [loginData, setLoginData] = useState({

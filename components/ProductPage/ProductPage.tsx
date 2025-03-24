@@ -12,19 +12,19 @@ import ImageCarousel from '../Shop/shopcomponents/ImageCarousel';
 import classes from './ProductPage.module.css'
 import { Product } from '@/lib/@types/shop';
 import ContactSeller from '../ContactSeller/ContactSeller';
+import ProductRating from '../Shop/ProductRating/ProductRating';
 
 const ProductPage = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedPrice, setSelectedPrice] = useState(product.product_sizes[0].id)
   const { user } = useGlobalContext();
-  const [sizeId, setSizedId] = useState(product.product_sizes[0].id)
   const { colorScheme } = useMantineColorScheme()
   const price = product.product_sizes.find((size) => size.id === selectedPrice)?.price;
   const sizes = product.product_sizes;
   const owner = product.shop?.user;
   async function handleSubmit() {
-    const { data, error, loading } = await datasource.post({ formData: { quantity, productId: product.id, sizeId }, path: 'carts' })
+    const { data, error, loading } = await datasource.post({ formData: { quantity, productId: product.id, sizeId: selectedPrice }, path: 'carts' })
     setIsLoading(loading);
 
     if (error && !loading) {
@@ -81,6 +81,7 @@ const ProductPage = ({ product }: { product: Product }) => {
                     <Text fw={'500'} my={"lg"} className={classes.title}>
                       {product?.name}
                     </Text>
+                    <ProductRating />
                     <Group justify="space-between">
                       <Text fw={'400'} fs={'italic'} py={'md'}>
                         Product Description
@@ -91,12 +92,11 @@ const ProductPage = ({ product }: { product: Product }) => {
                         fw={'500'}
                         style={{ borderRadius: '10px' }}
                       >
-                        {' '}
-                        {product.product_sizes ? `Price: ${price}` : ''}
+                        {price && <Text fw="bold" fz="h4">Total {price * quantity}</Text>}
                       </Text>
                     </Group>
                     <Text
-                      fz={'sm'}
+                      // fz={'sm'}
                       className="text-slate-500 font-serif"
                       lineClamp={5}
                     >
@@ -104,7 +104,7 @@ const ProductPage = ({ product }: { product: Product }) => {
                     </Text>
                   </Box>
                   <ScrollArea scrollbars="x">
-                    <Text>Size</Text>
+                    <Text py="md">Price</Text>
                     <SegmentedControl
                       color='orange.7'
                       value={selectedPrice} onChange={setSelectedPrice} size='lg'
@@ -161,7 +161,7 @@ const ProductPage = ({ product }: { product: Product }) => {
                             +
                           </Button>
                         </Button.Group>
-                        {price && <Text>Total {price * quantity}</Text>}
+                        
                       </Group>
                       <Group justify="center" grow>
                         <Button

@@ -4,13 +4,16 @@ import {
   Box,
   Button,
   Card,
+  CardSection,
+  Container,
   Flex,
   Group,
   Input,
   InputWrapper,
   Paper,
   rem,
-  Text
+  Text,
+  Title
 } from '@mantine/core';
 import classes from './Cart.module.css';
 import { CartTable } from './CartTable/CartTable';
@@ -30,7 +33,7 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
 
   const handleCheckout = async () => {
     setError('')
-    try{
+    try {
       let num = parseInt(phone)
       console.log(num);
     } catch (e) {
@@ -52,7 +55,7 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
 
 
     const { data, error } = await datasource.post({ formData: { cartIds: selection, phone }, path: 'orders' })
-    if(error){
+    if (error) {
       setError(error)
     }
     console.log(data)
@@ -63,58 +66,62 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
     <Text>No Items</Text></>
 
   return (
-    <Paper className={classes.main} h={'100vh'}>
+    <Paper className={classes.main}>
       <SimpleHeader />
-      <Flex
-        h={'100%'}
-        className={classes.flex}
-        direction={{ base: 'column', sm: 'row' }}
-        gap={'md'}
-        p="md"
-      >
-        <Box
-          w={{ base: '100%', sm: '70%' }}
+      <Container size="xl">
+        <Flex
+          h={'100%'}
+          className={classes.flex}
+          direction={{ base: 'column', sm: 'row' }}
+          gap={'md'}
+          p="md"
         >
-          {cartedItems.length > 0 ? (
-            <CartTable
-              cartItems={cartedItems}
-              setTotal={setTotal}
-              setCartItems={setCartItems}
-              selection={selection}
-              setSelection={setSelection}
-            />
-          ) : (
-            ''
-          )}
-        </Box>
-        <Card
-          w={{ base: '100%', sm: '30%' }}
-          className={classes.box}
-          h="fit-content"
-          shadow='lg'
-        >
-          <Group justify="space-between" p={'md'} w={'fit-content'}>
-            <Text ff={'serif'} fz="bold">Total</Text>{' '}
-            <Text ff={'serif'}>Ksh {total}</Text>
-          </Group>
-          <InputWrapper label={'Phone'} required p={'md'} ff={'serif'} error={error}>
-            <Input placeholder="0742075647" value={phone} onChange={(e) => setPhone(e.target.value)} size='lg' ff={'serif'} />
-          </InputWrapper>
-          <Group p={'md'} justify="center">
-            <Button
-              color="coco.4"
-              w={'100%'}
-              ff={'serif'}
-              fullWidth
-              size='lg'
-              onClick={handleCheckout}
-              leftSection={<IconEyeDollar style={{ height: rem(24), width: rem(24) }} />}
-            >
-              CheckOut
-            </Button>
-          </Group>
-        </Card>
-      </Flex>
+          <Box
+            w={{ base: '100%', sm: '70%' }}
+          >
+            {cartedItems.length > 0 ? (
+              <CartTable
+                cartItems={cartedItems}
+                setTotal={setTotal}
+                setCartItems={setCartItems}
+                selection={selection}
+                setSelection={setSelection}
+              />
+            ) : (
+              ''
+            )}
+          </Box>
+          <Card
+            w={{ base: '100%', sm: '30%' }}
+            className={classes.box}
+            h="fit-content"
+            shadow='lg'
+          >
+            <CardSection p="md">
+              <Title size="lg" ta="center">Order Summary</Title>
+            </CardSection>
+            <Group justify="space-between" p={'md'} w={'fit-content'}>
+              <Text ff={'serif'} fz="bold">Total</Text>{' '}
+              <Text ff={'serif'}>Ksh {total}</Text>
+            </Group>
+            <InputWrapper label={'Phone'} required p={'md'} ff={'serif'} error={error}>
+              <Input placeholder="0742075647" value={phone} onChange={(e) => setPhone(e.target.value)}  ff={'serif'} />
+            </InputWrapper>
+            <Group p={'md'} justify="center">
+              <Button
+                color="coco.4"
+                w={'100%'}
+                ff={'serif'}
+                fullWidth
+                onClick={handleCheckout}
+                leftSection={<IconEyeDollar style={{ height: rem(24), width: rem(24) }} />}
+              >
+                CheckOut
+              </Button>
+            </Group>
+          </Card>
+        </Flex>
+      </Container>
     </Paper>
   );
 };

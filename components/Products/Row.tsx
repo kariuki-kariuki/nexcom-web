@@ -26,6 +26,7 @@ import { notifications } from '@mantine/notifications';
 import { Product, ProductStatus } from '../../lib/@types/shop';
 import classes from './Products.module.css';
 import { datasource } from '@/lib/common/datasource';
+import StatusButton from './StatusButton/StatusButton';
 
 interface IRow {
   prd: Product;
@@ -59,7 +60,7 @@ export function Row({ prd, setProducts }: IRow) {
     const { data, error } = await datasource.update<Product>(
       { status: params }, `products/${product.id}`
     );
-    if(product.images.length < 1 && params === ProductStatus.PUBLISHED){
+    if (product.images.length < 1 && params === ProductStatus.PUBLISHED) {
       notifications.show({
         title: 'Failed',
         message: `You cann't publish a product without images `,
@@ -82,7 +83,7 @@ export function Row({ prd, setProducts }: IRow) {
           return productX;
         })
       );
-    } else if(error) {
+    } else if (error) {
       notifications.show({
         title: 'Failed',
         message: `Failed to update ${product.name} status to ${params}`,
@@ -95,7 +96,7 @@ export function Row({ prd, setProducts }: IRow) {
       <Table.Td>
         <Group gap="sm" wrap="nowrap">
           <Avatar size={50} src={product.images[0]?.url} radius="md" />
-          
+
         </Group>
       </Table.Td>
       <Table.Td>
@@ -104,19 +105,7 @@ export function Row({ prd, setProducts }: IRow) {
         </Text>
       </Table.Td>
       <Table.Td>
-        <Button
-          color={
-            product.status === ProductStatus.PUBLISHED
-              ? 'teal.9'
-              : product.status === ProductStatus.DRAFT
-                ? 'orange.9'
-                : 'red.9'
-          }
-          radius="lg"
-          fullWidth
-        >
-          {product.status}
-        </Button>
+        <StatusButton status={product.status}/>
       </Table.Td>
       <Table.Td>
         <Text>{product.product_sizes[0].price} </Text>

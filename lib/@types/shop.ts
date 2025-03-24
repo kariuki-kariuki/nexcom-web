@@ -44,6 +44,7 @@ export type Product = {
   created_at: string;
   shop?: Shop
   user?: GlobalUser
+  comments: ProductComment[]
 };
 
 
@@ -65,10 +66,20 @@ export interface IProduct {
   image: string[];
 }
 
+export interface BannerImage {
+  id: string;
+  name: string | null;
+  url: string;
+  altText: string;
+  shop: Shop;
+}
 export interface Shop {
   name: string;
   id: number;
   user?: GlobalUser;
+  bannerImage: BannerImage,
+  phone: number;
+  category: Category;
 }
 
 export interface ProductWithShop extends ShopProduct {
@@ -100,4 +111,20 @@ export interface Category {
 
 export interface CategoryWithProducts extends Category {
   products: ProductWithShop[]
+}
+
+export interface ProductVideo {
+  id: string;
+  name: string | null;
+  url: string;
+  description: string;
+  product: Product
+}
+
+// Product comment
+export interface ProductComment {
+  id: string;
+  content: string;
+  user: GlobalUser;
+  children: ProductComment[]
 }

@@ -1,0 +1,7 @@
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--mantine-spacing-md);
+  justify-content: center;
+  padding-top: var(--mantine-spacing-sm);
+}

@@ -1,11 +1,12 @@
-import { Avatar, Card, Group, Text } from '@mantine/core';
+import { Avatar, Button, Card, Group, Text } from '@mantine/core';
 import { useContext } from 'react';
 import { AppContext } from '../../../lib/context/appContext';
 import classes from './Profile.module.css';
 import { CardsCarousel } from '../CardsCarousel/CardsCarousel';
 import PictureUpdate from '../PictureUpdate/PictureUpdate';
-import CreateShop from '../../CreateShop/CreateShop';
 import { GlobalUser, UserContextType } from '@/lib/@types/app';
+import Link from 'next/link';
+import { IconArrowsLeftRight, IconSwitch } from '@tabler/icons-react';
 const stats = [
   { value: '34K', label: 'Followers' },
   { value: '187', label: 'Follows' },
@@ -59,7 +60,7 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
         {userClicked.shop ? items : ''}
       </Group> */}
       {active ? (
-        <Group justify="center">{user?.shop ? '' : <CreateShop />}</Group>
+        <Group justify="center">{!user?.shop &&  <Link href="/shop/create"><Button my="md" variant='light' color="teal.7" leftSection={<IconArrowsLeftRight />}>Switch to Business</Button></Link>}</Group>
       ) : (
         ''
       )}

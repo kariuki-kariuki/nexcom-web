@@ -1,7 +1,7 @@
 'use client';
 import { ProductImage } from '@/lib/@types/shop';
 import { datasource } from '@/lib/common/datasource';
-import { Button, ButtonGroup, FileButton, FileInput, Group, Image, LoadingOverlay, Modal, Stack } from '@mantine/core';
+import { Button, FileInput, Group, Image, LoadingOverlay, Modal, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { IconFileSearch } from '@tabler/icons-react';
@@ -32,6 +32,7 @@ const SearchByImage = () => {
     if(data && !loading){
       setLoading(false);
       setImages(data);
+      setFile(null);
     }
 
     if(error) {

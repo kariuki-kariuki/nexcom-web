@@ -27,7 +27,6 @@ function ProductCard({
   categories,
   setCategories
 }: IproductCard) {
-  const [opened, { toggle }] = useDisclosure(false);
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
   return (
@@ -116,14 +115,7 @@ function ProductCard({
             value: category.id
           }))}
         />
-        <Button w="fit-content" radius="xl" color='coco.4'
-          size={mobile ? 'sm' : 'lg'}
-          onClick={toggle}>
-          Add New Category
-        </Button>
         <NewCategory
-          opened={opened}
-          toggle={toggle}
           setCategories={setCategories}
         />
       </Box>

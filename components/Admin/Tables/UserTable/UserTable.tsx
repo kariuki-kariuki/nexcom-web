@@ -6,7 +6,8 @@ import {
   Text,
   ActionIcon,
   Anchor,
-  rem
+  rem,
+  Paper
 } from '@mantine/core';
 import { IconPencil, IconTrash } from '@tabler/icons-react';
 import classes from './UserTable.module.css';
@@ -79,28 +80,27 @@ export function UsersTable() {
   });
 
   return (
-    <Table.ScrollContainer
-      maw={'100%'}
-      minWidth={'100%'}
-      className={classes.main}
-      style={{ borderRadius: '10px' }}
-      my={'md'}
-      py={'md'}
-    >
-      <Table verticalSpacing="md">
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>Customer</Table.Th>
-            <Table.Th>FirstName</Table.Th>
-            <Table.Th>LastName</Table.Th>
-            <Table.Th>Shop</Table.Th>
-            <Table.Th>Action</Table.Th>
-            <Table.Th />
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
-      </Table>
-      {/* <PaginationDemo activePage={activePage} setPage={setPage} /> */}
-    </Table.ScrollContainer>
+    <Paper w={{ base: '100%', sm: '49%' }} className={classes.main}>
+      <Table.ScrollContainer
+        maw={'100%'}
+        minWidth={'100%'}
+        style={{ borderRadius: '10px' }}
+      >
+        <Table verticalSpacing="md">
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th>Customer</Table.Th>
+              <Table.Th>FirstName</Table.Th>
+              <Table.Th>LastName</Table.Th>
+              <Table.Th>Shop</Table.Th>
+              <Table.Th>Action</Table.Th>
+              <Table.Th />
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>{rows}</Table.Tbody>
+        </Table>
+        {/* <PaginationDemo activePage={activePage} setPage={setPage} /> */}
+      </Table.ScrollContainer>
+    </Paper>
   );
 }

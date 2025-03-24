@@ -7,7 +7,7 @@ import classes from './SearchedImage.module.css'
 const SearchedImage = ({image}: {image: ProductImage}) => {
   return (
     <Box maw={400}>
-      <Link className={classes.link} href={`/shop/product/${image.product?.id}`}><Text lineClamp={1} maw={200}>{`https://nexcom-ke.vercel.app/shop/product/${image.product?.id}`}</Text>
+      <Link className={classes.link} href={`/business/product/${image.product?.id}`}><Text lineClamp={1} maw={200}>{`https://nexcom-ke.vercel.app/shop/product/${image.product?.id}`}</Text>
       <Notification
       title={image.product?.name}
       withCloseButton={false}
