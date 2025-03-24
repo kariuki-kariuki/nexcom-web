@@ -19,6 +19,21 @@ export default withBundleAnalyzer({
         destination: '/videos/tags/all',
         permanent: false
       },
+      {
+        source: '/videos/tag',
+        destination: '/videos/tags/all',
+        permanent: false
+      },
+      {
+        source: '/business/product',
+        destination: '/business/product/tags/all',
+        permanent: false
+      },
+      {
+        source: '/business/product/tag',
+        destination: '/business/product/tags/all',
+        permanent: false
+      },
     ];
   },
 

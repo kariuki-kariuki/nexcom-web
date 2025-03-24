@@ -24,10 +24,10 @@ const ShopCard = ({ shop }: IProps) => {
         </Group>
         <Stack gap="5px" align='center'>
           <Avatar src={shop.user?.photo} />
-          <Text fw="bold">{shop.name} - {shop.category?.name}</Text>
-          <Text c="dimmed" ta="center" fz="xs">nexcom.ke@gmail.com</Text>
+          <Text fw="bold">{shop.name}</Text>
+          <Text>{shop.category?.name}</Text>
         </Stack>
-        <Link href={`/shop/${shop.name.toLowerCase()}`}>
+        <Link href={`/business/${shop.name.toLowerCase()}`}>
             <Button fullWidth variant='light'  radius="xl">Visit</Button>
         </Link>
       </div>

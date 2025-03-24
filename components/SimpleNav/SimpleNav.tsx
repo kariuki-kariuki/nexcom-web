@@ -12,8 +12,8 @@ import { useGlobalStore } from '@/lib/context/global-store.provider';
 const links = [
   { label: 'Chats', link: '/chat', icon: IconMessageCircle },
   { label: 'Videos', link: '/videos', icon: IconPlayerPlay },
-  { label: 'Shop', link: '/shop', icon: IconShoppingBag },
-  { label: 'Cart', link: '/cart', icon: IconShoppingCart },
+  { label: 'Business', link: '/business', icon: IconShoppingBag },
+  { label: 'Products', link: '/business/product', icon: IconShoppingCart },
 ]
 const SimpleNav = () => {
   const { user } = useGlobalContext();

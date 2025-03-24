@@ -9,13 +9,13 @@ import {
   Stack,
   Flex
 } from '@mantine/core';
-import { ProductWithShop } from '@/lib/@types/shop';
+import { Product, ProductWithShop, ShopProduct } from '@/lib/@types/shop';
 import classes from './ProductCard.module.css';
 import { useMediaQuery } from '@mantine/hooks';
 import Link from 'next/link';
 import ProductRating from '../ProductRating/ProductRating';
 interface Iprops {
-  product: ProductWithShop;
+  product: ProductWithShop | ShopProduct | Product;
 }
 
 function ProductCard({ product }: Iprops) {
@@ -24,7 +24,7 @@ function ProductCard({ product }: Iprops) {
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   return (
     <Card className={classes.card} p={0}>
-      <Link href={`/shop/product/${product.id}`} className={classes.link}>
+      <Link href={`/business/product/${product.id}`} className={classes.link}>
         <Flex direction={{ base: 'row', sm: 'column'}}>
           <Box w={{ base: '50%', sm: '100%'}}>
             <Image src={product.images[0]?.url} className={classes.image} />

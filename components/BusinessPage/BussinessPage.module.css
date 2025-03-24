@@ -1,0 +1,100 @@
+/* shop card */
+
+.main {
+  background-color: light-dark(var(--mantine-color-gray-0), rgba(0, 0, 0, 0.2));
+}
+
+.card {
+  width: 100%;
+  /* background-color: light-dark(var(--mantine-color-gray-9), rgba(0, 0, 0, 0.4)); */
+  border-radius: var(--mantine-spacing-sm);
+  border: 1px solid light-dark(var(--mantine-color-gray-5), var(--mantine-color-gray-9));
+  min-height: 100vh;
+}
+
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: wrap;
+  height: 100%;
+  flex-direction: row;
+  gap: var(--mantine-spacing-xs);
+
+  @media (min-width: $mantine-breakpoint-sm) {
+    gap: var(--mantine-spacing-xs);
+
+  }
+
+  @media (min-width: $mantine-breakpoint-md) {
+    gap: var(--mantine-spacing-xs);
+
+  }
+
+  @media (min-width: $mantine-breakpoint-lg) {
+    gap: var(--mantine-spacing-xs);
+  }
+}
+.innerCard {
+  padding: var(--mantine-spacing-md);
+  border-top: 2px solid;
+  border-image-source: linear-gradient(to left,
+      var(--mantine-color-orange-4),
+      var(--mantine-color-coco-5));
+  border-image-slice: 1;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  justify-content: space-between;
+}
+
+.inputPaper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.inputPaperTwo {
+  display: flex;
+  flex-direction: column;
+  padding: var(--mantine-spacing-md);
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.section {
+  height: 30vh;
+  background-position: center;
+  background-size: cover;
+
+}
+
+.avatar {
+  padding: var(--mantine-spacing-sm);
+  margin-top: var(--mantine-spacing-sm);
+  margin-bottom: var(--mantine-spacing-sm);
+}
+
+.input {
+  background-color: none;
+  background: none;
+}
+
+.qrcode {
+  height: 100%;
+  padding: var(--mantine-spacing-sm);
+
+}
+
+.innerWrapper {
+  display: flex;
+  padding: var(--mantine-spacing-sm);
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--mantine-color-coco-4);
+}
