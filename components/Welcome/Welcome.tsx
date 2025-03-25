@@ -29,7 +29,7 @@ export function Welcome() {
             The Future of Connected Commerce.
           </Text>
           <Group justify="center" mt="xl">
-            <Link href='/shop'>
+            <Link href='/business/product'>
               <Button size="xl" color="coco.0" radius="xl" fw="bold" onClick={() => play()}>
                 Get Started
               </Button>

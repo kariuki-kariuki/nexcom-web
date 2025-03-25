@@ -14,3 +14,13 @@ const DashboardLink = () => {
 }
 
 export default DashboardLink
+
+export const LoginLink = () => {
+  const { user } = useGlobalContext();
+  return (
+    <div>
+      {!user && <Link href='/auth/login' className={classes.link}>Login</Link>}
+    </div>
+  )
+}
+

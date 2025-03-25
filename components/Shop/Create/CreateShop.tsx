@@ -6,7 +6,6 @@ import React, { useState } from 'react'
 import classes from './CreateShop.module.css';
 import { useGlobalContext } from '@/lib/context/appContext';
 import NewCategory from '@/components/NewProduct/NewCategory';
-import { useDisclosure } from '@mantine/hooks';
 import { datasource } from '@/lib/common/datasource';
 import setToken from '@/utils/setToken';
 import { useRouter } from 'next/navigation';
@@ -27,8 +26,8 @@ const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
   const [isloading, setIsLoading] = useState(false);
   const router = useRouter()
   if (user?.shop) {
-    router.push('/dashboard')
-    return;
+    // router.push('/dashboard')
+    // return;
   }
 
   const handleCreateBusiness = async () => {

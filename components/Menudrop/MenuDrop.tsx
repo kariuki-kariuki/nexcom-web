@@ -39,13 +39,13 @@ export default function MenuDrop() {
 
         <Menu.Dropdown className={classes.menu_drop}>
           <Menu.Label>Application</Menu.Label>
-          <Link href="/shop">
+          <Link href="/business">
             <Menu.Item
               leftSection={
                 <IconShoppingBag style={{ width: rem(14), height: rem(14) }} />
               }
             >
-              Shop
+              Business
             </Menu.Item>
           </Link>
           <Menu.Item

@@ -64,8 +64,7 @@ function SignUp() {
     setLoading(false)
   }
   return (
-    <Box className={classes.main} mih="100vh">
-      <SimpleHeader />
+    <Box className={classes.main} mih="100%">
       <LoadingOverlay visible={loading} />
       <Flex align="center" h="fit-content" pt="md" justify="center">
         <Stack gap="lg" align="center">

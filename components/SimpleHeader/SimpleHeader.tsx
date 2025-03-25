@@ -14,6 +14,7 @@ const SimpleHeader = () => {
                     <Text py="sm">Nexcom</Text>
                 </Group>
                 <SimpleHeaderLinks />
+                
             </Group>
         </Card>
     )

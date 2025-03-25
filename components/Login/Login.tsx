@@ -52,9 +52,8 @@ function Login() {
     setLoading(false);
   }
   return (
-    <Box className={classes.main} mih="100vh">
+    <Box className={classes.main} mih="100%">
       <LoadingOverlay visible={loading} />
-      <SimpleHeader />
       <Flex align="center" h="70vh" justify="center">
         <Stack gap="lg" align="center">
           <Group justify="start" mb="xl">

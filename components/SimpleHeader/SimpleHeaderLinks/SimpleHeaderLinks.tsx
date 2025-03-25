@@ -1,15 +1,14 @@
 'use client'
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle'
 import React from 'react'
-import Link, { LinkProps } from 'next/link'
-import { IconHome, IconMessageCircle, IconShoppingBag, IconShoppingCart } from '@tabler/icons-react'
-import { Avatar, Box, Burger, Drawer, Group, Modal, Stack, Text } from '@mantine/core'
-import DashboardLink from './DashboardLink'
+import Link from 'next/link'
+import { IconMessageCircle, IconShoppingBag, IconShoppingCart } from '@tabler/icons-react'
+import { Avatar, Box, Burger, Drawer, Group, Stack, Text } from '@mantine/core'
+import DashboardLink, { LoginLink } from './DashboardLink'
 import classes from './SimpleHeaderLinks.module.css';
 import { useDisclosure } from '@mantine/hooks'
 
 const links = [
-  { label: 'Home', link: '/', icon: IconHome },
   { label: 'Videos', link: '/videos', icon: IconMessageCircle },
   { label: 'Chats', link: '/chat', icon: IconMessageCircle },
   { label: 'Business', link: '/business', icon: IconShoppingBag },
@@ -41,6 +40,7 @@ const SimpleHeaderLinks = () => {
             <Stack>
               {links.map((link, idx) => <Link href={link.link} className={classes.link} key={idx}>{link.label}</Link>)}
               <DashboardLink />
+              <LoginLink />
             </Stack>
             <ColorSchemeToggle />
           </Stack>

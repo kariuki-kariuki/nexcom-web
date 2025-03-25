@@ -70,7 +70,7 @@ const {colorScheme} = useMantineColorScheme()
       </Group>
       <ScrollArea h="80vh">
         <Box hiddenFrom="sm">{rowsNotification}</Box>
-        <Table miw={800} verticalSpacing="sm" striped stripedColor={colorScheme === 'dark' ? 'coco.0' : 'gray.1'} visibleFrom="sm">
+        <Table miw={800} verticalSpacing="sm" striped stripedColor={colorScheme === 'dark' ? 'rgba(0, 0, 0, .2)' : 'gray.1'} visibleFrom="sm">
           <Table.Thead>
             <Table.Tr>
               <Table.Th>Image</Table.Th>

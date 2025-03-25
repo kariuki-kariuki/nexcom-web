@@ -1,11 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   IconDiamondFilled,
-  IconHome,
   IconListTree,
   IconLogout,
   IconMessage,
@@ -21,11 +19,10 @@ import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 const data = [
   { link: '/dashboard', label: 'Dashboard', icon: IconDiamondFilled },
-  { link: '/dashboard/products', label: 'Products', icon: IconListTree },
-  // { link: '/', label: 'Home', icon: IconHome },
+  { link: '/dashboard/products', label: 'Stock', icon: IconListTree },
   { link: '/cart', label: 'Cart', icon: IconShoppingCart },
-  { link: '/chat', label: 'Chat', icon: IconMessage },
-  { link: '/shop', label: 'Shop', icon: IconShoppingBag },
+  { link: '/chat', label: 'Chats', icon: IconMessage },
+  { link: '/business/product', label: 'Products', icon: IconShoppingBag },
 ];
 
 export function Navbar() {

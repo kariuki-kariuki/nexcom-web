@@ -1,0 +1,10 @@
+.main {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-1));
+}
+
+.section {
+  flex: 1;
+}

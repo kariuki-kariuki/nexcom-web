@@ -52,7 +52,7 @@ class DataSource {
     return this.handleFetch<T>({ method: CRUDMETHODS.DELETE, path });
   }
 
-  async handleFetch<T>({ method, path, body, contentType = true }: IFetch) {
+  private async handleFetch<T>({ method, path, body, contentType = true }: IFetch) {
     let loading = true;
     let data: T | null = null;
     const token = this.getJwtToken();
@@ -100,7 +100,7 @@ class DataSource {
   }
 
 
-  async handleError(errors: string | Array<string>): Promise<string> {
+  private async handleError(errors: string | Array<string>): Promise<string> {
     if (typeof errors === 'string') {
       return errors;
     }
