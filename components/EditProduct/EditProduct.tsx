@@ -20,7 +20,7 @@ import { FileWithPath } from '@mantine/dropzone';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { Category } from '../../lib/@types/category';
-import { Product, ProductImage } from '../../lib/@types/shop';
+import { ImageInterface, Product } from '../../lib/@types/shop';
 import { DropzoneButton } from '../DropzoneButton/DropzoneButton';
 import { ProductCorousel } from '../ImageCarousel/ImageCarousel';
 import Previews from '../Previews/Previews';
@@ -49,7 +49,7 @@ function EditProduct({
     files.forEach((file) => {
       formData.append('files', file);
     });
-    const res = await createImage<ProductImage[]>({
+    const res = await createImage<ImageInterface[]>({
       resource: 'images',
       formData
     });

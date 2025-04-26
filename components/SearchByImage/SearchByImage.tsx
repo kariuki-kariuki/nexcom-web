@@ -1,5 +1,5 @@
 'use client';
-import { ProductImage } from '@/lib/@types/shop';
+import { ImageInterface } from '@/lib/@types/shop';
 import { datasource } from '@/lib/common/datasource';
 import { Button, FileInput, Group, Image, LoadingOverlay, Modal, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -12,7 +12,7 @@ import { NODE_ENV } from '@/lib/common/constans';
 const SearchByImage = () => {
   const [opened, { toggle }] = useDisclosure(false)
   const [file, setFile] = useState<File | null>(null)
-  const [images, setImages] = useState<ProductImage[] | null>(null)
+  const [images, setImages] = useState<ImageInterface[] | null>(null)
   const [isLoading, setLoading] = useState(false);
 
   const handleSearch = async () => {
@@ -27,7 +27,7 @@ const SearchByImage = () => {
     setLoading(true);
     const formData = new FormData();
   formData.append('file', file)
-    const { data, error, loading } = await datasource.post<ProductImage[]>({formData, path: 'products/image-search', contentType: false })
+    const { data, error, loading } = await datasource.post<ImageInterface[]>({formData, path: 'products/image-search', contentType: false })
 
     if(data && !loading){
       setLoading(false);

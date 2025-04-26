@@ -29,7 +29,7 @@ export default function MenuDrop() {
 
   const { user, setUser } = useGlobalContext();
   return (
-    <Box px={'md'} py={'sm'} className={classes.menu}>
+    <Box px={'md'} className={classes.menu}>
       <Menu shadow="md" width={200}>
         <Menu.Target>
           <div>

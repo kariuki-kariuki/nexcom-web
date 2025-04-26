@@ -1,5 +1,5 @@
 import { MessageState } from '@/lib/common/common';
-import { Product, Shop } from './shop';
+import { ImageInterface, Product, Shop } from './shop';
 
 export type UserContextType = {
   user: GlobalUser | null;
@@ -11,7 +11,7 @@ export type UserContextType = {
 
 export interface GlobalUser {
   id: string;
-  photo: string;
+  avatar: ImageInterface;
   firstName: string;
   lastName: string;
   updated_at: string;

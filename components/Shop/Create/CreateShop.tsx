@@ -125,7 +125,7 @@ const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
             <div className={classes.innerCard}>
               <div className={classes.avatar}>
                 <Group align='center'>
-                  <Avatar src={user?.photo} size="lg" />
+                  <Avatar src={user?.avatar?.signedUrl} size="lg" />
                   <Text pt="lg">{`${user?.firstName} ${user?.lastName}`}</Text>
                 </Group>
               </div>

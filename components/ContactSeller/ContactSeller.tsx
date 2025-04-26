@@ -53,7 +53,7 @@ const ContactSeller = ({ product, owner }: IProps) => {
             <Dialog opened={opened} onClose={toggle} withCloseButton size={"lg"} classNames={{ root: classes.bg }}>
                 <Flex h={'100%'} direction={'column'}>
                     <Group className={classes.header} wrap='nowrap' py="sm">
-                        <Avatar src={product.shop?.user?.photo} />
+                        <Avatar src={product.shop?.user?.avatar?.signedUrl} />
                         <Text ta="center" fz={{ base: 'xs', sm: 'lg' }}>{`Inquire About ${product.name}`}</Text>
                     </Group>
                     <ScrollArea h={'100%'} scrollbars={'y'}

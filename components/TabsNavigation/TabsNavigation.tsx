@@ -24,7 +24,7 @@ function TabsNavigation() {
     return (
         <Flex direction={"column"} h='100vh' className={classes.nav}>
             <Stack gap="lg" pt="lg" flex={1}>
-                {/* <Avatar src={user?.photo} size="lg" alt="User Avatar" /> */}
+                {/* <Avatar src={user?.avatar?.signedUrl} size="lg" alt="User Avatar" /> */}
                 <Link href="/chat" className={classes.link} data-active={getPathName('/chat') || undefined} >
                     <IconMessage stroke={1.5} className={classes.linkIcon} />
                     <span>Chat</span>

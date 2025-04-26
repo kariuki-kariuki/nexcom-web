@@ -2,9 +2,9 @@ import { Carousel } from '@mantine/carousel';
 import { Image, useMantineTheme } from '@mantine/core';
 import classes from './carousel.module.css';
 import { useMediaQuery } from '@mantine/hooks';
-import { ProductImage } from '@/lib/@types/shop';
+import { ImageInterface } from '@/lib/@types/shop';
 interface Iprops {
-  images: ProductImage[];
+  images: ImageInterface[];
 }
 
 function ImageCarousel({ images }: Iprops) {

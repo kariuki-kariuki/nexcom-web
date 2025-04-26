@@ -26,7 +26,7 @@ const SimpleNav = () => {
     <div className={classes.main}>
       <Stack justify='space-between' h="100%" align='center'>
         <Stack gap={"md"} align='center' py="sm">
-          <Avatar src={user?.photo} onClick={toggle} />
+          <Avatar src={user?.avatar?.signedUrl} onClick={toggle} name={`${user?.firstName} ${user?.lastName}`} />
           {links.map((link, idx) => <Link href={link.link} className={classes.link} key={idx}><link.icon stroke={1.5} className={classes.linkIcon} /></Link>)}
           {user?.shop && <Link href='/dashboard' className={classes.link} ><IconDiamond stroke={1.5} className={classes.linkIcon} /></Link>}
         </Stack>

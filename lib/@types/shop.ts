@@ -14,12 +14,13 @@ export enum ProductStatus {
   ARCHIVED = 'Archived'
 }
 
-export interface ProductImage {
+export interface ImageInterface {
   id: string;
   name: string | null;
   url: string;
   altText: string;
-  product?: Product
+  signedUrl: string;
+  product?: Product;
 }
 
 export type INewProduct = {
@@ -38,7 +39,7 @@ export type Product = {
   description: string;
   status: ProductStatus;
   product_sizes: SizeWithPrice[];
-  images: ProductImage[];
+  images: ImageInterface[];
   category: Category;
   stock: number;
   created_at: string;
@@ -52,7 +53,7 @@ export type ShopProduct = {
   id: string;
   name: string;
   description: string;
-  images: ProductImage[];
+  images: ImageInterface[];
   colors?: string[];
   quantity: number;
   product_sizes: SizeWithPrice[];
@@ -66,18 +67,12 @@ export interface IProduct {
   image: string[];
 }
 
-export interface BannerImage {
-  id: string;
-  name: string | null;
-  url: string;
-  altText: string;
-  shop: Shop;
-}
+
 export interface Shop {
   name: string;
-  id: number;
+  id: string;
   user?: GlobalUser;
-  bannerImage: BannerImage,
+  bannerImage: ImageInterface,
   phone: number;
   category: Category;
 }

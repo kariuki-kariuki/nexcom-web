@@ -20,12 +20,12 @@ import { Row } from './Row';
 import classes from './Products.module.css';
 import { RowNotification } from './RowNotification';
 
-export function Products({ products }: { products: Product[] }) {
+export function ProductsTable({ products }: { products: Product[] }) {
   const [active, setActive] = useState('All');
   const [allPrds, setProducts] = useState<Product[]>(products);
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
-const {colorScheme} = useMantineColorScheme()
+  const { colorScheme } = useMantineColorScheme()
   const rows = allPrds
     ?.filter((product) => {
       if (active.toLowerCase() === 'all') return true;

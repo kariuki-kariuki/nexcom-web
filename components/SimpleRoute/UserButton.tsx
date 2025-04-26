@@ -43,7 +43,7 @@ export function UserButton() {
         return;
       }
       if (user) {
-        user.photo = res.link;
+        user.avatar.signedUrl = res.link;
         setUser(user);
         setValue(null);
         notifications.show({
@@ -61,7 +61,7 @@ export function UserButton() {
         <Group>
           <Avatar
             src={
-              value ? URL.createObjectURL(value) : user?.photo ? user.photo : ''
+              value ? URL.createObjectURL(value) : user?.avatar?.signedUrl ? user?.avatar?.signedUrl : ''
             }
             radius="xl"
             alt={`${user?.firstName} profile picture`}

@@ -52,7 +52,7 @@ const CreateVideo = ({ product }: { product: Product }) => {
   return (
     <div>
       <LoadingOverlay visible={isLoading} />
-      <Button onClick={toggle}>Add Video</Button>
+      <Button onClick={toggle} fullWidth color='coco.4'>Add Video</Button>
       <Drawer opened={opened} onClose={toggle} title="Create Video">
         {files.length < 1 && <VideoDropzoneButton setFiles={setFiles} />}
         <InputWrapper my="md" error={error} label="Video description">

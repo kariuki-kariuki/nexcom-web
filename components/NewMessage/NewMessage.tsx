@@ -61,7 +61,7 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
       key={person.id}
     >
       <Group>
-        <Avatar src={person.photo} />
+        <Avatar src={person?.avatar?.signedUrl} />
         <Text>{person.id === user?.id ? 'Me' : person.firstName}</Text>
       </Group>
     </Card>

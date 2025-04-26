@@ -10,11 +10,11 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { Product, ProductImage } from '../../lib/@types/shop';
+import { Product, ImageInterface } from '../../lib/@types/shop';
 import { datasource } from '@/lib/common/datasource';
 
 interface Iprops {
-  image: ProductImage;
+  image: ImageInterface;
   setProduct: (updater: (product: Product) => Product) => void;
 }
 function CarouselImage({ image, setProduct }: Iprops) {

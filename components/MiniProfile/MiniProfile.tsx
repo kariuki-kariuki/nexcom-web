@@ -21,7 +21,7 @@ const MiniProfile = () => {
   return (
     <div className="flex justify-between items-center">
       <Avatar
-        src={sender?.photo}
+        src={sender?.avatar?.signedUrl}
         // alt={`${sender?.name}'s profile`}
         className={`h-10 w-10 rounded-full`}
       />

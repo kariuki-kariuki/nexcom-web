@@ -23,7 +23,7 @@ export function Welcome() {
             >
               Nex
             </Text>
-            com
+            com 
           </Title>
           <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">
             The Future of Connected Commerce.

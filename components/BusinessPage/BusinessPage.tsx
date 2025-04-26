@@ -1,4 +1,4 @@
-import { Shop, ShopWithProducts } from '@/lib/@types/shop'
+import { ShopWithProducts } from '@/lib/@types/shop'
 import { Group, Avatar, Stack, Text, Container, Divider, Paper } from '@mantine/core'
 import React from 'react'
 import classes from "./BussinessPage.module.css";
@@ -19,7 +19,7 @@ const BusinessPage = ({ shop }: IProps) => {
           <div className={classes.avatar}>
             <Group align='center' justify='center' wrap='wrap'>
               <Group wrap='nowrap'>
-                <Avatar src={shop.user?.photo} size="lg" />
+                <Avatar src={shop.user?.avatar?.signedUrl} size="lg" name={shop.user?.firstName}/>
                 <Text>{`${shop.user?.firstName} ${shop.user?.lastName}`}</Text>
               </Group>
               <div>

@@ -1,12 +1,12 @@
 import { Carousel, CarouselSlide } from '@mantine/carousel';
 import { useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { Product, ProductImage } from '../../lib/@types/shop';
+import { Product, ImageInterface } from '../../lib/@types/shop';
 import CarouselImage from './CarouselImage';
 import classes from './ImageCarousel.module.css';
 
 interface Props {
-  images: ProductImage[];
+  images: ImageInterface[];
   toggle: () => void;
   setProduct: (updater: (product: Product) => Product) => void;
 }

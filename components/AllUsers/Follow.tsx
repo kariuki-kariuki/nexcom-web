@@ -31,7 +31,7 @@ const TableRow = ({ item, updateFollowStatus }: ITableRow) => (
   <Table.Tr key={item.id}>
     <Table.Td>
       <Group gap="sm">
-        <Avatar size={26} src={item.photo} radius={26} />
+        <Avatar size={26} src={item?.avatar.signedUrl} radius={26} />
         <Text size="sm" fw={500}>
           {`${item.firstName} ${item.lastName}`}
         </Text>
@@ -44,7 +44,7 @@ const TableRow = ({ item, updateFollowStatus }: ITableRow) => (
 const TableRowNotification = ({ item, updateFollowStatus }: ITableRow) => (
   <Notification key={item.id} withCloseButton={false} mb="sm">
     <Group wrap="nowrap" justify="space-around">
-      <Avatar size={26} src={item.photo} radius={26} />
+      <Avatar size={26} src={item?.avatar?.signedUrl} radius={26} />
       <Stack gap={2} w="60%">
         <Text size="sm" fw={500} lineClamp={1}>
           {`${item.firstName} ${item.lastName}`}

@@ -9,7 +9,7 @@ const ToggleButton = () => {
   return (
     <UnstyledButton p={0}>
       <Group align="center" h={'100%'} justify="center" w={'100%'}>
-        <Avatar src={user?.photo} className="h-full" />
+        <Avatar src={user?.avatar?.signedUrl} className="h-full" name={`${user?.firstName} ${user?.lastName}`}/>
         <Group style={{ flex: 1 }} gap={2}>
           <Text size="sm">{user?.firstName}</Text>
           <Text size="sm" lineClamp={1}>

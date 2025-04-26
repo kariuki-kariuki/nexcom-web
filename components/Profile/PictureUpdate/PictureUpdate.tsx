@@ -19,7 +19,7 @@ const PictureUpdate = ({ image }: { image: string }) => {
       socket.emit('updateProfile', { mimetype: value.type, buffer: value }, (res: { link: string }) => {
         if (user) {
           setValue(null)
-          user.photo = res.link;
+          user.avatar.signedUrl = res.link;
           setUser(user);
         }
 
@@ -38,7 +38,7 @@ const PictureUpdate = ({ image }: { image: string }) => {
             withBorder
           >
             <Avatar
-              src={value ? URL.createObjectURL(value) : user?.photo}
+              src={value ? URL.createObjectURL(value) : user?.avatar?.signedUrl}
               size={80}
               radius={80}
               mt={-30}

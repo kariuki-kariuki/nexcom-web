@@ -27,7 +27,7 @@ function ProductCard({ product }: Iprops) {
       <Link href={`/business/product/${product.id}`} className={classes.link}>
         <Flex direction={{ base: 'row', sm: 'column'}}>
           <Box w={{ base: '50%', sm: '100%'}}>
-            <Image src={product.images[0]?.url} className={classes.image} />
+            <Image src={product.images[0]?.signedUrl} className={classes.image} />
           </Box>
           <Stack align='center' justify='space-around' className={classes.info} gap={2} p="sm" w={{ base: '50%', sm: '100%'}}>
             <Text

@@ -38,12 +38,13 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
         }}
       />
       {active ? (
-        <PictureUpdate image={userClicked.photo} />
+        <PictureUpdate image={userClicked?.avatar?.signedUrl} />
       ) : (
         <Avatar
-          src={userClicked.photo}
+          src={userClicked.avatar.signedUrl}
           size={80}
           radius={80}
+          name={`${user?.firstName} ${user?.lastName}`}
           mx="auto"
           mt={-30}
           className={classes.avatar}

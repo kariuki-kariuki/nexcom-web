@@ -3,6 +3,7 @@ import React from 'react'
 import classes from './SimpleHeader.module.css'
 import SimpleHeaderLinks from './SimpleHeaderLinks/SimpleHeaderLinks'
 import SearchByImage from '../SearchByImage/SearchByImage'
+import MenuDrop from '../Menudrop/MenuDrop'
 
 
 const SimpleHeader = () => {
@@ -14,7 +15,6 @@ const SimpleHeader = () => {
                     <Text py="sm">Nexcom</Text>
                 </Group>
                 <SimpleHeaderLinks />
-                
             </Group>
         </Card>
     )

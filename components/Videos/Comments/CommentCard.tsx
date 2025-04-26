@@ -9,7 +9,7 @@ const CommentCard = ({ comment }: IProps) => {
   return (
     <div>
       <Group justify='start' gap="md" wrap='nowrap' p="xs">
-        <Avatar src={comment.user.photo} size="sm"/>
+        <Avatar src={comment.user?.avatar?.signedUrl} size="sm"/>
         <Stack gap={0}>
           <Text c="dimmed" fz="xs">{`${comment.user.firstName} ${comment.user.lastName}`}</Text>
           <Text fz="sm">{comment.content}</Text>

@@ -8,7 +8,7 @@ const UserButton = () => {
 
   return (
     <Group bg={'none'}>
-      <Avatar src={user?.photo} />
+      <Avatar src={user?.avatar?.signedUrl} />
       <div style={{ flex: 1 }}>
         <Text size="sm" fw={500}>
           {user?.firstName}

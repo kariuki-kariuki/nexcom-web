@@ -16,7 +16,7 @@ export function CarouselCard({ product, user, shop }: Iprop) {
   return (
     <Card radius="md" withBorder padding="xl" className={classes.card}>
       <Card.Section h={200}>
-        <Image src={product.images[0]?.url} height={'100%'} />
+        <Image src={product.images[0]?.signedUrl} height={'100%'} />
       </Card.Section>
       <Card.Section>
         <Link href={`/shop/product/${product.id}`}>

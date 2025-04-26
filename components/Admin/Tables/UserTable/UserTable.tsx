@@ -35,7 +35,7 @@ export function UsersTable() {
           <Group gap="sm" wrap="nowrap">
             <Avatar
               size={30}
-              src={user.photo ? user.photo : faker.image.avatar()}
+              src={user.avatar ? user?.avatar?.signedUrl : faker.image.avatar()}
               radius={30}
             />
 

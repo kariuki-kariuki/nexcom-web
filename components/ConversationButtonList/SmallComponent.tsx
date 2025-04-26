@@ -11,7 +11,7 @@ export default function SmallComponent() {
   return (
     <div>
       <Group bg={'none'} onClick={open} wrap="nowrap">
-        <Avatar src={user?.photo} size="md" />
+        <Avatar src={user?.avatar?.signedUrl} size="md" />
         <Text fz="md">{`${user?.firstName} ${user?.lastName}`}</Text>
       </Group>
       {user ? <Dashboard opened={opened} close={close} actUser={user} /> : ''}
