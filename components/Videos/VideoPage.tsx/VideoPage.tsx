@@ -21,7 +21,7 @@ const VideoPage = ({ video }: IProps) => {
     <Container bg="none" p={{ base: '0px', md: "xl" }} size="lg" h="90vh">
       <div className={classes.main}>
         <div className={classes.section} onClick={() => setPlaying(prev => !prev)}>
-          <VideoPlayer url={video.url} playing={playing} />
+          <VideoPlayer url={video.signedUrl} playing={playing} />
         </div>
         <div className={classes.items}>
           {video.product && <VideoProductCard product={video.product} />}

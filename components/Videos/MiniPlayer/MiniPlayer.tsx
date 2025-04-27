@@ -12,7 +12,7 @@ const MiniPlayer = ({ video }: { video: ProductVideo }) => {
     <div className={classes.wrapper} onMouseOver={() => setPlaying(true)} onMouseOut={() => setPlaying(false)}>
       <Link href={`/videos/${shopname}/${video.id}`}>
         <div className={classes.innerWrapper}>
-          <ReactPlayer url={video.url} height={'100%'} width={'100%'} playing={playing} loop />
+          <ReactPlayer url={video.signedUrl} height={'100%'} width={'100%'} playing={playing} loop />
         </div>
       </Link>
     </div>

@@ -16,7 +16,7 @@ const VideoProductCard = ({ product }: IProps) => {
   const autoplay = useRef(Autoplay({ delay: 2000 }));
 
   const slides = product.images.map((image) => <CarouselSlide key={image.id}>
-    <Image src={image.url} alt={image.altText} height={mobile ? '100px' : '300px'} width="auto" />
+    <Image src={image.signedUrl} alt={image.altText} height={mobile ? '100px' : '300px'} width="auto" />
   </CarouselSlide>)
   return (
     <div>

@@ -113,6 +113,7 @@ export interface ProductVideo {
   name: string | null;
   url: string;
   description: string;
+  signedUrl: string;
   product: Product
 }
 
