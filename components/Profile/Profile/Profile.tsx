@@ -41,7 +41,7 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
         <PictureUpdate image={userClicked?.avatar?.signedUrl} />
       ) : (
         <Avatar
-          src={userClicked.avatar.signedUrl}
+          src={userClicked?.avatar?.signedUrl}
           size={80}
           radius={80}
           name={`${user?.firstName} ${user?.lastName}`}

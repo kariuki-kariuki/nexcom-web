@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 
 interface Param {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 export async function generateMetadata({ params }: Param): Promise<Metadata> {
   const id = (await params).slug;

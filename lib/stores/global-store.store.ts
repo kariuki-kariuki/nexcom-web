@@ -80,7 +80,7 @@ export const createGlobalStore = (initState: GlobalState = defaultGlobalInitStat
               users: [
                 {
                   ...convo.users[0],
-                  photo: payload.link, // Assuming `photo` is in `payload`.
+                  avatar: payload.user.avatar, // Assuming `photo` is in `payload`.
                 },
               ],
             };

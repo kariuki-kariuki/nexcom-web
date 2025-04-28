@@ -62,7 +62,7 @@ function chatReducer(state: ChatState, action: ChatAction) {
               users: [
                 {
                   ...convo.users[0],
-                  photo: action.payload.link // Assuming `photo` is in `action.payload`.
+                  avatar: action.payload.user.avatar // Assuming `photo` is in `action.payload`.
                 },
               ]
             };

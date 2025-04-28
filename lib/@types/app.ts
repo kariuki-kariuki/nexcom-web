@@ -74,7 +74,7 @@ export interface NewMessage extends Message {
 }
 
 export interface UpdateProfile {
-  link: string;
+  user: GlobalUser;
   userId: string
 }
 

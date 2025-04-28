@@ -61,25 +61,22 @@ function chatReducer(state: ChatState, action: ChatAction) {
         conversations: action.payload
       };
 
-      case 'UPDATE_PROFILE':
-        return {
-          ...state,
-          conversations: state.conversations.map(convo => {
-            if (convo.users[0].id === action.payload.userId) {
-              return {
-                ...convo,
-                users: [
-                  {
-                    ...convo.users[0],
-                    photo: action.payload.link // Assuming `photo` is in `action.payload`.
-                  },
-                ]
-              };
-            }
-            return convo;
-          })
-        };
-      
+    case 'UPDATE_PROFILE':
+      return {
+        ...state,
+        conversations: state.conversations.map(convo => {
+          if (convo.users[0].id === action.payload.userId) {
+            return {
+              ...convo,
+              users: [
+                action.payload.user
+              ]
+            };
+          }
+          return convo;
+        })
+      };
+
 
     default:
       return state;

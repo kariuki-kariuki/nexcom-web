@@ -1,5 +1,5 @@
-import { Button, Drawer, Group, Input, InputWrapper, LoadingOverlay } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks'
+import { Button, Drawer, Group, Input, InputWrapper, LoadingOverlay, useMantineTheme } from '@mantine/core';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import React, { useState } from 'react'
 import { VideoDropzoneButton } from '../Videos/VideoDropZone/VideoDrop';
 import { FileWithPath } from '@mantine/dropzone';
@@ -15,7 +15,9 @@ const CreateVideo = ({ product }: { product: Product }) => {
   const [description, setDescription] = useState('')
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  
   const handleSubmit = async () => {
     if (files.length < 1 || !description) {
       notifications.show({
@@ -36,6 +38,8 @@ const CreateVideo = ({ product }: { product: Product }) => {
       setError(error)
     }
 
+    
+
     if (data && !loading) {
       toggle;
       notifications.show({
@@ -52,7 +56,9 @@ const CreateVideo = ({ product }: { product: Product }) => {
   return (
     <div>
       <LoadingOverlay visible={isLoading} />
-      <Button onClick={toggle} fullWidth color='coco.4'>Add Video</Button>
+      <Button onClick={toggle} fullWidth color='coco.4'
+        size={mobile ? 'md' : 'lg'}
+      >Add Video</Button>
       <Drawer opened={opened} onClose={toggle} title="Create Video">
         {files.length < 1 && <VideoDropzoneButton setFiles={setFiles} />}
         <InputWrapper my="md" error={error} label="Video description">

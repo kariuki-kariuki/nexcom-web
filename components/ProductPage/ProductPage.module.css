@@ -2,14 +2,18 @@
   width: fit-content;
   height: fit-content;
   background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-1));
-  
+
   border-radius: var(--mantine-border-sm);
 
   @media (min-width: $mantine-breakpoint-sm) {
-    width: 90%;
+    width: 50%;
   }
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+}
 .card {
   background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-1));
 }

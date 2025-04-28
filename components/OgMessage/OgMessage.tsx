@@ -26,7 +26,7 @@ const OgMessage = ({ product }: IOgMessage) => {
     >
       <div>
         <Group gap="sm" wrap="nowrap" justify="start">
-          <Avatar size={70} src={product.images[0]?.url} radius="md" />
+          <Avatar size={70} src={product.images[0]?.signedUrl} radius="md" />
           <Stack w={{base: '100%', sm: '50%'}}>
             <Text size="sm" fw={500} lineClamp={3}>
               {product.description}

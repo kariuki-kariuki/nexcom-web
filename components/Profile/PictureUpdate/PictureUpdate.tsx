@@ -10,19 +10,18 @@ import { useState } from 'react';
 import classes from './PictureUpdate.module.css';
 import { useGlobalContext } from '../../../lib/context/appContext';
 import { useSocketContext } from '@/lib/hooks/useSocket';
+import { GlobalUser } from '@/lib/@types/app';
 const PictureUpdate = ({ image }: { image: string }) => {
   const [value, setValue] = useState<File | null>(null);
   const { user, setUser } = useGlobalContext()
   const socket = useSocketContext()
   const handleSubmit = async () => {
     if (value) {
-      socket.emit('updateProfile', { mimetype: value.type, buffer: value }, (res: { link: string }) => {
+      socket.emit('updateProfile', { mimetype: value.type, buffer: value }, (res: GlobalUser) => {
         if (user) {
           setValue(null)
-          user.avatar.signedUrl = res.link;
-          setUser(user);
+          setUser(res);
         }
-
       })
     }
   }

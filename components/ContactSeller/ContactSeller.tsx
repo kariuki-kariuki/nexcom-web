@@ -1,7 +1,7 @@
 import { Product, Shop } from '@/lib/@types/shop'
 import { useGlobalContext } from '@/lib/context/appContext'
 import { useNewConverSationContext } from '@/lib/context/newConversation'
-import { Affix, Avatar, Box, Button, Dialog, Flex, Group, ScrollArea, Text } from '@mantine/core'
+import { Affix, Avatar, Box, Button, ButtonGroup, Dialog, Flex, Group, ScrollArea, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IconMessage } from '@tabler/icons-react'
 import React from 'react'
@@ -11,6 +11,7 @@ import Link from 'next/link'
 import OgMessage from '../OgMessage/OgMessage';
 import { useGlobalStore } from '@/lib/context/global-store.provider'
 import { GlobalUser } from '@/lib/@types/app'
+import { useRouter } from 'next/navigation'
 
 interface IProps { product: Product, owner: GlobalUser, shop: Shop }
 
@@ -21,11 +22,11 @@ const ContactSeller = ({ product, owner }: IProps) => {
     const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
     const [opened, { toggle }] = useDisclosure();
     const convo = conversations.find(convo => convo.users[0].id === owner.id);
-
-
+    const router = useRouter();
     return (
         <div>
             <Affix className={classes.affix} position={{ right: 10, bottom: 10 }}>
+
                 {user ?
                     <Button
                         className={classes.btn}
@@ -53,7 +54,7 @@ const ContactSeller = ({ product, owner }: IProps) => {
             <Dialog opened={opened} onClose={toggle} withCloseButton size={"lg"} classNames={{ root: classes.bg }}>
                 <Flex h={'100%'} direction={'column'}>
                     <Group className={classes.header} wrap='nowrap' py="sm">
-                        <Avatar src={product.shop?.user?.avatar?.signedUrl} />
+                        <Avatar src={owner.avatar?.signedUrl} name={`${owner.firstName} ${owner.lastName}`} />
                         <Text ta="center" fz={{ base: 'xs', sm: 'lg' }}>{`Inquire About ${product.name}`}</Text>
                     </Group>
                     <ScrollArea h={'100%'} scrollbars={'y'}
