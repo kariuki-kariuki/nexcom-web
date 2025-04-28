@@ -1,9 +1,8 @@
 'use client'
-import React, { useEffect, useCallback, ReactNode, createContext, useReducer, useState, useContext } from "react";
-import { ChatAction, ChatState, ConversationProps, NewMessage, PayloadMessage, UpdateProfile } from "../@types/app";
+import React, { useEffect, useCallback, ReactNode, createContext, useState, useContext } from "react";
+import { ChatState, ConversationProps, NewMessage, PayloadMessage, UpdateProfile } from "../@types/app";
 import { useGlobalContext } from "../context/appContext";
 import { useSocketContext } from "./useSocket";
-import { MessageState } from "../common/common";
 import { datasource } from "../common/datasource";
 import { useGlobalStore } from "../context/global-store.provider";
 import useSound from "use-sound"
@@ -18,64 +17,7 @@ const WebSocketContext = createContext<{
   isLoading: true
 });
 
-function chatReducer(state: ChatState, action: ChatAction) {
-  switch (action.type) {
-    case 'ADD_MESSAGE':
-      return {
-        ...state,
-        conversations: state.conversations.map((conv) =>
-          conv.id === action.payload.conversation.id
-            ? { ...conv, messages: [...conv.messages, action.payload] }
-            : conv
-        )
-      };
-    case 'ADD_CONVERSATION':
-      return {
-        ...state,
-        conversations: [...state.conversations, action.payload]
-      };
-    case 'UPDATE_MESSAGE':
-      return {
-        ...state,
-        conversations: state.conversations.map((conv) =>
-          conv.id === action.payload.conversationId
-            ? {
-              ...conv,
-              messages: conv.messages.map((msg) => msg.user.id !== action.payload.userId && msg.state !== MessageState.READ ? { ...msg, state: action.payload.state } : msg)
-            }
-            : conv
-        )
-      };
-    case 'SET_CONVERSATIONS':
-      return {
-        ...state,
-        conversations: action.payload
-      };
 
-    case 'UPDATE_PROFILE':
-      return {
-        ...state,
-        conversations: state.conversations.map(convo => {
-          if (convo.users[0].id === action.payload.userId) {
-            return {
-              ...convo,
-              users: [
-                {
-                  ...convo.users[0],
-                  avatar: action.payload.user.avatar // Assuming `photo` is in `action.payload`.
-                },
-              ]
-            };
-          }
-          return convo;
-        })
-      };
-
-
-    default:
-      return state;
-  }
-}
 
 
 export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
