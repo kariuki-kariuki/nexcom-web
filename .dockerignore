@@ -1,0 +1,8 @@
+*node_modules
+test
+.gitignore
+.git
+.prettierrc
+Dockerfile
+README.md
+pnpm-lock.yaml
