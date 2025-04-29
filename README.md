@@ -37,9 +37,9 @@ A bridge between commerce and communication. Nexcom is a Next.js-powered super a
 ## Tech Stack
 - **Frontend**: [Next.js](https://nextjs.org/), [React](https://react.dev/)
 - **Backend**: [NestJS](https://nestjs.com/), WebSockets
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS | Mantine UI
 - **Database**: MongoDB or PostgreSQL
-- **Hosting**: Vercel
+- **Hosting**: Vercel | Railway | Weaviate
 
 ---
 
