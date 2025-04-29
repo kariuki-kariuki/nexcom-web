@@ -22,13 +22,14 @@ const WebSocketContext = createContext<{
 
 export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setLoading] = useState(true);
+
+  const setIsloading = useGlobalStore(state => state.setIsLoading);
   const setConversations = useGlobalStore(state => state.setConversations);
   const addConversation = useGlobalStore(state => state.addConversation);
   const addMessage = useGlobalStore(state => state.addMessage);
   const updateMessage = useGlobalStore(state => state.updateMessage);
   const updateProfile = useGlobalStore(state => state.updateProfile);
   const activeConversation = useGlobalStore(state => state.activeConversation);
-  // const activeConversation = useGlobalStore(state => state.se);  const activeConversation = useGlobalStore(state => state.activeConversation);
 
   const [play] = useSound('/sounds/message.mp3');
   const [playFx] = useSound('/sounds/level-up.mp3');
@@ -39,7 +40,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
     try {
       if (res.productId) {
         playFx();
-      } else if(res.conversation.id !== activeConversation?.id) {
+      } else if (res.conversation.id !== activeConversation?.id) {
         console.log(`resId ${res.conversation.id}: active: ${activeConversation?.id}`)
         play()
       }
@@ -62,9 +63,14 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
     addConversation(res)
   }, []);
   const getConversations = async () => {
-    const { data } = await datasource.get<ConversationProps[]>('conversations')
-    if (data) {
-      setConversations(data)
+    try {
+      setIsloading(true)
+      const { data } = await datasource.get<ConversationProps[]>('conversations')
+      if (data) {
+        setConversations(data)
+      }
+    } finally {
+      setIsloading(false)
     }
   }
 
@@ -76,7 +82,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   }
 
   useEffect(() => {
-    
+
     getConversations();
   }, [isLoggedIn, user])
 

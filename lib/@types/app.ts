@@ -18,6 +18,7 @@ export interface GlobalUser {
   role: string;
   status: string;
   shop?: Shop;
+  fullName: string
 }
 
 export interface UserProps {

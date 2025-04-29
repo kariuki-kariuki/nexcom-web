@@ -35,7 +35,8 @@ export function UsersTable() {
           <Group gap="sm" wrap="nowrap">
             <Avatar
               size={30}
-              src={user.avatar ? user?.avatar?.signedUrl : faker.image.avatar()}
+              src={user?.avatar?.signedUrl}
+              name={user.fullName}
               radius={30}
             />
 
@@ -45,7 +46,7 @@ export function UsersTable() {
           <Text fz="sm" fw={500} lineClamp={1}>
             {user.firstName} { }
           </Text>
-        </Table.Td>
+        </Table.Td>jwtshopguard
         <Table.Td>
           <Text fz="sm" fw={500} lineClamp={1}>
             {user.lastName} { }

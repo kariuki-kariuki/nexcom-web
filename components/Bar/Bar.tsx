@@ -46,7 +46,7 @@ const Bar = ({ closes }: CloseProps) => {
             <Details
               open={open}
               status={user.status}
-              name={`${user.firstName} ${user.lastName}`}
+              name={user.fullName}
               avatar={user?.avatar?.signedUrl}
             />
           ) : (

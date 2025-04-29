@@ -124,10 +124,10 @@ export function ConversationButton({ conversation, open }: Props) {
       shadow="lg"
     >
       <Group onClick={open}>
-        <Avatar src={user?.avatar?.signedUrl} size={mobile ? 'md' : 'lg'} radius="xl" name={`${user.firstName} ${user.lastName}`}/>
+        <Avatar src={user?.avatar?.signedUrl} size={mobile ? 'md' : 'lg'} radius="xl" name={user.fullName}/>
         <div style={{ flex: 1 }}>
           <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
-            {`${user?.firstName} ${user?.lastName}`}
+            {user?.fullName}
           </Text>
           <Group py="3px" wrap="nowrap">
             {lastMessage.productId && gUser?.id !== user.id ? (

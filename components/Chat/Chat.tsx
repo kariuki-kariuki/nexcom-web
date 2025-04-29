@@ -15,7 +15,6 @@ function Chat() {
   const [opened, { open, close }] = useDisclosure(false);
   const conversations = useGlobalStore((state) => state.conversations);
   const activeCNV = conversations.find((conv) => conv.id === activeConversation?.id)
-  console.log('Render')
   return (
     <Flex
       wrap="nowrap"

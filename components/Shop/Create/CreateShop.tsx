@@ -126,7 +126,7 @@ const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
               <div className={classes.avatar}>
                 <Group align='center'>
                   <Avatar src={user?.avatar?.signedUrl} size="lg" />
-                  <Text pt="lg">{`${user?.firstName} ${user?.lastName}`}</Text>
+                  <Text pt="lg">{user?.fullName}</Text>
                 </Group>
               </div>
               <Stack pt="lg">

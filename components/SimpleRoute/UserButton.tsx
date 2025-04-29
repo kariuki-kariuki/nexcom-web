@@ -69,7 +69,7 @@ export function UserButton() {
 
           <div style={{ flex: 1 }}>
             <Text size="sm" fw={500}>
-              {`${user?.firstName} ${user?.lastName}`}
+              {user?.fullName}
             </Text>
 
             <Text c="dimmed" size="xs">

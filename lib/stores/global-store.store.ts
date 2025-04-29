@@ -9,6 +9,7 @@ type GlobalState = {
   conversations: ConversationProps[];
   activeConversation: ConversationProps | null;
   newConversation: GlobalUser | null;
+  loading: boolean;
 };
 
 type GlobalActions = {
@@ -20,6 +21,7 @@ type GlobalActions = {
   setActiveConversation: (payload: ConversationProps | null) => void;
   setNewConversation: (payload: GlobalUser | null) => void;
   setUser: (payload: GlobalUser | null) => void;
+  setIsLoading: (status: boolean) => void
 }
 
 export type GlobalStore = GlobalActions & GlobalState;
@@ -29,12 +31,14 @@ export const defaultGlobalInitState: GlobalState = {
   activeConversation: null,
   conversations: [],
   newConversation: null,
+  loading: true,
 }
 
 
 export const createGlobalStore = (initState: GlobalState = defaultGlobalInitState) => {
   return createStore<GlobalStore>()((set) => ({
     ...initState,
+    setIsLoading: (status: boolean) => set(() => ({ loading: status })),
     addMessage: (payload: NewMessage) =>
       set((state) => ({
         conversations: state.conversations.map((conv) =>

@@ -44,7 +44,7 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
           src={userClicked?.avatar?.signedUrl}
           size={80}
           radius={80}
-          name={`${user?.firstName} ${user?.lastName}`}
+          name={user?.fullName}
           mx="auto"
           mt={-30}
           className={classes.avatar}
