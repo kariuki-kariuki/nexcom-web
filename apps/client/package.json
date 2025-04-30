@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "web",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -48,7 +48,6 @@
     "recharts": "2",
     "socket.io-client": "^4.7.5",
     "sort-by": "^1.2.0",
-    "surrealdb.js": "^1.0.0-beta.8",
     "upgrade": "^1.1.0",
     "use-sound": "^5.0.0",
     "uuid": "^11.1.0",

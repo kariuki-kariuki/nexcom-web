@@ -1,11 +1,11 @@
 import Message from '../../components/MessageCard/MessageCard';
 import Bar from '../Bar/Bar';
-import { Box, Paper, ScrollArea } from '@mantine/core';
+import { Avatar, AvatarGroup, Box, Paper, ScrollArea, Text } from '@mantine/core';
 import NewMessageBox from '../../components/NewMessageBox/NewMessageBox';
 import classes from './ChatArea.module.css';
 import { useEffect, useRef } from 'react';
 import { ConversationProps } from '@/lib/@types/app';
-import { useGlobalContext } from '@/lib/context/appContext';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 interface CloseProps {
   closes: () => void;
   activeConvo?: ConversationProps | null;
@@ -14,7 +14,7 @@ interface CloseProps {
 function ChatArea({ closes, activeConvo }: CloseProps) {
 
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
-  
+  const conversations = useGlobalStore(state => state.conversations);
 
   // Auto-scroll to the bottom on new message or when conversation changes
   useEffect(() => {
@@ -52,13 +52,26 @@ function ChatArea({ closes, activeConvo }: CloseProps) {
             <Box className={classes.clearfix}>{messages}</Box>
           ) : (
             <Box className={classes.empty}>
+              <Paper bg="none">
+                <AvatarGroup>
+                  {conversations.slice(0, 5).map((convo) => (
+                    <Avatar size="lg"
+                      key={convo.id}
+                      src={convo.users[0].avatar?.signedUrl}
+                      alt={convo.users[0].firstName}
+                      name={convo.users[0].fullName}
+                    />
+                  ))}
+                </AvatarGroup>
+                <Text py="md" ta="center">Select a Conversation</Text>
+              </Paper>
             </Box>
           )}
           <div ref={endOfMessagesRef} />
         </ScrollArea>
         <NewMessageBox />
       </div>
-        {/* <Box visibleFrom='lg' w="40%">{user && activeConvo && <Profile userClicked={activeConvo.users[0]}/>}</Box> */}
+      {/* <Box visibleFrom='lg' w="40%">{user && activeConvo && <Profile userClicked={activeConvo.users[0]}/>}</Box> */}
     </Paper>
   );
 }

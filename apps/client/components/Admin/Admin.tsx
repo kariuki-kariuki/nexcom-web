@@ -1,17 +1,16 @@
 'use client'
 import { useState } from 'react';
-import { UsersTable } from './Tables/UserTable/UserTable';
-import { Box, Card, Flex, Group, Text } from '@mantine/core';
+import { Box, Flex } from '@mantine/core';
 import { StatsGrid } from './components/StatsGrid/StatsGrid';
 import Header from './components/Header/Header';
-import StatsChart from './components/StatsChart/StatsChart';
-import StatsBar from './components/StatsBar/StatsBar';
-import { StatsSegments } from './components/StatsSegments/StatsSegments';
-import { StartLine } from './components/StartLine/StartLine';
-import AdminCalendar from './components/AdminCalendar/AdminCalendar';
 import classes from './Admin.module.css';
+import { ProductsTable } from '../Products/Products';
+import { Product } from '@/lib/@types/shop';
 
-function Admin() {
+interface IPros {
+  products: Product[]
+}
+function Admin({products}: IPros) {
   const [active, setActive] = useState(false);
   return (
     <Box h={'100vh'} className={classes.admin}>
@@ -23,12 +22,7 @@ function Admin() {
         <Header active={active} setActive={setActive} />
         <div className={classes.scroll}>
           <StatsGrid />
-          <Flex wrap="wrap" justify="space-between" gap="md">
-            <StartLine />
-            <UsersTable />
-            <StatsBar />
-            <StatsSegments />
-          </Flex>
+          <ProductsTable products={products}/>
         </div>
       </Flex>
     </Box>

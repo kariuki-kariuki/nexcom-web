@@ -42,8 +42,11 @@
 
 .empty {
   height: 80vh;
-  background-image: url('/images/empty-bg.png');
+  /* background-image: url('/images/empty-bg.png'); */
+  display: flex;
   background-position: center;
+  align-items: center;
+  justify-content: center;
   background-size: cover;
   background-color: 'blue';
 }

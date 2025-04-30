@@ -25,7 +25,7 @@ const ContactSeller = ({ product, owner }: IProps) => {
     const router = useRouter();
     return (
         <div>
-            <Affix className={classes.affix} position={{ right: 10, bottom: 10 }}>
+            <Affix position={{ right: 10, bottom: 10 }}>
 
                 {user ?
                     <Button

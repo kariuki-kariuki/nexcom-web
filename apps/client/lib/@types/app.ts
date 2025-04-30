@@ -98,3 +98,8 @@ export type ChatAction =
     payload: UpdateProfile;
   };
 ;
+
+export interface Analytic {
+  month: number;
+  count: number;
+}

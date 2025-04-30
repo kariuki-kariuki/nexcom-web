@@ -70,9 +70,9 @@ function CarouselImage({ image, setProduct }: Iprops) {
   };
   return (
     <div>
-      <Image src={image.url} alt={image.altText} onClick={toggle} />
+      <Image src={image.signedUrl} alt={image.altText} onClick={toggle} />
       <Modal opened={opened} onClose={toggle} withCloseButton>
-        <Image src={image.url} alt={image.altText} width="100%" height="auto" />
+        <Image src={image.signedUrl} alt={image.altText} width="100%" height="auto" />
         <InputWrapper label="Alternative text" pt="md">
           <Input
             value={imageUpdate.altText}
