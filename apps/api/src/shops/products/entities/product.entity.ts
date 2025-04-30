@@ -18,6 +18,7 @@ import { Message } from 'src/chat/messages/entities/message.entity';
 import { Cart } from 'src/shops/carts/entities/cart.entity';
 import { ProductVideo } from 'src/product-videos/entities/product-video.entity';
 import { ProductComment } from 'src/product-comments/entities/product-comment.entity';
+import { Analytic } from 'src/analytics/entity/analytic.entity';
 // import { Message } from 'src/chat/messages/entities/message.entity';
 
 @Entity()
@@ -56,6 +57,9 @@ export class Product {
     eager: true,
   })
   category: Category;
+
+  @OneToMany(() => Analytic, (analytic) => analytic.product)
+  analytics: Analytic[];
 
   @OneToMany(() => Message, (message) => message.product)
   messages: Message;

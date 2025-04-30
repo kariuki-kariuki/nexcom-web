@@ -50,6 +50,7 @@
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",
     "express-session": "^1.18.1",
+    "express-useragent": "^1.0.15",
     "node-fetch": "^3.3.2",
     "passport-google-oauth20": "^2.0.0",
     "passport-http-bearer": "^1.0.1",

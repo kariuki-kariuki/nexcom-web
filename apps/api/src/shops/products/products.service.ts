@@ -11,9 +11,10 @@ import { Repository } from 'typeorm';
 import { ImagesService } from '../product_images/images.service';
 import { ProductStatus } from 'src/@types/product-status';
 import { ShopsService } from '../shops.service';
-import { ProjectIdType } from 'src/@types/types';
+import { BrowserInfo, ProjectIdType } from 'src/@types/types';
 import { WeaviateService } from 'src/weaviate/weaviate.service';
 import { toBase64FromMedia } from 'weaviate-client';
+import { Analytic } from 'src/analytics/entity/analytic.entity';
 
 @Injectable()
 export class ProductsService {
@@ -22,6 +23,8 @@ export class ProductsService {
     private imagesService: ImagesService,
     private shopService: ShopsService,
     private weaviateService: WeaviateService,
+    @InjectRepository(Analytic)
+    private analyticRepository: Repository<Analytic>,
   ) {}
   async create(
     createProductDto: CreateProductDto,
@@ -84,10 +87,11 @@ export class ProductsService {
     });
   }
 
-  async findOne(id: ProjectIdType) {
+  async findOne(id: ProjectIdType, userAgent?: BrowserInfo) {
     const product = await this.productRespository.findOne({
       where: {
         id,
+        status: ProductStatus.PUBLISHED,
       },
       relations: {
         images: true,
@@ -97,6 +101,15 @@ export class ProductsService {
         comments: true,
       },
     });
+    if (!product) {
+      throw new ForbiddenException('Action not allowed');
+    }
+    if (userAgent) {
+      const analytic = this.analyticRepository.create(userAgent);
+      analytic.product = product;
+      await this.analyticRepository.save(analytic);
+    }
+
     return product;
   }
 
@@ -143,7 +156,7 @@ export class ProductsService {
   }
 
   async remove(id: ProjectIdType, shopId: string) {
-    const product = await this.findOne(id);
+    const product = await this.productRespository.findOneByOrFail({ id });
 
     if (product.shop.id !== shopId) {
       throw new ForbiddenException('Unauthoized action');

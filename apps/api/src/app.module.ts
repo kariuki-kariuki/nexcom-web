@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AwsModule } from './aws/aws.module';
@@ -29,6 +29,8 @@ import { CartsModule } from './shops/carts/carts.module';
 import { ProductVideosModule } from './product-videos/product-videos.module';
 import { ProductCommentsModule } from './product-comments/product-comments.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { AnalyticsModule } from './analytics/analytics.module';
+import { UserAgentMiddleware } from 'utils/user-agent.middleware';
 
 @Module({
   imports: [
@@ -69,10 +71,14 @@ import { ThrottlerModule } from '@nestjs/throttler';
         },
       ],
     }),
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
+export class AppModule implements NestModule {
   constructor(private dataSource: DataSource) {}
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(UserAgentMiddleware).forRoutes('products', 'analytics');
+  }
 }

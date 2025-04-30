@@ -8,6 +8,7 @@ import { AwsModule } from '../../aws/aws.module';
 import { ShopsModule } from 'src/shops/shops.module';
 import { CategoriesModule } from '../categories/categories.module';
 import { WeaviateModule } from 'src/weaviate/weaviate.module';
+import { Analytic } from 'src/analytics/entity/analytic.entity';
 
 @Module({
   controllers: [ProductsController],
@@ -15,7 +16,7 @@ import { WeaviateModule } from 'src/weaviate/weaviate.module';
   imports: [
     CategoriesModule,
     ImagesModule,
-    TypeOrmModule.forFeature([Product]),
+    TypeOrmModule.forFeature([Product, Analytic]),
     AwsModule,
     WeaviateModule,
     forwardRef(() => ShopsModule),

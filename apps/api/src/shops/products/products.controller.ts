@@ -16,6 +16,7 @@ import { ProductsService } from './products.service';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import {
+  AnalyticsRequest,
   AuthenticatedRequest,
   ProjectIdType,
   UserRoles,
@@ -57,8 +58,8 @@ export class ProductsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: ProjectIdType) {
-    return this.productsService.findOne(id);
+  findOne(@Param('id') id: ProjectIdType, @Req() req: AnalyticsRequest) {
+    return this.productsService.findOne(id, req.useragent);
   }
 
   @Roles(UserRoles.SHOP_ADMIN)
