@@ -10,6 +10,7 @@ import {
   Input,
   InputWrapper,
   LoadingOverlay,
+  PasswordInput,
   Stack,
   Text
 } from '@mantine/core';
@@ -39,6 +40,7 @@ function Login() {
     if (!error && !loading && data) {
       await setToken(data.token).then(() => {
         setIsLoggedIn(true);
+        localStorage.setItem('token', data.token);
         setUser(data.user);
         setLoading(false);
         router.push('/chat')
@@ -72,18 +74,15 @@ function Login() {
               onChange={(e) => setLoginData(prev => ({ ...prev, email: e.target.value }))}
             />
           </InputWrapper>
-          <InputWrapper label="" error={error}>
-            <Input
-              type="password"
-              name="password"
+            <PasswordInput
               required
+              w={'100%'}
               size="xl"
               value={loginData.password}
               onChange={(e) => setLoginData(prev => ({ ...prev, password: e.target.value }))}
               placeholder="Password"
               classNames={{ input: classes.input }}
             />
-          </InputWrapper>
           <Stack justify="center" gap={"md"} >
             <Text>Don't have an account? <Link href="/auth/signup">Signup.</Link></Text>
             <Button type="submit" size="lg" radius="xl" className={classes.btn} onClick={handleSubmit}>
