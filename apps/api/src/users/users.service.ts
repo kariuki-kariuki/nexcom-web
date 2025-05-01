@@ -32,6 +32,10 @@ export class UsersService {
     private readonly conversationsService: ConversationsService,
   ) {}
   async create(createUserDto: CreateUserDto) {
+    const savedUser = await this.findOne(createUserDto.email);
+    if (savedUser) {
+      throw new Error('User already exists');
+    }
     const hashedPassword = await this.hashPassword(createUserDto.password);
 
     const user = this.usersRepository.create({

@@ -30,7 +30,8 @@ import { ProductVideosModule } from './product-videos/product-videos.module';
 import { ProductCommentsModule } from './product-comments/product-comments.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AnalyticsModule } from './analytics/analytics.module';
-import { UserAgentMiddleware } from 'utils/user-agent.middleware';
+import { UserAgentMiddleware } from 'utils/middlewares/user-agent.middleware';
+import { DiscordModule } from './discord/discord.module';
 
 @Module({
   imports: [
@@ -72,6 +73,7 @@ import { UserAgentMiddleware } from 'utils/user-agent.middleware';
       ],
     }),
     AnalyticsModule,
+    DiscordModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -9,6 +9,8 @@ import { runMigrations } from '../db/migration-runner';
 import { WebSocketAdapter } from './chat/gateway.adpater';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import { DiscordExceptionFilter } from 'utils/filters/discord-exception.filter';
+import { DiscordService } from './discord/discord.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -30,7 +32,7 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, documentFactory);
   const webSocketAdapter = app.get(WebSocketAdapter);
   app.useWebSocketAdapter(webSocketAdapter);
-  logger.log(configService.get('CORS_ORIGIN'));
+  app.useGlobalFilters(new DiscordExceptionFilter(app.get(DiscordService)));
   app.enableCors({ origin: configService.get<string>('CORS_ORIGIN') });
   runMigrations();
 
