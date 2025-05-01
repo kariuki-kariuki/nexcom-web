@@ -11,7 +11,9 @@ describe('ProductCommentsController', () => {
       providers: [ProductCommentsService],
     }).compile();
 
-    controller = module.get<ProductCommentsController>(ProductCommentsController);
+    controller = module.get<ProductCommentsController>(
+      ProductCommentsController,
+    );
   });
 
   it('should be defined', () => {
