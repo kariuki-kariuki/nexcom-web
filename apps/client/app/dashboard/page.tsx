@@ -6,7 +6,7 @@ import React from 'react'
 
 const page = async () => {
     const shop = await get<ShopWithProducts>('shops/myshop');
-  if(!shop) redirect('/chats')
+  if(!shop) redirect('/chat')
   return (
     <Admin products={shop.products}/>
   )
