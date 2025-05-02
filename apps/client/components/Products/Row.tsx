@@ -122,7 +122,7 @@ export function Row({ prd, setProducts }: IRow) {
           </MenuTarget>
           <MenuDropdown>
             <Link
-              href={`products/edit/${product.id}`}
+              href={`/dashboard/products/edit/${product.id}`}
               style={{ textDecoration: 'none' }}
             >
               <MenuItem

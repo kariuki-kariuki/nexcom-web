@@ -1,7 +1,7 @@
 import NewConversationProvider from '@/lib/context/newConversation';
 import ScreenProvider from '@/lib/context/screenContext';
 import { theme } from '@/theme';
-import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import { ColorSchemeScript, Flex, MantineProvider } from '@mantine/core';
 import React from 'react';
 import '@mantine/core/styles.css';
 import '@mantine/charts/styles.css';
@@ -18,6 +18,8 @@ import { Metadata } from 'next';
 import { WebSocketProvider } from '@/lib/hooks/useWebsockets';
 import { GlobalStoreProvider } from '@/lib/context/global-store.provider';
 import classes from './styles.module.css';
+import { LayoutRouter } from 'next/dist/server/app-render/entry-base';
+import SimpleNav from '@/components/SimpleNav/SimpleNav';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
@@ -94,7 +96,10 @@ export default function RootLayout({
                   <ScreenProvider>
                     <NewConversationProvider>
                       <Notifications />
-                      <div id="root">{children}</div>
+                      <Flex h="100vh">
+                        <SimpleNav />
+                        <div id="root" style={{ flex: 1}}>{children}</div>
+                      </Flex>
                     </NewConversationProvider>
                   </ScreenProvider>
                 </WebSocketProvider>

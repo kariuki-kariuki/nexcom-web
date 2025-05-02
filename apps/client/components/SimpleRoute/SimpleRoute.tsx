@@ -1,34 +1,29 @@
+'use client';
 import React from 'react';
 import Link from 'next/link';
 import { IconChevronRight } from '@tabler/icons-react';
-import { Group, Text } from '@mantine/core';
+import { Breadcrumbs, Group, Paper, Text } from '@mantine/core';
 import classes from './SimpleRoute.module.css';
 import MenuDrop from '../Menudrop/MenuDrop';
+import { usePathname } from 'next/navigation';
 
-function SimpleRoute({ tag, main }: { tag: string; main: string }) {
+function SimpleRoute({ tag, main }: { tag?: string; main?: string }) {
+  const path = usePathname()
+  const pathArray = path.split('/')
+  pathArray.shift()
   return (
-    <Group
-      py={{ base: 'xs', sm: 'md' }}
-      justify="space-between"
-      visibleFrom="sm"
-      className={classes.main}
-    >
-      <Group>
-        <Link href="/dashboard/products" className={classes.link}>
-          <Text>Dashboard</Text>
-          <IconChevronRight />
-        </Link>
-        <Link
-          href={`/dashboard/${main.toLocaleLowerCase()}`}
-          className={classes.link}
-        >
-          <Text>{main}</Text>
-          <IconChevronRight />
-        </Link>
-        <Text>{tag}</Text>
+    <Paper className={classes.nav}>
+      <Group justify="space-between" align="center" w="100%">
+        <Breadcrumbs separator="→" separatorMargin="lg" c='maroon.6'>
+          {pathArray.map((item, index) => (item === 'update' || item === "create") ? <Text key={index}>{item.charAt(0).toUpperCase() + item.slice(1)}</Text> : <Link className={classes.link} key={index} href={'/' + pathArray.slice(0, index + 1).join('/')}>
+            {item.charAt(0).toUpperCase() + item.slice(1)}
+          </Link>)}
+        </Breadcrumbs>
+        <Paper bg="none" visibleFrom='sm'>
+          <MenuDrop />
+        </Paper>
       </Group>
-      <MenuDrop />
-    </Group>
+    </Paper>
   );
 }
 

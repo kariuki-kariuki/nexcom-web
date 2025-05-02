@@ -1,8 +1,7 @@
+import SimpleRoute from '@/components/SimpleRoute/SimpleRoute';
+import { Container } from '@mantine/core';
 import React, { ReactNode } from 'react';
-import { Box } from '@mantine/core';
-import { Navbar } from '../../components/Navbar/Navbar';
-import classes from './styles.module.css';
-
+import classes from "./styles.module.css"
 export const metadata = {
   title: 'Dashboard @ Nexcom',
   description: 'Main Page Manage Your shop Effortlessly'
@@ -14,13 +13,11 @@ interface PageProps {
 
 export default function RootLayout({ children }: PageProps) {
   return (
-    <>
-      <Box mih="100vh" className={classes.main}>
-        <Box w={{ base: '100%', sm: '20%' }}>
-          <Navbar />
-        </Box>
-        <Box className={classes.secondary}>{children}</Box>
-      </Box>
-    </>
+    <div className={classes.main}>
+      <SimpleRoute />
+      <Container size="xl" p="sm" className={classes.container}>
+        {children}
+      </Container>
+    </div>
   );
 }

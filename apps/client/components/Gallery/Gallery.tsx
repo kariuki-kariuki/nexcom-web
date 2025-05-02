@@ -21,7 +21,6 @@ import { IGallery, ImageGallery } from '../../lib/@types/gallery';
 import { DropzoneButton } from '../DropzoneButton/DropzoneButton';
 import { createImage } from '../EditProduct/create';
 import Previews from '../Previews/Previews';
-import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import GalleryImage from './GalleryImage';
 import classes from './Gallery.module.css';
 
@@ -32,7 +31,6 @@ function Gallery({ galleriesdb }: GalleryProp) {
   if (!galleriesdb || galleriesdb.length < 1) {
     return (
       <>
-        <SimpleRoute main="Gallery" tag="Galleries" />
         <Text>No Items Yet</Text>
       </>
     );
@@ -95,7 +93,6 @@ function Gallery({ galleriesdb }: GalleryProp) {
   return (
     <Box p="md">
       <LoadingOverlay visible={loading} />
-      <SimpleRoute main="Gallery" tag="Galleries" />
       <Group justify="space-between">
         <SegmentedControl
           radius="xl"

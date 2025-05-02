@@ -9,7 +9,6 @@ import {
   Text,
   TextInput
 } from '@mantine/core';
-import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import post from './post';
 import classes from './CreateUser.module.css';
 
@@ -17,7 +16,6 @@ export function CreateUser() {
   const [state, formAction] = useFormState(post, { error: '' });
   return (
     <div className={classes.wrapper}>
-      <SimpleRoute main="Users" tag="Create new user" />
       <Card className={classes.form} radius="md" shadow="xl" p={30}>
         <form action={formAction}>
           <Group wrap="nowrap" py="md">

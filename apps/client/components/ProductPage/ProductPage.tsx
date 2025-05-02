@@ -2,7 +2,7 @@
 
 import { datasource } from '@/lib/common/datasource';
 import { useGlobalContext } from '@/lib/context/appContext';
-import { useMantineTheme, LoadingOverlay, Card, Flex, Box, Group, Button, Text, SegmentedControl, ScrollArea, useMantineColorScheme } from '@mantine/core';
+import { useMantineTheme, LoadingOverlay, Card, Flex, Box, Group, Button, Text, SegmentedControl, ScrollArea, useMantineColorScheme, Paper } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { IconBasketPlus, IconHeartPlus, IconPencil } from '@tabler/icons-react';
@@ -48,7 +48,7 @@ const ProductPage = ({ product }: { product: Product }) => {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   return (
-    <Box h='100%' bg={"none"} className={classes.container} my="lg">
+    <Box h='100%' bg={"none"}>
       <LoadingOverlay
         visible={isLoading}
         zIndex={1000}
@@ -57,141 +57,143 @@ const ProductPage = ({ product }: { product: Product }) => {
       />
       <BackButton />
       {(owner && owner.id !== user?.id && product.shop) && <ContactSeller product={product} owner={owner} shop={product.shop} />}
-      <Card className={classes.grid} withBorder my={'md'}>
-        <Group justify='space-between'>
-          <Text fw={'500'} my={"lg"} className={classes.title}>
-            {product?.name}
-          </Text>
-          <ProductRating />
-        </Group>
-        <Box h={'100%'}>
-          <Card
-            p={{ base: 'lg', md: 'xl' }}
-            h={{ base: '100%', sm: '100%' }}
-            className={classes.card}
-            radius={'lg'}
-          >
-            <Card.Section className={classes.card} h={'100%'}>
-              <ImageCarousel images={product?.images} />
-            </Card.Section>
-          </Card>
-        </Box>
-        <Box>
-          <Card
-            p={{ base: 'sm', sm: 'sm' }}
-            h={'100%'}
-            className={classes.card}
-          >
-            <Flex direction={'column'} gap={5} h={'100%'} justify={'center'}>
-              <Box>
+      <Paper className={classes.container}>
+        <Card className={classes.grid} withBorder my={'md'} w={{ base: '100%', sm: '80%', md: '60%', lg: '50%' }}>
+          <Group justify='space-between'>
+            <Text fw={'500'} my={"lg"} className={classes.title}>
+              {product?.name}
+            </Text>
+            <ProductRating />
+          </Group>
+          <Box h={'100%'}>
+            <Card
+              p={{ base: 'lg', md: 'xl' }}
+              h={{ base: '100%', sm: '100%' }}
+              className={classes.card}
+              radius={'lg'}
+            >
+              <Card.Section className={classes.card} h={'100%'}>
+                <ImageCarousel images={product?.images} />
+              </Card.Section>
+            </Card>
+          </Box>
+          <Box>
+            <Card
+              p={{ base: 'sm', sm: 'sm' }}
+              h={'100%'}
+              className={classes.card}
+            >
+              <Flex direction={'column'} gap={5} h={'100%'} justify={'center'}>
+                <Box>
 
-                <Group justify="space-between">
-                  <Text fw={'400'} fs={'italic'} py={'md'}>
-                    Product Description
-                  </Text>
-                  <Text
-                    w={'fit-content'}
-                    fz={'xl'}
-                    fw={'500'}
-                    style={{ borderRadius: '10px' }}
-                  >
-                    {price && <Text fw="bold" fz="h4">Total {price * quantity}</Text>}
-                  </Text>
-                </Group>
-                <Text
-                  // fz={'sm'}
-                  className="text-slate-500 font-serif"
-                  lineClamp={5}
-                >
-                  {product?.description}
-                </Text>
-              </Box>
-              <ScrollArea scrollbars="x">
-                <Text py="md">Price</Text>
-                <SegmentedControl
-                  color='orange.7'
-                  value={selectedPrice} onChange={setSelectedPrice} size='lg'
-                  radius="lg"
-                  bg={colorScheme === 'dark' ? "coco.1" : ''}
-                  data={sizes.map((size) => ({ label: `${size.size}: ${size.price}`, value: size.id }))}
-                />
-              </ScrollArea>
-
-              <Group justify={'center'} wrap="nowrap" px={0}>
-              </Group>
-              {product.shop?.id === user?.shop?.id ? (
-                <Group justify={'center'} w={'100%'} p={'lg'} grow >
-                  <CreateVideo product={product} />
-                  <Link href={`/dashboard/products/edit/${product.id}`}>
-                    <Button
-                      bg={'teal'}
-                      size={mobile ? 'md' : 'lg'}
-                      tw="200"
-                      fullWidth
-                      rightSection={<IconPencil size={18} color="white" />}
+                  <Group justify="space-between">
+                    <Text fw={'400'} fs={'italic'} py={'md'}>
+                      Product Description
+                    </Text>
+                    <Text
+                      w={'fit-content'}
+                      fz={'xl'}
+                      fw={'500'}
+                      style={{ borderRadius: '10px' }}
                     >
-                      Edit
-                    </Button>
-                  </Link>
-                </Group>
-              ) : (
-                <div>
-                  <Group
-                    justify="space-between"
-                    py={'md'}
-                  >
-                    <Button.Group>
-                      <Button
-                        variant="default"
-                        bg="red"
-                        c={'white'}
-                        fz={'xl'}
-                        onClick={() => {
-                          if (quantity > 1) {
-                            setQuantity(quantity - 1);
-                          }
-                        }}
-                      >
-                        -
-                      </Button>
-                      <Button variant="default">{quantity}</Button>
-                      <Button
-                        variant="default"
-                        bg="teal"
-                        c={'white'}
-                        fz={'xl'}
-                        onClick={() => setQuantity(quantity + 1)}
-                      >
-                        +
-                      </Button>
-                    </Button.Group>
-
+                      {price && <Text fw="bold" fz="h4">Total {price * quantity}</Text>}
+                    </Text>
                   </Group>
-                  <Group justify="center" grow>
-                    <Button
-                      leftSection={<IconBasketPlus size={20} />}
-                      onClick={handleSubmit}
-                      bg={'teal.7'}
-                      size={mobile ? 'md' : 'lg'}
+                  <Text
+                    // fz={'sm'}
+                    className="text-slate-500 font-serif"
+                    lineClamp={5}
+                  >
+                    {product?.description}
+                  </Text>
+                </Box>
+                <ScrollArea scrollbars="x">
+                  <Text py="md">Price</Text>
+                  <SegmentedControl
+                    color='orange.7'
+                    value={selectedPrice} onChange={setSelectedPrice} size='lg'
+                    radius="lg"
+                    bg={colorScheme === 'dark' ? "coco.1" : ''}
+                    data={sizes.map((size) => ({ label: `${size.size}: ${size.price}`, value: size.id }))}
+                  />
+                </ScrollArea>
+
+                <Group justify={'center'} wrap="nowrap" px={0}>
+                </Group>
+                {product.shop?.id === user?.shop?.id ? (
+                  <Group justify={'center'} w={'100%'} p={'lg'} grow >
+                    <CreateVideo product={product} />
+                    <Link href={`/dashboard/products/edit/${product.id}`}>
+                      <Button
+                        bg={'teal'}
+                        size={mobile ? 'md' : 'lg'}
+                        tw="200"
+                        fullWidth
+                        rightSection={<IconPencil size={18} color="white" />}
+                      >
+                        Edit
+                      </Button>
+                    </Link>
+                  </Group>
+                ) : (
+                  <div>
+                    <Group
+                      justify="space-between"
+                      py={'md'}
                     >
-                      Add to Cart
-                    </Button>
-                    <Button
-                      leftSection={<IconHeartPlus size={20} color='red' />}
-                      onClick={handleSubmit}
-                      variant='outline'
-                      color='teal.7'
-                      size={mobile ? 'md' : 'lg'}
-                    >
-                      Add to Wishlist
-                    </Button>
-                  </Group>{' '}
-                </div>
-              )}
-            </Flex>
-          </Card>
-        </Box>
-      </Card>
+                      <Button.Group>
+                        <Button
+                          variant="default"
+                          bg="red"
+                          c={'white'}
+                          fz={'xl'}
+                          onClick={() => {
+                            if (quantity > 1) {
+                              setQuantity(quantity - 1);
+                            }
+                          }}
+                        >
+                          -
+                        </Button>
+                        <Button variant="default">{quantity}</Button>
+                        <Button
+                          variant="default"
+                          bg="teal"
+                          c={'white'}
+                          fz={'xl'}
+                          onClick={() => setQuantity(quantity + 1)}
+                        >
+                          +
+                        </Button>
+                      </Button.Group>
+
+                    </Group>
+                    <Group justify="center" grow>
+                      <Button
+                        leftSection={<IconBasketPlus size={20} />}
+                        onClick={handleSubmit}
+                        bg={'teal.7'}
+                        size={mobile ? 'md' : 'lg'}
+                      >
+                        Add to Cart
+                      </Button>
+                      <Button
+                        leftSection={<IconHeartPlus size={20} color='red' />}
+                        onClick={handleSubmit}
+                        variant='outline'
+                        color='teal.7'
+                        size={mobile ? 'md' : 'lg'}
+                      >
+                        Add to Wishlist
+                      </Button>
+                    </Group>{' '}
+                  </div>
+                )}
+              </Flex>
+            </Card>
+          </Box>
+        </Card>
+      </Paper>
     </Box   >
   )
 }

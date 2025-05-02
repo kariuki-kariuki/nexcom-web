@@ -18,7 +18,6 @@ import classes from './NewProduct.module.css';
 import { INewProduct, ProductStatus, ShopProduct } from '@/lib/@types/shop';
 import { API_URL } from '@/lib/common/constans';
 import Previews from '@/components/Previews/Previews';
-import SimpleRoute from '@/components/SimpleRoute/SimpleRoute';
 const prd: INewProduct = {
   name: '',
   description: '',
@@ -142,7 +141,6 @@ function NewProduct({ opened, toggle }: IDrawer) {
           visible={loading}
           loaderProps={{ color: 'coco.0', type: 'oval' }}
         />
-        <SimpleRoute tag="New Product" main="Products" />
         <form onSubmit={handleSubmit}>
           <Group justify="space-between" pb="sm">
             <Text fw="bold">Create New Product</Text>

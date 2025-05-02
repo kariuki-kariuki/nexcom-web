@@ -14,7 +14,6 @@ import {
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { JobDto, JobState } from '../../lib/@types/jobs';
-import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import classes from './Jobs.module.css';
 
 function Jobs({ jobsdb }: { jobsdb: JobDto[] | null }): React.JSX.Element {
@@ -83,7 +82,6 @@ function Jobs({ jobsdb }: { jobsdb: JobDto[] | null }): React.JSX.Element {
 
   return (
     <div>
-      <SimpleRoute main="Jobs" tag="All Jobs" />
       <Group justify="space-between" wrap="nowrap" pb="md">
         <SegmentedControl
           radius="xl"

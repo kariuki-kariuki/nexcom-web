@@ -15,7 +15,6 @@ import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { TenderInterface } from '../../lib/@types/tender';
 import { createImage } from '../EditProduct/create';
-import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import { datasource } from '@/lib/common/datasource';
 
 function Tenders({ tenderdb }: { tenderdb: TenderInterface[] | null }) {
@@ -94,7 +93,6 @@ function Tenders({ tenderdb }: { tenderdb: TenderInterface[] | null }) {
         visible={loading}
         loaderProps={{ type: 'bars', color: 'teal.9' }}
       />
-      <SimpleRoute main="tenders" tag="All tenders" />
       <Group justify="end" px="md">
         <Button
           onClick={toggle}

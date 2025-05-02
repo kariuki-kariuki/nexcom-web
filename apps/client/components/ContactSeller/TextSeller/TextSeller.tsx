@@ -10,7 +10,7 @@ interface CloseProps {
   activeConvo?: ConversationProps | null;
 }
 
-function ChatArea({ closes, activeConvo }: CloseProps) {
+function ChatArea({  activeConvo }: CloseProps) {
 
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
@@ -43,7 +43,7 @@ function ChatArea({ closes, activeConvo }: CloseProps) {
         p={'0px'}
         m={'0px'}
       >
-        <Bar closes={closes} />
+        <Bar activeConvoId={activeConvo?.id || ''} />
         <ScrollArea
           h={'100%'}
           py={0}

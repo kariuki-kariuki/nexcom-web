@@ -17,7 +17,6 @@ import {
 import { DatePickerInput } from '@mantine/dates';
 import { notifications } from '@mantine/notifications';
 import { JobInterface, JobState } from '../../lib/@types/jobs';
-import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import Editrequirements from './EditRequirements';
 import { datasource } from '@/lib/common/datasource';
 
@@ -63,8 +62,7 @@ function CreateJob() {
   };
 
   return (
-    <Box px="md">
-      <SimpleRoute main="jobs" tag="New Job" />
+    <Box>
       <Flex direction={{ base: 'column', sm: 'row' }} gap="md">
         <Box py="md" w={{ base: '100%', sm: '50%' }}>
           <InputWrapper pb="md" label="Title">

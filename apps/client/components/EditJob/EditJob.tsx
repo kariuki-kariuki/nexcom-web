@@ -20,7 +20,6 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { JobDto, JobState } from '../../lib/@types/jobs';
-import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import { UploadImage } from '../SimpleRoute/uploadImage';
 import Editrequirements from './Editrequirements';
 import { datasource } from '@/lib/common/datasource';
@@ -90,8 +89,7 @@ function EditJob({ jobdb }: { jobdb: JobDto | null }) {
   };
 
   return (
-    <Box px="sm">
-      <SimpleRoute main="jobs" tag={`Edit Job ${jobdb?.id}`} />
+    <Box>
       <Flex direction={{ base: 'column', sm: 'row' }} gap="md">
         <Box py="md" w={{ base: '100%', sm: '50%' }}>
           <InputWrapper pb="md" label="Title">

@@ -11,7 +11,6 @@ const Header = ({ active, setActive }: IProps) => {
   return (
     <Group
       px={'xl'}
-      bg={'coco-2'}
       py={{ base: 'md', sm: 'sm' }}
       justify="start"
       className={classes.header}

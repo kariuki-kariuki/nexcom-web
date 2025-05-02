@@ -16,7 +16,6 @@ import { Category } from '../../lib/@types/category';
 import { INewProduct, ProductStatus } from '../../lib/@types/shop';
 import { DropzoneButton } from '../DropzoneButton/DropzoneButton';
 import Previews from '../Previews/Previews';
-import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import ProductCard from './ProductCard';
 import classes from './NewProduct.module.css';
 import { datasource } from '@/lib/common/datasource';
@@ -106,7 +105,6 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
         visible={loading}
         loaderProps={{ color: 'coco.0', type: 'oval' }}
       />
-      <SimpleRoute tag="New Product" main="Products" />
       <form onSubmit={handleSubmit} className={classes.form}>
         <Group justify="space-between" pb="sm">
           <Text fw="bold">Create New Product</Text>

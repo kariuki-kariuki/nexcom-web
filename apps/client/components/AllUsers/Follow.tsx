@@ -19,7 +19,6 @@ import {
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { GlobalUser } from '../../lib/@types/app';
-import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import classes from './Follow.module.css';
 import { datasource } from '@/lib/common/datasource';
 
@@ -54,7 +53,7 @@ const TableRowNotification = ({ item, updateFollowStatus }: ITableRow) => (
         </Text>
         <Text c="dimmed">{item.role}</Text>
       </Stack>
-      
+
     </Group>
   </Notification>
 );
@@ -63,7 +62,7 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
   const [active, setActive] = useState('All');
 
   const updateFollowStatus = async (role: string, id: string) => {
-    const res = await datasource.update({role}, '');
+    const res = await datasource.update({ role }, '');
     if (!res) {
       notifications.show({
         title: 'Failed',
@@ -105,9 +104,6 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
     ));
 
   return (
-     
-    <>
-      <SimpleRoute tag="All Users" main="Users" />
     <Box px="md">
       <Group justify="space-between" pb="xs">
         <SegmentedControl
@@ -144,6 +140,5 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
         </Box>
       </ScrollArea>
     </Box>
-    </>
   );
 }

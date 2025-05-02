@@ -15,7 +15,6 @@ import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { Resource } from '../../lib/@types/resource';
 import { createImage } from '../EditProduct/create';
-import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import { datasource } from '@/lib/common/datasource';
 
 function Resources({ resourcedb }: { resourcedb: Resource[] | null }) {
@@ -94,7 +93,6 @@ function Resources({ resourcedb }: { resourcedb: Resource[] | null }) {
         visible={loading}
         loaderProps={{ type: 'bars', color: 'teal.9' }}
       />
-      <SimpleRoute main="Resources" tag="All resources" />
       <Group justify="end" px="md">
         <Button
           onClick={toggle}

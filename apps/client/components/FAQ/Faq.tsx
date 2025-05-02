@@ -14,7 +14,6 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import SimpleRoute from '../SimpleRoute/SimpleRoute';
 import classes from './Faq.module.css';
 import { datasource } from '@/lib/common/datasource';
 
@@ -71,7 +70,6 @@ function Header({ setFaqs }: Ihaeder) {
   };
   return (
     <div>
-      <SimpleRoute main="settings" tag="faqs" />
       <Group py="md">
         <Button
           leftSection={<IconCirclePlus2 />}

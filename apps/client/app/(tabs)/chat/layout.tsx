@@ -6,7 +6,6 @@ import { Paper, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { usePathname } from 'next/navigation';
 import ConversationButtonList from '@/components/ConversationButtonList/ConversationButtonList';
-import SimpleNav from '@/components/SimpleNav/SimpleNav';
 
 const ChatLayout = ({ children }: { children: ReactNode }) => {
   const theme = useMantineTheme();
@@ -24,9 +23,6 @@ const ChatLayout = ({ children }: { children: ReactNode }) => {
         data-active={isHome || undefined}
         w={{ base: '100%', sm: '50%', md: '40%', lg: '30%', xl: '25%' }}
       >
-        <div className={classes.nav}>
-          <SimpleNav />
-        </div>
         <ConversationButtonList />
       </Paper>
       <div
