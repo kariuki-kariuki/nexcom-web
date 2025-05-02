@@ -1,6 +1,6 @@
 .main {
   height: 100%;
-  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-gray-8));
+  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-gray-8));
 
 }
 
@@ -27,11 +27,11 @@
     &,
     &:hover {
       /* background-color: var(--mantine-color-blue-light); */
-      color: var(--mantine-color-orange-7);
+      color: var(--mantine-color-coco-4);
       border-bottom: var(--mantine-color-orange-7);
 
       .linkIcon {
-        color: var(--mantine-color-orange-7);
+        color: var(--mantine-color-teal-4);
       }
     }
   }

@@ -1,3 +1,4 @@
+'use client';
 import {
   Group,
   Avatar,
@@ -20,24 +21,22 @@ import { useGlobalContext } from '@/lib/context/appContext';
 import { useMediaQuery } from '@mantine/hooks';
 import classes from './ConversationButton.module.css'
 import { useGlobalStore } from '@/lib/context/global-store.provider';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface Props {
   conversation: ConversationProps;
-  open: () => void;
   index: number;
 }
 
-export function ConversationButton({ conversation, open }: Props) {
+export function ConversationButton({ conversation }: Props) {
   const { user: gUser } = useGlobalContext();
-  const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
-  const activeConversation = useGlobalStore(state => state.activeConversation);
-  const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
-  const setActiveConvo = useGlobalStore((state) => state.setActiveConversation)
   const updateMessage = useGlobalStore((state) => state.updateMessage)
   const [count, setCount] = useState(0);
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
-  const active = conversation.id === activeConversation?.id;
+  const path = usePathname()
+  const active = path.endsWith(conversation.id);
 
   // Sort messages outside of render
   const sortedMessages = [...conversation.messages].sort((a, b) => {
@@ -68,7 +67,7 @@ export function ConversationButton({ conversation, open }: Props) {
   useEffect(() => {
     if (count > 0) {
 
-      if (conversation.id === activeConversation?.id) {
+      if (active) {
 
         socket.emit(
           'message-state',
@@ -97,68 +96,67 @@ export function ConversationButton({ conversation, open }: Props) {
       }
 
     }
-  }, [count, socket, activeConversation]);
+  }, [count, socket, active, conversation, updateMessage]);
 
   return (
-    <Card
-      className={clsx({ [classes.active]: active, [classes.normal]: !active })}
-      onClick={() => {
-        setActiveConversation(conversation);
-        setActiveConvo(conversation);
-        updateActiveScreen('chat');
-        if (count > 0) {
-          socket.emit(
-            'message-state',
-            {
-              state: MessageState.READ,
-              conversationId: conversation.id,
-              receiverId: conversation.users[0].id
-            },
-            (res: PayloadMessage) => {
-              updateMessage(res);
-            }
-          );
-        }
-      }}
-      radius={0}
-      shadow="lg"
-    >
-      <Group onClick={open}>
-        <Avatar src={user?.avatar?.signedUrl} size={mobile ? 'md' : 'lg'} radius="xl" name={user.fullName}/>
-        <div style={{ flex: 1 }}>
-          <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
-            {user?.fullName}
-          </Text>
-          <Group py="3px" wrap="nowrap">
-            {lastMessage.productId && gUser?.id !== user.id ? (
-              <IconShoppingBag size={14} />
-            ) : (
-              ''
-            )}
-            <Text c={active ? '' : 'dimmed'} size="xs" lineClamp={1}>
-              {lastMessage?.message}
+    <Link href={`/chat/${conversation.id}`}>
+      <Card
+        className={classes.convoButton}
+        data-active={active || undefined}
+        onClick={() => {
+          if (count > 0) {
+            socket.emit(
+              'message-state',
+              {
+                state: MessageState.READ,
+                conversationId: conversation.id,
+                receiverId: conversation.users[0].id
+              },
+              (res: PayloadMessage) => {
+                updateMessage(res);
+              }
+            );
+          }
+        }}
+        radius={0}
+      >
+        <Group>
+          <Avatar src={user?.avatar?.signedUrl} size={mobile ? 'md' : 'lg'} radius="xl" name={user.fullName} />
+          <div style={{ flex: 1 }}>
+            <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
+              {user?.fullName}
             </Text>
-          </Group>
-        </div>
-        <Flex direction={'column'} justify={'center'} align={'center'}>
-          <Text c={active ? 'white' : 'lime'} size="xs">
-            {date ? formatDate(date) : ''}
-          </Text>
-          {count > 0 ? (
-            <Badge size="md" circle color="teal">
-              {count}
-            </Badge>
-          ) : (
-            <Box pt={'4px'}>
-              <LastMessage
-                message={sortedMessages[sortedMessages.length - 1]}
-                user={user}
-              />
-            </Box>
-          )}
-        </Flex>
-      </Group>
-    </Card>
+            <Group py="3px" wrap="nowrap">
+              {lastMessage.productId && gUser?.id !== user.id ? (
+                <IconShoppingBag size={14} />
+              ) : (
+                ''
+              )}
+              <Text c={active ? '' : 'dimmed'} size="xs" lineClamp={1}>
+                {lastMessage?.message}
+              </Text>
+            </Group>
+          </div>
+          <Flex direction={'column'} justify={'center'} align={'center'}>
+            <Text c={active ? 'white' : 'lime'} size="xs">
+              {date ? formatDate(date) : ''}
+            </Text>
+            {count > 0 ? (
+              <Badge size="md" circle color="teal">
+                {count}
+              </Badge>
+            ) : (
+              <Box pt={'4px'}>
+                <LastMessage
+                  message={sortedMessages[sortedMessages.length - 1]}
+                  user={user}
+                />
+              </Box>
+            )}
+          </Flex>
+        </Group>
+      </Card>
+    </Link>
   );
 }
 

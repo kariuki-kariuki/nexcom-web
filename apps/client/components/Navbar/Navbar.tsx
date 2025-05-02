@@ -26,7 +26,6 @@ const data = [
 ];
 
 export function Navbar() {
-  const router = useRouter();
   const [opened, { toggle }] = useDisclosure();
   const pathname = usePathname()
   const setConversations = useGlobalStore((store) => store.setConversations)
@@ -37,10 +36,6 @@ export function Navbar() {
       data-active={item.link === pathname || undefined}
       key={item.label}
       href={`${item.link}`}
-      onClick={(event) => {
-        event.preventDefault();
-        router.push(`${item.link}`);
-      }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>{item.label}</span>

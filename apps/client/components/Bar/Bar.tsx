@@ -10,17 +10,22 @@ import {
 } from '@/lib/context/newConversation';
 import { ConversationProps } from '@/lib/@types/app';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
+import { useRouter } from 'next/navigation';
 interface CloseProps {
-  closes: () => void;
   activeConvo?: ConversationProps | null;
 }
 // Top Bar on the Chatbox Area
-const Bar = ({ closes }: CloseProps) => {
-  const activeConversation = useGlobalStore(state => state.activeConversation);
+interface BarProps {
+  activeConvoId: string
+}
+const Bar = ({activeConvoId}: BarProps) => {
+  const conversations = useGlobalStore(state => state.conversations);
+  const activeConversation = conversations.find((conv) => conv.id === activeConvoId)
   const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
   const user = activeConversation?.users[0];
   const [opened, { open, close }] = useDisclosure(false);
   const { newConversation } = useNewConverSationContext();
+  const router = useRouter();
   return (
     <>
       <Group
@@ -36,7 +41,7 @@ const Bar = ({ closes }: CloseProps) => {
             <IconArrowBadgeLeftFilled
               size={40}
               onClick={() => {
-                closes();
+                router.push('/chat');
                 setActiveConversation(null);
               }}
               color="teal"

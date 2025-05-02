@@ -2,13 +2,14 @@
 import { Box, Avatar, Stack, useMantineColorScheme } from '@mantine/core'
 import { IconHome, IconShoppingBag, IconShoppingCart, IconMessageCircle, IconDiamond, IconSunFilled, IconSunMoon, IconLogout, IconVideo, IconPlayerPlay } from '@tabler/icons-react'
 import Link from 'next/link'
-import React from 'react'
+import React, { use } from 'react'
 import classes from './styles.module.css';
 import { useGlobalContext } from '@/lib/context/appContext';
 import logout from '@/utils/logout';
 import Dashboard from '../Profile/ProfileDashboard';
 import { useDisclosure } from '@mantine/hooks';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
+import { usePathname } from 'next/navigation';
 const links = [
   { label: 'Chats', link: '/chat', icon: IconMessageCircle },
   { label: 'Videos', link: '/videos', icon: IconPlayerPlay },
@@ -20,14 +21,14 @@ const SimpleNav = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
   const [opened, { toggle }] = useDisclosure()
   const setConversations = useGlobalStore((store) => store.setConversations)
-
+  const pathName = usePathname()
 
   return (
     <div className={classes.main}>
       <Stack justify='space-between' h="100%" align='center'>
         <Stack gap={"md"} align='center' py="sm">
           <Avatar src={user?.avatar?.signedUrl} onClick={toggle} name={user?.fullName} />
-          {links.map((link, idx) => <Link href={link.link} className={classes.link} key={idx}><link.icon stroke={1.5} className={classes.linkIcon} /></Link>)}
+          {links.map((link, idx) => <Link href={link.link} className={classes.link} data-active={pathName.startsWith(link.link) || undefined} key={idx}><link.icon stroke={1.5} className={classes.linkIcon} /></Link>)}
           {user?.shop && <Link href='/dashboard' className={classes.link} ><IconDiamond stroke={1.5} className={classes.linkIcon} /></Link>}
         </Stack>
         <div>

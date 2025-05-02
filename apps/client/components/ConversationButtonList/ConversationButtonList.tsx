@@ -1,3 +1,4 @@
+'use client'
 import { ConversationButton } from '../ConversationButton/ConversationButton';
 import {
   ActionIcon,
@@ -16,16 +17,16 @@ import {
 import SearchBar from '../SearchBar/SearchBar';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 interface Props {
-  open: () => void;
+  open?: () => void;
 }
 
 export default function ConversationButtonList({
-  open,
 }: Props) {
   const conversationsState = useGlobalStore((state) => state.conversations)
   const conversations = conversationsState.filter(
     (conversation) => conversation.messages.length !== 0
   );
+  const [open, {toggle}] = useDisclosure(false);
   conversations.sort((a, b) => {
     const timeA = new Date(
       a.messages[a.messages.length - 1].updated_at
@@ -40,7 +41,6 @@ export default function ConversationButtonList({
     <ConversationButton
       conversation={convo}
       key={convo.id}
-      open={open}
       index={index}
     />
   ));
@@ -60,7 +60,7 @@ export default function ConversationButtonList({
         <ScrollArea  bg={'none'} type="scroll" h={'100%'}>
           {conversation}
         </ScrollArea>
-        <AddPop open={open} />
+        <AddPop open={toggle}/>
       </Flex>
     </Paper>
   );

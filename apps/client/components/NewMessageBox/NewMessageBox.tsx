@@ -18,25 +18,25 @@ import { useGlobalStore } from '@/lib/context/global-store.provider';
 import { EmojiPickerComponent } from '../EmojiPicker/EmojiPickerComponent';
 import { FileWithPath } from '@mantine/dropzone';
 import FilePicker from '../ui/FilePicker';
-import Previews from '../Previews/Previews';
 import MessageImagePreviews from '../Previews/MessageImagePrev';
+import { useRouter } from 'next/navigation';
 
 interface INewMessageBox {
   productId?: string;
-  close?: () => void;
   margin?: string | number
+  convoId?: string
 }
-const NewMessageBox = ({ productId, close, margin }: INewMessageBox) => {
+const NewMessageBox = ({ productId, margin, convoId}: INewMessageBox) => {
   const [message, setMessage] = useState<string>('');
   const socket = useSocketContext()
-  const activeConversation = useGlobalStore(state => state.activeConversation);
-  const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
+  const conversations = useGlobalStore(state => state.conversations);
+  const activeConversation = conversations.find((conv) => conv.id === convoId);
   const { newConversation, setNewConversation } = useNewConverSationContext();
   const addMessage = useGlobalStore((state) => state.addMessage)
   const addConversation = useGlobalStore((state) => state.addConversation)
   const [files, setFiles] = useState<FileWithPath[]>([])
   const processedFiles = files.map((file) => ({ mimetype: file.type, buffer: file }))
-
+  const router = useRouter();
   const handleSubmit = async () => {
     if (!message && files.length === 0) return;
 
@@ -73,9 +73,8 @@ const NewMessageBox = ({ productId, close, margin }: INewMessageBox) => {
           setMessage('');
           setFiles([]);
           setNewConversation(null);
-          setActiveConversation(res);
           addConversation(res);
-          close?.();
+          router.push(`/chat/${res.id}`);
         });
       } catch (e) {
         console.log(e);

@@ -7,7 +7,30 @@
   width: fit-content;
 }
 
+.linksMobile {
+  width: 100%;
+  display: none;
+
+  &[data-active="true"] {
+    display: flex;
+  }
+}
+
+.links {
+  display: flex;
+}
+
 .children {
-  width: 95%;
-  flex: 1;
+  flex: 1; /* Fixed typo */
+  display: block;
+}
+
+.childrenMobile {
+  flex: 1; /* Fixed typo */
+  width: 100%;
+  display: block;
+
+  &[data-active="true"] {
+    display: none;
+  }
 }
