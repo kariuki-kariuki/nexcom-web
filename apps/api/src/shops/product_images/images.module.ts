@@ -1,18 +1,17 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { ImagesController } from './images.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Image } from './entities/image.entity';
 import { AwsModule } from '../../aws/aws.module';
-import { ProductsModule } from '../products/products.module';
 import { WeaviateModule } from 'src/weaviate/weaviate.module';
+import { Product } from '../products/entities/product.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Image]),
+    TypeOrmModule.forFeature([Image, Product]),
     WeaviateModule,
     AwsModule,
-    forwardRef(() => ProductsModule),
   ],
   controllers: [ImagesController],
   providers: [ImagesService],

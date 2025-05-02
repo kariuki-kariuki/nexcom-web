@@ -11,13 +11,14 @@ import classes from './PictureUpdate.module.css';
 import { useGlobalContext } from '../../../lib/context/appContext';
 import { useSocketContext } from '@/lib/hooks/useSocket';
 import { GlobalUser } from '@/lib/@types/app';
+import { FileWithPath } from '@mantine/dropzone';
 const PictureUpdate = ({ image }: { image: string }) => {
-  const [value, setValue] = useState<File | null>(null);
+  const [value, setValue] = useState<FileWithPath | null>(null);
   const { user, setUser } = useGlobalContext()
   const socket = useSocketContext()
   const handleSubmit = async () => {
     if (value) {
-      socket.emit('updateProfile', { mimetype: value.type, buffer: value }, (res: GlobalUser) => {
+      socket.emit('updateProfile', { file: {mimetype:  value.type, buffer: value}, message: 'Updated Profile Picture' }, (res: GlobalUser) => {
         if (user) {
           setValue(null)
           setUser(res);

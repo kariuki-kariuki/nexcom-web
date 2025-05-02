@@ -10,6 +10,7 @@ import { Product } from '../../products/entities/product.entity';
 import { Exclude } from 'class-transformer';
 import { ProjectIdType } from 'src/@types/types';
 import { Gallery } from 'src/galleries/entities/gallery.entity';
+import { Message } from 'src/chat/messages/entities/message.entity';
 
 @Entity()
 export class Image {
@@ -36,6 +37,11 @@ export class Image {
     onDelete: 'CASCADE',
   })
   gallery: Gallery;
+
+  @ManyToOne(() => Message, (message) => message.files, {
+    onDelete: 'CASCADE',
+  })
+  message: Message;
 
   // Special columns
   @Exclude()

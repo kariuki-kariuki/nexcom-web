@@ -45,7 +45,7 @@ export interface Message {
   id?: string;
   message: string;
   user: GlobalUser;
-  files: string[] | null;
+  files: ImageInterface[] | null;
   updated_at: string;
   state?: MessageState;
   created_at: string;

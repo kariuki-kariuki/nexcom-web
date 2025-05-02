@@ -9,7 +9,6 @@ import {
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { ChatService } from './chat.service';
-import { Message } from './messages/entities/message.entity';
 import { CreateConversationDTO } from './conversations/dto/create-conversation.dto';
 import { UpdateStateDTO } from './messages/dto/update-state.dto';
 import { instanceToPlain } from 'class-transformer';
@@ -20,12 +19,14 @@ import {
   IncomingMessageBody,
   OnlineStatus,
 } from './dto/chat-gateway.dto';
+import { Logger } from '@nestjs/common';
 
 @WebSocketGateway(5000, {
   cors: { origin: '*' },
 })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
+  private logger = new Logger(ChatGateway.name);
   constructor(
     private readonly chatService: ChatService,
     private readonly gateWaySession: GatewaySessionManager,
@@ -33,10 +34,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   async handleConnection(client: AuthenticatedSocket) {
     this.gateWaySession.setUserSocket(client.user.userId, client);
-    const conversations = await this.chatService.getConversations(
-      client.user.userId,
-    );
-    this.server.to(client.id).emit('conversations', conversations);
   }
 
   handleDisconnect(client: AuthenticatedSocket) {
@@ -105,14 +102,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('updateProfile')
   async uploadProfileImage(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() file: Express.Multer.File,
+    @MessageBody() data: { file: Express.Multer.File; message: string },
   ) {
     const { userId } = client.user;
     try {
-      const res = await this.chatService.updateProfile(
-        file,
-        client.user.userId,
-      );
+      const res = await this.chatService.updateProfile(data.file, userId);
       this.server.emit('updateProfile', { user: res, userId });
       return res;
     } catch (e) {
@@ -145,28 +139,18 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @ConnectedSocket() client: AuthenticatedSocket,
     @MessageBody() messageBody: IncomingMessageBody,
   ) {
-    const { user, conversation } = await this.chatService.getDetails(
-      client.user.email,
-      messageBody.conversationId,
-    );
-
-    const message = new Message();
-    message.conversation = conversation;
-    message.user = user;
-    message.message = messageBody.message;
-    message.productId = messageBody.productId;
-
+    const { userId } = client.user;
     try {
       const receiverSocket = this.gateWaySession.getUserSocket(
         messageBody.receiverId,
       );
-      const savedMessage = await this.chatService.newMessaege(message);
+      const savedMessage = await this.chatService.newMessage(
+        messageBody,
+        userId,
+      );
       const serializedMessage = instanceToPlain(savedMessage);
       if (receiverSocket) {
-        console.log('User found');
         this.server.to(receiverSocket.id).emit('message', serializedMessage);
-      } else {
-        console.log('New message but user not found');
       }
       return serializedMessage;
     } catch (e) {

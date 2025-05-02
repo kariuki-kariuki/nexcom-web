@@ -10,18 +10,18 @@ import { Product } from './entities/product.entity';
 import { Repository } from 'typeorm';
 import { ImagesService } from '../product_images/images.service';
 import { ProductStatus } from 'src/@types/product-status';
-import { ShopsService } from '../shops.service';
 import { BrowserInfo, ProjectIdType } from 'src/@types/types';
 import { WeaviateService } from 'src/weaviate/weaviate.service';
 import { toBase64FromMedia } from 'weaviate-client';
 import { Analytic } from 'src/analytics/entity/analytic.entity';
+import { Shop } from '../entities/shop.entity';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Product) private productRespository: Repository<Product>,
     private imagesService: ImagesService,
-    private shopService: ShopsService,
+    @InjectRepository(Shop) private readonly shopRepository: Repository<Shop>,
     private weaviateService: WeaviateService,
     @InjectRepository(Analytic)
     private analyticRepository: Repository<Analytic>,
@@ -32,7 +32,7 @@ export class ProductsService {
     shopId: string,
   ): Promise<Product> {
     const product = new Product();
-    const shop = await this.shopService.findOne(shopId);
+    const shop = await this.shopRepository.findOneByOrFail({ id: shopId });
     const sizes = JSON.parse(createProductDto.sizes);
     product.shop = shop;
     product.name = createProductDto.name;

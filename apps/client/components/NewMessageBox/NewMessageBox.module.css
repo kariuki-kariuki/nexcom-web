@@ -1,15 +1,16 @@
 .msg {
   background-color: light-dark(
-    var(--mantine-color-gray-3),
-    var(--mantine-color-coco-0)
+    var(--mantine-color-gray-0),
+    var(--mantine-color-gray-9)
   );
 }
 
 .textarea {
   background-color: light-dark(
     var(--mantine-color-gray-0),
-    var(--mantine-color-gray-8)
+    var(--mantine-color-gray-9)
   );
+  border: none;
 }
 
 .emojiPickerContainer {

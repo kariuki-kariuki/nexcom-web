@@ -21,7 +21,7 @@ function Chat() {
       <Box
         className={classes.overflow}
         h="100%"
-        w={{ base: '100%', sm: '50%', md: '30%', lg: '25*' }}
+        w={{ base: '100%', sm: '50%', md: '30%', lg: '25%' }}
         bd={'none'}
       >
         <ConversationButtonList

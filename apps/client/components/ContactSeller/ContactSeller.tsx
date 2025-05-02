@@ -65,7 +65,7 @@ const ContactSeller = ({ product, owner }: IProps) => {
                             <OgMessage product={product} />
                         </Box>
                     </ScrollArea>
-                    <NewMessageBox productId={product.id} close={toggle} />
+                    <NewMessageBox productId={product.id} close={toggle} margin={'xs'}/>
                 </Flex>
             </Dialog>
         </div>

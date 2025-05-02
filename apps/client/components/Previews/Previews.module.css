@@ -4,4 +4,18 @@
 
 .box{
   border-radius: var(--mantine-spacing-sm);
+ 
+  gap: var(--mantine-spacing-sm);
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  background-color: var(--mantine-color-gray-9);
+}
+
+.paper {
+  overflow: hidden;
 }

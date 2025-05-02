@@ -2,9 +2,10 @@ import { ProjectIdType } from 'src/@types/types';
 
 export type IncomingMessageBody = {
   conversationId: ProjectIdType;
-  message: string;
+  message?: string;
   productId?: ProjectIdType;
   receiverId: ProjectIdType;
+  files?: Array<Express.Multer.File>;
 };
 
 export interface IncomingFile {

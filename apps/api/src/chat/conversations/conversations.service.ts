@@ -1,16 +1,13 @@
 import {
-  forwardRef,
-  Inject,
   Injectable,
   NotFoundException,
+  UnprocessableEntityException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Conversation } from './entities/Conversation.entity';
 import { CreateConversationDTO } from './dto/create-conversation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MessagesService } from '../messages/messages.service';
 import { Message } from '../messages/entities/message.entity';
-import { UsersService } from '../../users/users.service';
 import { MessageState } from 'src/@types/chat/chat';
 import { ProjectIdType } from 'src/@types/types';
 import { ProductsService } from 'src/shops/products/products.service';
@@ -23,36 +20,54 @@ export class ConversationsService {
   constructor(
     @InjectRepository(Conversation)
     private readonly conversationRepo: Repository<Conversation>,
-    @Inject(forwardRef(() => UsersService))
-    private readonly userService: UsersService,
-    private readonly messageService: MessagesService,
+    @InjectRepository(User)
+    private readonly usersRepository: Repository<User>,
     private readonly productsService: ProductsService,
     private readonly awsService: AwsService,
+    @InjectRepository(Message)
+    private readonly messageRepo: Repository<Message>,
   ) {}
 
   async findAll(id: string) {
-    return this.userService.getAllConversation(id);
+    const user = await this.usersRepository.findOne({
+      where: { id },
+      relations: {
+        conversations: {
+          users: { shop: true },
+          messages: { user: true, product: true },
+        },
+      },
+    });
+
+    if (!user) {
+      throw new UnprocessableEntityException('User not found.');
+    }
+    user.conversations = user.conversations.map((conversation) => {
+      // Filter out the user with the specified userId
+      conversation.users = conversation.users.filter((user) => user.id !== id);
+      return conversation;
+    });
+
+    return user.conversations;
   }
   async createConversation({
     createConversationDTO,
     initiatorId,
   }: INewConverSation) {
-    const initiator = await this.userService.findById(initiatorId);
+    const initiator = await this.usersRepository.findOneBy({ id: initiatorId });
     if (!initiator) {
       throw new Error('Initiator not found');
     }
 
-    const receiver = await this.userService.findById(
-      createConversationDTO.receiverId,
-    );
+    const receiver = await this.usersRepository.findOneBy({
+      id: createConversationDTO.receiverId,
+    });
     if (!receiver) {
       throw new Error('Receiver not found');
     }
 
     // Check if conversation exists
-    const conversations = await this.userService.getAllConversation(
-      initiator.id,
-    );
+    const conversations = await this.getAllConversation(initiator.id);
 
     const res = conversations.find(
       (convo) => convo.users[0].id === createConversationDTO.receiverId,
@@ -84,6 +99,31 @@ export class ConversationsService {
     }
   }
 
+  async getAllConversation(userId: string): Promise<Conversation[]> {
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+      relations: {
+        conversations: {
+          users: { shop: true },
+          messages: { user: true, product: true },
+        },
+      },
+    });
+
+    if (!user) {
+      throw new UnprocessableEntityException('User not found.');
+    }
+    user.conversations = user.conversations.map((conversation) => {
+      // Filter out the user with the specified userId
+      conversation.users = conversation.users.filter(
+        (user) => user.id !== userId,
+      );
+      return conversation;
+    });
+
+    return user.conversations;
+  }
+
   private async createInitialMessage(
     createConversationDTO: CreateConversationDTO,
     initiator: User,
@@ -103,13 +143,9 @@ export class ConversationsService {
       }
       message.product = product;
       message.productId = productId;
-      product.images = await this.awsService.getMultipleUrls(product.images);
     }
-
-    await this.messageService.createMessage(message);
-    delete message.conversation; // Avoid circular references in the response
-
-    return message;
+    const savedMessage = await this.messageRepo.save(message);
+    return savedMessage;
   }
 
   async findOne(id: ProjectIdType) {
@@ -167,10 +203,12 @@ export class ConversationsService {
     for (const conversation of conversations) {
       for (const message of conversation.messages) {
         message.state = newState;
-        await this.messageService.save(message);
+        await this.messageRepo.save(message);
       }
     }
-    const user = await this.userService.findOne(specificUserEmail);
+    const user = await this.usersRepository.findOneBy({
+      email: specificUserEmail,
+    });
     // Return the result
     return {
       userId: user.id,

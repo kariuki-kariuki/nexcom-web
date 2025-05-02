@@ -12,4 +12,6 @@ export class CreateConversationDTO {
   @IsString()
   @IsOptional()
   productId?: string;
+
+  files?: Array<Express.Multer.File>;
 }

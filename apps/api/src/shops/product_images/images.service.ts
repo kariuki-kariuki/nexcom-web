@@ -1,28 +1,23 @@
-import {
-  forwardRef,
-  Inject,
-  Injectable,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Image } from './entities/image.entity';
 import { AwsService } from '../../aws/aws.service';
-import { ProductsService } from '../products/products.service';
 import { ProjectIdType } from 'src/@types/types';
 import { WeaviateService } from 'src/weaviate/weaviate.service';
 import { toBase64FromMedia } from 'weaviate-client';
 import { COLLECTION_NAME } from 'src/lib/constants';
+import { Product } from '../products/entities/product.entity';
 
 @Injectable()
 export class ImagesService {
   constructor(
     @InjectRepository(Image) private imageRepository: Repository<Image>,
+    @InjectRepository(Product)
+    private productRepository: Repository<Product>,
     private awsService: AwsService,
-    @Inject(forwardRef(() => ProductsService))
-    private productService: ProductsService,
     private readonly weaviateService: WeaviateService,
   ) {}
   async create(
@@ -32,9 +27,9 @@ export class ImagesService {
     const images = await Promise.all(
       files.map(async (file) => {
         const image = new Image();
-        const product = await this.productService.findOne(
-          createImageDto.productId,
-        );
+        const product = await this.productRepository.findOneByOrFail({
+          id: createImageDto.productId,
+        });
         const imageString = await toBase64FromMedia(file.buffer);
         image.url = await this.awsService.uploadFile(file, 'products');
         image.product = product;

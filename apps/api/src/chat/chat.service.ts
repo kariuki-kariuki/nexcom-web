@@ -3,9 +3,9 @@ import { ConversationsService } from './conversations/conversations.service';
 import { MessagesService } from './messages/messages.service';
 import { UpdateStateDTO } from './messages/dto/update-state.dto';
 import { UsersService } from '../users/users.service';
-import { Message } from './messages/entities/message.entity';
 import { ProjectIdType } from 'src/@types/types';
 import { INewConverSation } from 'utils/interfaces';
+import { IncomingMessageBody } from './dto/chat-gateway.dto';
 
 @Injectable()
 export class ChatService {
@@ -21,12 +21,8 @@ export class ChatService {
     return { user, conversation };
   }
 
-  async getConversations(id: string) {
-    return this.userService.getAllConversation(id);
-  }
-
-  async newMessaege(message: Message) {
-    return await this.messageService.createMessage(message);
+  async newMessage(message: IncomingMessageBody, userId: string) {
+    return await this.messageService.createMessage(message, userId);
   }
 
   async newConversation(props: INewConverSation) {

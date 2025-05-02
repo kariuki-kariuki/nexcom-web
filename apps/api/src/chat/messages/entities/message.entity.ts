@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -11,6 +12,7 @@ import { User } from '../../../users/entities/user.entity';
 import { MessageState } from 'src/@types/chat/chat';
 import { ProjectIdType } from 'src/@types/types';
 import { Product } from 'src/shops/products/entities/product.entity';
+import { Image } from 'src/shops/product_images/entities/image.entity';
 // import { Product } from 'src/shops/products/entities/product.entity';
 
 @Entity()
@@ -18,11 +20,11 @@ export class Message {
   @PrimaryGeneratedColumn('uuid')
   id: ProjectIdType;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   message: string;
 
-  @Column({ type: 'simple-array', nullable: true })
-  files: [{ type: string; url: string }];
+  @OneToMany(() => Image, (image) => image.message, { eager: true })
+  files: Image[];
 
   @Column({ type: 'enum', enum: MessageState, default: MessageState.SENT })
   state: MessageState;

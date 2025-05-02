@@ -6,6 +6,7 @@ import { IconCheck, IconChecks } from '@tabler/icons-react';
 import { Message } from '@/lib/@types/app';
 import Link from 'next/link';
 import OgMessage from '../OgMessage/OgMessage';
+import MessageImages from '../ui/MessageImages';
 
 interface Props {
   message: Message;
@@ -16,7 +17,7 @@ const MessageCard = ({ message }: Props) => {
   const { user } = useGlobalContext();
   const status = message.user.id === user?.id;
   const date = new Date(message.updated_at);
-
+ 
   return status ? (
     <Paper
       className={`${status ? classes.float_right : classes.float_left}`}
@@ -27,7 +28,7 @@ const MessageCard = ({ message }: Props) => {
     >
       <Card bg={'none'} className={classes.right} >
         <Box className={classes.box_right} m={0} >
-
+          <MessageImages images={message.files}/>
           <Text className="font-serif" c={'white'} pr={0}>
             {message?.message}
           </Text>
@@ -65,14 +66,14 @@ const MessageCard = ({ message }: Props) => {
     mx={'md'}
     p={0}
   >
-    <Card bg={'none'} className={classes.left}>
+    <Paper bg={'none'} className={classes.left}>
       <Box className={classes.box_left} m={0}>
-        <Text className="font-serif" c={'white'} pr={0}>
+        <MessageImages images={message.files}/>
+        <Text className="font-serif" pr={0}>
           {message?.message}
         </Text>
-
         {message.product && (<OgMessage product={message.product} />)}
-      
+
         <Group align="center" mt={-5} pl={20} gap={'sm'} justify="end">
           <Text c={'gray.4'} fz={rem(10)} fw={100}>
             {`${date?.toLocaleString('en-US', {
@@ -83,7 +84,7 @@ const MessageCard = ({ message }: Props) => {
           </Text>
         </Group>
       </Box>
-    </Card>
+    </Paper>
   </Paper>;
 };
 

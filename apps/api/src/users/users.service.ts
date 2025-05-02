@@ -1,6 +1,4 @@
 import {
-  forwardRef,
-  Inject,
   Injectable,
   Logger,
   UnprocessableEntityException,
@@ -18,7 +16,6 @@ import { CreateConversationDTO } from '../chat/conversations/dto/create-conversa
 import { ConversationsService } from '../chat/conversations/conversations.service';
 import { AwsService } from '../aws/aws.service';
 import { ProjectIdType } from 'src/@types/types';
-import { Conversation } from 'src/chat/conversations/entities/Conversation.entity';
 import { Image } from 'src/shops/product_images/entities/image.entity';
 @Injectable()
 export class UsersService {
@@ -28,7 +25,6 @@ export class UsersService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
     private readonly awsService: AwsService,
-    @Inject(forwardRef(() => ConversationsService))
     private readonly conversationsService: ConversationsService,
   ) {}
   async create(createUserDto: CreateUserDto) {
@@ -194,30 +190,5 @@ export class UsersService {
     }
 
     return users;
-  }
-
-  async getAllConversation(userId: string): Promise<Conversation[]> {
-    const user = await this.usersRepository.findOne({
-      where: { id: userId },
-      relations: {
-        conversations: {
-          users: { shop: true },
-          messages: { user: true, product: true },
-        },
-      },
-    });
-
-    if (!user) {
-      throw new UnprocessableEntityException('User not found.');
-    }
-    user.conversations = user.conversations.map((conversation) => {
-      // Filter out the user with the specified userId
-      conversation.users = conversation.users.filter(
-        (user) => user.id !== userId,
-      );
-      return conversation;
-    });
-
-    return user.conversations;
   }
 }

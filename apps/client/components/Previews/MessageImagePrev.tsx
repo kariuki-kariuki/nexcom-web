@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconX } from '@tabler/icons-react';
-import { Box, Button, Image, rem } from '@mantine/core';
+import { Box, Button, Image, Paper, rem } from '@mantine/core';
 import { FileWithPath } from '@mantine/dropzone';
 import { Carousel, CarouselSlide } from '@mantine/carousel';
 import classes from './Previews.module.css';
@@ -9,18 +9,18 @@ interface Props {
   files: FileWithPath[];
   setFiles: (files: FileWithPath[]) => void;
 }
-function Previews({ files, setFiles }: Props) {
+function MessageImagePreviews({ files, setFiles }: Props) {
   const previews = files.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
     return (
       <CarouselSlide key={index}>
         <div className={classes.box}>
-          <Box h={300}>
+          <Box className={classes.flex}>
             <Image
               key={index}
               src={imageUrl}
-              w="auto"
-              h='100%'
+              w="100%"
+              mah='300'
               onLoad={() => URL.revokeObjectURL(imageUrl)}
             />
           </Box>
@@ -37,18 +37,18 @@ function Previews({ files, setFiles }: Props) {
     );
   });
   return (
-    <>
-      {files.length > 0 &&
-        <Carousel slidesToScroll={1}
-          slideSize={{ base: '33%', sm: '50%' }}
-          slideGap={{ base: rem(5), sm: 'lg' }}
+    <Paper mx="md" radius='lg' className={classes.paper}>
+        <Carousel 
+        slidesToScroll={1}
+          slideSize={{ base: '33%', sm: '33%' }}
+          slideGap={{ base: rem(5), sm: 'sm' }}
+          align="start"
           loop
         >
           {previews}
         </Carousel>
-      }
-    </>
+    </Paper>
   );
 }
 
-export default Previews;
+export default MessageImagePreviews;
