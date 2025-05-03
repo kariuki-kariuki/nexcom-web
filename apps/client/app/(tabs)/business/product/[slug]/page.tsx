@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Param): Promise<Metadata> {
     description: product?.description,
     openGraph: {
       images: product?.images.map((image) => ({
-        url: image.url,
+        url: image.signedUrl,
         alt: image.altText,
         type: 'image/png',
         width: 1200,
