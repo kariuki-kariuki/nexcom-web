@@ -6,9 +6,14 @@ import {
   NewConversationType
 } from '@/lib/context/newConversation';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
-function Miscelenious() {
-  const activeConversation = useGlobalStore(state => state.activeConversation);
-  const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
+import Link from 'next/link';
+
+interface MisceleniousProps {
+  convoId?: string;
+}
+function Miscelenious({ convoId }: MisceleniousProps) {
+  const conversations = useGlobalStore(state => state.conversations);
+  const activeConversation = conversations.find((conv) => conv.id === convoId)
   const { newConversation, setNewConversation } = useContext(
     NewConversationContext
   ) as NewConversationType;
@@ -20,14 +25,12 @@ function Miscelenious() {
       {activeConversation || newConversation ? (
         <div className="p-3">
           <Tooltip label="Close this conversation">
-            <IconX
-              color="red"
-              stroke={1.5}
-              onClick={() => {
-                setActiveConversation(null);
-                setNewConversation(null);
-              }}
-            />
+            <Link href="/chat">
+              <IconX
+                color="red"
+                stroke={1.5}
+              />
+            </Link>
           </Tooltip>
         </div>
       ) : (

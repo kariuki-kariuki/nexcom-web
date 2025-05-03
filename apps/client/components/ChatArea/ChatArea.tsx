@@ -38,7 +38,6 @@ function ChatArea({ activeConvoId }: ChatAreaProps) {
   ));
   return (
     <Paper h={'100vh'} p={'0px'} m={'0px'} className={classes.chat_area}>
-
       <Bar activeConvoId={activeConvoId}/>
       <ScrollArea
         h={'100%'}

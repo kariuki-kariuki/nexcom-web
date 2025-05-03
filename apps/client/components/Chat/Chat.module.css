@@ -7,4 +7,5 @@
   height: 100vh;
   flex-wrap: nowrap;
   flex: 1;
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-1));
 }

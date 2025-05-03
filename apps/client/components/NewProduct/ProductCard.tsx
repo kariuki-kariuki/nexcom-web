@@ -59,9 +59,9 @@ function ProductCard({
         <Textarea
           placeholder="Product description"
           label="Description"
-          minRows={3}
+          minRows={5}
+          autosize
           size='lg'
-          maxRows={4}
           classNames={{ input: classes.input }}
           value={product.description}
           onChange={(e) =>

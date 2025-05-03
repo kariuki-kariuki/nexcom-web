@@ -160,10 +160,10 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
                 categories={categories}
               />
             </Box>
-            <Box w={{ base: '100%', sm: '40%' }}>
+            <Box w={{ base: '100%', sm: '50%' }}>
               <Card shadow="lg" className={classes.card} h="100%" p={0}>
                 
-                <DropzoneButton setFiles={setFiles} />
+               {files.length < 1 &&  <DropzoneButton setFiles={setFiles} /> }
                 <Previews files={files} setFiles={setFiles} />
               </Card>
             </Box>

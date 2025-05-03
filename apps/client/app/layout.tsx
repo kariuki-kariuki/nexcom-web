@@ -96,10 +96,7 @@ export default function RootLayout({
                   <ScreenProvider>
                     <NewConversationProvider>
                       <Notifications />
-                      <Flex h="100vh">
-                        <SimpleNav />
-                        <div id="root" style={{ flex: 1}}>{children}</div>
-                      </Flex>
+                      <div id="root">{children}</div>
                     </NewConversationProvider>
                   </ScreenProvider>
                 </WebSocketProvider>

@@ -68,7 +68,7 @@ const Bar = ({activeConvoId}: BarProps) => {
           )}
         </Group>
         <Paper visibleFrom="sm" bg={'none'}>
-          <Miscelenious />
+          <Miscelenious convoId={activeConvoId} />
         </Paper>
       </Group>
       {activeConversation ? (

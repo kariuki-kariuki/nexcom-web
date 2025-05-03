@@ -1,11 +1,12 @@
 'use client'
-import React, { useEffect, useCallback, ReactNode, createContext, useState, useContext } from "react";
+import React, { useEffect, useCallback, ReactNode, createContext, useState, useContext, useMemo } from "react";
 import { ChatState, ConversationProps, NewMessage, PayloadMessage, UpdateProfile } from "../@types/app";
 import { useGlobalContext } from "../context/appContext";
 import { useSocketContext } from "./useSocket";
 import { datasource } from "../common/datasource";
 import { useGlobalStore } from "../context/global-store.provider";
 import useSound from "use-sound"
+import { usePathname } from "next/navigation";
 
 const initialState: ChatState = {
   conversations: []
@@ -29,7 +30,12 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const addMessage = useGlobalStore(state => state.addMessage);
   const updateMessage = useGlobalStore(state => state.updateMessage);
   const updateProfile = useGlobalStore(state => state.updateProfile);
-  const activeConversation = useGlobalStore(state => state.activeConversation);
+  const conversations = useGlobalStore(state => state.conversations);
+  const pathName = usePathname();
+
+  const activeConversation = useMemo(() => {
+    return conversations.find((conv) => `/chat/${conv.id}` === pathName);
+  }, [conversations, pathName]);
 
   const [play] = useSound('/sounds/message.mp3');
   const [playFx] = useSound('/sounds/level-up.mp3');

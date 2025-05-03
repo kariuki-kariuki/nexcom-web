@@ -1,7 +1,14 @@
 .main {
   height: 100%;
   background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-gray-8));
+}
 
+.mobile {
+  display: block;
+
+  &[data-active="true"] {
+    display: none;
+  }
 }
 
 .link {

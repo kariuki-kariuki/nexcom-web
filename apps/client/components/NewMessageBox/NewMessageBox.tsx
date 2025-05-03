@@ -4,7 +4,8 @@ import {
   Flex,
   Group,
   Paper,
-  Textarea
+  Textarea,
+  useMantineTheme
 } from '@mantine/core';
 import { useState } from 'react';
 import classes from './NewMessageBox.module.css';
@@ -20,6 +21,8 @@ import { FileWithPath } from '@mantine/dropzone';
 import FilePicker from '../ui/FilePicker';
 import MessageImagePreviews from '../Previews/MessageImagePrev';
 import { useRouter } from 'next/navigation';
+import { base } from '@faker-js/faker';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface INewMessageBox {
   productId?: string;
@@ -37,6 +40,8 @@ const NewMessageBox = ({ productId, margin, convoId}: INewMessageBox) => {
   const [files, setFiles] = useState<FileWithPath[]>([])
   const processedFiles = files.map((file) => ({ mimetype: file.type, buffer: file }))
   const router = useRouter();
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const handleSubmit = async () => {
     if (!message && files.length === 0) return;
 
@@ -99,8 +104,8 @@ const NewMessageBox = ({ productId, margin, convoId}: INewMessageBox) => {
               handleSubmit();
             }
           }}
-          minRows={3}
-          maxRows={3}
+          minRows={mobile ? 1 : 3}
+          maxRows={mobile ? 1 : 3}
           w={'100%'}
           bg="none"
           c={'white'}

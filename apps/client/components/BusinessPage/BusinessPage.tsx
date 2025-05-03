@@ -17,15 +17,16 @@ const BusinessPage = ({ shop }: IProps) => {
         </section>
         <div className={classes.innerCard}>
           <div className={classes.avatar}>
-            <Group align='center' justify='center' wrap='wrap'>
+            <Stack align='center' justify='center' gap="xl">
+
+              <div>
+                <Text fw="bold" fz="h1">{shop.name || 'ShopName'} - {shop.category?.name} </Text>
+              </div>
               <Group wrap='nowrap'>
-                <Avatar src={shop.user?.avatar?.signedUrl} size="lg" name={shop.user?.firstName}/>
+                <Avatar src={shop.user?.avatar?.signedUrl} size="lg" name={shop.user?.fullName} />
                 <Text>{`${shop.user?.firstName} ${shop.user?.lastName}`}</Text>
               </Group>
-              <div>
-                <Text fw="bold">{shop.name || 'ShopName'} - {shop.category?.name} </Text>
-              </div>
-            </Group>
+            </Stack>
           </div>
           <Paper bg="none" my="md">
             <div className={classes.flex}>

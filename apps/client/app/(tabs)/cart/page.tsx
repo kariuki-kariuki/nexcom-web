@@ -8,7 +8,6 @@ import { IconSearchOff } from '@tabler/icons-react';
 
 const Page = async () => {
   const res = await get<CartItem[]>('carts');
-  console.log(res)
   if(!res || res.length < 1) return <EmptyState icon={<IconSearchOff size={54} /> } message='No Items In cart' actionText='Shop Now' actionUrl='/business/product'/> 
   return (
     <Cart cartItems={res}/>

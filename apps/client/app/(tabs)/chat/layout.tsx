@@ -15,7 +15,7 @@ const ChatLayout = ({ children }: { children: ReactNode }) => {
   // Memoize to avoid recalculations
   const isHome = useMemo(() => pathName === '/chat', [pathName]);
   const isChat = useMemo(() => pathName.startsWith('/chat/'), [pathName]);
-
+  console.log('Render')
   return (
     <div className={classes.main}>
       <Paper

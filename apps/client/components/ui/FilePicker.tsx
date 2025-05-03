@@ -11,11 +11,11 @@ interface FilePickerProps {
 }
 const FilePicker = ({ files, setFiles, actionClick }: FilePickerProps) => {
   return (
-    <Menu >
+    <Menu position='top-start'>
       <MenuTarget>
            <Button variant="subtle" leftSection={<IconPaperclip />}>Attachment</Button>
       </MenuTarget>
-      <MenuDropdown bg="none" bd="none">
+      <MenuDropdown bg="none" bd="none" w={400}>
         {files.length === 0 && <DropzoneButton setFiles={setFiles} /> }
       </MenuDropdown>
     </Menu>

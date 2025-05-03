@@ -18,6 +18,7 @@
 
 .links {
   display: flex;
+  width: 100%;
 }
 
 .children {
