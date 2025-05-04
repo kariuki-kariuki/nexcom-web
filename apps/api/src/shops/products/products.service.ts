@@ -82,9 +82,19 @@ export class ProductsService {
   }
 
   async findPlain(id: ProjectIdType) {
-    return await this.productRespository.findOneBy({
-      id,
+    const product = await this.productRespository.findOne({
+      where: {
+        id,
+      },
+      relations: {
+        images: true,
+        product_sizes: true,
+        category: true,
+        shop: { user: true },
+        comments: true,
+      },
     });
+    return product;
   }
 
   async findOne(id: ProjectIdType, userAgent?: BrowserInfo) {
@@ -102,7 +112,7 @@ export class ProductsService {
       },
     });
     if (!product) {
-      throw new ForbiddenException('Action not allowed');
+      throw new ForbiddenException('Product Not Found');
     }
     if (userAgent) {
       const analytic = this.analyticRepository.create(userAgent);

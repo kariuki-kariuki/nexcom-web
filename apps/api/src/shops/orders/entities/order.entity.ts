@@ -23,18 +23,22 @@ export class Order {
   @PrimaryGeneratedColumn()
   orderNumber: number;
 
+  @Exclude()
   @Column()
   checkoutRequestId: string;
 
+  @Exclude()
   @Column()
   merchantRequestID: string;
 
   @Column()
   totalAmount: number;
 
+  @Exclude()
   @Column({ nullable: true })
   resultCode: number;
 
+  @Exclude()
   @Column({ nullable: true })
   resultDesc: string;
 

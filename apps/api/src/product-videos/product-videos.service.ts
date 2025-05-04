@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { ProductsService } from 'src/shops/products/products.service';
 import { Payload } from 'src/@types/chat/chat';
 import { AwsService } from 'src/aws/aws.service';
+import { ProductStatus } from 'src/@types/product-status';
 
 interface INewProduct {
   createProductVideoDto: CreateProductVideoDto;
@@ -55,6 +56,11 @@ export class ProductVideosService {
           comments: true,
         },
       },
+      where: {
+        product: {
+          status: ProductStatus.PUBLISHED,
+        },
+      },
     });
 
     return videos;
@@ -62,9 +68,13 @@ export class ProductVideosService {
 
   async findOne(id: string) {
     const video = await this.productVidsRepo.findOne({
-      where: { id },
+      where: { id, product: { status: ProductStatus.PUBLISHED } },
       relations: {
-        product: { shop: true, images: true, comments: { user: true } },
+        product: {
+          shop: { user: true },
+          images: true,
+          comments: { user: true },
+        },
       },
     });
 

@@ -65,6 +65,14 @@ export class ProductsController {
   @Roles(UserRoles.SHOP_ADMIN)
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
+  @Get('edit/:id')
+  productToEdit(@Param('id') id: ProjectIdType) {
+    return this.productsService.findPlain(id);
+  }
+
+  @Roles(UserRoles.SHOP_ADMIN)
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
