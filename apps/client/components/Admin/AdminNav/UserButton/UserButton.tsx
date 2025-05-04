@@ -1,12 +1,10 @@
 import { UnstyledButton, Group, Avatar, Text, rem } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 import classes from './UserButton.module.css';
-import { useContext } from 'react';
-import { UserContextType } from '@/lib/@types/app';
-import { AppContext } from '@/lib/context/appContext';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 export function UserButton() {
-  const { user } = useContext(AppContext) as UserContextType;
+  const user = useGlobalStore((state) => state.user);
 
   return (
     <UnstyledButton className={classes.user} py={'md'}>

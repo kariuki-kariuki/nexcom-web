@@ -4,8 +4,9 @@ import { Box, Container, Flex, Paper } from '@mantine/core';
 import { StatsGrid } from './components/StatsGrid/StatsGrid';
 import Header from './components/Header/Header';
 import classes from './Admin.module.css';
-import { ProductsTable } from '../Products/Products';
+import { ProductsTable } from '../Products/ProductsTable';
 import { Product } from '@/lib/@types/shop';
+import ProductAnalyticsTable from '../Products/ProductAnalyticsTable/ProductAnalyticsTable';
 
 interface IPros {
   products: Product[]
@@ -17,7 +18,7 @@ function Admin({products}: IPros) {
       >
         <Header active={active} setActive={setActive} />
           <StatsGrid />
-          <ProductsTable products={products}/>
+          <ProductAnalyticsTable products={products}/>
       </Paper>
   );
 }

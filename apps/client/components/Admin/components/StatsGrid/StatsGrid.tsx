@@ -6,7 +6,7 @@ import {
   IconCoin,
   IconArrowUpRight,
   IconArrowDownRight,
-  IconEye
+  IconDeviceAnalytics
 } from '@tabler/icons-react';
 import classes from './StatsGrid.module.css';
 import { datasource } from '@/lib/common/datasource';
@@ -94,9 +94,9 @@ export function StatsGrid() {
         >
           <Group justify="space-between">
             <Text size="xs" c="dimmed" className={classes.title}>
-              Views
+              Interactions
             </Text>
-            <IconEye className={classes.icon} size="1.4rem" stroke={1.5} />
+            <IconDeviceAnalytics className={classes.icon} size="1.4rem" stroke={1.5} />
           </Group>
 
           <Group align="flex-end" gap="xs" mt={25}>
@@ -108,7 +108,7 @@ export function StatsGrid() {
               className={classes.diff}
             >
               <span>{percentege}%</span>
-              {/* <DiffIco size="1rem" stroke={1.5} /> */}
+              {analytics && analytics[0]?.count > 0 ? <IconArrowUpRight size={'1rem'} stroke={1.5} /> : <IconArrowDownRight size={'1rem'} stroke={1.5} />}
             </Text>
           </Group>
 
