@@ -1,22 +1,21 @@
 'use client';
 import { Box, Avatar, Stack, useMantineColorScheme, useMantineTheme } from '@mantine/core';
-import { IconHome, IconShoppingBag, IconShoppingCart, IconMessageCircle, IconDiamond, IconSunFilled, IconSunMoon, IconLogout, IconVideo, IconPlayerPlay, IconListTree, IconBriefcaseFilled } from '@tabler/icons-react';
+import { IconSunFilled, IconSunMoon, IconLogout, IconListTree, IconBriefcaseFilled, IconMessageCircleFilled, IconPlayerPlayFilled, IconShoppingCartFilled, IconShoppingBagPlus, IconLogin, IconDiamondFilled } from '@tabler/icons-react';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
 import classes from './styles.module.css';
-import { useGlobalContext } from '@/lib/context/appContext';
 import logout from '@/utils/logout';
 import Dashboard from '../Profile/ProfileDashboard';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const defaultLinks = [
-  { label: 'Chats', link: '/chat', icon: IconMessageCircle },
-  { label: 'Videos', link: '/videos', icon: IconPlayerPlay },
+  { label: 'Chats', link: '/chat', icon: IconMessageCircleFilled },
+  { label: 'Videos', link: '/videos', icon: IconPlayerPlayFilled },
   { label: 'Business', link: '/business', icon: IconBriefcaseFilled },
-  { label: 'Products', link: '/business/product', icon: IconShoppingBag },
-  { label: 'Cart', link: '/cart', icon: IconShoppingCart },
+  { label: 'Products', link: '/business/product', icon: IconShoppingBagPlus },
+  { label: 'Cart', link: '/cart', icon: IconShoppingCartFilled },
 ];
 
 const dashboardLinks = [
@@ -24,7 +23,8 @@ const dashboardLinks = [
 ];
 
 const SimpleNav = () => {
-  const { user } = useGlobalContext();
+  const user = useGlobalStore((state) => state.user);
+  const setUser = useGlobalStore((state) => state.setUser)
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [opened, { toggle }] = useDisclosure();
   const setConversations = useGlobalStore((store) => store.setConversations);
@@ -35,13 +35,13 @@ const SimpleNav = () => {
 
   // Memoize to avoid recalculations
   const isChat = useMemo(() => pathName.startsWith('/chat/'), [pathName]);
-
+  const router = useRouter();
 
   // Create links array based on conditions
   const links = React.useMemo(() => {
     let result = [...defaultLinks];
     if (user?.shop) {
-      result = [{ label: 'Dashboard', link: '/dashboard', icon: IconDiamond }, ...result];
+      result = [{ label: 'Dashboard', link: '/dashboard', icon: IconDiamondFilled }, ...result];
     }
     if (dashboard) {
       result = [...dashboardLinks, ...result];
@@ -87,12 +87,19 @@ const SimpleNav = () => {
             className={classes.link}
             onClick={(event) => {
               event.preventDefault();
-              logout();
-              setConversations([]);
+
+              if (user) {
+                logout();
+                setUser(null)
+                setConversations([]);
+              } else {
+                router.push('/auth/login')
+              }
+
             }}
             style={{ cursor: 'pointer', background: 'none', border: 'none' }}
           >
-            <IconLogout className={classes.linkIcon} stroke={1.5} />
+            {user ? <IconLogout color="red" className={classes.linkIcon} stroke={1.5} /> : <IconLogin color="blue" className={classes.linkIcon} stroke={1.5} />}
           </Box>
         </Stack>
       </Stack>

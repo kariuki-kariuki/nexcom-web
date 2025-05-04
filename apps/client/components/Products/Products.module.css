@@ -3,17 +3,15 @@
 }
 
 .root {
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+  /* background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0)); */
   box-shadow: var(--mantine-shadow-md);
   border: rem(1px) solid light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-4));
 }
 
 .indicator {
-  background-image: linear-gradient(
-    to right,
-    var(--mantine-color-coco-4),
-    var(--mantine-color-coco-4)
-  );
+  background-image: linear-gradient(to right,
+      var(--mantine-color-coco-4),
+      var(--mantine-color-coco-4));
 }
 
 .control {
@@ -23,6 +21,7 @@
 }
 
 .label {
+
   &,
   &:hover {
     &[data-active] {
@@ -30,6 +29,11 @@
     }
   }
 }
+
 .notification {
   background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-1));
+
+  &[data-active="true"] {
+    background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
+  }
 }

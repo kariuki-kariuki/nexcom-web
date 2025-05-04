@@ -46,6 +46,8 @@ export type Product = {
   shop?: Shop
   user?: GlobalUser
   comments: ProductComment[]
+  analytics?: AnalyticInterface[]
+  cartItems: CartItem[];
 };
 
 
@@ -65,6 +67,12 @@ export interface IProduct {
   description: string;
   price: number;
   image: string[];
+}
+
+interface Order {
+  id: string;
+  orderNumber: number;
+  amount: number;
 }
 
 
@@ -93,6 +101,16 @@ export interface CartItem {
   customer_description: string;
   product: ShopProduct;
 }
+
+export interface AnalyticInterface {
+  id: string;
+  product: Product;
+  created_at: string;
+}
+
+export interface ProductAnalytics extends Product {
+  analytics: AnalyticInterface[];
+} 
 
 export interface SubCategory {
   id: number;

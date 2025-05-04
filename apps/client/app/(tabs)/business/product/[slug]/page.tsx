@@ -20,6 +20,7 @@ export async function generateMetadata({ params }: Param): Promise<Metadata> {
     | Ask`,
     description: product?.description,
     openGraph: {
+      url: `https://nexcom-ke.vercel.app/business/product/${product.id}`,
       images: product?.images.map((image) => ({
         url: image.signedUrl,
         alt: image.altText,

@@ -95,7 +95,7 @@ export function Row({ prd, setProducts }: IRow) {
     <Table.Tr>
       <Table.Td>
         <Group gap="sm" wrap="nowrap">
-          <Avatar size={50} src={product.images[0]?.signedUrl} radius="md" />
+          <Avatar size={50} src={product.images[0]?.signedUrl} name={product.name} radius="md" />
 
         </Group>
       </Table.Td>

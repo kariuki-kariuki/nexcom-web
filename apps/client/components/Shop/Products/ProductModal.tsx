@@ -13,19 +13,19 @@ import {
   useMantineColorScheme,
   useMantineTheme
 } from '@mantine/core';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Product, Shop } from '@/lib/@types/shop';
 import ImageCarousel from '../shopcomponents/ImageCarousel';
 import { IconBasketPlus, IconTool } from '@tabler/icons-react';
-import { AppContext } from '@/lib/context/appContext';
 import classes from './ProductModal.module.css';
 import { useMediaQuery } from '@mantine/hooks';
-import { GlobalUser, UserContextType } from '@/lib/@types/app';
+import { GlobalUser } from '@/lib/@types/app';
 import { datasource } from '@/lib/common/datasource';
 import { notifications } from '@mantine/notifications';
 import Link from 'next/link';
 import ContactSeller from '@/components/ContactSeller/ContactSeller';
 import CreateVideo from '@/components/CreateVideo/CreateVideo';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 interface Iprops {
   opened: boolean;
   toggle: () => void;
@@ -37,7 +37,7 @@ interface Iprops {
 function ProductModal({ opened, toggle, product, owner, shop }: Iprops) {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useContext(AppContext) as UserContextType;
+  const user = useGlobalStore((state) => state.user);
   const [selectedPrice, setSelectedPrice] = useState(product.product_sizes[0].id)
   const sizes = product.product_sizes;
   const { colorScheme } = useMantineColorScheme()
@@ -83,7 +83,7 @@ function ProductModal({ opened, toggle, product, owner, shop }: Iprops) {
       }}
       classNames={{ body: classes.body, header: classes.header, content: classes.content }}
     >
-      {product && <ContactSeller product={product} owner={owner} shop={shop} />}
+      {product && <ContactSeller product={product} />}
       <LoadingOverlay
         visible={isLoading}
         zIndex={1000}

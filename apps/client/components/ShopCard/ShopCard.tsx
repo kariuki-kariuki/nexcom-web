@@ -2,18 +2,17 @@
 import { Avatar, Button, Group, Stack, Text } from '@mantine/core'
 import React from 'react'
 import classes from './ShopCard.module.css';
-import QRCode from 'react-qr-code'
 import Link from 'next/link';
-import { useGlobalContext } from '@/lib/context/appContext';
 import { IconMessage } from '@tabler/icons-react';
 import { Shop } from '@/lib/@types/shop';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 
 interface IProps {
   shop: Shop
 }
 const ShopCard = ({ shop }: IProps) => {
-  const { user } = useGlobalContext()
+  const user = useGlobalStore((state) => state.user);
   return (
     <div className={classes.card}>
       <div className={classes.innerCard}>

@@ -1,10 +1,8 @@
 import { Group, Avatar, Text } from '@mantine/core';
-import { useContext } from 'react';
-import { AppContext } from '../../../lib/context/appContext';
-import { UserContextType } from '@/lib/@types/app';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 const UserButton = () => {
-  const { user } = useContext(AppContext) as UserContextType;
+  const user = useGlobalStore((state) => state.user);
 
   return (
     <Group bg={'none'}>

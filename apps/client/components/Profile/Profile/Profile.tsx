@@ -1,12 +1,11 @@
 import { Avatar, Button, Card, Group, Text } from '@mantine/core';
-import { useContext } from 'react';
-import { AppContext } from '../../../lib/context/appContext';
 import classes from './Profile.module.css';
 import { CardsCarousel } from '../CardsCarousel/CardsCarousel';
 import PictureUpdate from '../PictureUpdate/PictureUpdate';
-import { GlobalUser, UserContextType } from '@/lib/@types/app';
+import { GlobalUser } from '@/lib/@types/app';
 import Link from 'next/link';
-import { IconArrowsLeftRight, IconSwitch } from '@tabler/icons-react';
+import { IconArrowsLeftRight } from '@tabler/icons-react';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 const stats = [
   { value: '34K', label: 'Followers' },
   { value: '187', label: 'Follows' },
@@ -14,7 +13,7 @@ const stats = [
 ];
 
 function Profile({ userClicked }: { userClicked: GlobalUser }) {
-  const { user } = useContext(AppContext) as UserContextType;
+  const user = useGlobalStore((state) => state.user);
   const active = userClicked.id === user?.id;
   userClicked.lastName = 'Doe';
   const items = stats.map((stat) => (

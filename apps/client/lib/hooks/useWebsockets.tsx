@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useCallback, ReactNode, createContext, useState, useContext, useMemo } from "react";
-import { ChatState, ConversationProps, NewMessage, PayloadMessage, UpdateProfile } from "../@types/app";
-import { useGlobalContext } from "../context/appContext";
+import { ChatState, ConversationProps, GlobalUser, NewMessage, PayloadMessage, UpdateProfile } from "../@types/app";
 import { useSocketContext } from "./useSocket";
 import { datasource } from "../common/datasource";
 import { useGlobalStore } from "../context/global-store.provider";
@@ -32,6 +31,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const updateProfile = useGlobalStore(state => state.updateProfile);
   const conversations = useGlobalStore(state => state.conversations);
   const pathName = usePathname();
+  const setUser = useGlobalStore(state => state.setUser);
 
   const activeConversation = useMemo(() => {
     return conversations.find((conv) => `/chat/${conv.id}` === pathName);
@@ -40,7 +40,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const [play] = useSound('/sounds/message.mp3');
   const [playFx] = useSound('/sounds/level-up.mp3');
   const socket = useSocketContext();
-  const { user, isLoggedIn } = useGlobalContext();
+  const user = useGlobalStore((state) => state.user);
 
   const handleIncomingMessage = useCallback((res: NewMessage) => {
     try {
@@ -81,16 +81,19 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const getUser = async () => {
-    const { data } = await datasource.get<ConversationProps[]>('conversations')
+    const { data } = await datasource.get<GlobalUser>('auth/me')
     if (data) {
-      (data)
+      setUser(data)
     }
   }
 
   useEffect(() => {
+    getConversations()
+  }, [user])
 
-    getConversations();
-  }, [isLoggedIn, user])
+  useEffect(() => {
+    getUser()
+  }, [])
 
   useEffect(() => {
     if (!user) return;

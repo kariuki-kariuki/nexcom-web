@@ -34,6 +34,7 @@ const NewMessageBox = ({ productId, margin, convoId}: INewMessageBox) => {
   const socket = useSocketContext()
   const conversations = useGlobalStore(state => state.conversations);
   const activeConversation = conversations.find((conv) => conv.id === convoId);
+  const inquiryConversation = useGlobalStore((state) => state.activeConversation)
   const { newConversation, setNewConversation } = useNewConverSationContext();
   const addMessage = useGlobalStore((state) => state.addMessage)
   const addConversation = useGlobalStore((state) => state.addConversation)
@@ -45,12 +46,12 @@ const NewMessageBox = ({ productId, margin, convoId}: INewMessageBox) => {
   const handleSubmit = async () => {
     if (!message && files.length === 0) return;
 
-    if (activeConversation) {
+    if (activeConversation || inquiryConversation) {
       const messageBody = {
         message,
         conversationId: activeConversation?.id,
         productId,
-        receiverId: activeConversation.users[0].id,
+        receiverId: activeConversation?.users[0].id || inquiryConversation?.users[0].id,
         files: processedFiles,
       };
 
@@ -109,7 +110,7 @@ const NewMessageBox = ({ productId, margin, convoId}: INewMessageBox) => {
           w={'100%'}
           bg="none"
           c={'white'}
-          disabled={activeConversation || newConversation ? false : true}
+          disabled={activeConversation || newConversation || inquiryConversation ? false : true}
         />
         <Flex w={'100%'} py={'md'} align={'center'} justify="space-between" gap={'md'}>
           <Group gap="md">

@@ -1,6 +1,5 @@
 .nav {
   min-height: 80px;
-  flex: 1;
   border-bottom: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-gray-8));
   padding: 0px var(--mantine-spacing-md);
   display: flex;

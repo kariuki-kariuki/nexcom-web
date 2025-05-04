@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { IconDots, IconTrash } from '@tabler/icons-react';
 import cx from 'clsx';
 import {
@@ -23,12 +23,11 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { UserContextType } from '../../lib/@types/app';
 import { Message } from '../../lib/@types/messages';
 import ReadMessage from './ReadMessage';
 import classes from './Messages.module.css';
-import { AppContext } from '@/lib/context/appContext';
 import { datasource } from '@/lib/common/datasource';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 interface IRow {
   message: Message;
@@ -36,7 +35,7 @@ interface IRow {
 }
 const Rows = ({ message, handleUpdate }: IRow) => {
   const [opened, { toggle }] = useDisclosure(false);
-  const { user } = useContext(AppContext) as UserContextType;
+  const user = useGlobalStore((state) => state.user);
   return (
     <Table.Tr key={message.id}>
       <Modal opened={opened} onClose={toggle}>
@@ -109,7 +108,7 @@ const Rows = ({ message, handleUpdate }: IRow) => {
 
 const NotificationRows = ({ message, handleUpdate }: IRow) => {
   const [opened, { toggle }] = useDisclosure(false);
-  const { user } = useContext(AppContext) as UserContextType;
+  const user = useGlobalStore((state) => state.user);
   return (
     <Notification
       key={message.id}

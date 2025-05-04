@@ -16,12 +16,11 @@ import {
 import classes from './Signup.module.css';
 import PasswordStrength from './PasswordStrenght';
 import Link from 'next/link';
-import SimpleHeader from '../SimpleHeader/SimpleHeader';
-import { useGlobalContext } from '@/lib/context/appContext';
 import { datasource } from '@/lib/common/datasource';
 import setToken from '@/utils/setToken';
 import { useRouter } from 'next/navigation';
 import { AuthResponse } from '@/lib/@types/app';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 export interface IDetails {
   firstName: string,
@@ -31,8 +30,7 @@ export interface IDetails {
 }
 
 function SignUp() {
-
-  const { setIsLoggedIn, setUser } = useGlobalContext()
+  const setUser = useGlobalStore(state => state.setUser)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
@@ -51,11 +49,10 @@ function SignUp() {
     if (!error && data && !loading) {
       await setToken(data.token).then(() => {
         setUser(data.user)
-        setIsLoggedIn(true)
         router.push('/chat')
         setLoading(false)
       })
-      
+
     }
     if (error) {
       setError(error)

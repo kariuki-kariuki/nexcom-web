@@ -2,6 +2,7 @@
   background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-1)) ;
   height: 100vh;
   display: flex;
+  overflow: auto;
   flex-flow: column;
 }
 

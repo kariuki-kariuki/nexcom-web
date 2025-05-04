@@ -16,12 +16,11 @@ import {
 } from '@mantine/core';
 import classes from './Login.module.css';
 import Link from 'next/link';
-import SimpleHeader from '../SimpleHeader/SimpleHeader';
-import { useGlobalContext } from '@/lib/context/appContext';
 import { datasource } from '@/lib/common/datasource';
 import setToken from '@/utils/setToken';
 import { useRouter } from 'next/navigation';
 import { AuthResponse } from '@/lib/@types/app';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 function Login() {
   const [loginData, setLoginData] = useState({
@@ -31,7 +30,7 @@ function Login() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { setIsLoggedIn, setUser } = useGlobalContext();
+  const setUser = useGlobalStore(state => state.setUser)
   const handleSubmit = async () => {
     setLoading(true);
     setError('');
@@ -39,7 +38,6 @@ function Login() {
 
     if (!error && !loading && data) {
       await setToken(data.token).then(() => {
-        setIsLoggedIn(true);
         localStorage.setItem('token', data.token);
         setUser(data.user);
         setLoading(false);
@@ -74,15 +72,15 @@ function Login() {
               onChange={(e) => setLoginData(prev => ({ ...prev, email: e.target.value }))}
             />
           </InputWrapper>
-            <PasswordInput
-              required
-              w={'100%'}
-              size="xl"
-              value={loginData.password}
-              onChange={(e) => setLoginData(prev => ({ ...prev, password: e.target.value }))}
-              placeholder="Password"
-              classNames={{ input: classes.input }}
-            />
+          <PasswordInput
+            required
+            w={'100%'}
+            size="xl"
+            value={loginData.password}
+            onChange={(e) => setLoginData(prev => ({ ...prev, password: e.target.value }))}
+            placeholder="Password"
+            classNames={{ input: classes.input }}
+          />
           <Stack justify="center" gap={"md"} >
             <Text>Don't have an account? <Link href="/auth/signup">Signup.</Link></Text>
             <Button type="submit" size="lg" radius="xl" className={classes.btn} onClick={handleSubmit}>

@@ -8,13 +8,14 @@ import {
 } from '@mantine/core';
 import { useState } from 'react';
 import classes from './PictureUpdate.module.css';
-import { useGlobalContext } from '../../../lib/context/appContext';
 import { useSocketContext } from '@/lib/hooks/useSocket';
 import { GlobalUser } from '@/lib/@types/app';
 import { FileWithPath } from '@mantine/dropzone';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 const PictureUpdate = ({ image }: { image: string }) => {
   const [value, setValue] = useState<FileWithPath | null>(null);
-  const { user, setUser } = useGlobalContext()
+  const user = useGlobalStore(state => state.user)
+    const setUser = useGlobalStore(state => state.setUser)
   const socket = useSocketContext()
   const handleSubmit = async () => {
     if (value) {

@@ -10,7 +10,6 @@ const ShopComponent = ({shops}: IProps) => {
   return (
     <div className={classes.main}>
       {shops && shops.map(shop => <ShopCard key={shop.id} shop={shop}/>)}
-      
     </div>
   )
 }

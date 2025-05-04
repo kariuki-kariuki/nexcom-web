@@ -5,7 +5,6 @@ import { LinksGroup } from './NavbarLinksGroup';
 import MenuDrop from '@/components/Menudrop/MenuDrop';
 import { Category } from '@/lib/@types/shop';
 import { useDisclosure } from '@mantine/hooks';
-import { IconXboxA, IconXboxXFilled } from '@tabler/icons-react';
 import { datasource } from '@/lib/common/datasource';
 import { useState, useEffect } from 'react';
 import SimpleHeaderToggle from '@/components/SimpleHeader/SimpleHeaderToggle';
@@ -30,10 +29,9 @@ function NavbarNestedT({ categories, toggle, opened }: INavbar) {
   return (
     <nav className={classes.navbar}>
       <div className={classes.header}>
-        <Group justify="space-between">
+        <Group justify="space-between" h="50">
           <Code fw={700}>Filter</Code>
           <SearchByImage />
-
           {toggle &&
             <Burger opened={opened} onClick={toggle} />
           }

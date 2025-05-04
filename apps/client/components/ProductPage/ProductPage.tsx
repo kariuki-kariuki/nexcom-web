@@ -1,7 +1,6 @@
 'use client';
 
 import { datasource } from '@/lib/common/datasource';
-import { useGlobalContext } from '@/lib/context/appContext';
 import { useMantineTheme, LoadingOverlay, Card, Flex, Box, Group, Button, Text, SegmentedControl, ScrollArea, useMantineColorScheme, Paper } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
@@ -15,12 +14,13 @@ import ContactSeller from '../ContactSeller/ContactSeller';
 import ProductRating from '../Shop/ProductRating/ProductRating';
 import CreateVideo from '../CreateVideo/CreateVideo';
 import BackButton from '../ui/BackButton';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 const ProductPage = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedPrice, setSelectedPrice] = useState(product.product_sizes[0].id)
-  const { user } = useGlobalContext();
+  const user = useGlobalStore((state) => state.user);
   const { colorScheme } = useMantineColorScheme()
   const price = product.product_sizes.find((size) => size.id === selectedPrice)?.price;
   const sizes = product.product_sizes;
@@ -56,7 +56,7 @@ const ProductPage = ({ product }: { product: Product }) => {
         loaderProps={{ color: 'teal.7', type: 'bars' }}
       />
       <BackButton />
-      {(owner && owner.id !== user?.id && product.shop) && <ContactSeller product={product} owner={owner} shop={product.shop} />}
+      {(owner && owner.id !== user?.id && product.shop) && <ContactSeller product={product} />}
       <Paper className={classes.container}>
         <Card className={classes.grid} withBorder my={'md'} w={{ base: '100%', sm: '80%', md: '60%', lg: '50%' }}>
           <Group justify='space-between'>

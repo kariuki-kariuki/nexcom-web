@@ -6,9 +6,9 @@ import get from '../../../../../../utils/fetch';
 import { Category } from '../../../../../../lib/@types/category';
 
 async function Page({ params }: { params: { id: number } }) {
-  const product = await get<Product>(`products/${params.id}`);
+  const product = await get<Product>(`products/edit/${params.id}`);
   const categories = await get<Category[]>('categories');
-  if (!product || !categories) redirect('/products');
+  if (!product || !categories) redirect('/dashboard/products');
   return (
     <div>
       <EditProduct productEdit={product} categories={categories} />

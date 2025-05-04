@@ -1,12 +1,10 @@
 import { Group, Avatar, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { useContext } from 'react';
-import { AppContext } from '../../lib/context/appContext';
 import Dashboard from '../Profile/ProfileDashboard';
-import { UserContextType } from '@/lib/@types/app';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 export default function SmallComponent() {
-  const { user } = useContext(AppContext) as UserContextType;
+  const user = useGlobalStore((state) => state.user);
   const [opened, { open, close }] = useDisclosure(false);
   return (
     <div>

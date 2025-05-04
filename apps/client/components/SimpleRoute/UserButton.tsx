@@ -17,13 +17,14 @@ import { notifications } from '@mantine/notifications';
 import { UserContextType } from '../../lib/@types/app';
 import { UploadImage } from './uploadImage';
 import classes from './UserButton.module.css';
-import { AppContext } from '@/lib/context/appContext';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 interface Res {
   link: string;
 }
 export function UserButton() {
-  const { user, setUser } = useContext(AppContext) as UserContextType;
+  const user = useGlobalStore(state => state.user)
+  const setUser = useGlobalStore(state => state.setUser)
   const [value, setValue] = useState<File | null>(null);
   const [opened, { toggle }] = useDisclosure();
   const handleUpload = async () => {

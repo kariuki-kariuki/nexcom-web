@@ -4,11 +4,11 @@ import { Avatar, Button, Container, FileInput, Flex, Group, Input, InputWrapper,
 import { FileWithPath } from '@mantine/dropzone'
 import React, { useState } from 'react'
 import classes from './CreateShop.module.css';
-import { useGlobalContext } from '@/lib/context/appContext';
 import NewCategory from '@/components/NewProduct/NewCategory';
 import { datasource } from '@/lib/common/datasource';
 import setToken from '@/utils/setToken';
 import { useRouter } from 'next/navigation';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
   const [categories, setCategories] = useState(categoriesdb)
@@ -21,7 +21,7 @@ const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
   })
   const [error, setError] = useState('')
   const [file, setFile] = useState<FileWithPath | null>(null)
-  const { user } = useGlobalContext()
+  const user = useGlobalStore((state) => state.user);
   const category = categories.find((category) => category.id === shop.categoryId)
   const [isloading, setIsLoading] = useState(false);
   const router = useRouter()

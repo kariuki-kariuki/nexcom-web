@@ -1,6 +1,5 @@
 'use client';
 
-import { useGlobalContext } from '@/lib/context/appContext';
 import { Flex, Stack } from '@mantine/core';
 import { IconDiamond, IconLogout, IconMessage, IconShoppingCart } from '@tabler/icons-react';
 import Link from 'next/link';
@@ -12,10 +11,9 @@ import logout from '@/utils/logout';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 function TabsNavigation() {
-    const { user } = useGlobalContext();
+    const user = useGlobalStore((state) => state.user);
     const pathname = usePathname();
     const setConversations = useGlobalStore((store) => store.setConversations)
-
 
     const getPathName = (route: string) => {
         return pathname.startsWith(route)

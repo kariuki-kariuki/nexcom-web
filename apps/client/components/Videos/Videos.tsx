@@ -10,7 +10,7 @@ interface IProps { videos: ProductVideo[], slug: string }
 
 const Videos = ({ videos, slug }: IProps) => {
   return (
-    <Container className={classes.main} size="xl">
+    <Container className={classes.main} size="xl" pt="xl">
       <SearchButton slug={slug}/>
       <div className={classes.videos}>
         {videos.map(video => <MiniPlayer video={video} key={video.id} />)}

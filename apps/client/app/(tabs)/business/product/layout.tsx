@@ -1,6 +1,7 @@
 import { NavbarNested } from '@/components/Shop/ShopNav/NavbarNested'
 import React, { ReactNode } from 'react'
 import classes from './styles.module.css'
+import SimpleRoute from '@/components/SimpleRoute/SimpleRoute'
 const layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className={classes.content}>
@@ -8,6 +9,7 @@ const layout = ({ children }: { children: ReactNode }) => {
         <NavbarNested />
       </div>
       <div className={classes.container}>
+        <SimpleRoute />
         {children}
       </div>
     </div>

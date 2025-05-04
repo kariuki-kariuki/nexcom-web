@@ -21,7 +21,6 @@ import classes from './NewMessage.module.css';
 import { GlobalUser } from '@/lib/@types/app';
 import { datasource } from '@/lib/common/datasource';
 import { notifications } from '@mantine/notifications';
-import { useGlobalContext } from '@/lib/context/appContext';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 interface DProps {
@@ -36,7 +35,7 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
   const { setNewConversation } = useNewConverSationContext();
   const conversations = useGlobalStore((store) => store.conversations);
   const [loading, setLoading] = useState(false)
-  const { user } = useGlobalContext()
+  const user = useGlobalStore((state) => state.user);
   const [error, setError] = useState('')
   const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
   const usersFound = users?.map((person) => (

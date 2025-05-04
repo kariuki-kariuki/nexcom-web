@@ -9,7 +9,6 @@ import React, {
   useState
 } from 'react';
 import { ChatAction, ChatState, ConversationProps } from '../@types/app';
-import { useGlobalContext } from './appContext';
 import { datasource } from '../common/datasource';
 import { MessageState } from '../common/common';
 
@@ -85,7 +84,6 @@ function chatReducer(state: ChatState, action: ChatAction) {
 
 export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(chatReducer, initialState);
-  const { isLoggedIn } = useGlobalContext();
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -105,7 +103,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
 
     fetchConverSations();
 
-  }, [isLoggedIn]);
+  }, []);
 
   return (
     <ChatContext.Provider value={{ state, dispatch, isLoading }}>

@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { IconCirclePlusFilled } from '@tabler/icons-react';
 import { Button, Container, Group, Text } from '@mantine/core';
-import { ProductsTable } from '../../../../components/Products/Products';
+import { ProductsTable } from '../../../../components/Products/ProductsTable';
 import { Product, ShopWithProducts } from '../../../../lib/@types/shop';
 import get from '../../../../utils/fetch';
 

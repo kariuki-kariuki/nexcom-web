@@ -40,11 +40,12 @@ export function ProductsTable({ products }: { products: Product[] }) {
       if (active.toLowerCase() === 'all') return true;
       return active.toLowerCase() === product.status.toLowerCase();
     })
-    .map((product) => (
+    .map((product, index) => (
       <RowNotification
         prd={product}
         key={product.id}
         setProducts={setProducts}
+        index={index}
       />
     ));
   return (

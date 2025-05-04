@@ -30,7 +30,7 @@ export default withBundleAnalyzer({
         permanent: false
       },
       {
-        source: '/business/product/tag',
+        source: '/business/product/tags',
         destination: '/business/product/tags/all',
         permanent: false
       },

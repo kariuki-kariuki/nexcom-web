@@ -30,9 +30,10 @@ import { datasource } from '@/lib/common/datasource';
 interface IRow {
   prd: Product;
   setProducts: (updater: (products: Product[]) => Product[]) => void;
+  index: number
 }
 
-export function RowNotification({ prd, setProducts }: IRow) {
+export function RowNotification({ prd, setProducts,index }: IRow) {
   const [product, setPrd] = useState(prd);
   const handleDelete = async (id: string) => {
       const { data, error } = await datasource.delete(`products/${id}`);
@@ -91,7 +92,6 @@ export function RowNotification({ prd, setProducts }: IRow) {
     }
   return (
     <Notification
-      title={product.name}
       withCloseButton={false}
       color={
         product.status === ProductStatus.PUBLISHED
@@ -100,13 +100,13 @@ export function RowNotification({ prd, setProducts }: IRow) {
             ? 'orange.9'
             : 'red.9'
       }
-      mb="xs"
       classNames={{ root: classes.notification, body: classes.notification }}
+      data-active={index % 2 === 0}
     >
-      <div>
-        <Group gap="sm" wrap="nowrap" justify="space-between">
-          <Avatar size={70} src={product.images[0]?.url} radius="md" />
+        <Group gap="sm" wrap="nowrap" justify="space-between" className={classes.notification} data-active={index % 2 === 0}>
+          <Avatar size={70} src={product.images[0]?.signedUrl} name={product.name} radius="md" />
           <Stack w="60%">
+            <Text>{product.name}</Text>
             <Text size="sm" fw={500} lineClamp={1}>
               {product.description}
             </Text>
@@ -119,7 +119,7 @@ export function RowNotification({ prd, setProducts }: IRow) {
               </MenuTarget>
               <MenuDropdown>
                 <Link
-                  href={`products/edit/${product.id}`}
+                  href={`/dashboard/products/edit/${product.id}`}
                   style={{ textDecoration: 'none' }}
                 >
                   <MenuItem
@@ -182,7 +182,6 @@ export function RowNotification({ prd, setProducts }: IRow) {
             </Menu>
           </div>
         </Group>
-      </div>
     </Notification>
   );
 }

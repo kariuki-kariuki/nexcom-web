@@ -8,13 +8,13 @@ import React from 'react'
 import Dashboard from '../Profile/ProfileDashboard';
 import classes from './Apps.module.css';
 import { useDisclosure } from '@mantine/hooks';
-import { useGlobalContext } from '@/lib/context/appContext';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 const Apps = () => {
   const [opened, { open, close }] = useDisclosure();
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
-  const { user, setUser } = useGlobalContext();
+  const user = useGlobalStore(state => state.user)
+  const setUser = useGlobalStore(state => state.setUser)
   const setConversations = useGlobalStore((state) => state.setConversations)
 
   return (

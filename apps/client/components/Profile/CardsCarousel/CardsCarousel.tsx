@@ -5,17 +5,17 @@ import { CarouselCard } from '../CarouselCard/CarouselCard';
 import classes from './CardsCarousel.module.css';
 import { IconCirclePlusFilled } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
-import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../../../lib/context/appContext';
-import { GlobalUser, UserContextType } from '@/lib/@types/app';
+import { useEffect, useState } from 'react';
+import { GlobalUser } from '@/lib/@types/app';
 import { datasource } from '@/lib/common/datasource';
 import { notifications } from '@mantine/notifications';
 import Link from 'next/link';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 export interface IProps {
   products: ShopProduct[];
 }
 export function CardsCarousel({ userClicked }: { userClicked: GlobalUser }) {
-  const { user } = useContext(AppContext) as UserContextType;
+  const user = useGlobalStore((state) => state.user);
   const [shop, setShop] = useState<ShopWithProducts | null>(null);
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);

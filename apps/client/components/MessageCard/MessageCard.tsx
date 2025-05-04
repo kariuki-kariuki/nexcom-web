@@ -1,12 +1,11 @@
 import classes from './MessageCard.module.css';
-import { Box, Card, Group, Image, Paper, rem, Text } from '@mantine/core';
-import { useGlobalContext } from '../../lib/context/appContext';
+import { Box, Card, Group, Paper, rem, Text } from '@mantine/core';
 import { MessageState } from '../../lib/common/common';
 import { IconCheck, IconChecks } from '@tabler/icons-react';
 import { Message } from '@/lib/@types/app';
-import Link from 'next/link';
 import OgMessage from '../OgMessage/OgMessage';
 import MessageImages from '../ui/MessageImages';
+import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 interface Props {
   message: Message;
@@ -14,7 +13,7 @@ interface Props {
 
 // Sent and received message card
 const MessageCard = ({ message }: Props) => {
-  const { user } = useGlobalContext();
+  const user = useGlobalStore((state) => state.user);
   const status = message.user.id === user?.id;
   const date = new Date(message.updated_at);
  
