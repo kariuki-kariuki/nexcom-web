@@ -116,7 +116,7 @@ export function Row({ prd, setProducts }: IRow) {
         </Text>
       </Table.Td>
       <Table.Td>
-        <Menu classNames={{ dropdown: classes.menu }} trigger="click-hover">
+        <Menu classNames={{ dropdown: classes.menu }} trigger="click-hover" position='right-start'>
           <MenuTarget>
             <IconDots />
           </MenuTarget>
