@@ -21,7 +21,6 @@ const ContactSeller = ({ product }: IProps) => {
     const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
     const [opened, { toggle }] = useDisclosure();
     const convo = conversations.find(convo => convo.users[0].id === owner?.id);
-    const router = useRouter();
     return (
         <div>
             {user ?

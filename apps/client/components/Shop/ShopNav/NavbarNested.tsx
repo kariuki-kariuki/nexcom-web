@@ -44,30 +44,21 @@ function NavbarNestedT({ categories, toggle, opened }: INavbar) {
           {links}
         </div>
       </ScrollArea>
-      
+
     </nav>
   );
 }
 
 
-
-export function NavbarNested() {
+interface IProps {
+  categoriesdb: Category[];
+}
+export function NavbarNested({ categoriesdb }: IProps) {
   const [opened, { toggle }] = useDisclosure()
   const all: Category = { id: 'averyuniqueid123xoxo', name: 'All' }
-  const [categories, setCategories] = useState<Category[]>([all])
+  const categories = [all, ...categoriesdb]
 
-  useEffect(() => {
-    const getCategories = async () => {
 
-      const { data, loading } = await datasource.get<Category[]>('categories');
-
-      if (!loading && data) {
-        setCategories(prev => ([...prev, ...data]))
-      }
-    }
-    getCategories()
-
-  }, [])
 
   return (
     <Box h={'100%'}>

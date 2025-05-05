@@ -21,11 +21,11 @@ export function LinksGroup({
   const [opened, setOpened] = useState(initiallyOpened || false);
   const pathname = usePathname()
   const items = (hasCategories ? sub_category : []).map((category) => {
-    const link = `shop/${category.name.toLowerCase().split(' ').join('-')}`
-    
+    const link = `/business/product/${category.name.toLowerCase().split(' ').join('-')}`
+
     return <Link
       className={classes.link}
-      color={pathname === link ? 'orange.7': 'white'}
+      color={pathname === link ? 'orange.7' : 'white'}
       key={category.name}
       href={link}
       onClick={(event) => {
@@ -34,18 +34,18 @@ export function LinksGroup({
     >
       {category.name}
     </Link>
-});
-  const link = `/shop/${name.toLowerCase().split(' ').join('-')}`
+  });
+  const link = `/business/product/tags/${name.toLowerCase().split(' ').join('-')}`
   return (
     <>
       <UnstyledButton
         onClick={() => setOpened((o) => !o)}
         className={classes.control}
       >
-        <Link href={`${name.toLowerCase().split(' ').join('-')}`}>
+        <Link href={link} className={classes.link} data-active={link === pathname || undefined}>
           <Group justify="space-between" gap={0}>
             <Box style={{ display: 'flex', alignItems: 'center' }}>
-              <Box ml="md" c={`${link}` === pathname ? "orange.8": '' }>{name}</Box>
+              <Box ml="md" c={link === pathname ? "orange.8" : ''}>{name}</Box>
             </Box>
             {hasCategories && sub_category.length > 1 && (
               <IconChevronRight

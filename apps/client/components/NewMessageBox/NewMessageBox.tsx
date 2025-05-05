@@ -28,8 +28,9 @@ interface INewMessageBox {
   productId?: string;
   margin?: string | number
   convoId?: string
+  close?: () => void;
 }
-const NewMessageBox = ({ productId, margin, convoId}: INewMessageBox) => {
+const NewMessageBox = ({ productId, margin, convoId, close}: INewMessageBox) => {
   const [message, setMessage] = useState<string>('');
   const socket = useSocketContext()
   const conversations = useGlobalStore(state => state.conversations);
