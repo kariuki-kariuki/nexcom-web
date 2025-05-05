@@ -44,10 +44,7 @@ function NavbarNestedT({ categories, toggle, opened }: INavbar) {
           {links}
         </div>
       </ScrollArea>
-
-      <div className={classes.footer}>
-        <MenuDrop />
-      </div>
+      
     </nav>
   );
 }
@@ -69,7 +66,6 @@ export function NavbarNested() {
       }
     }
     getCategories()
-
 
   }, [])
 

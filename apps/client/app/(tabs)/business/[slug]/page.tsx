@@ -14,7 +14,6 @@ const page = async ({ params }: Params) => {
   const { data } = await datasource.get<ShopWithProducts>(`shops?name=${params.slug}`)
   return (
     <>
-      <SimpleRoute />
       <BusinessPage shop={data} />
     </>
   )

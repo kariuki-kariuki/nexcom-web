@@ -100,6 +100,7 @@ export interface CartItem {
   color: string;
   customer_description: string;
   product: ShopProduct;
+  created_at: Date;
 }
 
 export interface AnalyticInterface {

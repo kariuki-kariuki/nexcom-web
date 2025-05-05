@@ -8,11 +8,7 @@ import classes from './styles.module.css';
 const page = async () => {
   const shops = await get<Ishop[]>('shops?name=all')
   return (
-    <div className={classes.main}>
-      <SimpleRoute />
-      <Shop shops={shops} />
-    </div>
-
+    <Shop shops={shops} />
   )
 }
 

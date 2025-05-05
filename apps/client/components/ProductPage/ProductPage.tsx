@@ -1,7 +1,7 @@
 'use client';
 
 import { datasource } from '@/lib/common/datasource';
-import { useMantineTheme, LoadingOverlay, Card, Flex, Box, Group, Button, Text, SegmentedControl, ScrollArea, useMantineColorScheme, Paper } from '@mantine/core';
+import { useMantineTheme, LoadingOverlay, Card, Flex, Box, Group, Button, Text, SegmentedControl, ScrollArea, useMantineColorScheme, Paper, Affix } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { IconBasketPlus, IconHeartPlus, IconPencil } from '@tabler/icons-react';
@@ -56,7 +56,7 @@ const ProductPage = ({ product }: { product: Product }) => {
         loaderProps={{ color: 'teal.7', type: 'bars' }}
       />
       <BackButton />
-      {(owner && owner.id !== user?.id && product.shop) && <ContactSeller product={product} />}
+      {(owner && owner.id !== user?.id && product.shop) && <Affix position={{ bottom: 10, right: 10}}><ContactSeller product={product} /></Affix>}
       <Paper className={classes.container}>
         <Card className={classes.grid} withBorder my={'md'} w={{ base: '100%', sm: '80%', md: '60%', lg: '50%' }}>
           <Group justify='space-between'>

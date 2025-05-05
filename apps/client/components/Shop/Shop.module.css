@@ -4,4 +4,5 @@
   gap: var(--mantine-spacing-md);
   justify-content: center;
   padding-top: var(--mantine-spacing-sm);
+  height: 100%;
 }

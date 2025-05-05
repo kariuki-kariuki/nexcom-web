@@ -70,8 +70,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
         </Link>
       </Group>
       <ScrollArea h="80vh">
-        <Box hiddenFrom="sm">{rowsNotification}</Box>
-        <Table miw={800} verticalSpacing="sm" striped stripedColor={colorScheme === 'dark' ? 'rgba(0, 0, 0, .2)' : 'gray.1'} visibleFrom="sm">
+        <Table miw={800} verticalSpacing="sm" striped stripedColor={colorScheme === 'dark' ? 'rgba(0, 0, 0, .2)' : 'gray.1'} >
           <Table.Thead>
             <Table.Tr>
               <Table.Th>Image</Table.Th>
@@ -82,7 +81,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
               <Table.Th>Action</Table.Th>
             </Table.Tr>
           </Table.Thead>
-          <Table.Tbody>{mobile ? '' : rows}</Table.Tbody>
+          <Table.Tbody>{rows}</Table.Tbody>
         </Table>
       </ScrollArea>
     </Box>

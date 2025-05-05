@@ -9,7 +9,6 @@ const layout = ({ children }: { children: ReactNode }) => {
         <NavbarNested />
       </div>
       <div className={classes.container}>
-        <SimpleRoute />
         {children}
       </div>
     </div>

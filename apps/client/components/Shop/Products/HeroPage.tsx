@@ -20,7 +20,6 @@ function HeroPage({ categories }: Iprop) {
             <div className={classes.flex}>
               {category.products?.map((product) => <ProductCard product={product} key={product.id} />) }
             </div>
-
           </div>))}
       </div>
     </div>

@@ -17,7 +17,7 @@ function Admin({products}: IPros) {
       <Paper bg="none"
       >
         <Header active={active} setActive={setActive} />
-          <StatsGrid />
+          <StatsGrid products={products} />
           <ProductAnalyticsTable products={products}/>
       </Paper>
   );

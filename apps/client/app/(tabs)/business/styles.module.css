@@ -1,19 +1,15 @@
 .main {
-  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-1)) ;
-  height: 100vh;
   display: flex;
   overflow: auto;
   flex-flow: column;
 }
 
-.header {
-  height: 80px;
+.container {
+  height: 100vh;
+  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-1)) ;
+  overflow: auto;
 }
 
-.section {
-  /* height: calc(100vh - 80px); */
-  overflow: scroll;
+.content {
+  height: calc(100vh - 80px);
 }
-
-
-

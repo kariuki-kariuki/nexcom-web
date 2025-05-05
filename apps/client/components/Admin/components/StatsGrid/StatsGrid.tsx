@@ -12,39 +12,63 @@ import classes from './StatsGrid.module.css';
 import { datasource } from '@/lib/common/datasource';
 import { useEffect, useState } from 'react';
 import { Analytic } from '@/lib/@types/app';
+import { Product } from '@/lib/@types/shop';
 
 const icons = {
   user: IconUserPlus,
   discount: IconDiscount2,
   receipt: IconReceipt2,
-  coin: IconCoin
+  coin: IconCoin,
+  interactions: IconDeviceAnalytics
 };
 
+interface IProps {
+  products: Product[]
+}
 
-
-export function StatsGrid() {
-  const [analytics, setAnalytics] = useState<Analytic[]>([])
-  useEffect(() => {
-    const getAnalytics = async () => {
-      const { data } = await datasource.get<Analytic[]>('analytics');
-      if (data) {
-        setAnalytics(data);
-        console.log(data);
+export function StatsGrid({products}: IProps) {
+  let revenue = 0;
+  let prevMonthRev = 0;
+  let views = 0;
+  let prevMonthViews = 0;
+  let totalRevenue = 0;
+  
+  products.forEach((product) => {
+    product.cartItems.forEach((item) => {
+      const date = new Date(item.created_at)
+      const month = date.getMonth() + 1;
+      const currentMonth = new Date().getMonth() + 1;
+      totalRevenue += (item.size.price * item.quantity)
+      if(month === currentMonth){
+        revenue += (item.size.price * item.quantity)
+      } else if(month === (currentMonth -1)){
+        prevMonthRev += (item.size.price * item.quantity)
       }
-    }
-    getAnalytics();
-    return () => {
-    }
-  }, [])
+    })
+
+    product.analytics?.forEach((analysis) => {
+      const date = new Date(analysis.created_at)
+      const month = date.getMonth() + 1;
+      const currentMonth = new Date().getMonth() + 1;
+
+      if(month === currentMonth){
+        views += 1;
+      } else if(month === (currentMonth -1)){
+        prevMonthViews += 1
+      }
+    })
+  })
+  const revDiff = (revenue - prevMonthRev) / (revenue + prevMonthRev) * 100 || 0;
+  const viewsDiff = (views - prevMonthViews)/ (views + prevMonthViews) * 100 || 0;
   const data = [
-    { title: 'Revenue', icon: 'receipt', value: '13,456', diff: 34 },
-    { title: 'Profit', icon: 'coin', value: '4,145', diff: -13 },
-    { title: 'Coupons usage', icon: 'discount', value: '745', diff: 18 },
+    { title: 'Revenue', icon: 'receipt', value: revenue, diff: revDiff },
+    { title: 'Views', icon: 'interactions', value: views, diff: viewsDiff },
+    { title: 'Total Revenue', icon: 'discount', value: totalRevenue, diff: 100 },
+    { title: 'Coupons usage', icon: 'discount', value: 745, diff: 18 },
   ] as const;
   const stats = data.map((stat) => {
     const Icon = icons[stat.icon];
     const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
-
     return (
       <Paper
         withBorder
@@ -61,7 +85,7 @@ export function StatsGrid() {
         </Group>
 
         <Group align="flex-end" gap="xs" mt={25}>
-          <Text className={classes.value}>{stat.value}</Text>
+          <Text className={classes.value}>{stat.value > 1000 ? `${stat.value / 1000}K`: stat.value}</Text>
           <Text
             c={stat.diff > 0 ? 'teal' : 'red'}
             fz="sm"
@@ -79,43 +103,11 @@ export function StatsGrid() {
       </Paper>
     );
   });
-  const color = analytics.length > 1
-    ? (analytics[1].count - analytics[0].count > 0 ? 'teal' : 'red')
-    : (analytics.length === 1 && analytics[0].count > 0 ? 'teal' : 'red');
-  const percentege = analytics.length > 1 ? analytics[1].count - analytics[0].count / analytics[0].count + analytics[1].count * 100 : 100;
+ 
   return (
     <div className={classes.root}>
-      <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>{stats}
-        <Paper
-          withBorder
-          p="md"
-          radius="md"
-          className={classes.stat}
-        >
-          <Group justify="space-between">
-            <Text size="xs" c="dimmed" className={classes.title}>
-              Interactions
-            </Text>
-            <IconDeviceAnalytics className={classes.icon} size="1.4rem" stroke={1.5} />
-          </Group>
-
-          <Group align="flex-end" gap="xs" mt={25}>
-            <Text className={classes.value}>{analytics.length > 0 ? analytics[0].count : 0}</Text>
-            <Text
-              c={color}
-              fz="sm"
-              fw={500}
-              className={classes.diff}
-            >
-              <span>{percentege}%</span>
-              {analytics && analytics[0]?.count > 0 ? <IconArrowUpRight size={'1rem'} stroke={1.5} /> : <IconArrowDownRight size={'1rem'} stroke={1.5} />}
-            </Text>
-          </Group>
-
-          <Text fz="xs" c="dimmed" mt={7}>
-            Compared to previous month
-          </Text>
-        </Paper>
+      <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>
+        {stats}
       </SimpleGrid>
     </div>
   );

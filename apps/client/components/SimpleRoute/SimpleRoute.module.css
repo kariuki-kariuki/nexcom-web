@@ -18,4 +18,8 @@
     background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-1));
     color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-orange-7));
   }
+
+  &[data-active]{
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-orange-7));
+  }
 }

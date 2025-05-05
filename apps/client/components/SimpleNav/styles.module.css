@@ -1,6 +1,7 @@
 .main {
   height: 100%;
-  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-gray-8));
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-1));
+  border-right: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-8));
 }
 
 .mobile {

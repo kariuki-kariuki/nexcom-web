@@ -1,6 +1,7 @@
 /* shop card */
 
 .main {
+  height: 100%;
   background-color: light-dark(var(--mantine-color-gray-0), rgba(0, 0, 0, 0.2));
 }
 
@@ -9,7 +10,7 @@
   /* background-color: light-dark(var(--mantine-color-gray-9), rgba(0, 0, 0, 0.4)); */
   border-radius: var(--mantine-spacing-sm);
   border: 1px solid light-dark(var(--mantine-color-gray-5), var(--mantine-color-gray-9));
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 

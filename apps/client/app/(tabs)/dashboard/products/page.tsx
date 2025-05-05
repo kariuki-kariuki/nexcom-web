@@ -26,9 +26,7 @@ const Page = async () => {
           </Group>
         </>
       )}
-      <Container size="xl">
-        {shop && <ProductsTable products={shop.products} />}
-      </Container>
+      {shop && <ProductsTable products={shop.products} />}
     </div>
   );
 };

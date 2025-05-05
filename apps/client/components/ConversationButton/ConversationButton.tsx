@@ -30,7 +30,6 @@ interface Props {
 
 export function ConversationButton({ conversation }: Props) {
   const guser = useGlobalStore(state => state.user)
-  const setUser = useGlobalStore(state => state.setUser)
   const updateMessage = useGlobalStore((state) => state.updateMessage)
   const [count, setCount] = useState(0);
   const theme = useMantineTheme();
@@ -59,7 +58,7 @@ export function ConversationButton({ conversation }: Props) {
       0
     );
     setCount(unreadMessages);
-  }, [conversation, user]);
+  }, [conversation]);
 
   const date = lastMessage ? new Date(lastMessage?.updated_at) : null;
   const socket = useSocketContext();
@@ -96,7 +95,7 @@ export function ConversationButton({ conversation }: Props) {
       }
 
     }
-  }, [count, socket, active, conversation, updateMessage]);
+  }, [count, socket, active, updateMessage]);
 
   return (
     <Link href={`/chat/${conversation.id}`}>

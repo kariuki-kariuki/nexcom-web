@@ -87,7 +87,7 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body className={classes.bg}>
-        <MantineProvider theme={theme} defaultColorScheme="dark">
+        <MantineProvider theme={theme} defaultColorScheme="auto">
           <GlobalStoreProvider>
             <SocketProvider>
               <WebSocketProvider>
