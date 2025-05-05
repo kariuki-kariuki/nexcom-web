@@ -1,5 +1,5 @@
 .rowSelected {
-  background-color: light-dark(var(--mantine-color-gray-2),var(--mantine-color-gray-8));
+  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-gray-8));
 }
 
 

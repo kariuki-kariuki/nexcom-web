@@ -10,7 +10,8 @@ import {
   Image,
   Paper,
   Flex,
-  Avatar
+  Avatar,
+  useMantineColorScheme
 } from '@mantine/core';
 import classes from './CartTable.module.css';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
@@ -23,11 +24,11 @@ interface IProps {
   setTotal: (total: number) => void;
   setCartItems: (cartItems: CartItem[]) => void;
   selection: string[],
-  setSelection: (updater: (selections: string[]) => string[]) => void; 
+  setSelection: (updater: (selections: string[]) => string[]) => void;
 }
 
 export function CartTable({ cartItems, setTotal, setCartItems, selection, setSelection }: IProps) {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useMantineColorScheme();
   // Toggle selection of individual row
   const toggleRow = (id: string) =>
     setSelection((current) =>
@@ -71,7 +72,7 @@ export function CartTable({ cartItems, setTotal, setCartItems, selection, setSel
       const updatedcart = { ...mycart, quantity: newQuantity };
       setMycart(updatedcart);
       const { data } = await datasource.update(updatedcart, `carts/${cart.id}`)
-      if(data) {
+      if (data) {
         const updatedcarts = cartItems.map((item) =>
           item.id === cart.id ? updatedcart : item
         );
@@ -85,6 +86,7 @@ export function CartTable({ cartItems, setTotal, setCartItems, selection, setSel
           [classes.rowSelected]: selected,
           [classes.color]: !selected
         })}
+
       >
         <Table.Td>
           <Checkbox
@@ -96,7 +98,7 @@ export function CartTable({ cartItems, setTotal, setCartItems, selection, setSel
           <Group gap="sm" h={70}>
             <Avatar
               style={{ height: '100%' }}
-              src={cart.product.images ? cart.product.images[0].url : '' }
+              src={cart.product.images ? cart.product.images[0].url : ''}
               radius={'md'}
               size={'xl'}
               name={cart.product.name}
@@ -104,14 +106,14 @@ export function CartTable({ cartItems, setTotal, setCartItems, selection, setSel
           </Group>
         </Table.Td>
         <Table.Td>
-          <Text size="sm" fw={500} flex={1} 
+          <Text size="sm" fw={500} flex={1}
             lineClamp={1}
           >
             {cart.product.name}
           </Text>
         </Table.Td>
         <Table.Td flex={1}>
-          <Flex direction={{base: 'column-reverse', sm: 'row'}} justify="center" gap="md" align="center">
+          <Flex direction={{ base: 'column-reverse', sm: 'row' }} justify="center" gap="md" align="center">
             <IconMinus
               color="red"
               onClick={() => {
@@ -141,7 +143,7 @@ export function CartTable({ cartItems, setTotal, setCartItems, selection, setSel
           withRowBorders={true}
           stickyHeader
           striped
-          stripedColor={colorScheme === 'light' ? 'gray.2' : 'gray.9'}
+          stripedColor={colorScheme === 'dark' ? 'coco.0' : 'rgba(0, 0, 0, .1)'}
         >
           <Table.Thead>
             <Table.Tr>

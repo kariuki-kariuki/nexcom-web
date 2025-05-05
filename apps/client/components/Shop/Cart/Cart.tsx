@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  Avatar,
   Box,
   Button,
   Card,
@@ -67,17 +68,16 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
 
   return (
     <Paper className={classes.main}>
-      <SimpleHeader />
       <Container size="xl">
         <Flex
           h={'100%'}
           className={classes.flex}
-          direction={{ base: 'column', sm: 'row' }}
+          direction={{ base: 'column', md: 'row' }}
           gap={'md'}
           p="md"
         >
           <Box
-            w={{ base: '100%', sm: '70%' }}
+            w={{ base: '100%', sm: '100%', md: '60%' }}
           >
             {cartedItems.length > 0 ? (
               <CartTable
@@ -92,20 +92,35 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
             )}
           </Box>
           <Card
-            w={{ base: '100%', sm: '30%' }}
+            w={{ base: '100%', sm: '100%', md: '40%' }}
             className={classes.box}
             h="fit-content"
             shadow='lg'
+            withBorder
           >
             <CardSection p="md">
-              <Title size="lg" ta="center">Order Summary</Title>
+              <Title size="xl" ta="center">Order Summary</Title>
             </CardSection>
-            <Group justify="space-between" p={'md'} w={'fit-content'}>
-              <Text ff={'serif'} fz="bold">Total</Text>{' '}
-              <Text ff={'serif'}>Ksh {total}</Text>
+
+            {selection.map((item, idx) => {
+
+              const cart = cartedItems.find((itm) => itm.id === item)
+
+              return (
+                <Group key={idx} mb="sm" justify='space-between' className={classes.sumBtn} pr="md">
+                  <Avatar size={100} radius={0} src={cart?.product.images[0].signedUrl} name={cart?.product.name} />
+                  <Text fz="h2">{cart?.quantity}</Text>
+                  <Text fz="h2">{cart ? cart?.size.price * cart?.quantity : ''}/=</Text>
+                </Group>
+              )
+
+            })}
+            <Group justify="space-between" p={'md'}>
+              <Text ff={'serif'} fz="h2">Total</Text>{' '}
+              <Text ff={'serif'} fz="h2">Ksh {total}/=</Text>
             </Group>
-            <InputWrapper label={'Phone'} required p={'md'} ff={'serif'} error={error}>
-              <Input placeholder="0742075647" value={phone} onChange={(e) => setPhone(e.target.value)}  ff={'serif'} />
+            <InputWrapper label={'Phone'} size="xl" required p={'md'} ff={'serif'} error={error}>
+              <Input placeholder="0742075647" size="lg" value={phone} onChange={(e) => setPhone(e.target.value)} ff={'serif'} />
             </InputWrapper>
             <Group p={'md'} justify="center">
               <Button
@@ -114,6 +129,7 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
                 ff={'serif'}
                 fullWidth
                 onClick={handleCheckout}
+                size='lg'
                 leftSection={<IconEyeDollar style={{ height: rem(24), width: rem(24) }} />}
               >
                 CheckOut

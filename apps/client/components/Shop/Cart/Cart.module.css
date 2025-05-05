@@ -3,9 +3,8 @@
     var(--mantine-color-white),
     var(--mantine-color-coco-1)
   );
-  overflow: hidden;
-  min-height: 100vh;
-  
+  overflow: scroll;
+  height: 100%;  
 }
 
 .card {
@@ -31,6 +30,13 @@
 .box {
   background-color: light-dark(
     var(--mantine-color-body),
-    var(--mantine-color-gray-9)
+    var(--mantine-color-coco-1)
+  );
+}
+
+.sumBtn {
+  background-color: light-dark(
+    var(--mantine-color-gray-1),
+    var(--mantine-color-gray-8)
   );
 }

@@ -92,7 +92,7 @@ export function StatsGrid({products}: IProps) {
             fw={500}
             className={classes.diff}
           >
-            <span>{stat.diff}%</span>
+            <span>{stat.diff.toString().slice(0, 3)}%</span>
             <DiffIcon size="1rem" stroke={1.5} />
           </Text>
         </Group>
