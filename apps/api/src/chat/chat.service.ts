@@ -37,7 +37,11 @@ export class ChatService {
     );
   }
 
-  async updateProfile(file: Express.Multer.File, userId: string) {
-    return await this.userService.updateProfile(file, userId);
+  async updateProfile(
+    userId: string,
+    status: string,
+    file?: Express.Multer.File,
+  ) {
+    return await this.userService.updateProfile(userId, status, file);
   }
 }

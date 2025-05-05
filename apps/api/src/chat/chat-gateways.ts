@@ -102,11 +102,15 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('updateProfile')
   async uploadProfileImage(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { file: Express.Multer.File; message: string },
+    @MessageBody() data: { file?: Express.Multer.File; status: string },
   ) {
     const { userId } = client.user;
     try {
-      const res = await this.chatService.updateProfile(data.file, userId);
+      const res = await this.chatService.updateProfile(
+        userId,
+        data.status,
+        data.file,
+      );
       this.server.emit('updateProfile', { user: res, userId });
       return res;
     } catch (e) {

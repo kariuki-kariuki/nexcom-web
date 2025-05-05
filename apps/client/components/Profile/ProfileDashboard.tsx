@@ -12,6 +12,7 @@ const Dashboard = ({ opened, close, actUser }: Iprops) => {
     <Drawer
       opened={opened}
       onClose={() => close()}
+      withOverlay={false}
       w={'100%'}
       style={{ overflow: 'hidden' }}
       classNames={{ header: classes.color, content: classes.color }}

@@ -18,6 +18,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { SearchUserDto } from './dto/search-users.dto';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { AuthenticatedRequest } from 'src/@types/types';
+import { MessageBody } from '@nestjs/websockets';
 
 @Controller('users')
 export class UsersController {
@@ -44,10 +45,15 @@ export class UsersController {
   async updateProfile(
     @UploadedFile() file: Express.Multer.File,
     @Request() req: AuthenticatedRequest,
+    @MessageBody() body: { status: string },
   ) {
     if (file) {
       console.log(file.mimetype);
-      return await this.usersService.updateProfile(file, req.user.userId);
+      return await this.usersService.updateProfile(
+        req.user.userId,
+        body.status,
+        file,
+      );
     }
   }
 

@@ -4,7 +4,10 @@ import {
   FileInput,
   Group,
   Indicator,
-  Popover
+  InputWrapper,
+  Popover,
+  Stack,
+  TextInput
 } from '@mantine/core';
 import { useState } from 'react';
 import classes from './PictureUpdate.module.css';
@@ -15,17 +18,22 @@ import { useGlobalStore } from '@/lib/context/global-store.provider';
 const PictureUpdate = ({ image }: { image: string }) => {
   const [value, setValue] = useState<FileWithPath | null>(null);
   const user = useGlobalStore(state => state.user)
-    const setUser = useGlobalStore(state => state.setUser)
+  const setUser = useGlobalStore(state => state.setUser)
+  const [status, setStatus] = useState(user?.status || '')
   const socket = useSocketContext()
   const handleSubmit = async () => {
-    if (value) {
-      socket.emit('updateProfile', { file: {mimetype:  value.type, buffer: value}, message: 'Updated Profile Picture' }, (res: GlobalUser) => {
+      let body;
+      if(value) {
+        body = {status, file: { mimetype: value.type, buffer: value }}
+      } else {
+        body = {status}
+      }
+      socket.emit('updateProfile', body, (res: GlobalUser) => {
         if (user) {
           setValue(null)
           setUser(res);
         }
       })
-    }
   }
   return (
     <Popover width={300} onClose={() => setValue(null)}>
@@ -40,8 +48,9 @@ const PictureUpdate = ({ image }: { image: string }) => {
           >
             <Avatar
               src={value ? URL.createObjectURL(value) : user?.avatar?.signedUrl}
-              size={80}
-              radius={80}
+              size={200}
+              radius={0}
+              name={'AV'}
               mt={-30}
               className={classes.avatar}
             />
@@ -49,14 +58,20 @@ const PictureUpdate = ({ image }: { image: string }) => {
         </Group>
       </Popover.Target>
       <Popover.Dropdown p={'md'}>
-        <FileInput
-          label="Choose new picture"
-          placeholder="Image"
-          size="xs"
-          value={value}
-          onChange={setValue}
-          accept="image/png,image/jpeg,image/webp,image/jpg"
-        />
+        <Stack gap="lg">
+          <FileInput
+            label="Choose new picture"
+            placeholder="Image"
+            size="lg"
+            value={value}
+            onChange={setValue}
+            accept="image/png,image/jpeg,image/webp,image/jpg"
+          />
+          <InputWrapper>
+            <TextInput size="lg" value={status} onChange={(e) => setStatus(e.target.value)} />
+          </InputWrapper>
+        </Stack>
+
         <Group my={'md'}>
           <Button onClick={handleSubmit}>Save</Button>
           {value ? (

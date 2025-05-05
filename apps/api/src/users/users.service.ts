@@ -144,17 +144,27 @@ export class UsersService {
     return user;
   }
 
-  async updateProfile(file: Express.Multer.File, userId: ProjectIdType) {
+  async updateProfile(
+    userId: ProjectIdType,
+    status: string,
+    file?: Express.Multer.File,
+  ) {
     const user = await this.findById(userId);
-    const photoKey = await this.awsService.uploadFile(file, 'profile');
     try {
-      if (user.avatar) {
-        await this.awsService.deleteImage(user.avatar.url);
-        user.avatar.url = photoKey;
-      } else {
-        const avatar = new Image();
-        avatar.url = photoKey;
-        user.avatar = avatar;
+      this.logger.log(status);
+      if (file) {
+        const photoKey = await this.awsService.uploadFile(file, 'profile');
+        if (user.avatar) {
+          await this.awsService.deleteImage(user.avatar.url);
+          user.avatar.url = photoKey;
+        } else {
+          const avatar = new Image();
+          avatar.url = photoKey;
+          user.avatar = avatar;
+        }
+      }
+      if (status) {
+        user.status = status;
       }
 
       return this.usersRepository.save(user);
