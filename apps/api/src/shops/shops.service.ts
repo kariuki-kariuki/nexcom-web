@@ -127,6 +127,7 @@ export class ShopsService {
       .leftJoinAndSelect('products.product_sizes', 'product_sizes')
       .leftJoinAndSelect('products.analytics', 'analytics')
       .leftJoinAndSelect('products.cartItems', 'cartItems')
+      .leftJoinAndSelect('cartItems.size', 'size')
       .where('shop.id = :id', { id })
       .getOne();
     return shop;

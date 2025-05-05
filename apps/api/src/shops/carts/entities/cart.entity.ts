@@ -43,7 +43,6 @@ export class Cart {
   user: User;
 
   // Special columns
-  @Exclude()
   @CreateDateColumn()
   created_at: Date;
 
