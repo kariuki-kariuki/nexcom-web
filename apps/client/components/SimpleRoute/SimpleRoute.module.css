@@ -20,6 +20,6 @@
   }
 
   &[data-active]{
-    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-orange-7));
+    color: var(--mantine-color-orange-7);
   }
 }

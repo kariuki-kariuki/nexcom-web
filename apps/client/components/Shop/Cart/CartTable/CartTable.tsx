@@ -9,7 +9,8 @@ import {
   rem,
   Image,
   Paper,
-  Flex
+  Flex,
+  Avatar
 } from '@mantine/core';
 import classes from './CartTable.module.css';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
@@ -93,10 +94,12 @@ export function CartTable({ cartItems, setTotal, setCartItems, selection, setSel
         </Table.Td>
         <Table.Td>
           <Group gap="sm" h={70}>
-            <Image
+            <Avatar
               style={{ height: '100%' }}
               src={cart.product.images ? cart.product.images[0].url : '' }
               radius={'md'}
+              size={'xl'}
+              name={cart.product.name}
             />
           </Group>
         </Table.Td>

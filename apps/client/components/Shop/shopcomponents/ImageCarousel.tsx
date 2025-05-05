@@ -1,5 +1,5 @@
 import { Carousel } from '@mantine/carousel';
-import { Image, useMantineTheme } from '@mantine/core';
+import { Avatar, Image, useMantineTheme } from '@mantine/core';
 import classes from './carousel.module.css';
 import { useMediaQuery } from '@mantine/hooks';
 import { ImageInterface } from '@/lib/@types/shop';
@@ -12,7 +12,7 @@ function ImageCarousel({ images }: Iprops) {
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const slides = images.map((image, index: number) => (
     <Carousel.Slide key={index} className={classes.slide}>
-      <Image src={image.signedUrl} className={classes.image} radius="sm" />
+      <Avatar src={image.signedUrl} variant='transparent' className={classes.image} radius="sm" />
     </Carousel.Slide>
   ));
   return (

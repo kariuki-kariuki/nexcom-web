@@ -7,7 +7,8 @@ import {
   useMantineTheme,
   Box,
   Stack,
-  Flex
+  Flex,
+  Avatar
 } from '@mantine/core';
 import { Product, ProductWithShop, ShopProduct } from '@/lib/@types/shop';
 import classes from './ProductCard.module.css';
@@ -27,7 +28,7 @@ function ProductCard({ product }: Iprops) {
       <Link href={`/business/product/${product.id}`} className={classes.link}>
         <Flex direction={{ base: 'row', sm: 'column'}}>
           <Box w={{ base: '50%', sm: '100%'}}>
-            <Image src={product.images[0]?.signedUrl} className={classes.image} />
+            <Avatar radius={0} src={product.images[0]?.signedUrl} className={classes.image}  name={product.name}/>
           </Box>
           <Stack align='center' justify='space-around' className={classes.info} gap={2} p="sm" w={{ base: '50%', sm: '100%'}}>
             <Text

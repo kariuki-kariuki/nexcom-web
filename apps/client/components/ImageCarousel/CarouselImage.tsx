@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IconTrashXFilled } from '@tabler/icons-react';
 import {
+  Avatar,
   Button,
   ButtonGroup,
   Image,
@@ -70,9 +71,9 @@ function CarouselImage({ image, setProduct }: Iprops) {
   };
   return (
     <div>
-      <Image src={image.signedUrl} alt={image.altText} onClick={toggle} />
+      <Avatar h="auto" radius={0} w="100%" src={image.signedUrl} alt={image.altText} onClick={toggle} />
       <Modal opened={opened} onClose={toggle} withCloseButton>
-        <Image src={image.signedUrl} alt={image.altText} width="100%" height="auto" />
+      <Avatar h="auto" radius={0} w="100%" src={image.signedUrl} alt={image.altText} onClick={toggle} />
         <InputWrapper label="Alternative text" pt="md">
           <Input
             value={imageUpdate.altText}

@@ -1,5 +1,5 @@
 import { ImageInterface } from '@/lib/@types/shop'
-import { AspectRatio, Grid, GridCol, Image, Paper, SimpleGrid } from '@mantine/core';
+import { AspectRatio, Avatar, Grid, GridCol, Image, Paper, SimpleGrid } from '@mantine/core';
 import React from 'react'
 
 interface Props {
@@ -10,17 +10,19 @@ const MessageImages = ({ images }: Props) => {
     image.id
   }>
     <AspectRatio ratio={1}>
-      <Image
+      <Avatar
         src={image.signedUrl}
         alt={image.altText}
         w="100%"
         h="auto"
+        radius={0}
+        variant='transparent'
       />
     </AspectRatio>
   </GridCol>);
   return (
-    <Paper maw={400}>
-      <Grid grow gutter={0}>
+    <Paper maw={400} bg="none">
+      <Grid grow gutter={1}>
         {messageImages}
       </Grid>
 

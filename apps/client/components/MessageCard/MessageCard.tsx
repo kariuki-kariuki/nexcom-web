@@ -32,7 +32,7 @@ const MessageCard = ({ message }: Props) => {
             {message?.message}
           </Text>
 
-          {message.product && (<OgMessage product={message.product} />)}
+          {message.product && (<OgMessage product={message.product} outGoing={true}/>)}
 
           <Group align="center" mt={0} pl={20} gap={'sm'} justify="end">
             <Text c={'gray.4'} fz={rem(10)} fw={100}>
