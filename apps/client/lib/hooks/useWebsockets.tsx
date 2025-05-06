@@ -6,6 +6,7 @@ import { datasource } from "../common/datasource";
 import { useGlobalStore } from "../context/global-store.provider";
 import useSound from "use-sound"
 import { usePathname } from "next/navigation";
+import { CartItem } from "../@types/shop";
 
 const initialState: ChatState = {
   conversations: []
@@ -86,9 +87,19 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  const getCartItems = async () => {
+    const { data } = await datasource.get<CartItem[]>('carts')
+    if (data && user) {
+      user.cartItems = data 
+      setUser(user)
+    }
+  }
+
+
   useEffect(() => {
     if(!user) return;
     getConversations()
+    getCartItems()
   }, [user])
 
   useEffect(() => {
