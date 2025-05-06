@@ -27,10 +27,10 @@ function ProductCard({ product }: Iprops) {
     <Card className={classes.card} p={0}>
       <Link href={`/business/product/${product.id}`} className={classes.link}>
         <Flex direction={{ base: 'row', sm: 'column'}}>
-          <Box w={{ base: '50%', sm: '100%'}}>
+          <Box w={{ base: '30%', sm: '100%'}}>
             <Avatar radius={0} src={product.images[0]?.signedUrl} className={classes.image}  name={product.name}/>
           </Box>
-          <Stack align='center' justify='space-around' className={classes.info} gap={2} p="sm" w={{ base: '50%', sm: '100%'}}>
+          <Stack align='center' justify='space-around' className={classes.info} gap={2} p="sm" w={{ base: '70%', sm: '100%'}}>
             <Text
               fw={{ base: 200, sm: 500 }}
               fz={{ base: 'sm', sm: 'lg' }}

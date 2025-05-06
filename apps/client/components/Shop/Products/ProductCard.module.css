@@ -33,7 +33,7 @@
 
 .image {
   height: 150px;
-  border: none;
+  width: 100%;
   @media (min-width: $mantine-breakpoint-sm) {
     height: 300px;
     width: 100%;

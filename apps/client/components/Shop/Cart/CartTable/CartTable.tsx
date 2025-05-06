@@ -11,7 +11,8 @@ import {
   Paper,
   Flex,
   Avatar,
-  useMantineColorScheme
+  useMantineColorScheme,
+  TableScrollContainer
 } from '@mantine/core';
 import classes from './CartTable.module.css';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
@@ -136,14 +137,15 @@ export function CartTable({ cartItems, setTotal, setCartItems, selection, setSel
 
   return (
     <Paper className={classes.main} bg="none">
-      <ScrollArea>
+      <TableScrollContainer maxHeight="80vh" minWidth={500}>
         <Table
           miw={400}
-          verticalSpacing="sm"
+          verticalSpacing="lg"
           withRowBorders={true}
           stickyHeader
           striped
-          stripedColor={colorScheme === 'dark' ? 'coco.0' : 'rgba(0, 0, 0, .1)'}
+          classNames={{ th: classes.header }}
+          stripedColor={colorScheme === 'dark' ? 'rgba(0, 0, 0, .1)' : 'rgba(0, 0, 0, .05)'}
         >
           <Table.Thead>
             <Table.Tr>
@@ -164,7 +166,7 @@ export function CartTable({ cartItems, setTotal, setCartItems, selection, setSel
           </Table.Thead>
           <Table.Tbody>{rows}</Table.Tbody>
         </Table>
-      </ScrollArea>
+      </TableScrollContainer>
     </Paper>
   );
 }

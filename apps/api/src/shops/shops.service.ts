@@ -87,6 +87,7 @@ export class ShopsService {
     const shop = await this.shopRepository
       .createQueryBuilder('shop')
       .leftJoinAndSelect('shop.user', 'user')
+      .leftJoinAndSelect('user.avatar', 'avatar')
       .leftJoinAndSelect('shop.bannerImage', 'bannerImage')
       .leftJoinAndSelect('shop.category', 'category')
       .leftJoinAndSelect(

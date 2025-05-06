@@ -30,7 +30,7 @@
 
   @media (min-width: $mantine-breakpoint-sm) {
     width: 70%;
-    border-radius: var(--mantine-spacing-md);
+    padding: var(--mantine-spacing-md);
   }
 }
 

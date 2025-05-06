@@ -6,10 +6,9 @@ import {
   IconCoin,
   IconArrowUpRight,
   IconArrowDownRight,
-  IconDeviceAnalytics
+  IconDeviceAnalytics,
 } from '@tabler/icons-react';
 import classes from './StatsGrid.module.css';
-import { datasource } from '@/lib/common/datasource';
 import { useEffect, useState } from 'react';
 import { Analytic } from '@/lib/@types/app';
 import { Product } from '@/lib/@types/shop';
@@ -19,56 +18,86 @@ const icons = {
   discount: IconDiscount2,
   receipt: IconReceipt2,
   coin: IconCoin,
-  interactions: IconDeviceAnalytics
+  interactions: IconDeviceAnalytics,
+  growth: IconDeviceAnalytics
 };
 
 interface IProps {
-  products: Product[]
+  products: Product[];
 }
 
-export function StatsGrid({products}: IProps) {
-  let revenue = 0;
-  let prevMonthRev = 0;
-  let views = 0;
-  let prevMonthViews = 0;
-  let totalRevenue = 0;
-  
-  products.forEach((product) => {
-    product.cartItems.forEach((item) => {
-      const date = new Date(item.created_at)
-      const month = date.getMonth() + 1;
-      const currentMonth = new Date().getMonth() + 1;
-      totalRevenue += (item.size.price * item.quantity)
-      if(month === currentMonth){
-        revenue += (item.size.price * item.quantity)
-      } else if(month === (currentMonth -1)){
-        prevMonthRev += (item.size.price * item.quantity)
-      }
-    })
+export function StatsGrid({ products }: IProps) {
+  // Calculate metrics
+  const calculateMetrics = () => {
+    let revenue = 0;
+    let prevMonthRev = 0;
+    let views = 0;
+    let prevMonthViews = 0;
+    let totalRevenue = 0;
+    
+    products.forEach((product) => {
+      product.cartItems.forEach((item) => {
+        const date = new Date(item.created_at);
+        const month = date.getMonth() + 1;
+        const currentMonth = new Date().getMonth() + 1;
+        totalRevenue += (item.size.price * item.quantity);
+        if (month === currentMonth) {
+          revenue += (item.size.price * item.quantity);
+        } else if (month === (currentMonth - 1)) {
+          prevMonthRev += (item.size.price * item.quantity);
+        }
+      });
 
-    product.analytics?.forEach((analysis) => {
-      const date = new Date(analysis.created_at)
-      const month = date.getMonth() + 1;
-      const currentMonth = new Date().getMonth() + 1;
+      product.analytics?.forEach((analysis) => {
+        const date = new Date(analysis.created_at);
+        const month = date.getMonth() + 1;
+        const currentMonth = new Date().getMonth() + 1;
 
-      if(month === currentMonth){
-        views += 1;
-      } else if(month === (currentMonth -1)){
-        prevMonthViews += 1
-      }
-    })
-  })
-  const revDiff = (revenue - prevMonthRev) / (revenue + prevMonthRev) * 100 || 0;
-  const viewsDiff = (views - prevMonthViews)/ (views + prevMonthViews) * 100 || 0;
+        if (month === currentMonth) {
+          views += 1;
+        } else if (month === (currentMonth - 1)) {
+          prevMonthViews += 1;
+        }
+      });
+    });
+
+    const revDiff = (revenue - prevMonthRev) / (revenue + prevMonthRev) * 100 || 0;
+    const viewsDiff = (views - prevMonthViews) / (views + prevMonthViews) * 100 || 0;
+    const totalDiff = ((revenue + views) - (prevMonthRev + prevMonthViews)) / 
+                      ((revenue + views) + (prevMonthRev + prevMonthViews)) * 100 || 0;
+
+    return {
+      revenue,
+      prevMonthRev,
+      views,
+      prevMonthViews,
+      totalRevenue,
+      revDiff,
+      viewsDiff,
+      totalDiff
+    };
+  };
+
+  const {
+    revenue,
+    views,
+    totalRevenue,
+    revDiff,
+    viewsDiff,
+    totalDiff
+  } = calculateMetrics();
+
   const data = [
     { title: 'Revenue', icon: 'receipt', value: revenue, diff: revDiff },
     { title: 'Views', icon: 'interactions', value: views, diff: viewsDiff },
     { title: 'Total Revenue', icon: 'discount', value: totalRevenue, diff: 100 },
-    { title: 'Coupons usage', icon: 'discount', value: 745, diff: 18 },
+    { title: 'Overall Growth', icon: 'growth', value: revenue + views, diff: totalDiff },
   ] as const;
+
   const stats = data.map((stat) => {
     const Icon = icons[stat.icon];
     const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
+
     return (
       <Paper
         withBorder
@@ -85,14 +114,16 @@ export function StatsGrid({products}: IProps) {
         </Group>
 
         <Group align="flex-end" gap="xs" mt={25}>
-          <Text className={classes.value}>{stat.value > 1000 ? `${stat.value / 1000}K`: stat.value}</Text>
+          <Text className={classes.value}>
+            {stat.value > 1000 ? `${(stat.value / 1000).toFixed(1)}K` : stat.value}
+          </Text>
           <Text
             c={stat.diff > 0 ? 'teal' : 'red'}
             fz="sm"
             fw={500}
             className={classes.diff}
           >
-            <span>{stat.diff.toString().slice(0, 3)}%</span>
+            <span>{Math.abs(stat.diff).toFixed(1)}%</span>
             <DiffIcon size="1rem" stroke={1.5} />
           </Text>
         </Group>
