@@ -44,7 +44,7 @@ export function UsersTable() {
         </Table.Td>
         <Table.Td>
           <Text fz="sm" fw={500} lineClamp={1}>
-            {user.firstName} { }
+            {user.fullName} { }
           </Text>
         </Table.Td>jwtshopguard
         <Table.Td>

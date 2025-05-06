@@ -9,7 +9,7 @@ const UserButton = () => {
       <Avatar src={user?.avatar?.signedUrl} />
       <div style={{ flex: 1 }}>
         <Text size="sm" fw={500}>
-          {user?.firstName}
+          {user?.fullName}
         </Text>
 
         <Text c="dimmed" size="xs">

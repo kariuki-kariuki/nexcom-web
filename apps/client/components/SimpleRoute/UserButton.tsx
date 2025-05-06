@@ -65,7 +65,7 @@ export function UserButton() {
               value ? URL.createObjectURL(value) : user?.avatar?.signedUrl ? user?.avatar?.signedUrl : ''
             }
             radius="xl"
-            alt={`${user?.firstName} profile picture`}
+            alt={`${user?.fullName} profile picture`}
           />
 
           <div style={{ flex: 1 }}>

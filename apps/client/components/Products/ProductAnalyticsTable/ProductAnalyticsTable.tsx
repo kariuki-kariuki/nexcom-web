@@ -1,5 +1,5 @@
 import { Product } from '@/lib/@types/shop'
-import { ScrollArea, Box, Table, useMantineColorScheme, Text, Avatar, Group, TableTd } from '@mantine/core'
+import { Table, useMantineColorScheme, Text, Avatar, Group, TableTd } from '@mantine/core'
 import React from 'react'
 import StatusButton from '../StatusButton/StatusButton'
 
@@ -31,7 +31,7 @@ const ProductAnalyticsTable = ({ products }: IProps) => {
           <Text>{product.analytics?.length} </Text>
         </Table.Td>
         <Table.Td>
-          {revenue > 1000 ? `${revenue / 1000}K`: revenue}
+          {revenue > 1000 ? `${revenue / 1000}K` : revenue}
         </Table.Td>
         <TableTd>
           {product?.cartItems.length}
@@ -41,21 +41,19 @@ const ProductAnalyticsTable = ({ products }: IProps) => {
   })
   const { colorScheme } = useMantineColorScheme()
   return (
-    <ScrollArea h="80vh">
-      <Table miw={800} verticalSpacing="sm" striped stripedColor={colorScheme === 'dark' ? 'rgba(0, 0, 0, .2)' : 'gray.1'}>
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>Image</Table.Th>
-            <Table.Th>Product Name</Table.Th>
-            <Table.Th><Text ta="center">Status</Text></Table.Th>
-            <Table.Th>Interactions</Table.Th>
-            <Table.Th>Revenue (KSH)</Table.Th>
-            <Table.Th>Orders</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
-      </Table>
-    </ScrollArea>
+    <Table miw={800} verticalSpacing="sm" striped stripedColor={colorScheme === 'dark' ? 'rgba(0, 0, 0, .2)' : 'gray.1'}>
+      <Table.Thead>
+        <Table.Tr>
+          <Table.Th>Image</Table.Th>
+          <Table.Th>Product Name</Table.Th>
+          <Table.Th><Text ta="center">Status</Text></Table.Th>
+          <Table.Th>Interactions</Table.Th>
+          <Table.Th>Revenue (KSH)</Table.Th>
+          <Table.Th>Orders</Table.Th>
+        </Table.Tr>
+      </Table.Thead>
+      <Table.Tbody>{rows}</Table.Tbody>
+    </Table>
   )
 }
 

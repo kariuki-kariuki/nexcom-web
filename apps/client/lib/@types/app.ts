@@ -1,5 +1,5 @@
 import { MessageState } from '@/lib/common/common';
-import { ImageInterface, Product, Shop } from './shop';
+import { CartItem, ImageInterface, Product, Shop } from './shop';
 
 export type UserContextType = {
   user: GlobalUser | null;
@@ -19,6 +19,8 @@ export interface GlobalUser {
   status: string;
   shop?: Shop;
   fullName: string
+  cartItems?: CartItem[]
+  orders?: Order[];
 }
 
 export interface UserProps {
@@ -102,4 +104,32 @@ export type ChatAction =
 export interface Analytic {
   month: number;
   count: number;
+}
+
+export interface Payment {
+  id: number;
+  amount: number;
+  status: PaymentStatus;
+}
+
+export enum PaymentStatus {
+  PENDING = 'pending',
+  SUCCESS = 'success',
+  FAILED = 'failed',
+}
+
+export enum OrderState {
+  FAILED = 'failed',
+  SUCCESS = 'success',
+  CANCELED = 'canceled',
+  PENDING = 'pending',
+}
+export interface Order {
+  id: string;
+  payment: Payment;
+  orderNumber: number;
+  totalAmount: number;
+  status: OrderState;
+  cartItems: CartItem[]
+  user: GlobalUser
 }

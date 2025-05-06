@@ -18,7 +18,7 @@ function Chat() {
             <Avatar size="lg"
               key={convo.id}
               src={convo.users[0].avatar?.signedUrl}
-              alt={convo.users[0].firstName}
+              alt={convo.users[0].fullName}
               name={convo.users[0].fullName}
             />
           ))}

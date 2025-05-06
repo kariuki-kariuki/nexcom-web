@@ -32,7 +32,7 @@ const TableRow = ({ item, updateFollowStatus }: ITableRow) => (
       <Group gap="sm">
         <Avatar size={26} src={item?.avatar.signedUrl} radius={26} />
         <Text size="sm" fw={500}>
-          {`${item.firstName} ${item.lastName}`}
+          {item.fullName}
         </Text>
       </Group>
     </Table.Td>
@@ -46,7 +46,7 @@ const TableRowNotification = ({ item, updateFollowStatus }: ITableRow) => (
       <Avatar size={26} src={item?.avatar?.signedUrl} radius={26} />
       <Stack gap={2} w="60%">
         <Text size="sm" fw={500} lineClamp={1}>
-          {`${item.firstName} ${item.lastName}`}
+          {item.fullName}
         </Text>
         <Text lineClamp={1} fz="xs">
           {item.shop?.name}

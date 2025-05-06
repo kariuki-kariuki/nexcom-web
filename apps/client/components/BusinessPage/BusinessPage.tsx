@@ -24,7 +24,7 @@ const BusinessPage = ({ shop }: IProps) => {
               </div>
               <Group wrap='nowrap'>
                 <Avatar src={shop.user?.avatar?.signedUrl} size="100" name={shop.user?.fullName} />
-                <Text>{`${shop.user?.firstName} ${shop.user?.lastName}`}</Text>
+                <Text>{shop.user?.fullName}</Text>
               </Group>
             </Stack>
           </div>

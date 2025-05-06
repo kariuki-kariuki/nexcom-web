@@ -27,7 +27,7 @@ const MiniProfile = () => {
       />
 
       <div className="px-5">
-        <p className={classes.text}>{sender?.firstName}</p>
+        <p className={classes.text}>{sender?.fullName}</p>
         <p className="text-slate-400 hidden lg:block md:text-sm">
           "Hello World"
         </p>

@@ -1,4 +1,4 @@
-import cx from 'clsx';
+  import cx from 'clsx';
 import { useEffect, useState } from 'react';
 import {
   Table,
@@ -137,7 +137,7 @@ export function CartTable({ cartItems, setTotal, setCartItems, selection, setSel
 
   return (
     <Paper className={classes.main} bg="none">
-      <TableScrollContainer maxHeight="80vh" minWidth={500}>
+      <TableScrollContainer maxHeight="40vh" minWidth={500}>
         <Table
           miw={400}
           verticalSpacing="lg"

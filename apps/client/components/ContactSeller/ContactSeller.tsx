@@ -40,7 +40,7 @@ const ContactSeller = ({ product }: IProps) => {
                         setNewConversation(product.shop?.user || owner);
                         toggle();
                     }} leftSection={<IconMessage stroke={1.5} />}>
-                    <Text visibleFrom='sm'>{`Contact ${owner?.firstName}`}</Text>
+                    <Text visibleFrom='sm'>{`Contact ${owner?.fullName}`}</Text>
                 </Button> : <Link href="/auth/login">
                     <Button leftSection={<IconMessage stroke={1.5} />}
                         className={classes.btn}
@@ -53,7 +53,7 @@ const ContactSeller = ({ product }: IProps) => {
             <Dialog opened={opened} onClose={toggle} withCloseButton size={"lg"} classNames={{ root: classes.bg }}>
                 <Flex h={'100%'} direction={'column'}>
                     <Group className={classes.header} wrap='nowrap' py="sm">
-                        <Avatar src={owner?.avatar?.signedUrl} name={`${owner?.firstName} ${owner?.lastName}`} />
+                        <Avatar src={owner?.avatar?.signedUrl} name={owner?.fullName} />
                         <Text ta="center" fz={{ base: 'xs', sm: 'lg' }}>{`Inquire About ${product.name}`}</Text>
                     </Group>
                     <ScrollArea h={'100%'} scrollbars={'y'}

@@ -7,7 +7,6 @@ import {
   Box,
   Button,
   Group,
-  ScrollArea,
   SegmentedControl,
   Table,
   Text,
@@ -69,21 +68,19 @@ export function ProductsTable({ products }: { products: Product[] }) {
           </Button>
         </Link>
       </Group>
-      <ScrollArea h="80vh">
-        <Table miw={800} verticalSpacing="sm" striped stripedColor={colorScheme === 'dark' ? 'rgba(0, 0, 0, .2)' : 'gray.1'} >
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Image</Table.Th>
-              <Table.Th>Product Name</Table.Th>
-              <Table.Th><Text ta="center">Status</Text></Table.Th>
-              <Table.Th>Price</Table.Th>
-              <Table.Th>Created at</Table.Th>
-              <Table.Th>Action</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>{rows}</Table.Tbody>
-        </Table>
-      </ScrollArea>
+      <Table miw={800} verticalSpacing="sm" striped stripedColor={colorScheme === 'dark' ? 'rgba(0, 0, 0, .2)' : 'gray.1'} >
+        <Table.Thead>
+          <Table.Tr>
+            <Table.Th>Image</Table.Th>
+            <Table.Th>Product Name</Table.Th>
+            <Table.Th><Text ta="center">Status</Text></Table.Th>
+            <Table.Th>Price</Table.Th>
+            <Table.Th>Created at</Table.Th>
+            <Table.Th>Action</Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>{rows}</Table.Tbody>
+      </Table>
     </Box>
   );
 }

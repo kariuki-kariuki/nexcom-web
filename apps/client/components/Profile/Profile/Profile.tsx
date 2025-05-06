@@ -50,7 +50,7 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
         />
       )}
       <Text ta="center" fz="lg" fw={500} mt="sm">
-        {userClicked.firstName}{' '}
+        {userClicked.fullName}{' '}
         {userClicked.shop ? `• at ${userClicked.shop.name}` : ''}
       </Text>
       <Text ta="center" fz="sm" c="dimmed">

@@ -58,8 +58,8 @@ const Bar = ({activeConvoId}: BarProps) => {
             <>
               {newConversation ? (
                 <Details
-                  name={newConversation?.firstName}
-                  status={`Start chatting with ${newConversation.firstName}`}
+                  name={newConversation?.fullName}
+                  status={`Start chatting with ${newConversation.fullName}`}
                 />
               ) : (
                 <Details />

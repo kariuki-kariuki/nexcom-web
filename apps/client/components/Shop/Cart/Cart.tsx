@@ -7,7 +7,10 @@ import {
   Card,
   CardSection,
   Container,
+  Divider,
   Flex,
+  Grid,
+  GridCol,
   Group,
   Input,
   InputWrapper,
@@ -24,6 +27,7 @@ import { useState } from 'react';
 import SimpleHeader from '@/components/SimpleHeader/SimpleHeader';
 import { notifications } from '@mantine/notifications';
 import { datasource } from '@/lib/common/datasource';
+import OrderTable from './OrderTable/OrderTable';
 
 const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
   const [cartedItems, setCartItems] = useState(cartItems);
@@ -69,16 +73,13 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
   return (
     <Paper className={classes.main}>
       <Container size="xl">
-        <Flex
+        <Grid
           h={'100%'}
           className={classes.flex}
-          direction={{ base: 'column', md: 'row' }}
-          gap={'md'}
-          p="md"
+          py="md"
         >
-          <Box
-            w={{ base: '100%', sm: '100%', md: '60%' }}
-          >
+          <GridCol span={{ base: 12, md: 6, lg: 8 }}>
+
             {cartedItems.length > 0 ? (
               <CartTable
                 cartItems={cartedItems}
@@ -90,56 +91,61 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
             ) : (
               ''
             )}
-          </Box>
-          <Card
-            w={{ base: '100%', sm: '100%', md: '40%' }}
-            className={classes.box}
-            h="fit-content"
-            shadow='lg'
-            withBorder
-          >
-            <CardSection p="md">
-              <Title size="xl" ta="center">Order Summary</Title>
-            </CardSection>
+          </GridCol>
+          <GridCol span={{ base: 12, md: 6, lg: 4 }}>
 
-            {selection.map((item, idx) => {
-
-              const cart = cartedItems.find((itm) => itm.id === item)
-
-              return (
-                <Group key={idx} mb="sm" justify='space-between' className={classes.sumBtn} pr="md">
-                  <Avatar size={100} radius={0} src={cart?.product.images[0].signedUrl} name={cart?.product.name} />
-                  <Text fz="h2">{cart?.quantity}</Text>
-                  <Text fz="h2">{cart ? cart?.size.price * cart?.quantity : ''}/=</Text>
-                </Group>
-              )
-
-            })}
-            <Group justify="space-between" p={'md'}>
-              <Text ff={'serif'} fz="h2">Total</Text>{' '}
-              <Text ff={'serif'} fz="h2">Ksh {total}/=</Text>
-            </Group>
-            <InputWrapper label={'Phone'} size="xl" required p={'md'} ff={'serif'} error={error}>
-              <Input placeholder="0742075647" size="lg" value={phone} onChange={(e) => setPhone(e.target.value)} ff={'serif'} />
-            </InputWrapper>
-            <Group p={'md'} justify="center">
-              <Button
-                color="coco.4"
-                w={'100%'}
-                ff={'serif'}
-                fullWidth
-                onClick={handleCheckout}
-                size='lg'
-                leftSection={<IconEyeDollar style={{ height: rem(24), width: rem(24) }} />}
-              >
-                CheckOut
-              </Button>
-            </Group>
-          </Card>
-        </Flex>
+            <Card
+              className={classes.box}
+              shadow='lg'
+              withBorder
+              h="100%"
+            >
+              <CardSection p="md">
+                <Title size="xl" ta="center">Order Summary</Title>
+              </CardSection>
+              <Group justify="space-between" p={'md'}>
+                <Text ff={'serif'} fz="h2">Total</Text>{' '}
+                <Text ff={'serif'} fz="h2">Ksh {total}/=</Text>
+              </Group>
+              <InputWrapper label={'Phone'} size="xl" required p={'md'} ff={'serif'} error={error}>
+                <Input placeholder="0742075647" size="lg" value={phone} onChange={(e) => setPhone(e.target.value)} ff={'serif'} />
+              </InputWrapper>
+              <Group p={'md'} justify="center">
+                <Button
+                  color="coco.4"
+                  w={'100%'}
+                  ff={'serif'}
+                  fullWidth
+                  onClick={handleCheckout}
+                  size='lg'
+                  leftSection={<IconEyeDollar style={{ height: rem(24), width: rem(24) }} />}
+                >
+                  CheckOut
+                </Button>
+              </Group>
+            </Card>
+          </GridCol>
+        </Grid>
+        <Divider my="xl"/>
+        <Title ta="center" py="md">Orders</Title>
+        <OrderTable />
       </Container>
     </Paper>
   );
 };
 
+
+// {selection.map((item, idx) => {
+
+//   const cart = cartedItems.find((itm) => itm.id === item)
+
+//   return (
+//     <Group key={idx} mb="sm" justify='space-between' className={classes.sumBtn} pr="md">
+//       <Avatar size={100} radius={0} src={cart?.product.images[0].signedUrl} name={cart?.product.name} />
+//       <Text fz="h2">{cart?.quantity}</Text>
+//       <Text fz="h2">{cart ? cart?.size.price * cart?.quantity : ''}/=</Text>
+//     </Group>
+//   )
+
+// })}
 export default CartComponent;
