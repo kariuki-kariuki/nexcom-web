@@ -89,7 +89,6 @@ export class AuthService {
 
   async login(loginDto: LoginDto) {
     const user: User = await this.userService.findOne(loginDto.email);
-    this.logger.log(user);
     if (!user) {
       throw new UnauthorizedException('Incorect email or password');
     }
