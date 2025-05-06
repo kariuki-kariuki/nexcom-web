@@ -41,7 +41,6 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const [playFx] = useSound('/sounds/level-up.mp3');
   const socket = useSocketContext();
   const user = useGlobalStore((state) => state.user);
-  console.log('Render')
   const handleIncomingMessage = useCallback((res: NewMessage) => {
     try {
       if (res.productId) {

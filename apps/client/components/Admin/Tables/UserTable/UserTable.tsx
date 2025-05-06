@@ -46,11 +46,6 @@ export function UsersTable() {
           <Text fz="sm" fw={500} lineClamp={1}>
             {user.fullName} { }
           </Text>
-        </Table.Td>jwtshopguard
-        <Table.Td>
-          <Text fz="sm" fw={500} lineClamp={1}>
-            {user.lastName} { }
-          </Text>
         </Table.Td>
         <Table.Td>
           <Anchor component="button" size="sm" lineClamp={1}>

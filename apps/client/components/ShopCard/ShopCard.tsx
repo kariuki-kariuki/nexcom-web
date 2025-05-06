@@ -22,7 +22,7 @@ const ShopCard = ({ shop }: IProps) => {
           <Button size='xs' variant='light' color="coco.4"><IconMessage size={15} /></Button>
         </Group>
         <Stack gap="5px" align='center'>
-          <Avatar src={shop.user?.avatar?.signedUrl} name={`${shop.user?.fullName} ${shop.user?.lastName}`} />
+          <Avatar src={shop.user?.avatar?.signedUrl} name={shop.user?.fullName} />
           <Text fw="bold">{shop.name}</Text>
           <Text>{shop.category?.name}</Text>
         </Stack>

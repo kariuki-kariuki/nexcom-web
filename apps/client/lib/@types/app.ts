@@ -12,8 +12,6 @@ export type UserContextType = {
 export interface GlobalUser {
   id: string;
   avatar: ImageInterface;
-  firstName: string;
-  lastName: string;
   updated_at: string;
   role: string;
   status: string;
