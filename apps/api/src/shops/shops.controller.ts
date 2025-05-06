@@ -41,14 +41,17 @@ export class ShopsController {
     return this.shopsService.findMyShop(req.user.shopId);
   }
 
+  @Roles(UserRoles.SHOP_ADMIN)
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
+  @Get('orders')
+  getOrders(@Req() req: AuthenticatedRequest) {
+    return this.shopsService.getOrders(req.user.shopId);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.shopsService.findShopWithProducts(id);
-  }
-
-  @Get('all')
-  findByName() {
-    return this.shopsService.findAll();
   }
 
   @Roles(UserRoles.SHOP_ADMIN)

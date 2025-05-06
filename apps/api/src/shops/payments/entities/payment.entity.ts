@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer';
-import { ProjectIdType } from 'src/@types/types';
+import { PaymentStatus, ProjectIdType } from 'src/@types/types';
 import { Order } from 'src/shops/orders/entities/order.entity';
 import {
   Column,
@@ -39,8 +39,8 @@ export class Payment {
   @Column()
   phoneNumber: number;
 
-  @Column({ default: 'pending' }) // pending, success, failed
-  status: string;
+  @Column({ default: PaymentStatus.PENDING }) // pending, success, failed
+  status: PaymentStatus;
 
   @Column({ nullable: true }) // Reason for failure, if any
   failureReason: string;

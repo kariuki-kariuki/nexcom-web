@@ -13,12 +13,14 @@ import { CategoriesService } from './categories/categories.service';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { User } from 'src/users/entities/user.entity';
 import { Image } from './product_images/entities/image.entity';
+import { Order } from './orders/entities/order.entity';
 
 @Injectable()
 export class ShopsService {
   constructor(
     @InjectRepository(Shop) private shopRepository: Repository<Shop>,
     @InjectRepository(User) private usersRepository: Repository<User>,
+    @InjectRepository(Order) private ordersRepository: Repository<Order>,
     private readonly awsService: AwsService,
     private readonly categoryService: CategoriesService,
   ) {}
@@ -150,5 +152,19 @@ export class ShopsService {
 
   remove(id: number) {
     return `This action removes a #${id} shop`;
+  }
+
+  async getOrders(shopId: string) {
+    return this.ordersRepository.find({
+      where: {
+        cartItems: {
+          product: {
+            shop: {
+              id: shopId,
+            },
+          },
+        },
+      },
+    });
   }
 }

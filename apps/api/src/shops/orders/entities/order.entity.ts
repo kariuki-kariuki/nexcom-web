@@ -45,14 +45,14 @@ export class Order {
   @Column({ default: OrderState.PENDING })
   status: OrderState;
 
-  @OneToMany(() => Cart, (cart) => cart.orders)
+  @OneToMany(() => Cart, (cart) => cart.orders, { eager: true })
   cartItems: Cart[];
 
-  @OneToOne(() => Payment, (payment) => payment.order)
+  @OneToOne(() => Payment, (payment) => payment.order, { eager: true })
   @JoinColumn()
   payment: Payment;
 
-  @ManyToOne(() => User, (user) => user.orders)
+  @ManyToOne(() => User, (user) => user.orders, { eager: true })
   user: User;
 
   // Special columns

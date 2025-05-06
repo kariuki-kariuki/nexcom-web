@@ -123,3 +123,9 @@ export enum UserRoles {
   SHOP_ADMIN = 'SHOP_ADMIN',
   USER = 'USER',
 }
+
+export enum PaymentStatus {
+  PENDING = 'pending',
+  SUCCESS = 'success',
+  FAILED = 'failed',
+}

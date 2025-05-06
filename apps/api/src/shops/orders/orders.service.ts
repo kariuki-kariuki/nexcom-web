@@ -1,5 +1,6 @@
 import {
   Injectable,
+  Logger,
   UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
@@ -17,6 +18,7 @@ import { PaymentsService } from '../payments/payments.service';
 
 @Injectable()
 export class OrdersService {
+  private readonly logger = new Logger(OrdersService.name);
   constructor(
     @InjectRepository(Order) private readonly ordersRepo: Repository<Order>,
     private readonly usersService: UsersService,
@@ -27,7 +29,7 @@ export class OrdersService {
   ) {}
   async create(createOrderDto: CreateOrderDto, userId: ProjectIdType) {
     const order = new Order();
-    const user = await this.usersService.findOne(userId);
+    const user = await this.usersService.findById(userId);
     const { cartIds, phone } = createOrderDto;
     const cartItems = await Promise.all(
       cartIds.map(async (id) => await this.cartService.findOne(id)),

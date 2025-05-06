@@ -1,8 +1,6 @@
 import {
   ForbiddenException,
   Injectable,
-  NotFoundException,
-  UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateCartDto } from './dto/create-cart.dto';
@@ -12,9 +10,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Cart } from './entities/cart.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from 'src/users/users.service';
-import { AwsService } from 'src/aws/aws.service';
 import { ProductsService } from '../products/products.service';
-import { ProductSizesService } from '../product_sizes/product_sizes.service';
 
 type updateType = {
   id: ProjectIdType;
@@ -30,10 +26,8 @@ type createType = {
 export class CartsService {
   constructor(
     @InjectRepository(Cart) private cartRepo: Repository<Cart>,
-    private readonly awsService: AwsService,
     private readonly usersService: UsersService,
     private readonly productService: ProductsService,
-    private readonly productSizeService: ProductSizesService,
   ) {}
 
   async create({ createCartDto, userId }: createType) {
@@ -68,22 +62,7 @@ export class CartsService {
         size: true,
       },
     });
-    if (cartItems) {
-      const cartWithImg = await Promise.all(
-        cartItems.map(async (item) => {
-          item.product.images = await Promise.all(
-            item.product.images?.map(async (image) => ({
-              ...image,
-              url: await this.awsService.getSignedURL(image.url),
-            })),
-          );
-          return item;
-        }),
-      );
-      return cartWithImg;
-    } else {
-      throw new NotFoundException('No Items found in cart');
-    }
+    return cartItems;
   }
 
   async findOne(id: ProjectIdType) {
@@ -102,27 +81,34 @@ export class CartsService {
     const cart = await this.cartRepo.findOne({
       where: {
         id: id,
+        user: { id: userId },
+        ordered: false,
       },
       relations: {
         user: true,
         product: {
+          images: true,
           product_sizes: true,
         },
       },
     });
-    if (!cart || cart.user.id !== userId) {
-      throw new UnauthorizedException();
+    if (!cart) {
+      throw new ForbiddenException('You cannot perfom such action');
     }
     const { sizeId } = updateCartDto;
-    const size = cart.product.product_sizes.find((size) => size.id === sizeId);
-    if (!size) {
-      throw new ForbiddenException('You cannot perfom such action');
+    if (sizeId) {
+      const size = cart.product.product_sizes.find(
+        (size) => size.id === sizeId,
+      );
+      cart.size = size;
+      if (!size) {
+        throw new ForbiddenException('You cannot perfom such action');
+      }
     }
     cart.quantity = updateCartDto.quantity ?? cart.quantity;
     cart.color = updateCartDto.color ?? cart.color;
     cart.customer_description =
       updateCartDto.customer_description ?? cart.customer_description;
-    cart.size = size;
     return await this.cartRepo.save(cart);
   }
 

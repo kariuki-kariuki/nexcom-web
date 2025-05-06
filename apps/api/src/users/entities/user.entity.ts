@@ -5,7 +5,6 @@ import {
   JoinColumn,
   JoinTable,
   ManyToMany,
-  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -20,6 +19,7 @@ import { Order } from '../../shops/orders/entities/order.entity';
 import { ProjectIdType, UserRoles } from 'src/@types/types';
 import { ProductComment } from 'src/product-comments/entities/product-comment.entity';
 import { Image } from 'src/shops/product_images/entities/image.entity';
+import { Cart } from 'src/shops/carts/entities/cart.entity';
 
 @Entity('users')
 export class User {
@@ -30,9 +30,11 @@ export class User {
     example: 'Doe',
     description: 'provide the fistname of the user',
   })
+  @Exclude()
   @Column()
   firstName: string;
 
+  @Exclude()
   @Column()
   lastName: string;
 
@@ -97,8 +99,11 @@ export class User {
   @JoinColumn()
   shop: Shop;
 
-  @ManyToOne(() => Order, (order) => order.user)
+  @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
+
+  @OneToMany(() => Cart, (cart) => cart.user)
+  cartItems: Cart[];
 
   // Special columns
   @Exclude()

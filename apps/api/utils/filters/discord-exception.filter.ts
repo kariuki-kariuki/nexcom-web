@@ -19,15 +19,15 @@ export class DiscordExceptionFilter implements ExceptionFilter {
       exception instanceof HttpException ? exception.getStatus() : 500;
     this.logger.debug('Response status', statusCode);
     if (exception instanceof Error) {
-      if (statusCode >= 500) {
-        this.discordService.sendErrorToDiscord(exception, {
-          statusCode,
-          path: request.url,
-          method: request.method,
-          headers: request.headers,
-          body: request.body,
-        });
-      }
+      // if (statusCode >= 500) {
+      this.discordService.sendErrorToDiscord(exception, {
+        statusCode,
+        path: request.url,
+        method: request.method,
+        headers: request.headers,
+        body: request.body,
+      });
+      // }
     }
 
     const message =

@@ -27,10 +27,12 @@ export class Cart {
   @Column({ nullable: true })
   customer_description: string;
 
-  @ManyToOne(() => Product, (product) => product.cartItems)
+  @ManyToOne(() => Product, (product) => product.cartItems, { eager: true })
   product: Product;
 
-  @ManyToOne(() => ProductSize, (productSize) => productSize.carts)
+  @ManyToOne(() => ProductSize, (productSize) => productSize.carts, {
+    eager: true,
+  })
   size: ProductSize;
 
   @ManyToOne(() => Order, (order) => order.cartItems)
@@ -39,7 +41,7 @@ export class Cart {
   @Column({ default: false })
   ordered: boolean;
 
-  @ManyToOne(() => User, (user) => user.orders)
+  @ManyToOne(() => User, (user) => user.cartItems, { eager: true })
   user: User;
 
   // Special columns
