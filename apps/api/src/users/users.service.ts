@@ -109,12 +109,8 @@ export class UsersService {
 
   async findOne(email: string) {
     const user = await this.usersRepository.findOne({
-      where: { email, cartItems: { ordered: false } },
-      relations: {
-        shop: true,
-        cartItems: true,
-        orders: { cartItems: { product: true } },
-      },
+      where: { email },
+      relations: { shop: true },
     });
 
     return user;

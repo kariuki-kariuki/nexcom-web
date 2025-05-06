@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -19,6 +19,7 @@ export interface GoogleUser {
 }
 @Injectable()
 export class AuthService {
+  private logger = new Logger(AuthService.name);
   constructor(
     private readonly shopService: ShopsService,
     private userService: UsersService,
@@ -58,7 +59,6 @@ export class AuthService {
   async loginWithGoogle(req: any) {
     const email = req.user.emails[0].value;
     const user: User = await this.userService.findOne(email);
-
     if (!user) {
       const guser: GoogleUser = {
         firstName: req.user.name.givenName,
@@ -89,8 +89,9 @@ export class AuthService {
 
   async login(loginDto: LoginDto) {
     const user: User = await this.userService.findOne(loginDto.email);
+    this.logger.log(user);
     if (!user) {
-      throw new UnauthorizedException('Incoret email or password');
+      throw new UnauthorizedException('Incorect email or password');
     }
     const payload: Payload = { email: user.email, userId: user.id };
     const passwordMatch = await bcrypt.compare(
