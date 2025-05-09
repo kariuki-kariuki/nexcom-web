@@ -111,8 +111,9 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         data.status,
         data.file,
       );
-      this.server.emit('updateProfile', { user: res, userId });
-      return res;
+      const plainUser = instanceToPlain(res);
+      this.server.emit('updateProfile', { user: plainUser, userId });
+      return plainUser;
     } catch (e) {
       console.log('Failed to update', e);
     }
