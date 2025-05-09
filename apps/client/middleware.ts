@@ -41,10 +41,10 @@ export default async function middleware(req: NextRequest) {
 
 
   // Revoke access to the '/videos' route
-  if (path.startsWith('/dashboard')) {
+  if (path.startsWith('/videos')) {
     return NextResponse.redirect(new URL('/', req.nextUrl));
   }
-  
+
   // Allow access to the root route '/' for everyone
   
   if (path === '/') {
