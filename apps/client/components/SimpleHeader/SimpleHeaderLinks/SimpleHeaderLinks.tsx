@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
-import { IconMessageCircle, IconShoppingBag, IconShoppingCart, IconVideoFilled } from '@tabler/icons-react'
+import { IconMessageCircle, IconShoppingBag, IconShoppingCart } from '@tabler/icons-react'
 import { Avatar, Box, Burger, Drawer, Group, Paper, Stack, Text } from '@mantine/core'
 import DashboardLink, { LoginLink } from './DashboardLink'
 import classes from './SimpleHeaderLinks.module.css';
@@ -9,7 +9,7 @@ import { useDisclosure } from '@mantine/hooks'
 import MenuDrop from '@/components/Menudrop/MenuDrop'
 
 const links = [
-  { label: 'Videos', link: '/videos', icon: IconVideoFilled },
+  // { label: 'Videos', link: '/videos', icon: IconVideoFilled },
   { label: 'Chats', link: '/chat', icon: IconMessageCircle },
   { label: 'Business', link: '/business', icon: IconShoppingBag },
   { label: 'Products', link: '/business/product/tags/all', icon: IconShoppingCart },

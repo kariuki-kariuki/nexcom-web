@@ -4,7 +4,7 @@ import { decodeJwt } from 'jose';
 
 // Define protected and public routes
 const protectedRoutes = [
-  '/chat', 
+  '/chat',
   '/dashboard',
   '/dashboard/products',
   '/dashboard/users',
@@ -40,7 +40,13 @@ export default async function middleware(req: NextRequest) {
   const isPublicRoute = publicRoutes.includes(path);
 
 
+  // Revoke access to the '/videos' route
+  if (path.startsWith('/dashboard')) {
+    return NextResponse.redirect(new URL('/', req.nextUrl));
+  }
+  
   // Allow access to the root route '/' for everyone
+  
   if (path === '/') {
     if (isAuthenticated) {
       return NextResponse.redirect(new URL('/chat', req.nextUrl));

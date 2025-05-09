@@ -1,6 +1,6 @@
 'use client';
 import { Box, Avatar, Stack, useMantineColorScheme, useMantineTheme, Indicator } from '@mantine/core';
-import { IconSunFilled, IconSunMoon, IconLogout, IconListTree, IconBriefcaseFilled, IconMessageCircleFilled, IconPlayerPlayFilled, IconShoppingCartFilled, IconShoppingBagPlus, IconLogin, IconDiamondFilled } from '@tabler/icons-react';
+import { IconSunFilled, IconSunMoon, IconLogout, IconListTree, IconBriefcaseFilled, IconMessageCircleFilled, IconShoppingCartFilled, IconShoppingBagPlus, IconLogin, IconDiamondFilled } from '@tabler/icons-react';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
 import classes from './styles.module.css';
@@ -13,7 +13,7 @@ import { MessageState } from '@/lib/common/common';
 
 const defaultLinks = [
   { label: 'Chats', link: '/chat', icon: IconMessageCircleFilled },
-  { label: 'Videos', link: '/videos', icon: IconPlayerPlayFilled },
+  // { label: 'Videos', link: '/videos', icon: IconPlayerPlayFilled },
   { label: 'Business', link: '/business', icon: IconBriefcaseFilled },
   { label: 'Products', link: '/business/product', icon: IconShoppingBagPlus },
 ];
@@ -124,7 +124,7 @@ const SimpleNav = () => {
             {user ? (
               <IconLogout color="red" className={classes.linkIcon} stroke={1.5} />
             ) : (
-              <IconLogin color="blue" className={classes.linkIcon} stroke={1.5} />
+              <IconLogin color="teal" className={classes.linkIcon} stroke={1.5} />
             )}
           </Box>
         </Stack>
