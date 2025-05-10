@@ -26,7 +26,7 @@ export class ConversationsService {
     private readonly awsService: AwsService,
     @InjectRepository(Message)
     private readonly messageRepo: Repository<Message>,
-  ) {}
+  ) { }
 
   async findAll(id: string) {
     const user = await this.usersRepository.findOne({
@@ -85,14 +85,12 @@ export class ConversationsService {
       // Transactional save
       const convo = await this.conversationRepo.save(conversation);
 
-      const message = await this.createInitialMessage(
-        createConversationDTO,
-        initiator,
-        convo,
-      );
+      await this.createInitialMessage(createConversationDTO, initiator, convo);
 
-      convo.messages = [message];
-      return convo;
+      return this.conversationRepo.findOne({
+        where: { id: convo.id },
+        relations: { users: true, messages: { user: true, product: true } },
+      });
     } catch (e) {
       console.error('Error creating conversation:', e);
       throw new Error('Failed to create conversation');

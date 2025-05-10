@@ -8,5 +8,5 @@
 }
 
 .btn {
-  background-color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-coco-4));
+  background-color: light-dark(var(--mantine-color-coco-4), var(--mantine-color-coco-4));
 }

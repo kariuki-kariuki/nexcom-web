@@ -20,7 +20,7 @@ import { EmojiPickerComponent } from '../EmojiPicker/EmojiPickerComponent';
 import { FileWithPath } from '@mantine/dropzone';
 import FilePicker from '../ui/FilePicker';
 import MessageImagePreviews from '../Previews/MessageImagePrev';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { base } from '@faker-js/faker';
 import { useMediaQuery } from '@mantine/hooks';
 
@@ -36,7 +36,9 @@ const NewMessageBox = ({ productId, margin, convoId, close}: INewMessageBox) => 
   const conversations = useGlobalStore(state => state.conversations);
   const activeConversation = conversations.find((conv) => conv.id === convoId);
   const inquiryConversation = useGlobalStore((state) => state.activeConversation)
-  const { newConversation, setNewConversation } = useNewConverSationContext();
+  const setNewConversation  = useGlobalStore((state) => state.setNewConversation);
+  const newConversation  = useGlobalStore((state) => state.newConversation);
+  console.log('render');
   const addMessage = useGlobalStore((state) => state.addMessage)
   const addConversation = useGlobalStore((state) => state.addConversation)
   const [files, setFiles] = useState<FileWithPath[]>([])
@@ -44,6 +46,8 @@ const NewMessageBox = ({ productId, margin, convoId, close}: INewMessageBox) => 
   const router = useRouter();
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const pathame = usePathname();
+  const isNewConversation = pathame?.startsWith('/chat/new')
   const handleSubmit = async () => {
     if (!message && files.length === 0) return;
 
@@ -67,7 +71,7 @@ const NewMessageBox = ({ productId, margin, convoId, close}: INewMessageBox) => 
         console.log(e);
       }
     }
-    else if (newConversation) {
+    else if (newConversation && isNewConversation) {
       const messageBody = {
         message,
         receiverId: newConversation.id,
@@ -79,7 +83,6 @@ const NewMessageBox = ({ productId, margin, convoId, close}: INewMessageBox) => 
         socket?.emit('new-conversation', messageBody, (res: ConversationProps) => {
           setMessage('');
           setFiles([]);
-          setNewConversation(null);
           addConversation(res);
           router.push(`/chat/${res.id}`);
         });
@@ -111,7 +114,7 @@ const NewMessageBox = ({ productId, margin, convoId, close}: INewMessageBox) => 
           w={'100%'}
           bg="none"
           c={'white'}
-          disabled={activeConversation || newConversation || inquiryConversation ? false : true}
+          disabled={activeConversation || inquiryConversation || isNewConversation ? false : true}
         />
         <Flex w={'100%'} py={'md'} align={'center'} justify="space-between" gap={'md'}>
           <Group gap="md">

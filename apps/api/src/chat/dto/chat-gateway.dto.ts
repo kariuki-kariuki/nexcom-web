@@ -7,6 +7,12 @@ export type IncomingMessageBody = {
   receiverId: ProjectIdType;
   files?: Array<Express.Multer.File>;
 };
+export type IncomingConversationBody = {
+  receiverId: string;
+  message: string;
+  productId?: string;
+  files?: Array<Express.Multer.File>;
+};
 
 export interface IncomingFile {
   originalname: string; // File name

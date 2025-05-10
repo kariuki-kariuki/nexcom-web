@@ -23,6 +23,7 @@ import { notifications } from '@mantine/notifications';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 import { useRouter } from 'next/navigation';
 import { useDisclosure } from '@mantine/hooks';
+import Link from 'next/link';
 
 const SearchModal = () => {
   const [value, setValue] = useState('');
@@ -35,38 +36,31 @@ const SearchModal = () => {
   const [error, setError] = useState('')
   const router = useRouter()
   const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
-  const usersFound = users?.map((person) => (
-    <Card
-      radius={'md'}
-      className={classes.card}
-      shadow="md"
-      mb={'md'}
-      onClick={() => {
-        if (user?.id === person.id) return;
+  const usersFound = users?.map((person) => {
+    const convo = conversations.find(convo => convo.users[0].id === person.id);
+    const isMe = person.id === user?.id;
+    if (convo) {
+      return (
+        <Link href={`/chat/${convo.id}`} key={person.id} onClick={toggle}>
+          <UserCard user={person} />
+        </Link>
+      )
+    } else if (isMe) {
+      return (
+        <UserCard user={person} />
+      )
+    } else {
+      return (
+        <Link href={`/chat/new/${person.id}`} key={person.id} onClick={toggle}>
+          <UserCard user={person} />
+        </Link>
+      )
+    }
 
-        const convo = conversations.find(convo => convo.users[0].id === person.id);
-        if (convo) {
-          router.push(`/chat/${convo.id}`);
-          toggle();
-          return;
-        }
-        setActiveConversation(null);
-        setNewConversation(person);
-        open();
-        toggle();
-      }}
-      key={person.id}
-    >
-      <Group>
-        <Avatar src={person?.avatar?.signedUrl} name={person.fullName} />
-        <Text>{person.id === user?.id ? 'Me' : person.fullName}</Text>
-      </Group>
-    </Card>
-  ));
+  });
   const handleSubmit = async () => {
     setError('')
     setLoading(true);
-    console.log("Called submit")
     const { data, error } = await datasource.post<GlobalUser[]>({ formData: { text: value }, path: 'users/search' })
     if (data) {
       if (data.length === 0) {
@@ -134,4 +128,23 @@ const SearchModal = () => {
   );
 };
 
+
+const UserCard = ({ user }: { user: GlobalUser }) => {
+  const loggedInUser = useGlobalStore(state => state.user);
+  return (<Card
+    radius={'md'}
+    className={classes.card}
+    shadow="md"
+    mb={'md'}
+    key={user.id}
+  >
+    <Group wrap='nowrap'>
+      <Avatar src={user?.avatar?.signedUrl} size="xl" name={user.fullName} />
+      <div>
+        <Text fz="xl" fw="bold">{user.id === loggedInUser?.id ? 'Me' : user.fullName}</Text>
+        <Text lineClamp={2}>{user.status}</Text>
+      </div>
+    </Group>
+  </Card>)
+}
 export default SearchModal;

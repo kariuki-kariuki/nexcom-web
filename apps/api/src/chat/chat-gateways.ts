@@ -6,6 +6,7 @@ import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
+  WsException,
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { ChatService } from './chat.service';
@@ -20,6 +21,7 @@ import {
   OnlineStatus,
 } from './dto/chat-gateway.dto';
 import { Logger } from '@nestjs/common';
+import { Conversation } from './conversations/entities/Conversation.entity';
 
 @WebSocketGateway(5000, {
   cors: { origin: '*' },
@@ -72,31 +74,46 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @MessageBody() createConversationDTO: CreateConversationDTO,
   ) {
     try {
-      console.log(client.user.userId);
+      this.logger.log(
+        `Creating conversation with receiverId: ${createConversationDTO.receiverId}`,
+      );
       const { receiverId } = createConversationDTO;
+
+      // Create the conversation
       const conversation = await this.chatService.newConversation({
         initiatorId: client.user.userId,
         createConversationDTO,
       });
+
+      // Notify the receiver if they are online
       const receiverSocket = this.gateWaySession.getUserSocket(receiverId);
       if (receiverSocket) {
-        const serializedConversation = instanceToPlain(conversation);
-
-        serializedConversation.users = conversation.users.filter(
-          (user) => user.id !== receiverId,
+        const serializedForReceiver = this.serializeConversation(
+          conversation,
+          receiverId,
         );
         this.server
           .to(receiverSocket.id)
-          .emit('new-conversation', serializedConversation);
+          .emit('new-conversation', serializedForReceiver);
       }
-      const serializedConversation = instanceToPlain(conversation);
-      serializedConversation.users = conversation.users.filter(
-        (user) => user.id === receiverId,
-      );
-      return serializedConversation;
-    } catch (e) {
-      console.log('Create conversation error', e);
+
+      // Return conversation filtered for the initiator
+      return this.serializeConversation(conversation, receiverId);
+    } catch (error) {
+      this.logger.error('Create conversation error:', error.message);
+      throw new WsException('Failed to create a new conversation');
     }
+  }
+
+  private serializeConversation(
+    conversation: Conversation,
+    excludeUserId: string,
+  ) {
+    const serialized = instanceToPlain(conversation);
+    serialized.users = conversation.users.filter(
+      (user) => user.id !== excludeUserId,
+    );
+    return serialized;
   }
 
   @SubscribeMessage('updateProfile')

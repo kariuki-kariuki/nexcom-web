@@ -14,7 +14,7 @@
 }
 
 .card {
-  background-color: light-dark(var(--mantine-color-coco-0), var(--mantine-color-coco-1));
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-1));
 }
 
 .absolute {
