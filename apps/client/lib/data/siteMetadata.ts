@@ -5,7 +5,7 @@ const siteMetadata = {
   description: 'The future of Connected Commerce',
   language: 'en-us',
   theme: 'dark', // system, dark or light
-  siteUrl: 'https://nexcom-ke.vercel.app',
+  siteUrl: process.env.SITE_URL || 'https://nexcom.site',
   siteRepo: 'https://github.com/kariuk-kariuki/',
   siteLogo: `${process.env.BASE_PATH || ''}/logos/logo.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/images/og.png`,

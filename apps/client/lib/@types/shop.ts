@@ -48,6 +48,7 @@ export type Product = {
   comments: ProductComment[]
   analytics?: AnalyticInterface[]
   cartItems: CartItem[];
+  updated_at: string;
 };
 
 

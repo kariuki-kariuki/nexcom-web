@@ -9,7 +9,6 @@ import {
 } from 'typeorm';
 import { ProductSize } from '../../product_sizes/entities/product_size.entity';
 import { Image } from '../../product_images/entities/image.entity';
-import { Exclude } from 'class-transformer';
 import { ProductStatus } from '../../../@types/product-status';
 import { Shop } from 'src/shops/entities/shop.entity';
 import { Category } from 'src/shops/categories/entities/category.entity';
@@ -40,6 +39,7 @@ export class Product {
 
   @OneToMany(() => ProductSize, (productSize) => productSize.product, {
     cascade: true,
+    eager: true,
   })
   product_sizes: ProductSize[];
 
@@ -80,7 +80,6 @@ export class Product {
   @CreateDateColumn()
   created_at: Date;
 
-  @Exclude()
   @UpdateDateColumn()
   updated_at: Date;
 }
