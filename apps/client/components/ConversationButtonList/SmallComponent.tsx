@@ -5,14 +5,14 @@ import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 export default function SmallComponent() {
   const user = useGlobalStore((state) => state.user);
-  const [opened, { open, close }] = useDisclosure(false);
+  const [opened, { toggle }] = useDisclosure(false);
   return (
     <div>
-      <Group bg={'none'} onClick={open} wrap="nowrap">
+      <Group bg={'none'} onClick={toggle} wrap="nowrap">
         <Avatar src={user?.avatar?.signedUrl} size="md" />
         <Text fz="md">{user?.fullName}</Text>
       </Group>
-      {user ? <Dashboard opened={opened} close={close} actUser={user} /> : ''}
+      {user ? <Dashboard opened={opened} toggle={close} actUser={user} /> : ''}
     </div>
   );
 }

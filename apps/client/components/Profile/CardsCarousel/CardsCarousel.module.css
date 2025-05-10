@@ -1,5 +1,5 @@
 .card {
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+  background-color: none;
 }
 
 .title {

@@ -4,18 +4,18 @@ import classes from './Dashboard.module.css';
 import { Drawer } from '@mantine/core';
 interface Iprops {
   opened: boolean;
-  close: () => void;
+  toggle: () => void;
   actUser: GlobalUser;
 }
-const Dashboard = ({ opened, close, actUser }: Iprops) => {
+const Dashboard = ({ opened, toggle, actUser }: Iprops) => {
   return (
     <Drawer
       opened={opened}
-      onClose={() => close()}
+      onClose={toggle}
       withOverlay={false}
       w={'100%'}
       style={{ overflow: 'hidden' }}
-      classNames={{ header: classes.color, content: classes.color }}
+      classNames={{ header: classes.header, content: classes.color }}
       h={'100%'}
       title={`${actUser.fullName}'s Profile`}
       position="right"

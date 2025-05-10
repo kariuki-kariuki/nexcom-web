@@ -23,7 +23,7 @@ import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 
 export default function MenuDrop() {
-  const [opened, { open, close }] = useDisclosure();
+  const [opened, {toggle}] = useDisclosure();
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
   const setConversations = useGlobalStore((store) => store.setConversations)
   const user = useGlobalStore(state => state.user)
@@ -51,7 +51,7 @@ export default function MenuDrop() {
               </Menu.Item>
             </Link>
             <Menu.Item
-              onClick={open}
+              onClick={toggle}
               leftSection={
                 <IconLayoutDashboardFilled
                   style={{ width: rem(14), height: rem(14) }}
@@ -136,7 +136,7 @@ export default function MenuDrop() {
         <Link href="/auth/login">
           <Button variant='subtle' rightSection={<IconLogin size={18} />}>Login</Button>
         </Link>}
-      {user ? <Dashboard opened={opened} close={close} actUser={user} /> : ''}
+      {user ? <Dashboard opened={opened} toggle={toggle} actUser={user} /> : ''}
     </Box>
   );
 }

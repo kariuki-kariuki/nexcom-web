@@ -16,12 +16,9 @@ const protectedRoutes = [
   '/dashboard/jobs',
   '/dashboard/tenders',
   '/dashboard/resources',
-  '/shop/create'
+  '/business/register',
 ];
 const publicRoutes = ['/auth/login', '/auth/signup'];
-const shopOwnersRoutes = [
-  '/dashboard',
-];
 
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
@@ -67,6 +64,9 @@ export default async function middleware(req: NextRequest) {
   // Redirect authenticated users from public routes to '/chat'
   if (isPublicRoute && isAuthenticated) {
     return NextResponse.redirect(new URL('/chat', req.nextUrl));
+  }
+  if(path === '/business/register' && !isAuthenticated) {
+    return NextResponse.redirect(new URL('/auth/login', req.nextUrl));
   }
 
   // Restrict access to shop owner routes to authenticated users with a shopId

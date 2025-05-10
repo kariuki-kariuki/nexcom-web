@@ -11,7 +11,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 const Apps = () => {
-  const [opened, { open, close }] = useDisclosure();
+  const [opened, { toggle }] = useDisclosure();
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
   const user = useGlobalStore(state => state.user)
   const setUser = useGlobalStore(state => state.setUser)
@@ -41,7 +41,7 @@ const Apps = () => {
               </Menu.Item>
             </Link>
             <Menu.Item
-              onClick={open}
+              onClick={toggle}
               leftSection={
                 <IconUserCircle
                   style={{ width: rem(18), height: rem(18) }}
@@ -135,7 +135,7 @@ const Apps = () => {
           </Menu.Dropdown>
         </Menu>
         {user ? (
-          <Dashboard opened={opened} close={close} actUser={user} />
+          <Dashboard actUser={user} toggle={toggle} opened={opened} />
         ) : (
           ''
         )}

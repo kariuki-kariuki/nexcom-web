@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, Group, Text } from '@mantine/core';
+import { Avatar, Button, Card, CardSection, Group, Text } from '@mantine/core';
 import classes from './Profile.module.css';
 import { CardsCarousel } from '../CardsCarousel/CardsCarousel';
 import PictureUpdate from '../PictureUpdate/PictureUpdate';
@@ -27,45 +27,46 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
   ));
 
   return (
-    <Card h={'100%'} className={classes.profile} radius={'md'} pb={'lg'}>
-      <Card.Section
-        h={70}
-        style={{
-          backgroundImage:
-            'url(https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80)'
-        }}
-      />
-      {active ? (
-        <PictureUpdate image={userClicked?.avatar?.signedUrl} />
-      ) : (
-        <Avatar
-          src={userClicked?.avatar?.signedUrl}
-          size={200}
-          radius={0}
-          name={userClicked?.fullName}
-          mx="auto"
-          mt={-30}
-          className={classes.avatar}
-        />
-      )}
-      <Text ta="center" fz="lg" fw={500} mt="sm">
-        {userClicked.fullName}{' '}
-        {userClicked.shop ? `• at ${userClicked.shop.name}` : ''}
-      </Text>
-      <Text ta="center" fz="sm" c="dimmed">
-        {userClicked.status}
-      </Text>
+    <Card h={'100%'} bg="none" className={classes.profile} radius={0} pb={'lg'}>
+      <CardSection py="xl" mb="xs" classNames={{ section: classes.sections }}>
+        {active ? (
+          <PictureUpdate image={userClicked?.avatar?.signedUrl} />
+        ) : (
+          <Avatar
+            src={userClicked?.avatar?.signedUrl}
+            size={200}
+            name={userClicked?.fullName}
+            mx="auto"
+            className={classes.avatar}
+          />
+        )}
+
+        <Text ta="center" fz="lg" fw={500} mt="sm">
+          {userClicked.fullName}{' '}
+          {userClicked.shop ? `• at ${userClicked.shop.name}` : ''}
+        </Text>
+      </CardSection>
+      <CardSection p="md" mb='xs' className={classes.sections}>
+        <Text>Status</Text>
+        <Text fz="sm" c="dimmed">
+          {userClicked.status}
+        </Text>
+      </CardSection>
       {/* <Group my="md" justify="center" gap={30}>
         {userClicked.shop ? items : ''}
       </Group> */}
+
       {active ? (
-        <Group justify="center">{!user?.shop &&  <Link href="/shop/create"><Button my="md" variant='light' color="teal.7" leftSection={<IconArrowsLeftRight />}>Switch to Business</Button></Link>}</Group>
+        <CardSection p="md" className={classes.sections}>
+          <Group justify="center">{!user?.shop && <Link href="/business/create"><Button my="md" variant='light' color="teal.7" leftSection={<IconArrowsLeftRight />}>Switch to Business</Button></Link>}</Group>
+        </CardSection>
       ) : (
         ''
       )}
-      <Card.Section>
+
+      <CardSection className={classes.sections}>
         {userClicked.shop ? <CardsCarousel userClicked={userClicked} /> : ''}
-      </Card.Section>
+      </CardSection>
     </Card>
   );
 }

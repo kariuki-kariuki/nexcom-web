@@ -23,7 +23,7 @@ const Bar = ({ activeConvoId }: BarProps) => {
   const activeConversation = conversations.find((conv) => conv.id === activeConvoId)
   const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
   const user = activeConversation?.users[0];
-  const [opened, { open, close }] = useDisclosure(false);
+  const [opened, { toggle }] = useDisclosure(false);
   const { newConversation } = useGlobalStore((state) => state);
   const router = useRouter();
   return (
@@ -49,7 +49,7 @@ const Bar = ({ activeConvoId }: BarProps) => {
           </Paper>
           {user ? (
             <Details
-              open={open}
+              open={toggle}
               status={user.status}
               name={user.fullName}
               avatar={user?.avatar?.signedUrl}
@@ -75,7 +75,7 @@ const Bar = ({ activeConvoId }: BarProps) => {
       {activeConversation ? (
         <Dashboard
           opened={opened}
-          close={close}
+          toggle={toggle}
           actUser={activeConversation?.users[0]}
         />
       ) : (

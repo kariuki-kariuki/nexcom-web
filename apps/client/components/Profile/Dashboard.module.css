@@ -1,5 +1,13 @@
 .color{
-  background-color: light-dark(var(--mantine-color-gray-0),  var(--mantine-color-coco-0));
+  background-color: rgba(0, 0, 0, .5);
+}
+.header {
+  height: 100px;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.content {
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .nav {

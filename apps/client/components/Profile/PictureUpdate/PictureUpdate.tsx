@@ -49,9 +49,7 @@ const PictureUpdate = ({ image }: { image: string }) => {
             <Avatar
               src={value ? URL.createObjectURL(value) : user?.avatar?.signedUrl}
               size={200}
-              radius={0}
               name={'AV'}
-              mt={-30}
               className={classes.avatar}
             />
           </Indicator>

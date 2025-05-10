@@ -129,7 +129,7 @@ const SimpleNav = () => {
           </Box>
         </Stack>
       </Stack>
-      {user && <Dashboard opened={opened} close={toggle} actUser={user} />}
+      {user && <Dashboard opened={opened} toggle={toggle} actUser={user} />}
     </div>
   );
 };

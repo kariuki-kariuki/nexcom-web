@@ -47,7 +47,7 @@ export function CardsCarousel({ userClicked }: { userClicked: GlobalUser }) {
     </Carousel.Slide>
   ));
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} bg="none">
       {user?.id === userClicked.id ? (
         <Group justify="center">
           <Link href='/dashboard/products/create'>
@@ -67,7 +67,7 @@ export function CardsCarousel({ userClicked }: { userClicked: GlobalUser }) {
         ''
       )}
       {shop?.products?.[0] ? (
-        <Card px={0} shadow="xl" className={classes.card}>
+        <Card px={0} shadow="xl" bg="none" className={classes.card}>
           <Text ta={'center'} fw={500} fz={'xl'}>
             Browse
           </Text>
