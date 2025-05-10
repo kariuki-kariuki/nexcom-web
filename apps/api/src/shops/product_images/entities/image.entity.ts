@@ -28,6 +28,9 @@ export class Image {
   @Column({ nullable: true })
   altText: string;
 
+  @Column({ default: 'image/png' })
+  mimeType: string;
+
   @ManyToOne(() => Product, (product) => product.images, {
     onDelete: 'CASCADE',
   })

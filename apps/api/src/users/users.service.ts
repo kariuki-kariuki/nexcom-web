@@ -182,6 +182,7 @@ export class UsersService {
         .where('LOWER(user.firstName) LIKE :query', {
           query: `%${lowerQuery}%`,
         })
+        .leftJoinAndSelect('user.avatar', 'avatar')
         .orWhere('LOWER(user.email) LIKE :query', { query: `%${lowerQuery}%` })
         .orWhere('LOWER(user.lastName) LIKE :query', {
           query: `%${lowerQuery}%`,
@@ -190,6 +191,7 @@ export class UsersService {
     } else {
       users = await this.usersRepository
         .createQueryBuilder('user')
+        .leftJoinAndSelect('user.avatar', 'avatar')
         .where('LOWER(user.firstName) LIKE :query', {
           query: `%${lowerQuery}%`,
         })
