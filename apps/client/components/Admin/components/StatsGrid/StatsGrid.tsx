@@ -7,10 +7,9 @@ import {
   IconArrowUpRight,
   IconArrowDownRight,
   IconDeviceAnalytics,
+  IconTrendingUp3,
 } from '@tabler/icons-react';
 import classes from './StatsGrid.module.css';
-import { useEffect, useState } from 'react';
-import { Analytic } from '@/lib/@types/app';
 import { Product } from '@/lib/@types/shop';
 
 const icons = {
@@ -19,7 +18,7 @@ const icons = {
   receipt: IconReceipt2,
   coin: IconCoin,
   interactions: IconDeviceAnalytics,
-  growth: IconDeviceAnalytics
+  growth: IconTrendingUp3
 };
 
 interface IProps {
@@ -34,8 +33,11 @@ export function StatsGrid({ products }: IProps) {
     let views = 0;
     let prevMonthViews = 0;
     let totalRevenue = 0;
-    
+    let totalViews = 0;
+
     products.forEach((product) => {
+        totalViews =+ (product?.analytics?.length || 0);
+
       product.cartItems.forEach((item) => {
         const date = new Date(item.created_at);
         const month = date.getMonth() + 1;
@@ -63,8 +65,8 @@ export function StatsGrid({ products }: IProps) {
 
     const revDiff = (revenue - prevMonthRev) / (revenue + prevMonthRev) * 100 || 0;
     const viewsDiff = (views - prevMonthViews) / (views + prevMonthViews) * 100 || 0;
-    const totalDiff = ((revenue + views) - (prevMonthRev + prevMonthViews)) / 
-                      ((revenue + views) + (prevMonthRev + prevMonthViews)) * 100 || 0;
+    const totalDiff = ((revenue + views) - (prevMonthRev + prevMonthViews)) /
+      ((revenue + views) + (prevMonthRev + prevMonthViews)) * 100 || 0;
 
     return {
       revenue,
@@ -88,10 +90,10 @@ export function StatsGrid({ products }: IProps) {
   } = calculateMetrics();
 
   const data = [
-    { title: 'Revenue', icon: 'receipt', value: revenue, diff: revDiff },
-    { title: 'Views', icon: 'interactions', value: views, diff: viewsDiff },
-    { title: 'Total Revenue', icon: 'discount', value: totalRevenue, diff: 100 },
-    { title: 'Overall Growth', icon: 'growth', value: revenue + views, diff: totalDiff },
+    { title: 'Revenue', icon: 'receipt', value: revenue, diff: revDiff, desc: 'Compared to previous month' },
+    { title: 'Views', icon: 'interactions', value: views, diff: viewsDiff , desc: 'Compared to previous month'},
+    { title: 'Total Revenue', icon: 'discount', value: totalRevenue, diff: 100, desc: 'All time' },
+    { title: 'Overall Growth', icon: 'growth', value: revenue + views, diff: totalDiff, desc: 'All time' },
   ] as const;
 
   const stats = data.map((stat) => {
@@ -110,7 +112,7 @@ export function StatsGrid({ products }: IProps) {
           <Text size="xs" c="dimmed" className={classes.title}>
             {stat.title}
           </Text>
-          <Icon className={classes.icon} size="1.4rem" stroke={1.5} />
+            <Icon className={classes.icon} size="1.4rem" stroke={1.5} />
         </Group>
 
         <Group align="flex-end" gap="xs" mt={25}>
@@ -129,12 +131,12 @@ export function StatsGrid({ products }: IProps) {
         </Group>
 
         <Text fz="xs" c="dimmed" mt={7}>
-          Compared to previous month
+          {stat.desc}
         </Text>
       </Paper>
     );
   });
- 
+
   return (
     <div className={classes.root}>
       <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>

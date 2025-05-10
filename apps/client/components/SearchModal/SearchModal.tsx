@@ -1,42 +1,39 @@
 'use client'
 import {
+  ActionIcon,
   Avatar,
+  Box,
   Burger,
   Card,
   Divider,
-  Drawer,
   Flex,
   Group,
   InputWrapper,
+  Modal,
   ScrollArea,
   Text,
   TextInput
 } from '@mantine/core';
-import { IconSearch } from '@tabler/icons-react';
+import { IconCirclePlusFilled, IconSearch } from '@tabler/icons-react';
 import { useState } from 'react';
-import {
-  useNewConverSationContext
-} from '../../lib/context/newConversation';
-import classes from './NewMessage.module.css';
+import classes from './SearchModal.module.css';
 import { GlobalUser } from '@/lib/@types/app';
 import { datasource } from '@/lib/common/datasource';
 import { notifications } from '@mantine/notifications';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
+import { useRouter } from 'next/navigation';
+import { useDisclosure } from '@mantine/hooks';
 
-interface DProps {
-  opened: boolean;
-  toggle: () => void;
-  open: () => void;
-}
-
-const NewMessage = ({ opened = true, toggle, open }: DProps) => {
+const SearchModal = () => {
   const [value, setValue] = useState('');
+  const [opened, { toggle }] = useDisclosure(false);
   const [users, setUsers] = useState<GlobalUser[] | null>(null);
-  const { setNewConversation } = useNewConverSationContext();
+  const { setNewConversation } = useGlobalStore((state) => state);
   const conversations = useGlobalStore((store) => store.conversations);
   const [loading, setLoading] = useState(false)
   const user = useGlobalStore((state) => state.user);
   const [error, setError] = useState('')
+  const router = useRouter()
   const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
   const usersFound = users?.map((person) => (
     <Card
@@ -49,7 +46,7 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
 
         const convo = conversations.find(convo => convo.users[0].id === person.id);
         if (convo) {
-          setActiveConversation(convo);
+          router.push(`/chat/${convo.id}`);
           toggle();
           return;
         }
@@ -61,7 +58,7 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
       key={person.id}
     >
       <Group>
-        <Avatar src={person?.avatar?.signedUrl} />
+        <Avatar src={person?.avatar?.signedUrl} name={person.fullName} />
         <Text>{person.id === user?.id ? 'Me' : person.fullName}</Text>
       </Group>
     </Card>
@@ -88,46 +85,53 @@ const NewMessage = ({ opened = true, toggle, open }: DProps) => {
     setLoading(loading)
   };
   return (
-    <Drawer
-      opened={opened}
-      onClose={toggle}
-      classNames={{
-        body: classes.body,
-        content: classes.root,
-        header: classes.header
-      }}
-      withCloseButton={false}
-    >
-      <Flex h={'100%'} className={classes.box} px="md" direction={'column'}>
-        <Group justify='end' py="sm">
-          <Burger opened={opened} color='red' onClick={toggle} />
-        </Group>
-        <Group >
-          <InputWrapper error={error}
-            w={'100%'}
-          >
-            <TextInput
-              rightSection={
-                <IconSearch size={20} color="teal" onClick={handleSubmit} style={{ cursor: 'pointer' }} />
-              }
-              placeholder="Enter name, email or phone"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleSubmit()
+    <Box className={classes.absolute}>
+      <ActionIcon bg={'blue'} size={40} onClick={toggle}>
+        <IconCirclePlusFilled size={20} color={'white'} />
+      </ActionIcon>
+
+      <Modal
+        opened={opened}
+        onClose={toggle}
+        classNames={{
+          body: classes.body,
+          content: classes.root,
+          header: classes.header
+        }}
+        withCloseButton={false}
+        centered
+      >
+        <Flex h={'100%'} className={classes.box} px="md" direction={'column'}>
+          <Group justify='end' py="sm">
+            <Burger opened={opened} color='red' onClick={toggle} />
+          </Group>
+          <Group >
+            <InputWrapper error={error}
+              w={'100%'}
+            >
+              <TextInput
+                rightSection={
+                  <IconSearch size={20} color="teal" onClick={handleSubmit} style={{ cursor: 'pointer' }} />
                 }
-              }}
-              radius={"lg"}
-              size='md'
-            />
-          </InputWrapper>
-        </Group>
-        <Divider my="md" />
-        <ScrollArea h={'100%'}>{usersFound}</ScrollArea>
-      </Flex>
-    </Drawer>
+                placeholder="Enter name, email or phone"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSubmit()
+                  }
+                }}
+                radius={"lg"}
+                size='md'
+              />
+            </InputWrapper>
+          </Group>
+          <Divider my="md" />
+          <ScrollArea h={'100%'}>{usersFound}</ScrollArea>
+        </Flex>
+      </Modal>
+    </Box>
   );
 };
 
-export default NewMessage;
+export default SearchModal;

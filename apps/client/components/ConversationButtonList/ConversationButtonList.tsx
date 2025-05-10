@@ -1,21 +1,20 @@
 'use client'
 import { ConversationButton } from '../ConversationButton/ConversationButton';
 import {
-  ActionIcon,
-  Box,
   Flex,
   Paper,
-  ScrollArea} from '@mantine/core';
-import {
-  IconCirclePlusFilled} from '@tabler/icons-react';
+  ScrollArea
+} from '@mantine/core';
 import classes from './ConversationButtonList.module.css';
 import { useDisclosure } from '@mantine/hooks';
-import NewMessage from '../NewMessage/NewMessage';
 
 import {
-  ConversationProps} from '@/lib/@types/app';
+  ConversationProps
+} from '@/lib/@types/app';
 import SearchBar from '../SearchBar/SearchBar';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
+import SearchModal from '../SearchModal/SearchModal';
+import { useState } from 'react';
 interface Props {
   open?: () => void;
 }
@@ -23,10 +22,21 @@ interface Props {
 export default function ConversationButtonList({
 }: Props) {
   const conversationsState = useGlobalStore((state) => state.conversations)
-  const conversations = conversationsState.filter(
+  const [searchPhrase, setSearchPhrase] = useState('');
+  let conversations = conversationsState.filter(
     (conversation) => conversation.messages.length !== 0
   );
-  const [open, {toggle}] = useDisclosure(false);
+
+  conversations = conversations.filter((conversation) => {
+    if (searchPhrase === '') {
+      return true;
+    }
+    return conversation.messages.some((message) =>
+      message.message.toLowerCase().includes(searchPhrase.toLowerCase())
+    ) || conversation.users[0].fullName.toLowerCase().includes(searchPhrase.toLowerCase());
+
+  })
+  const [open, { toggle }] = useDisclosure(false);
   conversations.sort((a, b) => {
     const timeA = new Date(
       a.messages[a.messages.length - 1].updated_at
@@ -55,28 +65,14 @@ export default function ConversationButtonList({
         className={classes.flex}
       >
 
-        <SearchBar />
+        <SearchBar value={searchPhrase} onChange={setSearchPhrase} />
 
-        <ScrollArea  bg={'none'} type="scroll" h={'100%'}>
+        <ScrollArea bg={'none'} type="scroll" h={'100%'}>
           {conversation}
         </ScrollArea>
-        <AddPop open={toggle}/>
+        <SearchModal />
       </Flex>
     </Paper>
   );
 }
 
-interface IAddPopMenu {
-  open: () => void;
-}
-function AddPop({ open }: IAddPopMenu) {
-  const [opened, { toggle }] = useDisclosure(false);
-  return (
-    <Box className={classes.absolute}>
-      <ActionIcon bg={'blue'} size={40} onClick={toggle}>
-        <IconCirclePlusFilled size={20} color={'white'} />
-      </ActionIcon>
-      <NewMessage opened={opened} toggle={toggle} open={open} />
-    </Box>
-  );
-}

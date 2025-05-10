@@ -1,0 +1,24 @@
+.body {
+  min-height: 40vh;
+  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-0));
+  padding: 0;
+}
+
+.root {
+  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-0));
+  padding: 0;
+}
+
+.box {
+  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-0));
+}
+
+.card {
+  background-color: light-dark(var(--mantine-color-coco-0), var(--mantine-color-coco-1));
+}
+
+.absolute {
+  position: absolute;
+  bottom: 20%;
+  left: 72%;
+}

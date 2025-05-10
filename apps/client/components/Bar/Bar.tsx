@@ -16,26 +16,26 @@ interface CloseProps {
 }
 // Top Bar on the Chatbox Area
 interface BarProps {
-  activeConvoId: string
+  activeConvoId?: string
 }
-const Bar = ({activeConvoId}: BarProps) => {
+const Bar = ({ activeConvoId }: BarProps) => {
   const conversations = useGlobalStore(state => state.conversations);
   const activeConversation = conversations.find((conv) => conv.id === activeConvoId)
   const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
   const user = activeConversation?.users[0];
   const [opened, { open, close }] = useDisclosure(false);
-  const { newConversation } = useNewConverSationContext();
+  const { newConversation } = useGlobalStore((state) => state);
   const router = useRouter();
   return (
     <>
       <Group
-      px={'lg'}
+        px={'lg'}
         h={'100'}
         justify="space-between"
         align="center"
         className={classes.bar}
         wrap='nowrap'
-    >
+      >
         <Group bg={'none'} wrap='nowrap'>
           <Paper variant="outline" hiddenFrom="sm" bd={'none'}>
             <IconArrowBadgeLeftFilled
@@ -60,6 +60,7 @@ const Bar = ({activeConvoId}: BarProps) => {
                 <Details
                   name={newConversation?.fullName}
                   status={`Start chatting with ${newConversation.fullName}`}
+                  avatar={newConversation?.avatar?.signedUrl}
                 />
               ) : (
                 <Details />
@@ -102,10 +103,10 @@ function Details({
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   return (
     <Group onClick={open} wrap='nowrap'>
-      <Avatar src={avatar} size={mobile ? 'md': "lg"} name={name}/>
+      <Avatar src={avatar} size={mobile ? 'md' : "lg"} name={name} />
       <Stack gap={0} >
         <Text fz={mobile ? 'xs' : 'am'}>{name}</Text>
-        <Text fz={'xs'} c={'dimmed'} flex={1} lineClamp={1} w={{base: '100%', sm: '80%'}}>
+        <Text fz={'xs'} c={'dimmed'} flex={1} lineClamp={1} w={{ base: '100%', sm: '80%' }}>
           {status}
         </Text>
       </Stack>
