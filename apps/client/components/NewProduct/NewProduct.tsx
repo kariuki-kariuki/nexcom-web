@@ -12,8 +12,7 @@ import {
 } from '@mantine/core';
 import { FileWithPath } from '@mantine/dropzone';
 import { notifications } from '@mantine/notifications';
-import { Category } from '../../lib/@types/category';
-import { INewProduct, ProductStatus } from '../../lib/@types/shop';
+import { Category, INewProduct, ProductStatus } from '../../lib/@types/shop';
 import { DropzoneButton } from '../DropzoneButton/DropzoneButton';
 import Previews from '../Previews/Previews';
 import ProductCard from './ProductCard';

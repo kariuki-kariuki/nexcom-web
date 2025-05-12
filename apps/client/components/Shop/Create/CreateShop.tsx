@@ -1,5 +1,4 @@
 'use client';
-import { Category } from '@/lib/@types/category'
 import { Avatar, Button, Container, FileInput, Flex, Group, Input, InputWrapper, LoadingOverlay, Paper, Select, Stack, Text, Textarea } from '@mantine/core'
 import { FileWithPath } from '@mantine/dropzone'
 import React, { useState } from 'react'
@@ -9,6 +8,7 @@ import { datasource } from '@/lib/common/datasource';
 import setToken from '@/utils/setToken';
 import { useRouter } from 'next/navigation';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
+import { Category } from '@/lib/@types/shop';
 
 const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
   const [categories, setCategories] = useState(categoriesdb)
@@ -26,8 +26,7 @@ const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
   const [isloading, setIsLoading] = useState(false);
   const router = useRouter()
   if (user?.shop) {
-    // router.push('/dashboard')
-    // return;
+    router.push('/dashboard')
   }
 
   const handleCreateBusiness = async () => {
@@ -71,33 +70,34 @@ const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
               <Text fz='sm' pt='sm' ta="center">Create shop and start selling</Text>
             </div>
             <Group wrap='nowrap' grow py="md" >
-              <InputWrapper error={error} label="Shop Name" withAsterisk>
-                <Input classNames={{ input: classes.input }} name="shopname" type='text' placeholder='example: ShopX' value={shop.name} onChange={(e) => setShop((prev) => ({ ...prev, name: e.target.value }))} />
+              <InputWrapper error={error} label="Shop Name" withAsterisk size="lg">
+                <Input classNames={{ input: classes.input }} name="shopname" size="lg" type='text' placeholder='example: ShopX' value={shop.name} onChange={(e) => setShop((prev) => ({ ...prev, name: e.target.value }))} />
               </InputWrapper>
               <InputWrapper error={error} label="Physical Address" withAsterisk>
-                <Input classNames={{ input: classes.input }} name="address" type='text' placeholder='Moi Avenue, Huduma Plaza, Shop 25' value={shop.address} onChange={(e) => setShop((prev) => ({ ...prev, address: e.target.value }))} />
+                <Input classNames={{ input: classes.input }} name="address" type='text' size="lg" placeholder='Moi Avenue, Huduma Plaza, Shop 25' value={shop.address} onChange={(e) => setShop((prev) => ({ ...prev, address: e.target.value }))} />
               </InputWrapper>
             </Group>
 
-            <Group wrap='nowrap' grow py="md">
-              <InputWrapper error={error} label="Phone" withAsterisk>
-                <Input classNames={{ input: classes.input }} name="phone" type='string' placeholder='07 124 124 124' value={shop.phone} onChange={(e) => setShop((prev) => ({ ...prev, phone: e.target.value }))} />
+            <Group wrap='nowrap' grow py="md" >
+              <InputWrapper error={error} label="Phone" withAsterisk size="lg">
+                <Input classNames={{ input: classes.input }} name="phone" type='string' size="lg" placeholder='07 124 124 124' value={shop.phone} onChange={(e) => setShop((prev) => ({ ...prev, phone: e.target.value }))} />
               </InputWrapper>
-              <InputWrapper error={error} label="Bunner Image" withAsterisk>
-                <FileInput classNames={{ input: classes.input }} name="name" withAsterisk value={file} placeholder="Bunner Image" onChange={setFile} />
+              <InputWrapper error={error} label="Bunner Image" size="lg" withAsterisk>
+                <FileInput classNames={{ input: classes.input }} name="name" withAsterisk value={file} size="lg" placeholder="Bunner Image" onChange={setFile} />
               </InputWrapper>
             </Group>
             <Group grow wrap='nowrap' align='center'>
-              <InputWrapper label="New Category">
+              <InputWrapper label="New Category" size="lg">
                 <NewCategory
                   setCategories={setCategories}
                 />
-              </InputWrapper>
+              </InputWrapper >
               <Select
                 my="sm"
                 label="Select Category"
                 classNames={{ input: classes.input }}
                 value={shop.categoryId}
+                size="lg"
                 onChange={(_value, option) =>
                   setShop((prev) => ({
                     ...prev,
@@ -110,11 +110,11 @@ const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
                 }))}
               />
             </Group>
-            <InputWrapper label="Description">
-              <Textarea classNames={{ input: classes.input }} value={shop.description} minRows={6} autosize onChange={(e) => setShop((prev) => ({ ...prev, description: e.target.value }))} />
+            <InputWrapper label="Description" size="lg">
+              <Textarea classNames={{ input: classes.input }} size="lg" value={shop.description} minRows={6} autosize onChange={(e) => setShop((prev) => ({ ...prev, description: e.target.value }))} />
             </InputWrapper>
             <Group py="md">
-              <Button fullWidth onClick={handleCreateBusiness}>Create Business</Button>
+              <Button fullWidth size="lg" onClick={handleCreateBusiness}>Create Business</Button>
             </Group>
           </div>
         </Paper>

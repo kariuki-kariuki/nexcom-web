@@ -19,8 +19,7 @@ import {
 import { FileWithPath } from '@mantine/dropzone';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { Category } from '../../lib/@types/category';
-import { ImageInterface, Product } from '../../lib/@types/shop';
+import { Category, ImageInterface, Product } from '../../lib/@types/shop';
 import { DropzoneButton } from '../DropzoneButton/DropzoneButton';
 import { ProductCorousel } from '../ImageCarousel/ImageCarousel';
 import Previews from '../Previews/Previews';

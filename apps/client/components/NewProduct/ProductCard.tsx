@@ -8,8 +8,7 @@ import {
   useMantineTheme
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import { Category } from '../../lib/@types/category';
-import { INewProduct } from '../../lib/@types/shop';
+import { Category, INewProduct } from '../../lib/@types/shop';
 import NewCategory from './NewCategory';
 import classes from './NewProduct.module.css';
 import AddSize from './AddSize';

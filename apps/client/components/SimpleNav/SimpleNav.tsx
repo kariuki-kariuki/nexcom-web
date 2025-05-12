@@ -59,7 +59,7 @@ const SimpleNav = () => {
 
   return (
     <div className={`${classes.main} ${mobile && isChat ? classes.mobile : ''}`} data-active={isChat || undefined}>
-      <Stack justify="space-between" h="100%" align="center">
+      <Stack justify="space-between" h="100%" align="center" pt="lg">
         <Stack align="center" py="0">
           <Avatar
             src={user?.avatar?.signedUrl}
