@@ -29,7 +29,8 @@ async function bootstrap() {
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, apiConfig);
-  SwaggerModule.setup('swagger', app, documentFactory);
+  process.env.NODE_ENV === 'developmen' &&
+    SwaggerModule.setup('swagger', app, documentFactory);
   const webSocketAdapter = app.get(WebSocketAdapter);
   app.useWebSocketAdapter(webSocketAdapter);
   app.useGlobalFilters(new DiscordExceptionFilter(app.get(DiscordService)));
