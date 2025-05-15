@@ -103,10 +103,10 @@ function ProductCard({
           size={mobile ? 'sm' : 'lg'}
           classNames={{ input: classes.input }}
           value={product.category.toString()}
-          onChange={(_value, option) =>
+          onChange={(value) =>
             setProduct((prevProduct) => ({
               ...prevProduct,
-              category: option.value
+              category: value || ""
             }))
           }
           data={categories.map((category) => ({

@@ -16,6 +16,7 @@ import { toBase64FromMedia } from 'weaviate-client';
 import { Analytic } from 'src/analytics/entity/analytic.entity';
 import { Shop } from '../entities/shop.entity';
 import { ProductSize } from '../product_sizes/entities/product_size.entity';
+import { Category } from '../categories/entities/category.entity';
 
 @Injectable()
 export class ProductsService {
@@ -26,6 +27,8 @@ export class ProductsService {
     private weaviateService: WeaviateService,
     @InjectRepository(Analytic)
     private analyticRepository: Repository<Analytic>,
+    @InjectRepository(Category)
+    private readonly categoriesRepository: Repository<Category>,
   ) {}
   async create(
     createProductDto: CreateProductDto,
@@ -34,17 +37,33 @@ export class ProductsService {
   ): Promise<Product> {
     const product = new Product();
     const shop = await this.shopRepository.findOneByOrFail({ id: shopId });
-    const sizes: ProductSize[] = JSON.parse(createProductDto.sizes);
+
+    const {
+      category: categ,
+      name,
+      description,
+      status,
+      stock,
+      sizes,
+    } = createProductDto;
+    const category = await this.categoriesRepository.findOneBy({
+      id: categ.id,
+    });
+
+    const prdSizes: ProductSize[] = JSON.parse(sizes);
     if (sizes.length < 1) {
       throw new UnprocessableEntityException('Selecct Sizes Please');
     }
+    if (!category) {
+      throw new UnprocessableEntityException('Select Category');
+    }
     product.shop = shop;
-    product.name = createProductDto.name;
-    product.description = createProductDto.description;
-    product.category = createProductDto.category;
-    product.product_sizes = sizes;
-    product.stock = parseInt(createProductDto.stock, 10);
-    product.status = createProductDto.status;
+    product.name = name;
+    product.description = description;
+    product.category = category;
+    product.product_sizes = prdSizes;
+    product.stock = parseInt(stock, 10);
+    product.status = status;
     const newproduct = await this.productRespository.save(product);
     newproduct.images = await this.imagesService.create(
       { productId: product.id.toString() },

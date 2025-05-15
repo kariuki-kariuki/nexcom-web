@@ -5,18 +5,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { ImagesModule } from '../product_images/images.module';
 import { AwsModule } from '../../aws/aws.module';
-import { CategoriesModule } from '../categories/categories.module';
 import { WeaviateModule } from 'src/weaviate/weaviate.module';
 import { Analytic } from 'src/analytics/entity/analytic.entity';
 import { Shop } from '../entities/shop.entity';
+import { Category } from '../categories/entities/category.entity';
 
 @Module({
   controllers: [ProductsController],
   providers: [ProductsService],
   imports: [
-    CategoriesModule,
     ImagesModule,
-    TypeOrmModule.forFeature([Product, Analytic, Shop]),
+    TypeOrmModule.forFeature([Product, Analytic, Shop, Category]),
     AwsModule,
     WeaviateModule,
   ],
