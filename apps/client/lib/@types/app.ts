@@ -19,6 +19,7 @@ export interface GlobalUser {
   fullName: string
   cartItems?: CartItem[]
   orders?: Order[];
+  lastSeen: Date;
 }
 
 export interface UserProps {

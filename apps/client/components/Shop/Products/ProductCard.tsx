@@ -50,9 +50,9 @@ function ProductCard({ product }: Iprops) {
                   className={classes.price}
                 >
                   Ksh{' '}
-                  {product.product_sizes[0].price > 1000
-                    ? `${(product.product_sizes[0].price / 1000).toFixed(0)}k`
-                    : product.product_sizes[0].price}
+                  {product.product_sizes[0]?.price > 1000
+                    ? `${(product.product_sizes[0]?.price / 1000).toFixed(0)}k`
+                    : product.product_sizes[0]?.price}
                 </Text>
               </Group>
               <ProductRating />

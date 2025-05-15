@@ -35,13 +35,15 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   ) {}
 
   async handleConnection(client: AuthenticatedSocket) {
-    this.gateWaySession.setUserSocket(client.user.userId, client);
+    const { userId } = client.user;
+    this.gateWaySession.setUserSocket(userId, client);
+    this.server.emit('online-status', { userId, status: 'online' });
   }
 
   handleDisconnect(client: AuthenticatedSocket) {
-    this.server.emit('user-left', {
-      message: `User left the chat: ${client.id}`,
-    });
+    const { userId } = client.user;
+    this.gateWaySession.removeUserSocket(userId);
+    this.server.emit('online-status', { userId, status: 'offline' });
   }
 
   @SubscribeMessage('message-state')
@@ -114,6 +116,16 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       (user) => user.id !== excludeUserId,
     );
     return serialized;
+  }
+
+  @SubscribeMessage('online-status')
+  async onlineStatus(@MessageBody() body: { userId: string }) {
+    const receiverSocket = this.gateWaySession.getUserSocket(body.userId);
+
+    if (receiverSocket) {
+      return { status: 'online' };
+    }
+    return { status: 'offline' };
   }
 
   @SubscribeMessage('updateProfile')

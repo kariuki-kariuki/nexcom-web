@@ -77,6 +77,9 @@ export class User {
   @Exclude()
   phone: string;
 
+  @Column({ type: 'date', default: new Date() })
+  lastSeen: Date;
+
   @OneToOne(() => Image, { eager: true, cascade: true })
   @JoinColumn()
   avatar: Image;

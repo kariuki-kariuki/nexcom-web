@@ -29,7 +29,7 @@ async function bootstrap() {
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, apiConfig);
-  process.env.NODE_ENV === 'developmen' &&
+  process.env.NODE_ENV === 'development' &&
     SwaggerModule.setup('swagger', app, documentFactory);
   const webSocketAdapter = app.get(WebSocketAdapter);
   app.useWebSocketAdapter(webSocketAdapter);

@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { ProductSizesService } from './product_sizes.service';
 import { CreateProductSizeDto } from './dto/create-product_size.dto';
@@ -14,7 +15,7 @@ import { UpdateProductSizeDto } from './dto/update-product_size.dto';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/roles/roles.guard';
 import { Roles } from 'utils/roles.decorator';
-import { UserRoles } from 'src/@types/types';
+import { AuthenticatedRequest, UserRoles } from 'src/@types/types';
 
 @Controller('product-sizes')
 export class ProductSizesController {
@@ -24,8 +25,14 @@ export class ProductSizesController {
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createProductSizeDto: CreateProductSizeDto) {
-    return this.productSizesService.create(createProductSizeDto);
+  create(
+    @Body() createProductSizeDto: CreateProductSizeDto,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.productSizesService.create(
+      createProductSizeDto,
+      request.user.userId,
+    );
   }
 
   @Get()
@@ -44,8 +51,13 @@ export class ProductSizesController {
   update(
     @Param('id') id: string,
     @Body() updateProductSizeDto: UpdateProductSizeDto,
+    @Req() request: AuthenticatedRequest,
   ) {
-    return this.productSizesService.update(id, updateProductSizeDto);
+    return this.productSizesService.update(
+      id,
+      updateProductSizeDto,
+      request.user.shopId,
+    );
   }
 
   @Roles(UserRoles.SHOP_ADMIN)

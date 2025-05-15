@@ -4,19 +4,19 @@ import { Repository } from 'typeorm';
 import { UpdateStateDTO } from './dto/update-state.dto';
 import { Message } from './entities/message.entity';
 import { MessageState } from 'src/@types/chat/chat';
-import { ProductsService } from 'src/shops/products/products.service';
 import { IncomingMessageBody } from '../dto/chat-gateway.dto';
 import { Conversation } from '../conversations/entities/Conversation.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Image } from 'src/shops/product_images/entities/image.entity';
 import { AwsService } from 'src/aws/aws.service';
+import { Product } from 'src/shops/products/entities/product.entity';
+import { ProductStatus } from 'src/@types/product-status';
 
 @Injectable()
 export class MessagesService {
   constructor(
     @InjectRepository(Message)
     private readonly messageRepo: Repository<Message>,
-    private readonly productsService: ProductsService,
     @InjectRepository(Conversation)
     private readonly conversationRepo: Repository<Conversation>,
     @InjectRepository(User)
@@ -24,14 +24,19 @@ export class MessagesService {
     private readonly awsService: AwsService,
     @InjectRepository(Image)
     private readonly imageRepository: Repository<Image>,
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
   ) {}
 
   async createMessage(messageDTO: IncomingMessageBody, userId: string) {
     const user = await this.usersRepository.findOneBy({ id: userId });
     const messageBody = messageDTO;
     const { productId, conversationId } = messageDTO;
-    const conversation = await this.conversationRepo.findOneBy({
-      id: conversationId,
+    const conversation = await this.conversationRepo.findOne({
+      where: {
+        id: conversationId,
+        users: { id: userId },
+      },
     });
 
     if (!(user || conversation)) {
@@ -54,9 +59,16 @@ export class MessagesService {
     }
     try {
       if (productId) {
-        message.product = await this.productsService.findOne(message.productId);
-        const savedMessage = await this.messageRepo.save(message);
-        return savedMessage;
+        const product = await this.productRepository.findOne({
+          where: {
+            id: productId,
+            status: ProductStatus.PUBLISHED,
+          },
+        });
+
+        if (product) {
+          message.product = product;
+        }
       }
       return await this.messageRepo.save(message);
     } catch (err) {

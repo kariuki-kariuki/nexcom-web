@@ -19,7 +19,7 @@ import { useGlobalStore } from '@/lib/context/global-store.provider';
 const ProductPage = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedPrice, setSelectedPrice] = useState(product.product_sizes[0].id)
+  const [selectedPrice, setSelectedPrice] = useState(product.product_sizes[0]?.id || '')
   const user = useGlobalStore((state) => state.user);
   const { colorScheme } = useMantineColorScheme()
   const price = product.product_sizes.find((size) => size.id === selectedPrice)?.price;

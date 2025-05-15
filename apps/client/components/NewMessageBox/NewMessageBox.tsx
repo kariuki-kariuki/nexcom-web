@@ -29,15 +29,18 @@ interface INewMessageBox {
   margin?: string | number
   convoId?: string
   close?: () => void;
+  sellerId?: string;
 }
-const NewMessageBox = ({ productId, margin, convoId, close}: INewMessageBox) => {
+const NewMessageBox = ({ productId, margin, convoId, close, sellerId }: INewMessageBox) => {
   const [message, setMessage] = useState<string>('');
   const socket = useSocketContext()
   const conversations = useGlobalStore(state => state.conversations);
   const activeConversation = conversations.find((conv) => conv.id === convoId);
-  const inquiryConversation = useGlobalStore((state) => state.activeConversation)
-  const setNewConversation  = useGlobalStore((state) => state.setNewConversation);
-  const newConversation  = useGlobalStore((state) => state.newConversation);
+  const inquiryConversation = conversations.find((convo) => convo.users[0].id === sellerId);
+
+  console.log("Inquiry Conversation:", inquiryConversation);
+  const setNewConversation = useGlobalStore((state) => state.setNewConversation);
+  const newConversation = useGlobalStore((state) => state.newConversation);
   console.log('render');
   const addMessage = useGlobalStore((state) => state.addMessage)
   const addConversation = useGlobalStore((state) => state.addConversation)
@@ -48,18 +51,24 @@ const NewMessageBox = ({ productId, margin, convoId, close}: INewMessageBox) => 
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const pathame = usePathname();
   const isNewConversation = pathame?.startsWith('/chat/new')
+
+  console.log(`Seller id: ${sellerId}, productId: ${productId}`)
   const handleSubmit = async () => {
     if (!message && files.length === 0) return;
 
-    if (activeConversation || inquiryConversation) {
+    if (productId && sellerId) {
       const messageBody = {
         message,
-        conversationId: activeConversation?.id,
+        conversationId: inquiryConversation?.id,
         productId,
         receiverId: activeConversation?.users[0].id || inquiryConversation?.users[0].id,
         files: processedFiles,
       };
-
+      console.log(productId);
+      emit(messageBody);
+      return;
+    }
+    function emit(messageBody: any) {
       try {
         socket.emit('message', messageBody, (res: NewMessage) => {
           addMessage(res);
@@ -70,6 +79,15 @@ const NewMessageBox = ({ productId, margin, convoId, close}: INewMessageBox) => 
       } catch (e) {
         console.log(e);
       }
+    }
+    if (activeConversation) {
+      const messageBody = {
+        message,
+        conversationId: activeConversation?.id,
+        receiverId: activeConversation?.users[0].id || inquiryConversation?.users[0].id,
+        files: processedFiles,
+      };
+      emit(messageBody);
     }
     else if (newConversation && isNewConversation) {
       const messageBody = {
@@ -98,7 +116,7 @@ const NewMessageBox = ({ productId, margin, convoId, close}: INewMessageBox) => 
       <Paper pt={10} m={{ base: 'md', sm: margin }} shadow='lg' mih={{ base: 'auto', sm: 130 }} radius="xl" variant="div" px={'lg'} className={classes.msg}>
         <Textarea
           classNames={{ input: classes.textarea, wrapper: classes.textarea }}
-          placeholder="Select a conversation or start a new message"
+          placeholder={(activeConversation || newConversation || inquiryConversation) ? "Enter Message" : "Select a conversation or start a new message"}
           value={message}
           fz="lg"
           className={classes.textarea}

@@ -15,6 +15,7 @@ import { WeaviateService } from 'src/weaviate/weaviate.service';
 import { toBase64FromMedia } from 'weaviate-client';
 import { Analytic } from 'src/analytics/entity/analytic.entity';
 import { Shop } from '../entities/shop.entity';
+import { ProductSize } from '../product_sizes/entities/product_size.entity';
 
 @Injectable()
 export class ProductsService {
@@ -33,7 +34,10 @@ export class ProductsService {
   ): Promise<Product> {
     const product = new Product();
     const shop = await this.shopRepository.findOneByOrFail({ id: shopId });
-    const sizes = JSON.parse(createProductDto.sizes);
+    const sizes: ProductSize[] = JSON.parse(createProductDto.sizes);
+    if (sizes.length < 1) {
+      throw new UnprocessableEntityException('Selecct Sizes Please');
+    }
     product.shop = shop;
     product.name = createProductDto.name;
     product.description = createProductDto.description;
@@ -128,21 +132,7 @@ export class ProductsService {
     updateProductDto: UpdateProductDto,
     shopId: string,
   ) {
-    const product = await this.productRespository.findOne({
-      where: {
-        id,
-        shop: {
-          id: shopId,
-        },
-      },
-      relations: {
-        images: true,
-      },
-    });
-
-    if (!product) {
-      throw new ForbiddenException('Action not allowed');
-    }
+    const product = await this.productWithPersmisions(id, shopId);
 
     const {
       name = product.name,
@@ -165,8 +155,29 @@ export class ProductsService {
     return res;
   }
 
+  async productWithPersmisions(
+    productId: string,
+    shopId: string,
+  ): Promise<Product> {
+    const product = await this.productRespository.findOne({
+      where: {
+        id: productId,
+        shop: {
+          id: shopId,
+        },
+      },
+      relations: {
+        images: true,
+      },
+    });
+    if (!product) {
+      throw new ForbiddenException('Action not allowed');
+    }
+    return product;
+  }
+
   async remove(id: ProjectIdType, shopId: string) {
-    const product = await this.productRespository.findOneByOrFail({ id });
+    const product = await this.productWithPersmisions(id, shopId);
 
     if (product.shop.id !== shopId) {
       throw new ForbiddenException('Unauthoized action');

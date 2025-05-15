@@ -19,7 +19,7 @@ export function CarouselCard({ product, user, shop }: Iprop) {
         <Avatar w="100%" radius="none" variant='transparent' src={product.images[0]?.signedUrl} h={'100%'} />
       </Card.Section>
       <Card.Section>
-        <Link href={`/shop/product/${product.id}`}>
+        <Link href={`/business/product/${product.id}`}>
           <Button
             radius="0px"
             w={'100%'}

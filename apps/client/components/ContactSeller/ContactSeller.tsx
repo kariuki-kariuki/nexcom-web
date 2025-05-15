@@ -36,7 +36,6 @@ const ContactSeller = ({ product }: IProps) => {
                             toggle();
                             return;
                         }
-                        setActiveConversation(null);
                         setNewConversation(product.shop?.user || owner);
                         toggle();
                     }} leftSection={<IconMessage stroke={1.5} />}>
@@ -64,7 +63,7 @@ const ContactSeller = ({ product }: IProps) => {
                             <OgMessage product={product} />
                         </Box>
                     </ScrollArea>
-                    <NewMessageBox productId={product.id} margin={'xs'} />
+                    <NewMessageBox productId={product.id} sellerId={product.shop?.user?.id || ''} margin={'xs'} />
                 </Flex>
             </Dialog>
         </div>
