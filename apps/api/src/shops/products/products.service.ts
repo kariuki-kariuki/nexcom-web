@@ -190,6 +190,7 @@ export class ProductsService {
       },
       relations: {
         images: true,
+        analytics: true,
       },
     });
     if (!product) {
@@ -207,6 +208,9 @@ export class ProductsService {
     try {
       product.images.forEach(
         async (image) => await this.imagesService.removeAll(image.id),
+      );
+      product.analytics.forEach(
+        async (analytic) => await this.analyticRepository.delete(analytic.id),
       );
       return this.productRespository.delete(id);
     } catch (e) {
