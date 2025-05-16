@@ -58,7 +58,9 @@ export class Product {
   })
   category: Category;
 
-  @OneToMany(() => Analytic, (analytic) => analytic.product)
+  @OneToMany(() => Analytic, (analytic) => analytic.product, {
+    cascade: true,
+  })
   analytics: Analytic[];
 
   @OneToMany(() => Message, (message) => message.product)

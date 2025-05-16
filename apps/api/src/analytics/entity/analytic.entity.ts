@@ -13,7 +13,9 @@ export class Analytic {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Product, (product) => product.analytics)
+  @ManyToOne(() => Product, (product) => product.analytics, {
+    onDelete: 'CASCADE',
+  })
   product: Product;
 
   @Exclude()

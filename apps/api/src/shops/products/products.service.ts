@@ -15,8 +15,8 @@ import { WeaviateService } from 'src/weaviate/weaviate.service';
 import { toBase64FromMedia } from 'weaviate-client';
 import { Analytic } from 'src/analytics/entity/analytic.entity';
 import { Shop } from '../entities/shop.entity';
-import { ProductSize } from '../product_sizes/entities/product_size.entity';
 import { Category } from '../categories/entities/category.entity';
+import { ProductSize } from '../product_sizes/entities/product_size.entity';
 
 @Injectable()
 export class ProductsService {
@@ -29,6 +29,8 @@ export class ProductsService {
     private analyticRepository: Repository<Analytic>,
     @InjectRepository(Category)
     private readonly categoriesRepository: Repository<Category>,
+    @InjectRepository(ProductSize)
+    private readonly productSizeRepo: Repository<Category>,
   ) {}
   async create(
     createProductDto: CreateProductDto,
@@ -51,9 +53,10 @@ export class ProductsService {
     });
 
     const prdSizes: ProductSize[] = JSON.parse(sizes);
-    if (sizes.length < 1) {
+    if (prdSizes.length < 1) {
       throw new UnprocessableEntityException('Selecct Sizes Please');
     }
+    prdSizes.map((size) => this.productSizeRepo.create(size));
     if (!category) {
       throw new UnprocessableEntityException('Select Category');
     }

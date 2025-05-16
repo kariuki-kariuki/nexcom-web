@@ -4,13 +4,12 @@ import { Button, Group, Input } from '@mantine/core';
 import { INewProduct } from '../../lib/@types/shop';
 import { SizeWithPrice } from '../../lib/@types/product-price-size';
 import classes from './NewProduct.module.css'
-import { v4 as uuidV4 } from 'uuid';
 interface IAddSize {
   product: INewProduct;
   setProduct: (updater: (product: INewProduct) => INewProduct) => void;
 }
 function AddSize({ product, setProduct }: IAddSize) {
-  const [size, setSize] = useState<SizeWithPrice>({ size: '', price: 0, id: uuidV4() });
+  const [size, setSize] = useState<Omit<SizeWithPrice, 'id'>>({ size: '', price: 0 });
 
   return (
     <>

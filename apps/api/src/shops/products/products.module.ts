@@ -9,13 +9,14 @@ import { WeaviateModule } from 'src/weaviate/weaviate.module';
 import { Analytic } from 'src/analytics/entity/analytic.entity';
 import { Shop } from '../entities/shop.entity';
 import { Category } from '../categories/entities/category.entity';
+import { ProductSize } from '../product_sizes/entities/product_size.entity';
 
 @Module({
   controllers: [ProductsController],
   providers: [ProductsService],
   imports: [
     ImagesModule,
-    TypeOrmModule.forFeature([Product, Analytic, Shop, Category]),
+    TypeOrmModule.forFeature([Product, Analytic, Shop, Category, ProductSize]),
     AwsModule,
     WeaviateModule,
   ],

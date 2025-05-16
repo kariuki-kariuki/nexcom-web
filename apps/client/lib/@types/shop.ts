@@ -27,7 +27,7 @@ export type INewProduct = {
   name: string;
   description: string;
   status: ProductStatus;
-  sizes: SizeWithPrice[];
+  sizes: Omit<SizeWithPrice, 'id'>[];
   files: FileWithPath[];
   category: string;
   stock: number;
