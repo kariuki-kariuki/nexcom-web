@@ -19,16 +19,27 @@ A bridge between commerce and communication. Nexcom is a Next.js-powered super a
 
 ## Features
 - **Real-time Communication**: Integrated chat and video calls between buyers and sellers.
+
 ![image](./public/images/chatty.png)
 
+- **Streamlined Shopping**: Lightning-fast performance with intuitive navigation.
+
+![image](./public/images/shopping.png)
+
 - **Customizable Shops**: Easy setup for sellers to showcase products.
+
+
 ![image](./public/images/dashboard.png)
 
-- **Streamlined Shopping**: Lightning-fast performance with intuitive navigation.
-![image](./public/images/shop.png)
+
+- **Analytics**: Easy analytics to track you shop perfomance.
+
+![image](./public/images/analytics.png)
+
 
 
 - **Scalable Backend**: Built for high-traffic environments with real-time WebSockets.
+
 ![image](./public/images/product.png)
 
 
