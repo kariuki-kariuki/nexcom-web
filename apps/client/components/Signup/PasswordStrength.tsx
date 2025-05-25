@@ -2,7 +2,7 @@ import {
   Box,
   Center,
   Group,
-  Input,
+  PasswordInput,
   Progress,
   Text
 } from '@mantine/core';
@@ -78,8 +78,8 @@ export default function PasswordStrength({ value, setPassword }: {value: string,
     ));
 
   return (
-    <div>
-      <Input
+    <div style={{ width: "100%"}}>
+      <PasswordInput
         value={value}
         onChange={(event) =>
           setPassword(prev => ({...prev, password: event.target.value}))
@@ -90,6 +90,7 @@ export default function PasswordStrength({ value, setPassword }: {value: string,
         name='password'
         type='password'
         required
+        width="100%"
         classNames={{ input: classes.input }}
       />
 

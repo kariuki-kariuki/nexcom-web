@@ -14,7 +14,7 @@ import {
   Text
 } from '@mantine/core';
 import classes from './Signup.module.css';
-import PasswordStrength from './PasswordStrenght';
+import PasswordStrength from './PasswordStrength';
 import Link from 'next/link';
 import { datasource } from '@/lib/common/datasource';
 import setToken from '@/utils/setToken';
