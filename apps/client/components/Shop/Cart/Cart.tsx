@@ -14,6 +14,7 @@ import {
   Group,
   Input,
   InputWrapper,
+  LoadingOverlay,
   Paper,
   rem,
   Text,
@@ -29,9 +30,10 @@ import { notifications } from '@mantine/notifications';
 import { datasource } from '@/lib/common/datasource';
 import OrderTable from './OrderTable/OrderTable';
 
-const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
+const CartComponent = ({ cartItems }: { cartItems: CartItem[] | null }) => {
   const [cartedItems, setCartItems] = useState(cartItems);
   const [selection, setSelection] = useState<string[]>([]);
+  const [loading, setIsLoading] = useState(false);
   const [phone, setPhone] = useState('')
   const [total, setTotal] = useState(0);
   const [error, setError] = useState('')
@@ -58,12 +60,12 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
       return;
     }
 
-
+    setIsLoading(true);
     const { data, error } = await datasource.post({ formData: { cartIds: selection, phone }, path: 'orders' })
     if (error) {
       setError(error)
     }
-    console.log(data)
+    setIsLoading(false);
   }
 
   if (!cartedItems) return <>
@@ -72,6 +74,7 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
 
   return (
     <Paper className={classes.main}>
+      <LoadingOverlay visible={loading} />
       <Container size="xl">
         <Grid
           h={'100%'}
@@ -126,7 +129,7 @@ const CartComponent = ({ cartItems }: { cartItems: CartItem[] }) => {
             </Card>
           </GridCol>
         </Grid>
-        <Divider my="xl"/>
+        <Divider my="xl" />
         <Title ta="center" py="md">Orders</Title>
         <OrderTable />
       </Container>

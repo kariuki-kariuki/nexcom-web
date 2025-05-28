@@ -15,21 +15,26 @@ export class Payment {
   @PrimaryGeneratedColumn('uuid')
   id: ProjectIdType;
 
+  @Exclude()
   @Column()
   merchantRequestId: string;
 
+  @Exclude()
   @Column()
   checkoutRequestId: string;
 
+  @Exclude()
   @Column()
   resultCode: number;
 
+  @Exclude()
   @Column()
   resultDesc: string;
 
   @Column()
   amount: number;
 
+  @Exclude()
   @Column()
   mpesaReceiptNumber: string;
 
@@ -37,7 +42,8 @@ export class Payment {
   transactionDate: Date;
 
   @Column()
-  phoneNumber: number;
+  @Exclude()
+  phoneNumber: string;
 
   @Column({ default: PaymentStatus.PENDING }) // pending, success, failed
   status: PaymentStatus;

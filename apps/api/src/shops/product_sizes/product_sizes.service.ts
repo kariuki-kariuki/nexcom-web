@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateProductSizeDto } from './dto/create-product_size.dto';
 import { UpdateProductSizeDto } from './dto/update-product_size.dto';
 import { ProductSize } from './entities/product_size.entity';
@@ -41,12 +45,16 @@ export class ProductSizesService {
   ) {
     const sizeToUpdate = await this.sizeRepository.findOne({
       where: {
-        id: updateProductSizeDto.productId,
+        id: updateProductSizeDto.id,
         product: {
           shop: { id: shopId },
         },
       },
     });
+
+    if (!sizeToUpdate) {
+      throw new ForbiddenException('Forbidden');
+    }
     const { size = sizeToUpdate.size, price = sizeToUpdate.price } =
       updateProductSizeDto;
     sizeToUpdate.size = size;

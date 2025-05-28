@@ -10,11 +10,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from '../../users/users.service';
-import { ProductsService } from '../products/products.service';
-import { AwsService } from '../../aws/aws.service';
 import { ProjectIdType } from 'src/@types/types';
-import { CartsService } from '../carts/carts.service';
 import { PaymentsService } from '../payments/payments.service';
+import { Cart } from '../carts/entities/cart.entity';
 
 @Injectable()
 export class OrdersService {
@@ -22,33 +20,28 @@ export class OrdersService {
   constructor(
     @InjectRepository(Order) private readonly ordersRepo: Repository<Order>,
     private readonly usersService: UsersService,
-    private readonly productService: ProductsService,
-    private readonly awsService: AwsService,
-    private readonly cartService: CartsService,
+    @InjectRepository(Cart)
+    private readonly cartRepository: Repository<Cart>,
     private readonly paymentsService: PaymentsService,
   ) {}
   async create(createOrderDto: CreateOrderDto, userId: ProjectIdType) {
     const order = new Order();
     const user = await this.usersService.findById(userId);
     const { cartIds, phone } = createOrderDto;
-    const cartItems = await Promise.all(
-      cartIds.map(async (id) => await this.cartService.findOne(id)),
-    );
-    const total = cartItems.reduce(
-      (acc, currVal) => acc + currVal.size.price * currVal.quantity,
-      0,
-    );
-    cartItems.map(async (item) => {
-      item.ordered = true;
-      return await this.cartService.updateState(item);
-    });
+    const cartItems = await this.getCartItems(cartIds);
+    const total = await this.getOrderTotal(cartItems);
+
     order.cartItems = cartItems;
     order.totalAmount = total;
     order.user = user;
-    const res = await this.paymentsService.stkPush({ phone: phone.slice(1) });
+    const res = await this.paymentsService.stkPush({
+      phone: phone.slice(1),
+      amount: total,
+    });
     if (res.ResponseCode === '0') {
       order.checkoutRequestId = res.CheckoutRequestID;
       order.merchantRequestID = res.MerchantRequestID;
+      await this.updateCartItemStatus(cartItems, true);
       const savedOrder = await this.ordersRepo.save(order);
       return savedOrder;
     } else {
@@ -56,8 +49,32 @@ export class OrdersService {
     }
   }
 
+  private async updateCartItemStatus(cartItems: Cart[], state: boolean) {
+    cartItems.map(async (item) => {
+      item.ordered = state;
+      return await this.cartRepository.save(item);
+    });
+  }
+
+  private async getOrderTotal(cartItems: Cart[]): Promise<number> {
+    const total = cartItems.reduce(
+      (acc, currVal) => acc + currVal.size.price * currVal.quantity,
+      0,
+    );
+    return total;
+  }
+
+  private async getCartItems(checkoutIds: string[]): Promise<Cart[]> {
+    const checkoutItems = Promise.all(
+      checkoutIds.map(
+        async (id) => await this.cartRepository.findOneBy({ id }),
+      ),
+    );
+    return checkoutItems;
+  }
+
   async findAll(userId: ProjectIdType) {
-    this.ordersRepo.find({ where: { user: { id: userId } } });
+    return this.ordersRepo.find({ where: { user: { id: userId } } });
   }
 
   async findOne(id: ProjectIdType) {

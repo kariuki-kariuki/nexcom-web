@@ -67,9 +67,8 @@ export class AuthController {
   @ApiBearerAuth('JWT-auth')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
-  async authorize(@Request() req) {
-    const user = await this.authService.getMe(req.user.email);
-    return user;
+  async authorize(@Request() req: AuthenticatedRequest) {
+    return await this.authService.getMe(req.user.email);
   }
 
   @Get('enable-2fa')

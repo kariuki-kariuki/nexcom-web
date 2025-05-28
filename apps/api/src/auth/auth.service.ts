@@ -51,9 +51,8 @@ export class AuthService {
     return { name: shop.name, id: shop.id, token: token.token };
   }
 
-  async getMe(email: string) {
-    const user = await this.userService.findOne(email);
-    return user;
+  async getMe(email: string): Promise<User> {
+    return await this.userService.getMe(email);
   }
 
   async loginWithGoogle(req: any) {

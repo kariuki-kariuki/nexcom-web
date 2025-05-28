@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
 import { ProjectIdType } from 'src/@types/types';
 
 export class CreateProductSizeDto {
@@ -12,5 +12,6 @@ export class CreateProductSizeDto {
 
   @IsString()
   @IsNotEmpty()
+  @IsUUID()
   productId: ProjectIdType;
 }

@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { UpdatePaymentDto } from './dto/update-payment.dto';
 import axios from 'axios';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,7 +12,7 @@ import {
   StkCallBack,
   StkCallBackFailure,
 } from 'src/@types/types';
-import { OrdersService } from '../orders/orders.service';
+import { Order } from '../orders/entities/order.entity';
 
 type DarajaTokenRes = {
   access_token: string;
@@ -28,7 +28,6 @@ type SanitizedData = {
 @Injectable()
 export class PaymentsService {
   private logger = new Logger(PaymentsService.name);
-
   private readonly darajaSecret = process.env.DA_SECRET_KEY;
   private readonly darajaConsumer = process.env.DA_CONSUMER_KEY;
   private readonly darajaAuthUrl = process.env.DA_AUTH_URL;
@@ -47,15 +46,16 @@ export class PaymentsService {
   constructor(
     @InjectRepository(Payment)
     private readonly paymentRepository: Repository<Payment>,
-    @Inject(forwardRef(() => OrdersService))
-    private readonly ordersService: OrdersService,
+    @InjectRepository(Order)
+    private orderRepository: Repository<Order>,
   ) {
     if (!process.env.DA_SECRET_KEY || !process.env.DA_CONSUMER_KEY) {
       throw new Error('Missing required environment variables for Daraja');
     }
   }
   async create(createPaymentDto: MpesaResponse | MpesaFailure | any) {
-    console.log(createPaymentDto);
+    this.logger.debug('Mpesa Response', createPaymentDto);
+
     if (createPaymentDto.Body.stkCallback.ResultCode === 0) {
       await this.handleSuccessfulPayment(createPaymentDto.Body.stkCallback);
     } else {
@@ -65,35 +65,41 @@ export class PaymentsService {
   async handleSuccessfulPayment(stkCallBack: StkCallBack) {
     const { CallbackMetadata, CheckoutRequestID } = stkCallBack;
     const sanitizedData = this.sanitizeData(CallbackMetadata);
-    const order =
-      await this.ordersService.findOneByChekoutID(CheckoutRequestID);
+    const order = await this.orderRepository.findOneBy({
+      checkoutRequestId: CheckoutRequestID,
+    });
     const payment = this.mapPaymentEntity(sanitizedData, stkCallBack);
     order.cartItems.map((cartItem) => (cartItem.ordered = true));
     order.status = OrderState.SUCCESS;
     payment.order = order;
+    await this.orderRepository.save(order);
     try {
-      this.paymentRepository.save(payment);
+      await this.paymentRepository.save(payment);
     } catch (e) {
       this.logger.error('Error saving payment', e);
     }
   }
 
-  async handleFailedPayment(stkCallBack: StkCallBackFailure) {
+  private async handleFailedPayment(stkCallBack: StkCallBackFailure) {
     const { ResultDesc, ResultCode, CheckoutRequestID } = stkCallBack;
-    const order =
-      await this.ordersService.findOneByChekoutID(CheckoutRequestID);
+    const order = await this.findOrderByCheckoutID(CheckoutRequestID);
     order.resultCode = ResultCode;
     order.resultDesc = ResultDesc;
     order.status = OrderState.FAILED;
-    await this.ordersService.updateFailed(order);
+    await this.orderRepository.save(order);
+  }
+
+  private async findOrderByCheckoutID(
+    checkoutRequestId: string,
+  ): Promise<Order> {
+    return this.orderRepository.findOneBy({ checkoutRequestId });
   }
 
   private mapPaymentEntity(
     sanitizedData: SanitizedData,
     stkCallBack: StkCallBack,
   ): Payment {
-    const { mpesaReceiptNumber, amount, transactionDate, phoneNumber } =
-      sanitizedData;
+    const { mpesaReceiptNumber, amount, phoneNumber } = sanitizedData;
     const { CheckoutRequestID, ResultDesc, MerchantRequestID } = stkCallBack;
     const payment = new Payment();
     payment.mpesaReceiptNumber = mpesaReceiptNumber;
@@ -101,8 +107,8 @@ export class PaymentsService {
     payment.checkoutRequestId = CheckoutRequestID;
     payment.resultDesc = ResultDesc;
     payment.merchantRequestId = MerchantRequestID;
-    payment.transactionDate = new Date(transactionDate);
-    payment.phoneNumber = phoneNumber;
+    payment.transactionDate = new Date();
+    payment.phoneNumber = phoneNumber.toString();
     return payment;
   }
 
@@ -124,7 +130,7 @@ export class PaymentsService {
     }
   }
 
-  async stkPush({ phone }: { phone: string }) {
+  async stkPush({ phone, amount }: { phone: string; amount: number }) {
     const token = await this.getToken();
     if (!token) {
       throw new Error('Failed to retrieve token from Daraja');
@@ -135,7 +141,7 @@ export class PaymentsService {
       Password: password,
       Timestamp: timestamp,
       TransactionType: 'CustomerPayBillOnline',
-      Amount: '1',
+      Amount: amount.toString(),
       PartyA: `254${phone}`, // Replace with dynamic data if necessary
       PartyB: this.darajaShortCode,
       PhoneNumber: `254${phone}`, // Replace with dynamic data if necessary
@@ -143,7 +149,6 @@ export class PaymentsService {
       AccountReference: 'Test',
       TransactionDesc: 'Test',
     };
-
     try {
       const res = await axios.post(this.darajaStkUrl, data, {
         headers: {
@@ -151,7 +156,6 @@ export class PaymentsService {
         },
       });
       if (res.data) {
-        this.logger.log('STK Push Response:', res.data);
         return res.data;
       }
     } catch (error) {

@@ -4,18 +4,13 @@ import { OrdersController } from './orders.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
 import { UsersModule } from 'src/users/users.module';
-import { AwsModule } from '../../aws/aws.module';
-import { ProductsModule } from '../products/products.module';
-import { CartsModule } from '../carts/carts.module';
 import { PaymentsModule } from '../payments/payments.module';
+import { Cart } from '../carts/entities/cart.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Order]),
+    TypeOrmModule.forFeature([Order, Cart]),
     UsersModule,
-    ProductsModule,
-    CartsModule,
-    AwsModule,
     forwardRef(() => PaymentsModule),
   ],
   controllers: [OrdersController],

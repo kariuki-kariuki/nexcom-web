@@ -84,6 +84,26 @@ export class UsersService {
     return bcrypt.hash(password, salt);
   }
 
+  async getMe(email: string): Promise<User> {
+    const user = await this.usersRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.avatar', 'avatar')
+      .leftJoinAndSelect('user.shop', 'shop')
+      .leftJoinAndSelect(
+        'user.cartItems',
+        'cartItems',
+        'cartItems.ordered = :status',
+        { status: false },
+      )
+      .leftJoinAndSelect('user.orders', 'orders')
+      .where('user.email= :email', { email })
+      .getOne();
+    if (!user) {
+      throw new UnprocessableEntityException('User not found');
+    }
+    return user;
+  }
+
   // consolidate conversation creation
   private async createWelcomeConversation(userId: string, message: string) {
     const bot = await this.findOne('nexcom.bot@gmail.com');

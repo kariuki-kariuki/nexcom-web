@@ -12,11 +12,12 @@
 
 .input {
   background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
-  color: white;
+  color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-white));
 }
 
 .main {
   padding: 0%;
+
   @media (min-width: $mantine-breakpoint-sm) {
     padding: var(--mantine-spacing-sm);
   }
