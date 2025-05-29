@@ -221,4 +221,32 @@ export class PaymentsService {
       return null;
     }
   }
+
+  async requestStatus(id: string) {
+    const rqBody = {
+      Initiator: 'testapi',
+      SecurityCredential:
+        'gB11NwqEdYKYFDK56yy5XOyHRldtJXDgJYUeIXyUHE+RIZQ4fFrf941QkPQCMjfcXSdq5n5fbEnx8N7s2HfsQg5lPivva4+Ia4gJdXIdK8eT6phcC7j625Ull7egBq1MCsxwH0o4PapRPtOpaZ7q4dinaDEkQsaI7iNiXpgR+lxRtvYbNu/PX6Tg/3A4D783NwVIUrhtctCEK1CdHUkOnJoPbnjn2FYqRMggXeqyLtxR+ZAaaCjoKZ4sXrbyaWxx1EY+jbJYzWA2rcvY0K8EZ6tezb3+pTRybrjjg+hAUMOUN1wMcrL7nGSa2Vg+vdfPRTwoWB0fqeVT4HWQgLysiQ==',
+      CommandID: 'TransactionStatusQuery',
+      TransactionID: id,
+      PartyA: '174379',
+      IdentifierType: '4',
+      ResultURL: 'https://a8bf-102-0-15-94.ngrok-free.app/api/payments/status',
+      QueueTimeOutURL:
+        'https://a8bf-102-0-15-94.ngrok-free.app/api/payments/timeout',
+      Remarks: 'OK',
+      Occasion: 'OK',
+    };
+    const url =
+      'https://sandbox.safaricom.co.ke/mpesa/transactionstatus/v1/query';
+    const token = await this.getToken();
+    const response = await axios.post(url, rqBody, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response.data);
+
+    return 'ok';
+  }
 }

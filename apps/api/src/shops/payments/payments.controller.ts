@@ -20,6 +20,20 @@ export class PaymentsController {
     return this.paymentsService.create(createPaymentDto);
   }
 
+  @Post('status')
+  getStatus(@Body() status: any) {
+    console.log(status);
+  }
+
+  @Post('status-request')
+  requestStatus(@Body() body: { id: string }) {
+    return this.paymentsService.requestStatus(body.id);
+  }
+  @Post('timeout')
+  postTimeOut(@Body() timeout: any) {
+    console.log(timeout);
+  }
+
   @Get()
   findAll() {
     return this.paymentsService.findAll();

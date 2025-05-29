@@ -8,7 +8,7 @@ import { Shop } from './entities/shop.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AwsService } from '../aws/aws.service';
-import { ProjectIdType } from 'src/@types/types';
+import { ProjectIdType, UserRoles } from 'src/@types/types';
 import { CategoriesService } from './categories/categories.service';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { User } from 'src/users/entities/user.entity';
@@ -52,9 +52,13 @@ export class ShopsService {
         user,
         bannerImage: banner,
       });
-      const shops = await this.shopRepository.save(shop);
+      const myShop = await this.shopRepository.save(shop);
+      if (myShop) {
+        user.role = UserRoles.SHOP_ADMIN;
+        await this.usersRepository.save(user);
+      }
 
-      return shops;
+      return myShop;
     } catch (e) {
       throw new UnprocessableEntityException('Name already taken');
     }
