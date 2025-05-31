@@ -26,12 +26,6 @@ const Bar = ({ activeConvoId }: BarProps) => {
   const { newConversation } = useGlobalStore((state) => state);
   const router = useRouter();
   const socket = useSocketContext();
-  console.log("Render")
-  useEffect(() => {
-    socket.emit('online-status', { userId: user?.id }, (res: { status: string }) => {
-      setOnlineStatus(res.status);
-    })
-  }, [])
 
   useEffect(() => {
     socket.on("online-status", (res: {userId: string, status: string}) => {

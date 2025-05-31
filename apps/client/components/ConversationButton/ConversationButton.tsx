@@ -9,11 +9,9 @@ import {
   Box,
   useMantineTheme
 } from '@mantine/core';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconCheck, IconChecks, IconShoppingBag } from '@tabler/icons-react';
-import clsx from 'clsx';
 import { ConversationProps, GlobalUser, Message, PayloadMessage } from '@/lib/@types/app';
-import { ScreenContext, screenContextType } from '@/lib/context/screenContext';
 import { MessageState } from '@/lib/common/common';
 import { useSocketContext } from '@/lib/hooks/useSocket';
 import { formatDate } from '@/utils/helpers';

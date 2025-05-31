@@ -10,9 +10,6 @@ import {
 import { useState } from 'react';
 import classes from './NewMessageBox.module.css';
 import { IconSend } from '@tabler/icons-react';
-import {
-  useNewConverSationContext
-} from '@/lib/context/newConversation';
 import { useSocketContext } from '@/lib/hooks/useSocket';
 import { ConversationProps, NewMessage } from '@/lib/@types/app';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
@@ -21,7 +18,6 @@ import { FileWithPath } from '@mantine/dropzone';
 import FilePicker from '../ui/FilePicker';
 import MessageImagePreviews from '../Previews/MessageImagePrev';
 import { usePathname, useRouter } from 'next/navigation';
-import { base } from '@faker-js/faker';
 import { useMediaQuery } from '@mantine/hooks';
 
 interface INewMessageBox {

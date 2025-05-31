@@ -15,7 +15,7 @@ const Dashboard = ({ opened, toggle, actUser }: Iprops) => {
       withOverlay={false}
       w={'100%'}
       style={{ overflow: 'hidden' }}
-      classNames={{ header: classes.header, content: classes.color }}
+      classNames={{ header: classes.header, content: classes.content }}
       h={'100%'}
       title={`${actUser.fullName}'s Profile`}
       position="right"
