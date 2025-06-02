@@ -7,10 +7,11 @@ import { AwsModule } from '../aws/aws.module';
 import { CategoriesModule } from './categories/categories.module';
 import { User } from 'src/users/entities/user.entity';
 import { Order } from './orders/entities/order.entity';
+import { Product } from './products/entities/product.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Shop, User, Order]),
+    TypeOrmModule.forFeature([Shop, User, Order, Product]),
     AwsModule,
     CategoriesModule,
   ],

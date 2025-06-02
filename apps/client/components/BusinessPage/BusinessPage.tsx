@@ -13,7 +13,7 @@ const BusinessPage = ({ shop }: IProps) => {
   return (
     <Container className={classes.main} size="lg">
       <div className={classes.card}>
-        <section className={classes.section} style={{ backgroundImage: `url(${shop.bannerImage?.url || '/images/banner.png'})` }}>
+        <section className={classes.section} style={{ backgroundImage: `url(${shop.bannerImage?.signedUrl || '/images/banner.png'})` }}>
         </section>
         <div className={classes.innerCard}>
           <div className={classes.avatar}>

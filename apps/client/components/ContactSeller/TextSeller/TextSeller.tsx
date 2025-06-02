@@ -7,7 +7,7 @@ import NewMessageBox from '@/components/NewMessageBox/NewMessageBox';
 import Bar from '@/components/Bar/Bar';
 interface CloseProps {
   closes: () => void;
-  activeConvo?: ConversationProps | null;
+  activeConvo: ConversationProps;
 }
 
 function ChatArea({  activeConvo }: CloseProps) {
@@ -43,7 +43,7 @@ function ChatArea({  activeConvo }: CloseProps) {
         p={'0px'}
         m={'0px'}
       >
-        <Bar activeConvoId={activeConvo?.id || ''} />
+        <Bar user={activeConvo.users[0]} />
         <ScrollArea
           h={'100%'}
           py={0}

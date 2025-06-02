@@ -77,10 +77,9 @@ export class AuthService {
         email: user.email,
         userId: user.id,
       };
-      const shop = await this.shopService.findMyShop(user.id);
 
-      if (shop) {
-        payload.shopId = shop.id;
+      if (user.shop) {
+        payload.shopId = user.shop.id;
       }
       return this.signedPayLoad(payload);
     }

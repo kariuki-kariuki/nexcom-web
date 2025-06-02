@@ -24,7 +24,10 @@ function ChatArea({ activeConvoId }: ChatAreaProps) {
       endOfMessagesRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [activeConvo]);
-  if(!activeConvo) return router.push('/chat');
+  if(!activeConvo) {
+    router.push('/chat')
+    return <></>;
+  };
   // activeConvo.messages.sort((a, b) => {
   //   const timeA = new Date(
   //     a.created_at
@@ -34,7 +37,6 @@ function ChatArea({ activeConvoId }: ChatAreaProps) {
   //   ).getTime();
   //   return timeA - timeB;
   // });
-
 
   const messages = activeConvo.messages?.map((message, idx) => (
     <Message message={message} key={idx} />

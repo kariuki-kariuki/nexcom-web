@@ -7,10 +7,10 @@ import { Product, ShopWithProducts } from '../../../../lib/@types/shop';
 import get from '../../../../utils/fetch';
 
 const Page = async () => {
-  const shop = await get<ShopWithProducts>('shops/myshop');
+  const products = await get<Product[]>('shops/myshop');
   return (
     <div>
-      {!shop && (
+      {!products && (
         <>
           <Group justify="space-between">
             <Text>No Products Yet</Text>
@@ -26,7 +26,7 @@ const Page = async () => {
           </Group>
         </>
       )}
-      {shop && <ProductsTable products={shop.products} />}
+      {products && <ProductsTable products={products} />}
     </div>
   );
 };

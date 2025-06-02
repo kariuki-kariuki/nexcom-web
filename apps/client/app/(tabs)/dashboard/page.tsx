@@ -1,14 +1,14 @@
 import Admin from '@/components/Admin/Admin'
-import { ShopWithProducts } from '@/lib/@types/shop';
+import { Product, ShopWithProducts } from '@/lib/@types/shop';
 import get from '@/utils/fetch';
 import { redirect } from 'next/navigation';
 import React from 'react'
 
 const page = async () => {
-    const shop = await get<ShopWithProducts>('shops/myshop');
-  if(!shop) redirect('/chat')
+    const products = await get<Product[]>('shops/myshop');
+  if(!products) redirect('/chat')
   return (
-    <Admin products={shop.products}/>
+    <Admin products={products}/>
   )
 }
 

@@ -1,4 +1,5 @@
 import {
+  ForbiddenException,
   Injectable,
   UnauthorizedException,
   UnprocessableEntityException,
@@ -14,6 +15,7 @@ import { CreateShopDto } from './dto/create-shop.dto';
 import { User } from 'src/users/entities/user.entity';
 import { Image } from './product_images/entities/image.entity';
 import { Order } from './orders/entities/order.entity';
+import { Product } from './products/entities/product.entity';
 
 @Injectable()
 export class ShopsService {
@@ -21,6 +23,7 @@ export class ShopsService {
     @InjectRepository(Shop) private shopRepository: Repository<Shop>,
     @InjectRepository(User) private usersRepository: Repository<User>,
     @InjectRepository(Order) private ordersRepository: Repository<Order>,
+    @InjectRepository(Product) private productRepository: Repository<Product>,
     private readonly awsService: AwsService,
     private readonly categoryService: CategoriesService,
   ) {}
@@ -32,17 +35,19 @@ export class ShopsService {
   ) {
     const { address, categoryId, description, phone, name } = createShopDto;
 
-    const shopsWithName = await this.shopRepository.findBy({ name });
+    const shopsWithName = await this.shopRepository.findOneBy({ name });
     if (shopsWithName) {
       throw new UnprocessableEntityException('ShopName already exist');
     }
     try {
-      const user = await this.usersRepository.findOneBy({ email });
-      const imageUrl = await this.awsService.uploadFile(file, 'shop');
+      const user = await this.usersRepository.findOne({
+        where: { email },
+        relations: { shop: true },
+      });
+      if (user.shop) {
+        throw new ForbiddenException('You already have a shop');
+      }
       const category = await this.categoryService.findOne(categoryId);
-      const banner = new Image();
-      banner.url = imageUrl;
-      banner.altText = `${name} shop bunner Image`;
       const shop = this.shopRepository.create({
         address,
         category,
@@ -50,8 +55,16 @@ export class ShopsService {
         phone: parseInt(phone),
         name,
         user,
-        bannerImage: banner,
       });
+
+      if (file) {
+        const imageUrl = await this.awsService.uploadFile(file, 'shop');
+        const banner = new Image();
+        banner.url = imageUrl;
+        banner.altText = `${name} shop bunner Image`;
+        shop.bannerImage = banner;
+      }
+
       const myShop = await this.shopRepository.save(shop);
       if (myShop) {
         user.role = UserRoles.SHOP_ADMIN;
@@ -127,17 +140,18 @@ export class ShopsService {
   }
 
   async findMyShop(id: string) {
-    const shop = await this.shopRepository
-      .createQueryBuilder('shop')
-      .leftJoinAndSelect('shop.products', 'products')
-      .leftJoinAndSelect('products.images', 'images')
-      .leftJoinAndSelect('products.product_sizes', 'product_sizes')
-      .leftJoinAndSelect('products.analytics', 'analytics')
-      .leftJoinAndSelect('products.cartItems', 'cartItems')
+    const products = await this.productRepository
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.shop', 'shop')
+      .leftJoinAndSelect('product.images', 'images')
+      .leftJoinAndSelect('product.product_sizes', 'product_sizes')
+      .leftJoinAndSelect('product.analytics', 'analytics')
+      .leftJoinAndSelect('product.cartItems', 'cartItems')
       .leftJoinAndSelect('cartItems.size', 'size')
       .where('shop.id = :id', { id })
-      .getOne();
-    return shop;
+      .getMany();
+    console.log(products);
+    return products;
   }
 
   async update(id: string, updateShopDto: UpdateShopDto, userId: string) {
