@@ -80,52 +80,51 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         `Creating conversation with receiverId: ${createConversationDTO.receiverId}`,
       );
       const { receiverId } = createConversationDTO;
+      const { userId } = client.user;
 
       // Create the conversation
       const conversation = await this.chatService.newConversation({
-        initiatorId: client.user.userId,
+        initiatorId: userId,
         createConversationDTO,
       });
 
       // Notify the receiver if they are online
       const receiverSocket = this.gateWaySession.getUserSocket(receiverId);
       if (receiverSocket) {
-        const serializedForReceiver = this.serializeConversation(
-          conversation,
-          receiverId,
-        );
         this.server
           .to(receiverSocket.id)
-          .emit('new-conversation', serializedForReceiver);
+          .emit(
+            'new-conversation',
+            this.serializeConversation(conversation, receiverId),
+          );
       }
 
       // Return conversation filtered for the initiator
-      return this.serializeConversation(conversation, receiverId);
+      return this.serializeConversation(conversation, userId);
     } catch (error) {
       this.logger.error('Create conversation error:', error.message);
       throw new WsException('Failed to create a new conversation');
     }
   }
 
-  private serializeConversation(
-    conversation: Conversation,
-    excludeUserId: string,
-  ) {
-    const serialized = instanceToPlain(conversation);
-    serialized.users = conversation.users.filter(
-      (user) => user.id !== excludeUserId,
-    );
-    return serialized;
-  }
-
   @SubscribeMessage('online-status')
   async onlineStatus(@MessageBody() body: { userId: string }) {
     const receiverSocket = this.gateWaySession.getUserSocket(body.userId);
-
+    this.gateWaySession.getSockets().forEach((socket) => {
+      console.log(socket.user);
+    });
     if (receiverSocket) {
       return { status: 'online' };
     }
     return { status: 'offline' };
+  }
+
+  private serializeConversation(conversation: Conversation, userId: string) {
+    const serializedConversation = instanceToPlain(conversation);
+    serializedConversation.users = serializedConversation.users.filter(
+      (user: any) => user.id !== userId,
+    );
+    return serializedConversation;
   }
 
   @SubscribeMessage('updateProfile')
@@ -174,6 +173,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @MessageBody() messageBody: IncomingMessageBody,
   ) {
     const { userId } = client.user;
+    console.log(messageBody);
     try {
       const receiverSocket = this.gateWaySession.getUserSocket(
         messageBody.receiverId,

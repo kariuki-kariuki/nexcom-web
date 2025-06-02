@@ -1,11 +1,14 @@
 .bg {
-  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-0));
- border: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-8));
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+  border: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-8));
+  padding: 0px;
 }
 
 .header {
-  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-0));
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
   height: 80px;
+  padding: var(--mantine-spacing-sm);
+  border-bottom: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-7));
 }
 
 .btn {

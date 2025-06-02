@@ -89,6 +89,22 @@ export class ProductsService {
     });
     return products;
   }
+  async findTrending() {
+    const products = await this.productRespository
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.images', 'images') // Join product images
+      .leftJoin('product.analytics', 'analytics') // Join analytics
+      .groupBy('product.id') // Group by product ID
+      .addGroupBy('images.id') // Group by image ID to avoid aggregation errors
+      .select(['product', 'images'])
+      .addSelect('COUNT(analytics.id)', 'analyticsCount') // Count analytics
+      .having('COUNT(analytics.id) > :threshold', { threshold: 100 }) // Filter by threshold
+      .orderBy('analyticsCount', 'DESC') // Order by analytics count
+      .limit(3) // Limit the number of results
+      .getMany();
+
+    return products;
+  }
 
   async findByImage(file: Express.Multer.File) {
     const imageString = await toBase64FromMedia(file.buffer);

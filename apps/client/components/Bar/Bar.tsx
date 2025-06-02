@@ -5,7 +5,7 @@ import classes from './Bar.module.css';
 import { useEffect, useState } from 'react';
 import Dashboard from '../Profile/ProfileDashboard';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import { ConversationProps } from '@/lib/@types/app';
+import { ConversationProps, GlobalUser } from '@/lib/@types/app';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 import { useRouter } from 'next/navigation';
 import { useSocketContext } from '@/lib/hooks/useSocket';
@@ -14,27 +14,25 @@ interface CloseProps {
 }
 // Top Bar on the Chatbox Area
 interface BarProps {
-  activeConvoId?: string
+  user: GlobalUser
 }
-const Bar = ({ activeConvoId }: BarProps) => {
+const Bar = ({ user }: BarProps) => {
   const conversations = useGlobalStore(state => state.conversations);
-  const activeConversation = conversations.find((conv) => conv.id === activeConvoId)
   const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
   const [onlineStatus, setOnlineStatus] = useState('offline')
-  const user = activeConversation?.users[0];
   const [opened, { toggle }] = useDisclosure(false);
   const { newConversation } = useGlobalStore((state) => state);
   const router = useRouter();
   const socket = useSocketContext();
 
   useEffect(() => {
-    socket.on("online-status", (res: {userId: string, status: string}) => {
-      if(res.userId === user?.id){
+    socket.on("online-status", (res: { userId: string, status: string }) => {
+      if (res.userId === user?.id) {
         setOnlineStatus(res.status);
       }
     })
 
-    return() => {
+    return () => {
       socket.off('online-status')
     }
   }, [socket, user, onlineStatus])
@@ -59,41 +57,15 @@ const Bar = ({ activeConvoId }: BarProps) => {
               color="teal"
             />
           </Paper>
-          {user ? (
-            <Details
-              open={toggle}
-              status={user.status}
-              name={user.fullName}
-              avatar={user?.avatar?.signedUrl}
-              onlineStatus={onlineStatus}
-            />
-          ) : (
-            <>
-              {newConversation ? (
-                <Details
-                  name={newConversation?.fullName}
-                  status={`Start chatting with ${newConversation.fullName}`}
-                  avatar={newConversation?.avatar?.signedUrl}
-                />
-              ) : (
-                <Details />
-              )}
-            </>
-          )}
+          <Details
+            open={toggle}
+            status={user.status}
+            name={user.fullName}
+            avatar={user?.avatar?.signedUrl}
+            onlineStatus={onlineStatus}
+          />
         </Group>
-        <Paper visibleFrom="sm" bg={'none'}>
-          <Miscelenious convoId={activeConvoId} />
-        </Paper>
       </Group>
-      {activeConversation ? (
-        <Dashboard
-          opened={opened}
-          toggle={toggle}
-          actUser={activeConversation?.users[0]}
-        />
-      ) : (
-        ''
-      )}
     </>
   );
 };

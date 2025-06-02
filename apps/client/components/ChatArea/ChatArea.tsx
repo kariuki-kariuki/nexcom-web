@@ -4,8 +4,9 @@ import Bar from '../Bar/Bar';
 import { Box, Paper, ScrollArea } from '@mantine/core';
 import NewMessageBox from '../../components/NewMessageBox/NewMessageBox';
 import classes from './ChatArea.module.css';
-import { useEffect, useRef } from 'react';
+import { act, useEffect, useRef } from 'react';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
+import { useRouter } from 'next/navigation';
 interface ChatAreaProps {
   activeConvoId: string
 }
@@ -15,6 +16,7 @@ function ChatArea({ activeConvoId }: ChatAreaProps) {
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const conversations = useGlobalStore(state => state.conversations);
   const activeConvo = conversations.find((conv) => conv.id === activeConvoId)
+  const router = useRouter();
 
   // Auto-scroll to the bottom on new message or when conversation changes
   useEffect(() => {
@@ -22,7 +24,8 @@ function ChatArea({ activeConvoId }: ChatAreaProps) {
       endOfMessagesRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [activeConvo]);
-  activeConvo?.messages.sort((a, b) => {
+  if(!activeConvo) return router.push('/chat');
+  activeConvo.messages.sort((a, b) => {
     const timeA = new Date(
       a.created_at
     ).getTime();
@@ -33,12 +36,12 @@ function ChatArea({ activeConvoId }: ChatAreaProps) {
   });
 
 
-  const messages = activeConvo?.messages?.map((message, idx) => (
+  const messages = activeConvo.messages?.map((message, idx) => (
     <Message message={message} key={idx} />
   ));
   return (
     <Paper h={'100vh'} p={'0px'} m={'0px'} className={classes.chat_area}>
-      <Bar activeConvoId={activeConvoId}/>
+      <Bar user={activeConvo.users[0]}/>
       <ScrollArea
         h={'100%'}
         py={0}

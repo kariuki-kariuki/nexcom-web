@@ -12,7 +12,6 @@ interface ChatAreaProps {
 }
 
 function NewChat({ user }: ChatAreaProps) {
-  const setNewConversations = useGlobalStore((state) => state.setNewConversation);
   const loggedInUser = useGlobalStore((state) => state.user);
   const router = useRouter();
   const conversations = useGlobalStore((state) => state.conversations);
@@ -22,14 +21,14 @@ function NewChat({ user }: ChatAreaProps) {
   } else if(convo){
     router.push(`/chat/${convo.id}`)
   }
-  setNewConversations(user);
+  
 
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   // Auto-scroll to the bottom on new message or when conversation changes
 
   return (
     <Paper h={'100vh'} p={'0px'} m={'0px'} className={classes.chat_area}>
-      <Bar />
+      <Bar user={user}/>
       <ScrollArea
         h={'100%'}
         py={0}
@@ -39,7 +38,7 @@ function NewChat({ user }: ChatAreaProps) {
         <Box className={classes.clearfix}></Box>
         <div ref={endOfMessagesRef} />
       </ScrollArea>
-      <NewMessageBox />
+      <NewMessageBox userId={user.id}/>
     </Paper>
   );
 }

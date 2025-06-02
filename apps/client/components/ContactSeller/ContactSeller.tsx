@@ -1,5 +1,4 @@
 import { Product } from '@/lib/@types/shop'
-import { useNewConverSationContext } from '@/lib/context/newConversation'
 import { Avatar, Box, Button, Dialog, Flex, Group, ScrollArea, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IconMessage } from '@tabler/icons-react'
@@ -9,16 +8,14 @@ import classes from "./ContactSeller.module.css";
 import Link from 'next/link'
 import OgMessage from '../OgMessage/OgMessage';
 import { useGlobalStore } from '@/lib/context/global-store.provider'
-import { useRouter } from 'next/navigation'
 
 interface IProps { product: Product }
 
 const ContactSeller = ({ product }: IProps) => {
     const owner = product?.shop?.user;
-    const { setNewConversation } = useNewConverSationContext();
     const conversations = useGlobalStore((store) => store.conversations)
     const user = useGlobalStore((state) => state.user);
-    const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
+    const userConversation = conversations.find((convo) => convo.users[0].id === owner?.id);
     const [opened, { toggle }] = useDisclosure();
     const convo = conversations.find(convo => convo.users[0].id === owner?.id);
     return (
@@ -32,11 +29,9 @@ const ContactSeller = ({ product }: IProps) => {
                         if (user?.id === owner?.id) return;
 
                         if (convo) {
-                            setActiveConversation(convo);
                             toggle();
                             return;
                         }
-                        setNewConversation(product.shop?.user || owner);
                         toggle();
                     }} leftSection={<IconMessage stroke={1.5} />}>
                     <Text visibleFrom='sm'>{`Contact ${owner?.fullName}`}</Text>
@@ -49,7 +44,7 @@ const ContactSeller = ({ product }: IProps) => {
                         <Text visibleFrom='sm'>Login To Contact Seller</Text>
                     </Button>
                 </Link>}
-            <Dialog opened={opened} onClose={toggle} withCloseButton size={"lg"} classNames={{ root: classes.bg }}>
+            <Dialog opened={opened} onClose={toggle} withCloseButton size={"lg"} p="0" classNames={{ root: classes.bg }}>
                 <Flex h={'100%'} direction={'column'}>
                     <Group className={classes.header} wrap='nowrap' py="sm">
                         <Avatar src={owner?.avatar?.signedUrl} name={owner?.fullName} />
@@ -63,7 +58,7 @@ const ContactSeller = ({ product }: IProps) => {
                             <OgMessage product={product} />
                         </Box>
                     </ScrollArea>
-                    <NewMessageBox productId={product.id} sellerId={product.shop?.user?.id || ''} margin={'xs'} />
+                    <NewMessageBox productId={product.id} userId={product.shop?.user?.id || ''} convoId={userConversation?.id} close={toggle} margin={'xs'} />
                 </Flex>
             </Dialog>
         </div>
