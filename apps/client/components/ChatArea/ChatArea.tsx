@@ -25,15 +25,15 @@ function ChatArea({ activeConvoId }: ChatAreaProps) {
     }
   }, [activeConvo]);
   if(!activeConvo) return router.push('/chat');
-  activeConvo.messages.sort((a, b) => {
-    const timeA = new Date(
-      a.created_at
-    ).getTime();
-    const timeB = new Date(
-      b.created_at
-    ).getTime();
-    return timeA - timeB;
-  });
+  // activeConvo.messages.sort((a, b) => {
+  //   const timeA = new Date(
+  //     a.created_at
+  //   ).getTime();
+  //   const timeB = new Date(
+  //     b.created_at
+  //   ).getTime();
+  //   return timeA - timeB;
+  // });
 
 
   const messages = activeConvo.messages?.map((message, idx) => (

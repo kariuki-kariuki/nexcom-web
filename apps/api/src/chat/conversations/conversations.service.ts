@@ -29,15 +29,17 @@ export class ConversationsService {
   ) {}
 
   async findAll(id: string) {
-    const user = await this.usersRepository.findOne({
-      where: { id },
-      relations: {
-        conversations: {
-          users: { shop: true },
-          messages: { user: true, product: true },
-        },
-      },
-    });
+    const user = await this.usersRepository
+      .createQueryBuilder('userr')
+      .leftJoinAndSelect('userr.conversations', 'conversations')
+      .leftJoinAndSelect('conversations.users', 'users')
+      .leftJoinAndSelect('conversations.messages', 'messages')
+      .leftJoinAndSelect('messages.user', 'user')
+      .leftJoinAndSelect('users.shop', 'shop')
+      .leftJoinAndSelect('users.avatar', 'avatar')
+      .orderBy('messages.created_at', 'ASC')
+      .where('userr.id = :id', { id })
+      .getOne();
 
     if (!user) {
       throw new UnprocessableEntityException('User not found.');
@@ -102,15 +104,15 @@ export class ConversationsService {
   }
 
   async getAllConversation(userId: string): Promise<Conversation[]> {
-    const user = await this.usersRepository.findOne({
-      where: { id: userId },
-      relations: {
-        conversations: {
-          users: { shop: true },
-          messages: { user: true, product: true },
-        },
-      },
-    });
+    const user = await this.usersRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('users.conversations', 'conversations')
+      .leftJoinAndSelect('conversations.users', 'users')
+      .leftJoinAndSelect('users.shop', 'shop')
+      .leftJoinAndSelect('users.avatar', 'avatar')
+      .orderBy('messages.created_at', 'DESC')
+      .where('user.id =: id', { id: userId })
+      .getOne();
 
     if (!user) {
       throw new UnprocessableEntityException('User not found.');

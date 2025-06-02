@@ -110,9 +110,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('online-status')
   async onlineStatus(@MessageBody() body: { userId: string }) {
     const receiverSocket = this.gateWaySession.getUserSocket(body.userId);
-    this.gateWaySession.getSockets().forEach((socket) => {
-      console.log(socket.user);
-    });
+
     if (receiverSocket) {
       return { status: 'online' };
     }
@@ -173,7 +171,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @MessageBody() messageBody: IncomingMessageBody,
   ) {
     const { userId } = client.user;
-    console.log(messageBody);
     try {
       const receiverSocket = this.gateWaySession.getUserSocket(
         messageBody.receiverId,

@@ -40,7 +40,6 @@ const NewMessageBox = ({ productId, margin, convoId, close, userId }: INewMessag
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const handleSubmit = async () => {
-    console.log(message)
     if (!message && files.length === 0) return;
     const messageBody = {
       message,
@@ -49,7 +48,6 @@ const NewMessageBox = ({ productId, margin, convoId, close, userId }: INewMessag
       conversationId: convoId,
       files: processedFiles,
     };
-    console.log(messageBody);
 
     if (!convoId) {
       socket.emit('new-conversation', messageBody, (res: ConversationProps) => {
@@ -91,7 +89,7 @@ const NewMessageBox = ({ productId, margin, convoId, close, userId }: INewMessag
   return (
     <>
       <MessageImagePreviews files={files} setFiles={setFiles} />
-      <Paper pt={10} m={{ base: 'md', sm: margin }} shadow='lg' mih={{ base: 'auto', sm: 130 }} radius="xl" variant="div" px={mobile? 'sm' :'lg'} className={classes.msg}>
+      <Paper pt={10} m={{ base: 'md', sm: margin }} shadow='lg' mih={{ base: 'auto', sm: 130 }} radius="xl" variant="div" px={mobile ? 'sm' : 'lg'} className={classes.msg}>
         <Textarea
           classNames={{ input: classes.textarea, wrapper: classes.textarea }}
           placeholder={"Enter Message"}
