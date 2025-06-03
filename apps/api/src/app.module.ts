@@ -32,6 +32,10 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { UserAgentMiddleware } from 'utils/middlewares/user-agent.middleware';
 import { DiscordModule } from './discord/discord.module';
+import { DemoModule } from './demo/demo.module';
+import { CacheModule } from '@nestjs/cache-manager';
+import { CacheableMemory, Keyv } from 'cacheable';
+import { createKeyv } from '@keyv/redis';
 
 @Module({
   imports: [
@@ -41,6 +45,19 @@ import { DiscordModule } from './discord/discord.module';
       isGlobal: true,
       envFilePath: ['.env'],
       load: [config],
+    }),
+    CacheModule.registerAsync({
+      useFactory: async () => {
+        return {
+          stores: [
+            new Keyv({
+              store: new CacheableMemory({ ttl: 0, lruSize: 5000 }),
+            }),
+            createKeyv('redis://localhost:6379'),
+          ],
+        };
+      },
+      isGlobal: true,
     }),
     AuthModule,
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
@@ -74,6 +91,7 @@ import { DiscordModule } from './discord/discord.module';
     }),
     AnalyticsModule,
     DiscordModule,
+    DemoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

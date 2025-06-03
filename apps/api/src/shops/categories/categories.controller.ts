@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -15,6 +16,7 @@ import { UserRoles } from 'src/@types/types';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/roles/roles.guard';
 import { Roles } from 'utils/roles.decorator';
+import { CacheInterceptor, CacheKey, CacheTTL } from '@nestjs/cache-manager';
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
@@ -27,11 +29,18 @@ export class CategoriesController {
     return this.categoriesService.create(createCategoryDto);
   }
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheKey('categories_routes')
+  @CacheTTL(10000)
+  @Get('all')
   @Get()
   findAll() {
     return this.categoriesService.findAll();
   }
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheKey('categories_routes')
+  @CacheTTL(5000)
   @Get('all')
   productCategories() {
     return this.categoriesService.findProducts();

@@ -150,7 +150,6 @@ export class ShopsService {
       .leftJoinAndSelect('cartItems.size', 'size')
       .where('shop.id = :id', { id })
       .getMany();
-    console.log(products);
     return products;
   }
 
