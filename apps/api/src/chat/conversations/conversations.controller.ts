@@ -10,9 +10,9 @@ import {
 import { ConversationsService } from './conversations.service';
 // import { CreateConversationDTO } from './dto/create-conversation.dto';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
-import { MessageState } from 'src/@types/chat/chat';
-import { AuthenticatedRequest } from 'src/@types/types';
 import { CreateConversationDTO } from './dto/create-conversation.dto';
+import { AuthenticatedRequest } from '../../@types/types';
+import { MessageState } from '../../@types/chat/chat';
 
 @Controller('conversations')
 export class ConversationsController {

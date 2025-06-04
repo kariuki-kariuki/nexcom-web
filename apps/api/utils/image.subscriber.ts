@@ -1,8 +1,5 @@
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AwsService } from 'src/aws/aws.service';
-import { ProductVideo } from 'src/product-videos/entities/product-video.entity';
-import { Image } from 'src/shops/product_images/entities/image.entity';
 import {
   EventSubscriber,
   EntitySubscriberInterface,
@@ -10,6 +7,9 @@ import {
   RemoveEvent,
   InsertEvent,
 } from 'typeorm';
+import { Image } from '../src/shops/product_images/entities/image.entity';
+import { AwsService } from '../src/aws/aws.service';
+import { ProductVideo } from '../src/product-videos/entities/product-video.entity';
 
 @EventSubscriber()
 export class ImageSubscriber

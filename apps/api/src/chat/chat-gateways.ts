@@ -13,7 +13,6 @@ import { ChatService } from './chat.service';
 import { CreateConversationDTO } from './conversations/dto/create-conversation.dto';
 import { UpdateStateDTO } from './messages/dto/update-state.dto';
 import { instanceToPlain } from 'class-transformer';
-import { AuthenticatedSocket } from 'src/@types/chat/chat';
 import { GatewaySessionManager } from './gateway.session';
 import {
   IncomingCall,
@@ -22,6 +21,7 @@ import {
 } from './dto/chat-gateway.dto';
 import { Logger } from '@nestjs/common';
 import { Conversation } from './conversations/entities/Conversation.entity';
+import { AuthenticatedSocket } from '../@types/chat/chat';
 
 @WebSocketGateway(5000, {
   cors: { origin: '*' },

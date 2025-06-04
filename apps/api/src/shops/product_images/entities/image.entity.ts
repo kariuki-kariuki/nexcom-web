@@ -8,9 +8,9 @@ import {
 } from 'typeorm';
 import { Product } from '../../products/entities/product.entity';
 import { Exclude } from 'class-transformer';
-import { ProjectIdType } from 'src/@types/types';
-import { Gallery } from 'src/galleries/entities/gallery.entity';
-import { Message } from 'src/chat/messages/entities/message.entity';
+import { ProjectIdType } from '../../../@types/types';
+import { Message } from '../../../chat/messages/entities/message.entity';
+import { Gallery } from '../../../galleries/entities/gallery.entity';
 
 @Entity()
 export class Image {

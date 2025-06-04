@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
-import { ProjectIdType } from 'src/@types/types';
+import { ProjectIdType } from '../../../@types/types';
 
 export class CreateProductSizeDto {
   @IsNumber()

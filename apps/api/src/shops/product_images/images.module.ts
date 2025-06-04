@@ -4,8 +4,8 @@ import { ImagesController } from './images.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Image } from './entities/image.entity';
 import { AwsModule } from '../../aws/aws.module';
-import { WeaviateModule } from 'src/weaviate/weaviate.module';
 import { Product } from '../products/entities/product.entity';
+import { WeaviateModule } from '../../weaviate/weaviate.module';
 
 @Module({
   imports: [

@@ -4,8 +4,8 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from './entities/category.entity';
 import { Repository } from 'typeorm';
-import { AwsService } from 'src/aws/aws.service';
-import { ProjectIdType } from 'src/@types/types';
+import { AwsService } from '../../aws/aws.service';
+import { ProjectIdType } from '../../@types/types';
 
 @Injectable()
 export class CategoriesService {

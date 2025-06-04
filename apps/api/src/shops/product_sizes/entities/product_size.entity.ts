@@ -9,8 +9,8 @@ import {
 } from 'typeorm';
 import { Product } from '../../products/entities/product.entity';
 import { Exclude } from 'class-transformer';
-import { ProjectIdType } from 'src/@types/types';
-import { Cart } from 'src/shops/carts/entities/cart.entity';
+import { ProjectIdType } from '../../../@types/types';
+import { Cart } from '../../carts/entities/cart.entity';
 
 @Entity()
 export class ProductSize {

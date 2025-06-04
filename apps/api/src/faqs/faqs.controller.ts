@@ -11,7 +11,7 @@ import {
 import { FaqsService } from './faqs.service';
 import { CreateFaqDto } from './dto/create-faq.dto';
 import { UpdateFaqDto } from './dto/update-faq.dto';
-import { JwtShopGuard } from 'src/auth/guard/jwt-shop.guard';
+import { JwtShopGuard } from '../auth/guard/jwt-shop.guard';
 
 @Controller('faqs')
 export class FaqsController {

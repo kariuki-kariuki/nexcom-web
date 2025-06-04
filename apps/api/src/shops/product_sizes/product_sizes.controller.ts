@@ -12,10 +12,10 @@ import {
 import { ProductSizesService } from './product_sizes.service';
 import { CreateProductSizeDto } from './dto/create-product_size.dto';
 import { UpdateProductSizeDto } from './dto/update-product_size.dto';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/roles/roles.guard';
 import { Roles } from 'utils/roles.decorator';
-import { AuthenticatedRequest, UserRoles } from 'src/@types/types';
+import { UserRoles, AuthenticatedRequest } from '../../@types/types';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { RolesGuard } from '../../auth/roles/roles.guard';
 
 @Controller('product-sizes')
 export class ProductSizesController {

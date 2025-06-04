@@ -9,13 +9,13 @@ import { Shop } from './entities/shop.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AwsService } from '../aws/aws.service';
-import { ProjectIdType, UserRoles } from 'src/@types/types';
 import { CategoriesService } from './categories/categories.service';
 import { CreateShopDto } from './dto/create-shop.dto';
-import { User } from 'src/users/entities/user.entity';
 import { Image } from './product_images/entities/image.entity';
 import { Order } from './orders/entities/order.entity';
 import { Product } from './products/entities/product.entity';
+import { UserRoles, ProjectIdType } from '../@types/types';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class ShopsService {

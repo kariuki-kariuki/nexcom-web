@@ -26,8 +26,8 @@ import {
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { CreateShopDto } from '../shops/dto/create-shop.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AuthenticatedRequest } from 'src/@types/types';
-import { User } from 'src/users/entities/user.entity';
+import { AuthenticatedRequest } from '../@types/types';
+import { User } from '../users/entities/user.entity';
 
 @ApiBearerAuth()
 @Controller('auth')

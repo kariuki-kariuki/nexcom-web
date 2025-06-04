@@ -12,8 +12,8 @@ import {
 import { ProductCommentsService } from './product-comments.service';
 import { CreateProductCommentDto } from './dto/create-product-comment.dto';
 import { UpdateProductCommentDto } from './dto/update-product-comment.dto';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
-import { AuthenticatedRequest } from 'src/@types/types';
+import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
+import { AuthenticatedRequest } from '../@types/types';
 
 @Controller('product-comments')
 export class ProductCommentsController {

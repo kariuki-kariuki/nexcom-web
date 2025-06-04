@@ -1,6 +1,4 @@
 import { Exclude } from 'class-transformer';
-import { PaymentStatus, ProjectIdType } from 'src/@types/types';
-import { Order } from 'src/shops/orders/entities/order.entity';
 import {
   Column,
   CreateDateColumn,
@@ -9,6 +7,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ProjectIdType, PaymentStatus } from '../../../@types/types';
+import { Order } from '../../orders/entities/order.entity';
 
 @Entity()
 export class Payment {

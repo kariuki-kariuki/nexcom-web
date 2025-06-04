@@ -1,6 +1,3 @@
-import { ProjectIdType } from 'src/@types/types';
-import { Product } from 'src/shops/products/entities/product.entity';
-import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   Entity,
@@ -10,6 +7,9 @@ import {
   TreeChildren,
   TreeParent,
 } from 'typeorm';
+import { ProjectIdType } from '../../@types/types';
+import { Product } from '../../shops/products/entities/product.entity';
+import { User } from '../../users/entities/user.entity';
 
 @Entity()
 @Tree('closure-table')

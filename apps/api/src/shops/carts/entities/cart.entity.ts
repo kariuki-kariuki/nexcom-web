@@ -8,10 +8,10 @@ import {
 } from 'typeorm';
 import { Product } from '../../products/entities/product.entity';
 import { User } from '../../../users/entities/user.entity';
-import { ProjectIdType } from 'src/@types/types';
-import { Order } from 'src/shops/orders/entities/order.entity';
-import { ProductSize } from 'src/shops/product_sizes/entities/product_size.entity';
 import { Exclude } from 'class-transformer';
+import { ProjectIdType } from '../../../@types/types';
+import { Order } from '../../orders/entities/order.entity';
+import { ProductSize } from '../../product_sizes/entities/product_size.entity';
 
 @Entity()
 export class Cart {

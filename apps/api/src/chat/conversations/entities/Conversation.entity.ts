@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { User } from '../../../users/entities/user.entity';
 import { Message } from '../../messages/entities/message.entity';
-import { ProjectIdType } from 'src/@types/types';
+import { ProjectIdType } from '../../../@types/types';
 
 @Entity()
 export class Conversation {

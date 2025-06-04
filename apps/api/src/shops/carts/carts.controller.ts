@@ -12,8 +12,8 @@ import {
 import { CartsService } from './carts.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
-import { AuthenticatedRequest } from 'src/@types/types';
+import { AuthenticatedRequest } from '../../@types/types';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 
 @Controller('carts')
 export class CartsController {

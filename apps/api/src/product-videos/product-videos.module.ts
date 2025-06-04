@@ -3,8 +3,8 @@ import { ProductVideosService } from './product-videos.service';
 import { ProductVideosController } from './product-videos.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductVideo } from './entities/product-video.entity';
-import { ProductsModule } from 'src/shops/products/products.module';
-import { AwsModule } from 'src/aws/aws.module';
+import { AwsModule } from '../aws/aws.module';
+import { ProductsModule } from '../shops/products/products.module';
 
 @Module({
   imports: [

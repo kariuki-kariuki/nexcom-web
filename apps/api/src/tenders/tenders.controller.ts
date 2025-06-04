@@ -13,7 +13,7 @@ import {
 import { TendersService } from './tenders.service';
 import { UpdateTenderDto } from './dto/update-tender.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { JwtShopGuard } from 'src/auth/guard/jwt-shop.guard';
+import { JwtShopGuard } from '../auth/guard/jwt-shop.guard';
 
 @Controller('tenders')
 export class TendersController {

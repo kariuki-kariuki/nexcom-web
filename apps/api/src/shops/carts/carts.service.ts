@@ -5,12 +5,12 @@ import {
 } from '@nestjs/common';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
-import { ProjectIdType } from 'src/@types/types';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cart } from './entities/cart.entity';
 import { Repository } from 'typeorm';
-import { UsersService } from 'src/users/users.service';
 import { ProductsService } from '../products/products.service';
+import { ProjectIdType } from '../../@types/types';
+import { UsersService } from '../../users/users.service';
 
 type updateType = {
   id: ProjectIdType;

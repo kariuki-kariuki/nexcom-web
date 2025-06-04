@@ -15,7 +15,7 @@ import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { JwtShopGuard } from 'src/auth/guard/jwt-shop.guard';
+import { JwtShopGuard } from '../auth/guard/jwt-shop.guard';
 
 @Controller('jobs')
 export class JobsController {

@@ -3,10 +3,10 @@ import { ConversationsController } from './conversations.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Conversation } from './entities/Conversation.entity';
 import { ConversationsService } from './conversations.service';
-import { ProductsModule } from 'src/shops/products/products.module';
-import { AwsModule } from 'src/aws/aws.module';
 import { Message } from '../messages/entities/message.entity';
-import { User } from 'src/users/entities/user.entity';
+import { AwsModule } from '../../aws/aws.module';
+import { ProductsModule } from '../../shops/products/products.module';
+import { User } from '../../users/entities/user.entity';
 
 @Module({
   imports: [

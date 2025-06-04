@@ -15,15 +15,15 @@ import {
 import { ProductsService } from './products.service';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { Roles } from 'utils/roles.decorator';
 import {
-  AnalyticsRequest,
+  UserRoles,
   AuthenticatedRequest,
   ProjectIdType,
-  UserRoles,
-} from 'src/@types/types';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
-import { Roles } from 'utils/roles.decorator';
-import { RolesGuard } from 'src/auth/roles/roles.guard';
+  AnalyticsRequest,
+} from '../../@types/types';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { RolesGuard } from '../../auth/roles/roles.guard';
 
 @Controller('products')
 export class ProductsController {

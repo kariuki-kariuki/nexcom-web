@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
 import { ChatGateway } from './chat-gateways';
-import { UsersModule } from 'src/users/users.module';
 import { ChatService } from './chat.service';
 import { ConversationsModule } from './conversations/conversations.module';
-import { AuthModule } from 'src/auth/auth.module';
 import { MessagesModule } from './messages/messages.module';
 import { GatewaySessionManager } from './gateway.session';
-import { SessionsModule } from 'src/sessions/sessions.module';
 import { WebSocketAdapter } from './gateway.adpater';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from '../auth/auth.module';
+import { SessionsModule } from '../sessions/sessions.module';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   imports: [

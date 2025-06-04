@@ -3,14 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateStateDTO } from './dto/update-state.dto';
 import { Message } from './entities/message.entity';
-import { MessageState } from 'src/@types/chat/chat';
 import { IncomingMessageBody } from '../dto/chat-gateway.dto';
 import { Conversation } from '../conversations/entities/Conversation.entity';
-import { User } from 'src/users/entities/user.entity';
-import { Image } from 'src/shops/product_images/entities/image.entity';
-import { AwsService } from 'src/aws/aws.service';
-import { Product } from 'src/shops/products/entities/product.entity';
-import { ProductStatus } from 'src/@types/product-status';
+import { MessageState } from '../../@types/chat/chat';
+import { ProductStatus } from '../../@types/product-status';
+import { AwsService } from '../../aws/aws.service';
+import { Product } from '../../shops/products/entities/product.entity';
+import { User } from '../../users/entities/user.entity';
+import { Image } from '../../shops/product_images/entities/image.entity';
 
 @Injectable()
 export class MessagesService {

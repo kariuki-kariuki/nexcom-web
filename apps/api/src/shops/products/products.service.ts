@@ -9,14 +9,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { Repository } from 'typeorm';
 import { ImagesService } from '../product_images/images.service';
-import { ProductStatus } from 'src/@types/product-status';
-import { BrowserInfo, ProjectIdType } from 'src/@types/types';
-import { WeaviateService } from 'src/weaviate/weaviate.service';
 import { toBase64FromMedia } from 'weaviate-client';
-import { Analytic } from 'src/analytics/entity/analytic.entity';
 import { Shop } from '../entities/shop.entity';
 import { Category } from '../categories/entities/category.entity';
 import { ProductSize } from '../product_sizes/entities/product_size.entity';
+import { ProductStatus } from '../../@types/product-status';
+import { ProjectIdType, BrowserInfo } from '../../@types/types';
+import { Analytic } from '../../analytics/entity/analytic.entity';
+import { WeaviateService } from '../../weaviate/weaviate.service';
 
 @Injectable()
 export class ProductsService {

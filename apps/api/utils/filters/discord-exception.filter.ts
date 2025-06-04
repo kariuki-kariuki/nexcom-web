@@ -5,7 +5,7 @@ import {
   HttpException,
   Logger,
 } from '@nestjs/common';
-import { DiscordService } from 'src/discord/discord.service';
+import { DiscordService } from '../../src/discord/discord.service';
 
 @Catch()
 export class DiscordExceptionFilter implements ExceptionFilter {

@@ -1,9 +1,9 @@
 import { IoAdapter } from '@nestjs/platform-socket.io';
-import { AuthenticatedSocket } from 'src/@types/chat/chat'; // Assuming this type is defined properly
 import { Socket } from 'socket.io';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { WsException } from '@nestjs/websockets';
+import { AuthenticatedSocket } from '../@types/chat/chat';
 
 @Injectable()
 export class WebSocketAdapter extends IoAdapter {

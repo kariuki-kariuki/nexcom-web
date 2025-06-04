@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
-import { MessageState } from 'src/@types/chat/chat';
-import { ProjectIdType } from 'src/@types/types';
+import { MessageState } from '../../../@types/chat/chat';
+import { ProjectIdType } from '../../../@types/types';
 
 export class UpdateStateDTO {
   @IsNumber()

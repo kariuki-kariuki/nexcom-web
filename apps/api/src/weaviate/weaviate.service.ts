@@ -4,9 +4,8 @@ import weaviate, {
   toBase64FromMedia,
 } from 'weaviate-client';
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
-import fetch from 'node-fetch';
-import { Image } from 'src/shops/product_images/entities/image.entity';
-import { AwsService } from 'src/aws/aws.service';
+import { AwsService } from '../aws/aws.service';
+import { Image } from '../shops/product_images/entities/image.entity';
 
 @Injectable()
 export class WeaviateService {

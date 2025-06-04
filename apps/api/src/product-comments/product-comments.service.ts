@@ -8,8 +8,8 @@ import { UpdateProductCommentDto } from './dto/update-product-comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductComment } from './entities/product-comment.entity';
 import { Repository, TreeRepository } from 'typeorm';
-import { UsersService } from 'src/users/users.service';
-import { Product } from 'src/shops/products/entities/product.entity';
+import { Product } from '../shops/products/entities/product.entity';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class ProductCommentsService {
@@ -57,7 +57,7 @@ export class ProductCommentsService {
   }
 
   update(id: number, updateProductCommentDto: UpdateProductCommentDto) {
-    return `This action updates a #${id} productComment`;
+    return updateProductCommentDto;
   }
 
   remove(id: number) {

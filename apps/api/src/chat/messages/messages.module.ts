@@ -3,11 +3,11 @@ import { MessagesService } from './messages.service';
 import { MessagesController } from './messages.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Message } from './entities/message.entity';
-import { AwsModule } from 'src/aws/aws.module';
 import { Conversation } from '../conversations/entities/Conversation.entity';
-import { User } from 'src/users/entities/user.entity';
-import { Image } from 'src/shops/product_images/entities/image.entity';
-import { Product } from 'src/shops/products/entities/product.entity';
+import { User } from '../../users/entities/user.entity';
+import { Product } from '../../shops/products/entities/product.entity';
+import { AwsModule } from '../../aws/aws.module';
+import { Image } from '../../shops/product_images/entities/image.entity';
 
 @Module({
   imports: [

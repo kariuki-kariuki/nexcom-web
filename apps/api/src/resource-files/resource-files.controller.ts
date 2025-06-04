@@ -13,7 +13,7 @@ import {
 import { ResourceFilesService } from './resource-files.service';
 import { UpdateResourceFileDto } from './dto/update-resource-file.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { JwtShopGuard } from 'src/auth/guard/jwt-shop.guard';
+import { JwtShopGuard } from '../auth/guard/jwt-shop.guard';
 
 @Controller('resource-files')
 export class ResourceFilesController {

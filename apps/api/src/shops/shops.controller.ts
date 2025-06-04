@@ -13,10 +13,10 @@ import {
 } from '@nestjs/common';
 import { ShopsService } from './shops.service';
 import { UpdateShopDto } from './dto/update-shop.dto';
-import { AuthenticatedRequest, UserRoles } from 'src/@types/types';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/roles/roles.guard';
 import { Roles } from 'utils/roles.decorator';
+import { UserRoles, AuthenticatedRequest } from '../@types/types';
+import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
+import { RolesGuard } from '../auth/roles/roles.guard';
 
 @Controller('shops')
 export class ShopsController {

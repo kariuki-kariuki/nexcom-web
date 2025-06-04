@@ -12,11 +12,11 @@ import {
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { UserRoles } from 'src/@types/types';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/roles/roles.guard';
 import { Roles } from 'utils/roles.decorator';
 import { CacheInterceptor, CacheKey, CacheTTL } from '@nestjs/cache-manager';
+import { UserRoles } from '../../@types/types';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { RolesGuard } from '../../auth/roles/roles.guard';
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}

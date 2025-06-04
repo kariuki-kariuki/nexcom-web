@@ -1,6 +1,4 @@
 import { Exclude } from 'class-transformer';
-import { ProjectIdType } from 'src/@types/types';
-import { Product } from 'src/shops/products/entities/product.entity';
 import {
   Column,
   CreateDateColumn,
@@ -9,6 +7,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ProjectIdType } from '../../@types/types';
+import { Product } from '../../shops/products/entities/product.entity';
 
 @Entity()
 export class ProductVideo {

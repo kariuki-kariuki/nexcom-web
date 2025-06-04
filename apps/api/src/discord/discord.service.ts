@@ -1,7 +1,7 @@
 // src/discord/discord.service.ts
 import { Injectable, Logger } from '@nestjs/common';
 import axios, { AxiosError } from 'axios';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class DiscordService {

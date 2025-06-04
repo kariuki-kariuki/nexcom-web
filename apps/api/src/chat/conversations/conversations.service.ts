@@ -8,12 +8,12 @@ import { Conversation } from './entities/Conversation.entity';
 import { CreateConversationDTO } from './dto/create-conversation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Message } from '../messages/entities/message.entity';
-import { MessageState } from 'src/@types/chat/chat';
-import { ProjectIdType } from 'src/@types/types';
-import { ProductsService } from 'src/shops/products/products.service';
-import { AwsService } from 'src/aws/aws.service';
-import { User } from 'src/users/entities/user.entity';
 import { INewConverSation } from 'utils/interfaces';
+import { MessageState } from '../../@types/chat/chat';
+import { ProjectIdType } from '../../@types/types';
+import { AwsService } from '../../aws/aws.service';
+import { ProductsService } from '../../shops/products/products.service';
+import { User } from '../../users/entities/user.entity';
 
 @Injectable()
 export class ConversationsService {

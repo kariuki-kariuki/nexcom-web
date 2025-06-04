@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { Image } from 'src/shops/product_images/entities/image.entity';
+import { Image } from '../../shops/product_images/entities/image.entity';
 
 @Entity()
 export class Blog {

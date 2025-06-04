@@ -16,10 +16,10 @@ import {
 import { ProductVideosService } from './product-videos.service';
 import { UpdateProductVideoDto } from './dto/update-product-video.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AuthenticatedRequest, UserRoles } from 'src/@types/types';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/roles/roles.guard';
-import { Roles } from 'utils/roles.decorator';
+import { Roles } from '../../utils/roles.decorator';
+import { UserRoles, AuthenticatedRequest } from '../@types/types';
+import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
+import { RolesGuard } from '../auth/roles/roles.guard';
 
 @Controller('product-videos')
 export class ProductVideosController {

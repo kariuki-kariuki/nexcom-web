@@ -10,9 +10,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from '../../users/users.service';
-import { ProjectIdType } from 'src/@types/types';
 import { PaymentsService } from '../payments/payments.service';
 import { Cart } from '../carts/entities/cart.entity';
+import { ProjectIdType } from '../../@types/types';
 
 @Injectable()
 export class OrdersService {

@@ -10,10 +10,10 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../../users/entities/user.entity';
-import { OrderState, ProjectIdType } from 'src/@types/types';
-import { Cart } from 'src/shops/carts/entities/cart.entity';
-import { Payment } from 'src/shops/payments/entities/payment.entity';
 import { Exclude } from 'class-transformer';
+import { ProjectIdType, OrderState } from '../../../@types/types';
+import { Cart } from '../../carts/entities/cart.entity';
+import { Payment } from '../../payments/entities/payment.entity';
 
 @Entity()
 export class Order {

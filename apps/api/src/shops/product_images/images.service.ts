@@ -5,11 +5,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Image } from './entities/image.entity';
 import { AwsService } from '../../aws/aws.service';
-import { ProjectIdType } from 'src/@types/types';
-import { WeaviateService } from 'src/weaviate/weaviate.service';
 import { toBase64FromMedia } from 'weaviate-client';
-import { COLLECTION_NAME } from 'src/lib/constants';
 import { Product } from '../products/entities/product.entity';
+import { ProjectIdType } from '../../@types/types';
+import { COLLECTION_NAME } from '../../lib/constants';
+import { WeaviateService } from '../../weaviate/weaviate.service';
 
 @Injectable()
 export class ImagesService {

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { WeaviateService } from './weaviate.service';
 import { WeaviateController } from './weaviate.controller';
-import { AwsModule } from 'src/aws/aws.module';
+import { AwsModule } from '../aws/aws.module';
 
 @Module({
   imports: [AwsModule],

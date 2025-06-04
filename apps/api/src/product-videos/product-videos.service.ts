@@ -4,10 +4,10 @@ import { UpdateProductVideoDto } from './dto/update-product-video.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductVideo } from './entities/product-video.entity';
 import { Repository } from 'typeorm';
-import { ProductsService } from 'src/shops/products/products.service';
-import { Payload } from 'src/@types/chat/chat';
-import { AwsService } from 'src/aws/aws.service';
-import { ProductStatus } from 'src/@types/product-status';
+import { Payload } from '../@types/chat/chat';
+import { ProductStatus } from '../@types/product-status';
+import { AwsService } from '../aws/aws.service';
+import { ProductsService } from '../shops/products/products.service';
 
 interface INewProduct {
   createProductVideoDto: CreateProductVideoDto;

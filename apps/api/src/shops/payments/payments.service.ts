@@ -4,15 +4,15 @@ import axios from 'axios';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Payment } from './entities/payment.entity';
 import { Repository } from 'typeorm';
-import {
-  CallbackMetadata,
-  MpesaFailure,
-  MpesaResponse,
-  OrderState,
-  StkCallBack,
-  StkCallBackFailure,
-} from 'src/@types/types';
 import { Order } from '../orders/entities/order.entity';
+import {
+  MpesaResponse,
+  MpesaFailure,
+  StkCallBack,
+  OrderState,
+  StkCallBackFailure,
+  CallbackMetadata,
+} from '../../@types/types';
 
 type DarajaTokenRes = {
   access_token: string;

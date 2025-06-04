@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
-import { DiscordService } from 'src/discord/discord.service';
+import { DiscordService } from '../../src/discord/discord.service';
 
 @Injectable()
 export class ErrorReportingMiddleware implements NestMiddleware {

@@ -9,9 +9,9 @@ import {
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Product } from '../products/entities/product.entity';
-import { ProjectIdType } from 'src/@types/types';
 import { Category } from '../categories/entities/category.entity';
 import { Image } from '../product_images/entities/image.entity';
+import { ProjectIdType } from '../../@types/types';
 
 @Entity()
 export class Shop {

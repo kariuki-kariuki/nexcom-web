@@ -3,9 +3,9 @@ import { OrdersService } from './orders.service';
 import { OrdersController } from './orders.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
-import { UsersModule } from 'src/users/users.module';
 import { PaymentsModule } from '../payments/payments.module';
 import { Cart } from '../carts/entities/cart.entity';
+import { UsersModule } from '../../users/users.module';
 
 @Module({
   imports: [

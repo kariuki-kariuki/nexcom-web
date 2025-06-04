@@ -17,8 +17,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { SearchUserDto } from './dto/search-users.dto';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
-import { AuthenticatedRequest } from 'src/@types/types';
 import { MessageBody } from '@nestjs/websockets';
+import { AuthenticatedRequest } from '../@types/types';
 
 @Controller('users')
 export class UsersController {

@@ -1,5 +1,4 @@
 import { Exclude } from 'class-transformer';
-import { Product } from 'src/shops/products/entities/product.entity';
 import {
   Column,
   CreateDateColumn,
@@ -7,6 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Product } from '../../shops/products/entities/product.entity';
 
 @Entity()
 export class Analytic {

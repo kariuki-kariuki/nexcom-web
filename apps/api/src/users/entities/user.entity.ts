@@ -16,10 +16,10 @@ import { Conversation } from '../../chat/conversations/entities/Conversation.ent
 import { Message } from '../../chat/messages/entities/message.entity';
 import { Shop } from '../../shops/entities/shop.entity';
 import { Order } from '../../shops/orders/entities/order.entity';
-import { ProjectIdType, UserRoles } from 'src/@types/types';
-import { ProductComment } from 'src/product-comments/entities/product-comment.entity';
-import { Image } from 'src/shops/product_images/entities/image.entity';
-import { Cart } from 'src/shops/carts/entities/cart.entity';
+import { ProjectIdType, UserRoles } from '../../@types/types';
+import { ProductComment } from '../../product-comments/entities/product-comment.entity';
+import { Cart } from '../../shops/carts/entities/cart.entity';
+import { Image } from '../../shops/product_images/entities/image.entity';
 
 @Entity('users')
 export class User {

@@ -10,7 +10,7 @@ import { UsersService } from '../users/users.service';
 import { User } from '../users/entities/user.entity';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { CreateShopDto } from '../shops/dto/create-shop.dto';
-import { Enable2FA, Payload } from 'src/@types/chat/chat';
+import { Enable2FA, Payload } from '../@types/chat/chat';
 
 export interface GoogleUser {
   firstName: string;

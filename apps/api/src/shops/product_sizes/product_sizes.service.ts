@@ -8,8 +8,8 @@ import { UpdateProductSizeDto } from './dto/update-product_size.dto';
 import { ProductSize } from './entities/product_size.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProjectIdType } from 'src/@types/types';
 import { Product } from '../products/entities/product.entity';
+import { ProjectIdType } from '../../@types/types';
 
 @Injectable()
 export class ProductSizesService {

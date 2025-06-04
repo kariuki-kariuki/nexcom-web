@@ -10,15 +10,14 @@ import {
 import { ProductSize } from '../../product_sizes/entities/product_size.entity';
 import { Image } from '../../product_images/entities/image.entity';
 import { ProductStatus } from '../../../@types/product-status';
-import { Shop } from 'src/shops/entities/shop.entity';
-import { Category } from 'src/shops/categories/entities/category.entity';
-import { ProjectIdType } from 'src/@types/types';
-import { Message } from 'src/chat/messages/entities/message.entity';
-import { Cart } from 'src/shops/carts/entities/cart.entity';
-import { ProductVideo } from 'src/product-videos/entities/product-video.entity';
-import { ProductComment } from 'src/product-comments/entities/product-comment.entity';
-import { Analytic } from 'src/analytics/entity/analytic.entity';
-// import { Message } from 'src/chat/messages/entities/message.entity';
+import { ProjectIdType } from '../../../@types/types';
+import { Analytic } from '../../../analytics/entity/analytic.entity';
+import { Message } from '../../../chat/messages/entities/message.entity';
+import { ProductComment } from '../../../product-comments/entities/product-comment.entity';
+import { ProductVideo } from '../../../product-videos/entities/product-video.entity';
+import { Cart } from '../../carts/entities/cart.entity';
+import { Category } from '../../categories/entities/category.entity';
+import { Shop } from '../../entities/shop.entity';
 
 @Entity()
 export class Product {

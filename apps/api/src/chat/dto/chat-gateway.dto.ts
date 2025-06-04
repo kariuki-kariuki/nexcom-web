@@ -1,4 +1,4 @@
-import { ProjectIdType } from 'src/@types/types';
+import { ProjectIdType } from '../../@types/types';
 
 export type IncomingMessageBody = {
   conversationId: ProjectIdType;

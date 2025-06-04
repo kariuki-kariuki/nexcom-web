@@ -15,8 +15,8 @@ import { GoogleUser } from '../auth/auth.service';
 import { CreateConversationDTO } from '../chat/conversations/dto/create-conversation.dto';
 import { ConversationsService } from '../chat/conversations/conversations.service';
 import { AwsService } from '../aws/aws.service';
-import { ProjectIdType } from 'src/@types/types';
-import { Image } from 'src/shops/product_images/entities/image.entity';
+import { ProjectIdType } from '../@types/types';
+import { Image } from '../shops/product_images/entities/image.entity';
 @Injectable()
 export class UsersService {
   private readonly logger = new Logger(UsersService.name);

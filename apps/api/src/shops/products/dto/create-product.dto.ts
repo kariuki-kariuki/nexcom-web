@@ -1,6 +1,6 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ProductStatus } from '../../../@types/product-status';
-import { Category } from 'src/shops/categories/entities/category.entity';
+import { Category } from '../../categories/entities/category.entity';
 
 export class CreateProductDto {
   @IsString()

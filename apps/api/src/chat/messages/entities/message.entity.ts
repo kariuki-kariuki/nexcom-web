@@ -9,11 +9,10 @@ import {
 } from 'typeorm';
 import { Conversation } from '../../conversations/entities/Conversation.entity';
 import { User } from '../../../users/entities/user.entity';
-import { MessageState } from 'src/@types/chat/chat';
-import { ProjectIdType } from 'src/@types/types';
-import { Product } from 'src/shops/products/entities/product.entity';
-import { Image } from 'src/shops/product_images/entities/image.entity';
-// import { Product } from 'src/shops/products/entities/product.entity';
+import { ProjectIdType } from '../../../@types/types';
+import { MessageState } from '../../../@types/chat/chat';
+import { Image } from '../../../shops/product_images/entities/image.entity';
+import { Product } from '../../../shops/products/entities/product.entity';
 
 @Entity()
 export class Message {
