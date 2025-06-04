@@ -13,10 +13,10 @@ import {
 import { ImagesService } from './images.service';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { Roles } from 'utils/roles.decorator';
 import { UserRoles } from '../../@types/types';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { RolesGuard } from '../../auth/roles/roles.guard';
+import { Roles } from '../../../utils/roles.decorator';
 
 @Controller('images')
 export class ImagesController {
