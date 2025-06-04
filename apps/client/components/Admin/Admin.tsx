@@ -9,14 +9,14 @@ import { Product } from '@/lib/@types/shop';
 import ProductAnalyticsTable from '../Products/ProductAnalyticsTable/ProductAnalyticsTable';
 
 interface IPros {
-  products: Product[]
+  products: Product[],
+  name?: string,
 }
-function Admin({products}: IPros) {
-  const [active, setActive] = useState(false);
+function Admin({products, name}: IPros) {
   return (
       <Paper bg="none"
       >
-        <Header active={active} setActive={setActive} />
+        <Header name={name}/>
           <StatsGrid products={products} />
           <ProductAnalyticsTable products={products}/>
       </Paper>

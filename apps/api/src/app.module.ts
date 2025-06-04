@@ -53,7 +53,7 @@ import { createKeyv } from '@keyv/redis';
             new Keyv({
               store: new CacheableMemory({ ttl: 0, lruSize: 5000 }),
             }),
-            createKeyv('redis://localhost:6379'),
+            createKeyv(process.env.REDIS_URL),
           ],
         };
       },

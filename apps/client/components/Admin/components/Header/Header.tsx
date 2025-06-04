@@ -1,21 +1,17 @@
-import { Burger, Drawer, Group, Text } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { NavbarSearch } from '../../AdminNav/NavbarSearch/NavbarSearch';
+import { Group, Title } from '@mantine/core';
 import classes from './Header.module.css';
 interface IProps {
-  active: boolean;
-  setActive: (o: boolean) => void;
+  name?: string
 }
-const Header = ({ active, setActive }: IProps) => {
+const Header = ({ name = 'Analytics' }: IProps) => {
 
   return (
     <Group
-      px={'xl'}
       py={{ base: 'md', sm: 'sm' }}
       justify="start"
       className={classes.header}
     >
-      <Text>Analytics</Text>
+      <Title>{name}</Title>
     </Group>
   );
 };
