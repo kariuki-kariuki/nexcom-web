@@ -30,9 +30,6 @@ export class CategoriesController {
   }
 
   @UseInterceptors(CacheInterceptor)
-  @CacheKey('categories_routes')
-  @CacheTTL(10000)
-  @Get('all')
   @Get()
   findAll() {
     return this.categoriesService.findAll();

@@ -4,7 +4,11 @@ import { ShopsService } from './shops.service';
 
 describe('ShopsController', () => {
   let controller: ShopsController;
-  const mockShopsService = {};
+  const mockShopsService = {
+    findOneByName: jest.fn((dto) => {
+      return dto;
+    }),
+  };
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ShopsController],
@@ -16,5 +20,11 @@ describe('ShopsController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  it('should return many shops', () => {
+    const query = 'All';
+    expect(controller.findAll(query)).toEqual(query);
+    expect(mockShopsService.findOneByName).toHaveBeenCalledWith(query);
   });
 });

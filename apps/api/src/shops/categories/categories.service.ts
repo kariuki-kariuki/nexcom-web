@@ -33,19 +33,6 @@ export class CategoriesService {
       .leftJoinAndSelect('products.shop', 'shop')
       .where('products.status = :status', { status: 'Published' })
       .getMany();
-
-    await Promise.all(
-      categories.map(async (categorie) => {
-        await Promise.all(
-          categorie.products.map(async (product) => {
-            product.images = await this.awsService.getMultipleUrls(
-              product.images,
-            );
-          }),
-        );
-      }),
-    );
-
     return categories;
   }
 
