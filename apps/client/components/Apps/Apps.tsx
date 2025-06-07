@@ -1,7 +1,7 @@
 'use client';
 
 import logout from '@/utils/logout';
-import { Box, Menu, rem, ButtonGroup, Button, useMantineColorScheme } from '@mantine/core';
+import { Paper, Menu, rem, ButtonGroup, Button, useMantineColorScheme } from '@mantine/core';
 import { IconShoppingBag, IconLayoutDashboardFilled, IconSunFilled, IconSunMoon, IconDiamond, IconLogout, IconArrowsLeftRight, IconTrash, IconUserCircle } from '@tabler/icons-react';
 import Link from 'next/link';
 import React from 'react'
@@ -19,7 +19,7 @@ const Apps = () => {
 
   return (
     <div>
-      <Box p={0} className={classes.menu}>
+      <Paper p={0} className={classes.menu}>
         <Menu shadow="md" width={200} position='right-end'>
           <Menu.Target>
             <div>
@@ -139,7 +139,7 @@ const Apps = () => {
         ) : (
           ''
         )}
-      </Box>
+      </Paper>
     </div>
 
   )

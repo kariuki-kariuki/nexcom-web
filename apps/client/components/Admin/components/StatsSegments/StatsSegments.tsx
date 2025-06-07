@@ -1,9 +1,8 @@
 import {
   Progress,
-  Box,
+  Paper,
   Text,
   Group,
-  Paper,
   SimpleGrid,
   rem
 } from '@mantine/core';
@@ -28,7 +27,7 @@ export function StatsSegments() {
   ));
 
   const descriptions = data.map((stat) => (
-    <Box
+    <Paper
       key={stat.label}
       style={{ borderBottomColor: stat.color }}
       className={classes.stat}
@@ -44,7 +43,7 @@ export function StatsSegments() {
           {stat.part}%
         </Text>
       </Group>
-    </Box>
+    </Paper>
   ));
 
   return (

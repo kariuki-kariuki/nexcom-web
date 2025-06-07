@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   Req,
+  Request,
 } from '@nestjs/common';
 import { ProductSizesService } from './product_sizes.service';
 import { CreateProductSizeDto } from './dto/create-product_size.dto';
@@ -64,7 +65,7 @@ export class ProductSizesController {
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productSizesService.remove(+id);
+  remove(@Param('id') id: string, @Request() req: AuthenticatedRequest) {
+    return this.productSizesService.remove(id, req.user.shopId);
   }
 }

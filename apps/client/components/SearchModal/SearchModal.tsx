@@ -79,7 +79,7 @@ const SearchModal = () => {
     setLoading(loading)
   };
   return (
-    <Box className={classes.absolute}>
+    <div className={classes.absolute}>
       <ActionIcon bg={'blue'} size={40} onClick={toggle}>
         <IconCirclePlusFilled size={20} color={'white'} />
       </ActionIcon>
@@ -124,7 +124,7 @@ const SearchModal = () => {
           <ScrollArea h={'100%'}>{usersFound}</ScrollArea>
         </Flex>
       </Modal>
-    </Box>
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Group, Box, Collapse, Text, UnstyledButton, rem } from '@mantine/core';
+import { Group, Paper, Collapse, UnstyledButton, rem } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 import classes from './NavbarLinksGroup.module.css';
 import { Category } from '@/lib/@types/shop';
@@ -44,9 +44,9 @@ export function LinksGroup({
       >
         <Link href={link} className={classes.link} data-active={link === pathname || undefined}>
           <Group justify="space-between" gap={0}>
-            <Box style={{ display: 'flex', alignItems: 'center' }}>
-              <Box ml="md" c={link === pathname ? "orange.8" : ''}>{name}</Box>
-            </Box>
+            <Paper bg="none" style={{ display: 'flex', alignItems: 'center' }}>
+              <Paper  bg="none" ml="md" c={link === pathname ? "orange.8" : ''}>{name}</Paper>
+            </Paper>
             {hasCategories && sub_category.length > 1 && (
               <IconChevronRight
                 className={classes.chevron}

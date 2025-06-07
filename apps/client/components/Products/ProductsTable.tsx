@@ -48,7 +48,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
       />
     ));
   return (
-    <Box>
+    <div>
       <Group justify="space-between" wrap="nowrap" pb="md">
         <SegmentedControl
           radius="xl"
@@ -81,6 +81,6 @@ export function ProductsTable({ products }: { products: Product[] }) {
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
-    </Box>
+    </div>
   );
 }

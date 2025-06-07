@@ -3,11 +3,11 @@ import React from 'react';
 
 function Settings() {
   return (
-    <Box>
+    <div>
       <Group>
         <Button>new</Button>
       </Group>
-    </Box>
+    </div>
   );
 }
 

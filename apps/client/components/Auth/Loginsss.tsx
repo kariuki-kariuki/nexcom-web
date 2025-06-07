@@ -85,7 +85,7 @@
 //   }
 
 //   return (
-//     <Box className={classes.login} pb={'lg'}>
+//     <Paper className={classes.login} pb={'lg'}>
 //       <HeaderSearch links={links} />
 //       <Flex
 //         justify="center"
@@ -210,6 +210,6 @@
 //           </form>
 //         </Paper>
 //       </Flex>
-//     </Box>
+//     </Paper>
 //   );
 // }

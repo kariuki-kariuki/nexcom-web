@@ -1,5 +1,5 @@
 import { Product } from '@/lib/@types/shop'
-import { Avatar, Box, Button, Dialog, Flex, Group, ScrollArea, Text } from '@mantine/core'
+import { Avatar, Box, Button, Dialog, Flex, Group, Paper, ScrollArea, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IconMessage } from '@tabler/icons-react'
 import React from 'react'
@@ -54,9 +54,9 @@ const ContactSeller = ({ product }: IProps) => {
                         className={classes.scroll}
                         px="sm"
                     >
-                        <Box px={{ base: 'xs', sm: 'lg' }}>
+                        <Paper px={{ base: 'xs', sm: 'lg' }}>
                             <OgMessage product={product} />
-                        </Box>
+                        </Paper>
                     </ScrollArea>
                     <NewMessageBox productId={product.id} userId={product.shop?.user?.id || ''} convoId={userConversation?.id} close={toggle} margin={'xs'} />
                 </Flex>

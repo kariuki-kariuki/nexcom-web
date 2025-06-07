@@ -113,7 +113,7 @@ function ProductModal({ opened, toggle, product, owner, shop }: Iprops) {
               <Text fw={'500'} fz={'lg'} ta={'center'}>
                 {product?.name}
               </Text>
-              <Box>
+              <div>
                 <Group justify="space-between">
                   <Text fw={'400'} fs={'italic'} py={'md'}>
                     Product Description
@@ -135,7 +135,7 @@ function ProductModal({ opened, toggle, product, owner, shop }: Iprops) {
                 >
                   {product?.description}
                 </Text>
-              </Box>
+              </div>
               <ScrollArea scrollbars="x">
                 <Text>Size</Text>
                 <SegmentedControl

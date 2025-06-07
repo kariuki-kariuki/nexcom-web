@@ -10,6 +10,7 @@ import {
   Input,
   InputWrapper,
   LoadingOverlay,
+  Paper,
   Stack,
   Text
 } from '@mantine/core';
@@ -61,7 +62,7 @@ function SignUp() {
     setLoading(false)
   }
   return (
-    <Box className={classes.main} mih="100%">
+    <Paper className={classes.main} mih="100%">
       <LoadingOverlay visible={loading} />
       <Flex align="center" h="fit-content" pt="md" justify="center">
         <Stack gap="lg" align="center">
@@ -115,7 +116,7 @@ function SignUp() {
           </Stack>
         </Stack>
       </Flex>
-    </Box>
+    </Paper>
   );
 }
 

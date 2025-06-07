@@ -1,12 +1,9 @@
 'use client';
-import { Group, Code, ScrollArea, Box, Modal, Burger, Drawer } from '@mantine/core';
+import { Group, Code, ScrollArea, Burger, Drawer, Paper } from '@mantine/core';
 import classes from './NavbarNested.module.css';
 import { LinksGroup } from './NavbarLinksGroup';
-import MenuDrop from '@/components/Menudrop/MenuDrop';
 import { Category } from '@/lib/@types/shop';
 import { useDisclosure } from '@mantine/hooks';
-import { datasource } from '@/lib/common/datasource';
-import { useState, useEffect } from 'react';
 import SimpleHeaderToggle from '@/components/SimpleHeader/SimpleHeaderToggle';
 import SearchByImage from '@/components/SearchByImage/SearchByImage';
 
@@ -61,17 +58,17 @@ export function NavbarNested({ categoriesdb }: IProps) {
 
 
   return (
-    <Box h={'100%'}>
-      <Box visibleFrom='sm' h={'100%'}>
+    <Paper bg="none" h={'100%'}>
+      <Paper visibleFrom='sm' h={'100%'}>
         <NavbarNestedT categories={categories} />
-      </Box>
-      <Box hiddenFrom='sm'>
+      </Paper>
+      <Paper hiddenFrom='sm'>
         <SimpleHeaderToggle categories={categories} />
-      </Box>
+      </Paper>
       <Drawer onClose={toggle} withCloseButton={false} opened={opened} classNames={{ content: classes.drawer, header: classes.bg, body: classes.drawer }}>
         <NavbarNestedT categories={categories} toggle={toggle} opened={opened} />
       </Drawer>
-    </Box>
+    </Paper>
   )
 }
 

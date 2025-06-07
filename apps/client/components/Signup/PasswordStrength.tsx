@@ -2,6 +2,7 @@ import {
   Box,
   Center,
   Group,
+  Paper,
   PasswordInput,
   Progress,
   Text
@@ -24,7 +25,7 @@ function PasswordRequirement({
         ) : (
           <IconX size="0.9rem" stroke={1.5} />
         )}
-        <Box ml={7}>{label}</Box>
+        <Paper bg="none" ml={7}>{label}</Paper>
       </Center>
     </Text>
   );

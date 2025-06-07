@@ -1,4 +1,4 @@
-import { Box, Flex, Paper, ScrollArea } from '@mantine/core';
+import { Paper, Flex, ScrollArea } from '@mantine/core';
 import classes from './ChatArea.module.css';
 import { useEffect, useRef } from 'react';
 import { ConversationProps } from '@/lib/@types/app';
@@ -51,10 +51,10 @@ function ChatArea({  activeConvo }: CloseProps) {
           scrollbars="y"
         >
           {activeConvo ? (
-            <Box className={classes.clearfix}>{messages}</Box>
+            <Paper className={classes.clearfix}>{messages}</Paper>
           ) : (
-            <Box className={classes.empty}>
-            </Box>
+            <Paper className={classes.empty}>
+            </Paper>
           )}
           <div ref={endOfMessagesRef} />
         </ScrollArea>

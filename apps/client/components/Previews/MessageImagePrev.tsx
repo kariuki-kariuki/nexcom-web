@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconX } from '@tabler/icons-react';
-import { Box, Button, Image, Paper, rem } from '@mantine/core';
+import { Button, Image, Paper, rem } from '@mantine/core';
 import { FileWithPath } from '@mantine/dropzone';
 import { Carousel, CarouselSlide } from '@mantine/carousel';
 import classes from './Previews.module.css';
@@ -15,7 +15,7 @@ function MessageImagePreviews({ files, setFiles }: Props) {
     return (
       <CarouselSlide key={index}>
         <div className={classes.box}>
-          <Box className={classes.flex}>
+          <Paper className={classes.flex}>
             <Image
               key={index}
               src={imageUrl}
@@ -23,7 +23,7 @@ function MessageImagePreviews({ files, setFiles }: Props) {
               mah='300'
               onLoad={() => URL.revokeObjectURL(imageUrl)}
             />
-          </Box>
+          </Paper>
           <Button
             color="red.9"
             w="100%"

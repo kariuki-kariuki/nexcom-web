@@ -11,7 +11,7 @@ import { use } from 'react';
 function Chat() {
   const conversations = useGlobalStore((state) => state.conversations)
   return (
-    <Box className={classes.container}>
+    <Paper className={classes.container}>
       <Stack bg="none" justify='center' align='center'>
         <AvatarGroup w="fit-content">
           {conversations.slice(0, 5).map((convo) => (
@@ -25,7 +25,7 @@ function Chat() {
         </AvatarGroup>
         <Text py="md">Select a Conversation and start Talking</Text>
       </Stack>
-    </Box>
+    </Paper>
   )
 }
 

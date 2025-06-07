@@ -6,6 +6,7 @@ import {
   Flex,
   Group,
   LoadingOverlay,
+  Paper,
   Text
 } from '@mantine/core';
 import { useState } from 'react';
@@ -136,7 +137,7 @@ function NewProduct({ opened, toggle }: IDrawer) {
       }}
       position="right"
     >
-      <Box px="md">
+      <Paper px="md">
         <LoadingOverlay
           visible={loading}
           loaderProps={{ color: 'coco.0', type: 'oval' }}
@@ -186,14 +187,14 @@ function NewProduct({ opened, toggle }: IDrawer) {
               p="lg"
               mih="75vh"
             >
-              <Box w={{ base: '100%', sm: '60%' }}>
+              <Paper w={{ base: '100%', sm: '60%' }}>
                 {/* <ProductCard
                   product={product}
                   setProduct={setProduct}
                   categories={}
                 /> */}
-              </Box>
-              <Box w={{ base: '100%', sm: '40%' }}>
+              </Paper>
+              <Paper w={{ base: '100%', sm: '40%' }}>
                 <Card shadow="lg" className={classes.card} h="100%">
                   <Group justify="center">
                     <Text component="h5" fz="xl" fw="bold" ta="center">
@@ -204,11 +205,11 @@ function NewProduct({ opened, toggle }: IDrawer) {
                   <DropzoneButton setFiles={setFiles} />
                   <Previews files={files} setFiles={setFiles} />
                 </Card>
-              </Box>
+              </Paper>
             </Flex>
           </Card>
         </form>
-      </Box>
+      </Paper>
     </Drawer>
   );
 }

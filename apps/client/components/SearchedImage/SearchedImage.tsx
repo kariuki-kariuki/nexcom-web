@@ -1,12 +1,12 @@
 import { ImageInterface } from '@/lib/@types/shop'
-import { Box, Group, Avatar, Stack, Notification, Text } from '@mantine/core'
+import { Box, Group, Avatar, Stack, Notification, Text, Paper } from '@mantine/core'
 import Link from 'next/link'
 import React from 'react'
 import classes from './SearchedImage.module.css'
 
 const SearchedImage = ({image}: {image: ImageInterface}) => {
   return (
-    <Box maw={400}>
+    <Paper bg="none" maw={400}>
       <Link className={classes.link} href={`/business/product/${image.product?.id}`}><Text lineClamp={1} maw={200}>{`https://nexcom-ke.vercel.app/shop/product/${image.product?.id}`}</Text>
       <Notification
       title={image.product?.name}
@@ -27,7 +27,7 @@ const SearchedImage = ({image}: {image: ImageInterface}) => {
           </div>
           </Notification>
       </Link>
-    </Box>
+    </Paper>
   )
 }
 

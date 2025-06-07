@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { ScrollArea, Popover, TextInput, UnstyledButton, Text, Box } from '@mantine/core';
+import { ScrollArea, Popover, TextInput, UnstyledButton, Text, Box, Paper } from '@mantine/core';
 import { Category } from '@/lib/@types/shop';
 import classes from './SimpleHeader.module.css'
 import { useRouter } from 'next/navigation';
@@ -68,9 +68,9 @@ export default function SimpleHeaderToggle({categories}: {categories: Category[]
       </Popover.Target>
       <Popover.Dropdown p={0}>
         <ScrollArea.Autosize viewportRef={viewportRef} mah={200} type="always" scrollbars="y" className={classes.scroll}>
-          <Box px="xs" py={5}>
+          <Paper bg="none" px="xs" py={5}>
             {items.length > 0 ? items : <Text c="dimmed">Nothing found</Text>}
-          </Box>
+          </Paper>
         </ScrollArea.Autosize>
       </Popover.Dropdown>
     </Popover>

@@ -14,6 +14,7 @@ import {
   MenuItem,
   Modal,
   Notification,
+  Paper,
   rem,
   ScrollArea,
   SegmentedControl,
@@ -124,7 +125,7 @@ const NotificationRows = ({ message, handleUpdate }: IRow) => {
           <Text>{message.name}</Text>
           <Text>{message.email}</Text>
         </Stack>
-        <Box>
+        <Paper>
           <Menu trigger="click-hover">
             <Menu.Target>
               <IconDots />
@@ -172,7 +173,7 @@ const NotificationRows = ({ message, handleUpdate }: IRow) => {
               )}
             </MenuDropdown>
           </Menu>
-        </Box>
+        </Paper>
       </Group>
     </Notification>
   );
@@ -228,7 +229,7 @@ export function Messages({ messagesDb }: { messagesDb: Message[] }) {
     ));
 
   return (
-    <Box px="md">
+    <Paper px="md">
       <SegmentedControl
         radius="xl"
         size="sm"
@@ -241,8 +242,8 @@ export function Messages({ messagesDb }: { messagesDb: Message[] }) {
         h={300}
         onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
       >
-        <Box hiddenFrom="sm">{nRows}</Box>
-        <Box visibleFrom="sm">
+        <Paper hiddenFrom="sm">{nRows}</Paper>
+        <Paper visibleFrom="sm">
           <Table miw={700}>
             <Table.Thead
               className={cx(classes.header, { [classes.scrolled]: scrolled })}
@@ -257,8 +258,8 @@ export function Messages({ messagesDb }: { messagesDb: Message[] }) {
             </Table.Thead>
             <Table.Tbody>{rows}</Table.Tbody>
           </Table>
-        </Box>
+        </Paper>
       </ScrollArea>
-    </Box>
+    </Paper>
   );
 }

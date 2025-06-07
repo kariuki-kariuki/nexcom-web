@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Input,
+  Paper,
   Select,
   Textarea,
   useMantineTheme
@@ -30,7 +31,7 @@ function ProductCard({
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
   return (
     <>
-      <Box pb="md">
+      <Paper bg="none" pb="md">
         <Input.Wrapper
           label="Name"
           withAsterisk
@@ -53,8 +54,8 @@ function ProductCard({
             }
           />
         </Input.Wrapper>
-      </Box>
-      <Box pb="md">
+      </Paper>
+      <Paper bg={'none'} pb="md">
         <Textarea
           placeholder="Product description"
           label="Description"
@@ -70,10 +71,10 @@ function ProductCard({
             }))
           }
         />
-      </Box>
+      </Paper>
 
       <AddSize product={product} setProduct={setProduct} />
-      <Box py="md">
+      <Paper bg={'none'} py="md">
         <Input.Wrapper
           label="Quantity of Products"
           withAsterisk
@@ -95,8 +96,8 @@ function ProductCard({
             }
           />
         </Input.Wrapper>
-      </Box>
-      <Box mb="md" className={classes.card}>
+      </Paper>
+      <Paper mb="md" className={classes.card}>
         <Select
           my="sm"
           label="Select Category"
@@ -117,7 +118,7 @@ function ProductCard({
         <NewCategory
           setCategories={setCategories}
         />
-      </Box>
+      </Paper>
     </>
   );
 }

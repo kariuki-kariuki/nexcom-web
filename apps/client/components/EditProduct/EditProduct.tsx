@@ -12,6 +12,7 @@ import {
   Group,
   Input,
   LoadingOverlay,
+  Paper,
   Select,
   Text,
   Textarea
@@ -91,7 +92,7 @@ function EditProduct({
   };
   return (
     <div>
-      <Box className={classes.main}>
+      <Paper bg='none' className={classes.main}>
         <LoadingOverlay
           visible={loading}
           loaderProps={{ type: 'bars', color: 'teal.9' }}
@@ -130,7 +131,7 @@ function EditProduct({
             p={{ base: '0px', sm: 'lg' }}
             mih={{ base: 'fit-content', sm: '70vh' }}
           >
-            <Box w={{ base: '100%', sm: '50%' }}>
+            <Paper bg={'none'} w={{ base: '100%', sm: '50%' }}>
               <Card shadow="lg" className={classes.card} h="100%">
                 <Group justify="space-between" py="md">
                   <Text my="md" component="h5" fz="xl" fw="bold">
@@ -138,13 +139,13 @@ function EditProduct({
                   </Text>
 
                 </Group>
-                <Box h={"70vh"}>
+                <Paper bg={'none'} h={"70vh"}>
                   <ProductCorousel
                     images={product.images}
                     toggle={toggle}
                     setProduct={setProduct}
                   />
-                </Box>
+                </Paper>
                 <Button
                   color="coco.4"
                   size='lg'
@@ -154,9 +155,9 @@ function EditProduct({
                   Add Image
                 </Button>
               </Card>
-            </Box>
-            <Box w={{ base: '100%', sm: '70%' }}>
-              <Box pb="md">
+            </Paper>
+            <Paper bg={'none'} w={{ base: '100%', sm: '70%' }}>
+              <Paper bg={'none'} pb="md">
                 <Input.Wrapper
                   label="Name"
                 // // error="Input error"
@@ -178,8 +179,8 @@ function EditProduct({
                     }
                   />
                 </Input.Wrapper>
-              </Box>
-              <Box pb="md">
+              </Paper>
+              <Paper bg={'none'} pb="md">
                 <Textarea
                   placeholder="Product description"
                   label="Description"
@@ -195,12 +196,12 @@ function EditProduct({
                   }
                   value={product.description}
                 />
-              </Box>
+              </Paper>
 
               {/* product price */}
               <PriceSize product={product} setProduct={setProduct} />
 
-              <Box py="md">
+              <Paper bg={'none'} py="md">
                 <Input.Wrapper
                   label="Quantity of Products"
                   withAsterisk
@@ -222,7 +223,7 @@ function EditProduct({
                     }
                   />
                 </Input.Wrapper>
-              </Box>
+              </Paper>
               <Select
                 my="sm"
                 label="Select Category"
@@ -240,10 +241,10 @@ function EditProduct({
                   value: category.id
                 }))}
               />
-            </Box>
+            </Paper>
           </Flex>
         </Card>
-      </Box>
+      </Paper>
     </div>
   );
 }

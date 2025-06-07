@@ -11,6 +11,7 @@ import {
   Input,
   InputWrapper,
   NativeSelect,
+  Paper,
   Text,
   Textarea
 } from '@mantine/core';
@@ -62,9 +63,9 @@ function CreateJob() {
   };
 
   return (
-    <Box>
+    <Paper bg="none">
       <Flex direction={{ base: 'column', sm: 'row' }} gap="md">
-        <Box py="md" w={{ base: '100%', sm: '50%' }}>
+        <Paper py="md" w={{ base: '100%', sm: '50%' }}>
           <InputWrapper pb="md" label="Title">
             <Input
               value={job.title}
@@ -122,8 +123,8 @@ function CreateJob() {
             onChange={setValue}
             size="lg"
           />
-        </Box>
-        <Box py="md" w={{ base: '100%', sm: '50%' }} px="md">
+        </Paper>
+        <Paper py="md" w={{ base: '100%', sm: '50%' }} px="md">
           <Group justify="space-between">
             <Text>Requirements</Text>
             <Button
@@ -165,14 +166,14 @@ function CreateJob() {
               </li>
             ))}
           </ul>
-        </Box>
+        </Paper>
       </Flex>
       <Group justify="center">
         <Button color="coco.0" onClick={handleUpdate}>
           Update
         </Button>
       </Group>
-    </Box>
+    </Paper>
   );
 }
 

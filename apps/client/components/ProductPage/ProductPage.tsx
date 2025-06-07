@@ -48,7 +48,7 @@ const ProductPage = ({ product }: { product: Product }) => {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   return (
-    <Box h='100%' bg={"none"}>
+    <Paper h='100%' bg={"none"}>
       <LoadingOverlay
         visible={isLoading}
         zIndex={1000}
@@ -56,7 +56,7 @@ const ProductPage = ({ product }: { product: Product }) => {
         loaderProps={{ color: 'teal.7', type: 'bars' }}
       />
       <BackButton />
-      {(owner && owner.id !== user?.id && product.shop) && <Affix position={{ bottom: 10, right: 10}}><ContactSeller product={product} /></Affix>}
+      {(owner && owner.id !== user?.id && product.shop) && <Affix position={{ bottom: 10, right: 10 }}><ContactSeller product={product} /></Affix>}
       <Paper className={classes.container}>
         <Card className={classes.grid} withBorder my={'md'} w={{ base: '100%', sm: '80%', md: '60%', lg: '50%' }}>
           <Group justify='space-between'>
@@ -65,7 +65,7 @@ const ProductPage = ({ product }: { product: Product }) => {
             </Text>
             <ProductRating />
           </Group>
-          <Box h={'100%'}>
+          <Paper h={'100%'}>
             <Card
               p={{ base: 'lg', md: 'xl' }}
               h={{ base: '100%', sm: '100%' }}
@@ -76,16 +76,15 @@ const ProductPage = ({ product }: { product: Product }) => {
                 <ImageCarousel images={product?.images} />
               </Card.Section>
             </Card>
-          </Box>
-          <Box>
+          </Paper>
+          <Paper>
             <Card
               p={{ base: 'sm', sm: 'sm' }}
               h={'100%'}
               className={classes.card}
             >
               <Flex direction={'column'} gap={5} h={'100%'} justify={'center'}>
-                <Box>
-
+                <div>
                   <Group justify="space-between">
                     <Text fw={'400'} fs={'italic'} py={'md'}>
                       Product Description
@@ -106,7 +105,7 @@ const ProductPage = ({ product }: { product: Product }) => {
                   >
                     {product?.description}
                   </Text>
-                </Box>
+                </div>
                 <ScrollArea scrollbars="x">
                   <Text py="md">Price</Text>
                   <SegmentedControl
@@ -191,10 +190,10 @@ const ProductPage = ({ product }: { product: Product }) => {
                 )}
               </Flex>
             </Card>
-          </Box>
+          </Paper>
         </Card>
       </Paper>
-    </Box   >
+    </Paper>
   )
 }
 

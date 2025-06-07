@@ -36,9 +36,6 @@ function Miscelenious({ convoId }: MisceleniousProps) {
       ) : (
         ''
       )}
-      <Box p={"md"}>
-
-      </Box>
     </Flex>
   );
 }

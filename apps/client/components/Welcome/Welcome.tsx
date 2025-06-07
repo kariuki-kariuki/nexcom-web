@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { Box, Button, Group, Text, Title } from '@mantine/core';
+import { Box, Button, Group, Paper, Text, Title } from '@mantine/core';
 import classes from './Welcome.module.css';
 import SimpleHeader from '../SimpleHeader/SimpleHeader';
 import useSound from 'use-sound';
@@ -11,7 +11,7 @@ export function Welcome() {
   return (
     <div className={classes.bg}>
       <SimpleHeader />
-      <Box className={classes.main}>
+      <Paper className={classes.main}>
         <section className={classes.section}>
           <Title className={classes.title} ta="center" mt={100}>
             Welcome to{' '}
@@ -36,7 +36,7 @@ export function Welcome() {
             </Link>
           </Group>
         </section>
-      </Box>
+      </Paper>
     </div>
   );
 }

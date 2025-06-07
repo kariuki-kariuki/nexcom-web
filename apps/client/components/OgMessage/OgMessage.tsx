@@ -16,7 +16,7 @@ interface IOgMessage {
  */
 const OgMessage = ({ product, outGoing }: IOgMessage) => {
   return (
-    <Box py="sm" maw={400} >
+    <Paper bg="none" py="sm" maw={400} >
       <Link className={classes.link} href={`/business/product/${product.id}`}><Text lineClamp={1} maw={200}>{`https://nexcom-ke.vercel.app/business/product/${product.id}`}</Text>
         <Paper
           title={product.name}
@@ -37,7 +37,7 @@ const OgMessage = ({ product, outGoing }: IOgMessage) => {
           </div>
         </Paper>
       </Link>
-    </Box>
+    </Paper>
   )
 }
 

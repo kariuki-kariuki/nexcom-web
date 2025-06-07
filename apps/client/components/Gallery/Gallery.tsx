@@ -11,6 +11,7 @@ import {
   GridCol,
   Group,
   LoadingOverlay,
+  Paper,
   SegmentedControl,
   Text
 } from '@mantine/core';
@@ -91,7 +92,7 @@ function Gallery({ galleriesdb }: GalleryProp) {
   const [galleryId, setGalleryId] = useState(galleries[0].id);
 
   return (
-    <Box p="md">
+    <Paper p="md">
       <LoadingOverlay visible={loading} />
       <Group justify="space-between">
         <SegmentedControl
@@ -117,7 +118,7 @@ function Gallery({ galleriesdb }: GalleryProp) {
           return gallery.name === active;
         })
         .map((gallery, idx) => (
-          <Box key={gallery.name} py="lg">
+          <Paper key={gallery.name} py="lg">
             <Group justify="space-between" align="center" pb="md">
               <Text ta="center" fw="bold">
                 {gallery.name}
@@ -142,9 +143,9 @@ function Gallery({ galleriesdb }: GalleryProp) {
               ))}
             </Grid>
             {idx === 0 && <Divider mt="lg" />}
-          </Box>
+          </Paper>
         ))}
-    </Box>
+    </Paper>
   );
 }
 

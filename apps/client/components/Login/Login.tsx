@@ -10,6 +10,7 @@ import {
   Input,
   InputWrapper,
   LoadingOverlay,
+  Paper,
   PasswordInput,
   Stack,
   Text
@@ -52,7 +53,7 @@ function Login() {
     setLoading(false);
   }
   return (
-    <Box className={classes.main} mih="100%">
+    <Paper className={classes.main} mih="100%">
       <LoadingOverlay visible={loading} />
       <Flex align="center" h="70vh" justify="center">
         <Stack gap="lg" align="center">
@@ -89,7 +90,7 @@ function Login() {
           </Stack>
         </Stack>
       </Flex>
-    </Box>
+    </Paper>
   );
 }
 

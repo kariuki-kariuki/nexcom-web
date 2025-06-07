@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, Menu, rem, useMantineColorScheme } from '@mantine/core';
+import { Paper, Button, Menu, rem, useMantineColorScheme } from '@mantine/core';
 import {
   IconMessageCircle,
   IconTrash,
@@ -30,7 +30,7 @@ export default function MenuDrop() {
   const setUser = useGlobalStore(state => state.setUser)
 
   return (
-    <Box px={'md'} className={classes.menu}>
+    <Paper bg={'none'} px={'md'} className={classes.menu}>
       {user ?
         <Menu width={200}>
           <Menu.Target>
@@ -137,6 +137,6 @@ export default function MenuDrop() {
           <Button variant='subtle' rightSection={<IconLogin size={18} />}>Login</Button>
         </Link>}
       {user ? <Dashboard opened={opened} toggle={toggle} actUser={user} /> : ''}
-    </Box>
+    </Paper>
   );
 }

@@ -50,7 +50,7 @@ function ChatArea({ activeConvoId }: ChatAreaProps) {
         className={classes.scroll}
         scrollbars="y"
       >
-        <Box className={classes.clearfix}>{messages}</Box>
+        <Paper bg="none" className={classes.clearfix}>{messages}</Paper>
         <div ref={endOfMessagesRef} />
       </ScrollArea>
       <NewMessageBox  convoId={activeConvoId}/>

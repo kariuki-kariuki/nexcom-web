@@ -35,7 +35,7 @@ function NewChat({ user }: ChatAreaProps) {
         className={classes.scroll}
         scrollbars="y"
       >
-        <Box className={classes.clearfix}></Box>
+        <div className={classes.clearfix}></div>
         <div ref={endOfMessagesRef} />
       </ScrollArea>
       <NewMessageBox userId={user.id}/>

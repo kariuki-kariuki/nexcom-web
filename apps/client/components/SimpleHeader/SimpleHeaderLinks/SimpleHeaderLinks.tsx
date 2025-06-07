@@ -28,7 +28,7 @@ const SimpleHeaderLinks = () => {
           <MenuDrop />
         </Paper>
       </Group>
-      <Box hiddenFrom='sm'>
+      <Paper bg={'none'} hiddenFrom='sm'>
         <Burger opened={opened} onClick={toggle} />
         <Drawer opened={opened} onClose={toggle} classNames={{ body: classes.content, content: classes.bg, header: classes.bg }} withCloseButton={false}>
           <Group justify='space-between' className={classes.card}>
@@ -47,7 +47,7 @@ const SimpleHeaderLinks = () => {
             <MenuDrop />
           </Stack>
         </Drawer>
-      </Box>
+      </Paper>
     </div>
   )
 }

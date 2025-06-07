@@ -26,7 +26,7 @@ const MessageCard = ({ message }: Props) => {
       p={0}
     >
       <Card bg={'none'} className={classes.right} >
-        <Box className={classes.box_right} m={0} >
+        <Paper className={classes.box_right} m={0} >
           <MessageImages images={message.files}/>
           <Text className="font-serif" c={'white'} pr={0}>
             {message?.message}
@@ -53,7 +53,7 @@ const MessageCard = ({ message }: Props) => {
               <IconChecks color="lime" size={16} />
             )}
           </Group>
-        </Box>
+        </Paper>
 
       </Card>
 
@@ -66,7 +66,7 @@ const MessageCard = ({ message }: Props) => {
     p={0}
   >
     <Paper bg={'none'} className={classes.left}>
-      <Box className={classes.box_left} m={0}>
+      <Paper className={classes.box_left} m={0}>
         <MessageImages images={message.files}/>
         <Text className="font-serif" pr={0}>
           {message?.message}
@@ -82,7 +82,7 @@ const MessageCard = ({ message }: Props) => {
             })}`}
           </Text>
         </Group>
-      </Box>
+      </Paper>
     </Paper>
   </Paper>;
 };

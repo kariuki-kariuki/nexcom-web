@@ -8,6 +8,7 @@ import {
   Flex,
   Group,
   LoadingOverlay,
+  Paper,
   Text
 } from '@mantine/core';
 import { FileWithPath } from '@mantine/dropzone';
@@ -99,7 +100,7 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
     setLoading(false);
   }
   return (
-    <Box>
+    <div>
       <LoadingOverlay
         visible={loading}
         loaderProps={{ color: 'coco.0', type: 'oval' }}
@@ -148,7 +149,7 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
             direction={{ base: 'column-reverse', sm: 'row' }}
             mih="75vh"
           >
-            <Box w={{ base: '100%', sm: '60%' }}>
+            <Paper bg="none" w={{ base: '100%', sm: '60%' }}>
               {/* 
               - Add product details like name etc.
                */}
@@ -158,18 +159,18 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
                 setProduct={setProduct}
                 categories={categories}
               />
-            </Box>
-            <Box w={{ base: '100%', sm: '50%' }}>
+            </Paper>
+            <Paper w={{ base: '100%', sm: '50%' }}>
               <Card shadow="lg" className={classes.card} h="100%" p={0}>
                 
                {files.length < 1 &&  <DropzoneButton setFiles={setFiles} /> }
                 <Previews files={files} setFiles={setFiles} />
               </Card>
-            </Box>
+            </Paper>
           </Flex>
         </Card>
       </form>
-    </Box>
+    </div>
   );
 }
 

@@ -7,7 +7,8 @@ import {
   Badge,
   Flex,
   Box,
-  useMantineTheme
+  useMantineTheme,
+  Paper
 } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { IconCheck, IconChecks, IconShoppingBag } from '@tabler/icons-react';
@@ -143,12 +144,12 @@ export function ConversationButton({ conversation }: Props) {
                 {count}
               </Badge>
             ) : (
-              <Box pt={'4px'}>
+              <Paper bg="none" pt={'4px'}>
                 <LastMessage
                   message={sortedMessages[sortedMessages.length - 1]}
                   user={user}
                 />
-              </Box>
+              </Paper>
             )}
           </Flex>
         </Group>

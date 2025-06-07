@@ -11,6 +11,7 @@ import {
   Button,
   Group,
   Notification,
+  Paper,
   ScrollArea,
   SegmentedControl,
   Stack,
@@ -104,7 +105,7 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
     ));
 
   return (
-    <Box px="md">
+    <Paper px="md">
       <Group justify="space-between" pb="xs">
         <SegmentedControl
           radius="xl"
@@ -124,8 +125,8 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
         </Link>
       </Group>
       <ScrollArea>
-        <Box hiddenFrom="sm">{rowsNotification}</Box>
-        <Box visibleFrom="sm">
+        <Paper hiddenFrom="sm">{rowsNotification}</Paper>
+        <Paper visibleFrom="sm">
           <Table miw={800} verticalSpacing="sm">
             <Table.Thead>
               <Table.Tr>
@@ -137,8 +138,8 @@ export function Follow({ dbusers }: { dbusers: GlobalUser[] }) {
             </Table.Thead>
             <Table.Tbody>{rows}</Table.Tbody>
           </Table>
-        </Box>
+        </Paper>
       </ScrollArea>
-    </Box>
+    </Paper>
   );
 }

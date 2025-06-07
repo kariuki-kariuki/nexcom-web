@@ -1,5 +1,5 @@
 'use client';
-import { Box, Avatar, Stack, useMantineColorScheme, useMantineTheme, Indicator } from '@mantine/core';
+import { Box, Avatar, Stack, useMantineColorScheme, useMantineTheme, Indicator, Paper } from '@mantine/core';
 import { IconSunFilled, IconSunMoon, IconLogout, IconListTree, IconBriefcaseFilled, IconMessageCircleFilled, IconShoppingCartFilled, IconShoppingBagPlus, IconLogin, IconDiamondFilled } from '@tabler/icons-react';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
@@ -95,7 +95,8 @@ const SimpleNav = () => {
           </Link>
         </Stack>
         <Stack gap="md" align="center">
-          <Box
+          <Paper
+            bg={'none'}
             className={classes.link}
             onClick={toggleColorScheme}
             style={{ cursor: 'pointer' }}
@@ -105,8 +106,8 @@ const SimpleNav = () => {
             ) : (
               <IconSunMoon className={classes.linkIcon} stroke={1.5} />
             )}
-          </Box>
-          <Box
+          </Paper>
+          <Paper
             component="button"
             className={classes.link}
             onClick={(event) => {
@@ -126,7 +127,7 @@ const SimpleNav = () => {
             ) : (
               <IconLogin color="teal" className={classes.linkIcon} stroke={1.5} />
             )}
-          </Box>
+          </Paper>
         </Stack>
       </Stack>
       {user && <Dashboard opened={opened} toggle={toggle} actUser={user} />}

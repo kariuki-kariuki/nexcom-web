@@ -19,7 +19,7 @@ export class ProductSizesService {
     @InjectRepository(Product)
     private readonly productRepo: Repository<Product>,
   ) {}
-  async create(createProductSizeDto: CreateProductSizeDto, userId) {
+  async create(createProductSizeDto: CreateProductSizeDto, userId: string) {
     const size = new ProductSize();
     const { productId } = createProductSizeDto;
 
@@ -75,7 +75,21 @@ export class ProductSizesService {
     return product;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} productSize`;
+  async remove(id: string, shopId: string) {
+    const price = await this.sizeRepository.findOne({
+      where: {
+        id,
+        product: {
+          shop: {
+            id: shopId,
+          },
+        },
+      },
+    });
+    if (!price) {
+      throw new ForbiddenException('Unauthorized to perfom action');
+    }
+
+    return this.sizeRepository.remove(price);
   }
 }
