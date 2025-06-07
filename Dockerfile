@@ -1,16 +1,22 @@
 FROM node:22-alpine3.20
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY ./apps/api/ .
+COPY . .
 
+# Install pnpm globaly
 RUN npm install -g pnpm
+
+# Install node packages
 RUN pnpm install
 
+# Initiate build
 RUN npm run build
 
-RUN rm -rf ./src
-
+# Expose the frontend port
+EXPOSE 3000
 EXPOSE 4000
+EXPOSE 5000
 
-CMD ["npm", "run", "start:prod"]
+# command to start while running an image
+CMD ["npm", "run", "start"]
