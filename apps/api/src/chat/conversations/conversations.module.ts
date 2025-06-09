@@ -7,10 +7,11 @@ import { Message } from '../messages/entities/message.entity';
 import { AwsModule } from '../../aws/aws.module';
 import { ProductsModule } from '../../shops/products/products.module';
 import { User } from '../../users/entities/user.entity';
+import { Image } from '../../shops/product_images/entities/image.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Conversation, Message, User]),
+    TypeOrmModule.forFeature([Conversation, Message, User, Image]),
     ProductsModule,
     AwsModule,
   ],

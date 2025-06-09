@@ -5,6 +5,7 @@ export type IncomingMessageBody = {
   message?: string;
   productId?: ProjectIdType;
   receiverId: ProjectIdType;
+  groupId?: ProjectIdType;
   files?: Array<Express.Multer.File>;
 };
 export type IncomingConversationBody = {

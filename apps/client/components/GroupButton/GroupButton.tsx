@@ -11,13 +11,13 @@ import {
   Paper
 } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import { IconCheck, IconChecks, IconShoppingBag } from '@tabler/icons-react';
+import { IconCheck, IconChecks, IconShoppingBag, IconUsersGroup } from '@tabler/icons-react';
 import { ConversationProps, GlobalUser, Message, PayloadMessage } from '@/lib/@types/app';
 import { MessageState } from '@/lib/common/common';
 import { useSocketContext } from '@/lib/hooks/useSocket';
 import { formatDate } from '@/utils/helpers';
 import { useMediaQuery } from '@mantine/hooks';
-import classes from './ConversationButton.module.css'
+import classes from './GroupButton.module.css'
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -27,7 +27,7 @@ interface Props {
   index: number;
 }
 
-export function ConversationButton({ conversation }: Props) {
+export function GroupButton({ conversation }: Props) {
   const guser = useGlobalStore(state => state.user)
   const updateMessage = useGlobalStore((state) => state.updateMessage)
   const [count, setCount] = useState(0);
@@ -37,26 +37,25 @@ export function ConversationButton({ conversation }: Props) {
   const active = path.endsWith(conversation.id);
 
   // Sort messages outside of render
-  const sortedMessages = conversation.messages?.sort((a, b) => {
+  const sortedMessages = [...conversation.messages].sort((a, b) => {
     const timeA = new Date(a.created_at).getTime();
     const timeB = new Date(b.created_at).getTime();
     return timeA - timeB;
   });
 
-  const lastMessage = sortedMessages ? sortedMessages[sortedMessages.length - 1] : null;
-  const user: GlobalUser = conversation.users[0];
+  const lastMessage = sortedMessages[sortedMessages.length - 1];
 
   // Calculate unread messages count inside useEffect
   useEffect(() => {
-    const unreadMessages = conversation.messages?.reduce(
+    const unreadMessages = conversation.messages.reduce(
       (total: number, message: Message) =>
-        message.user.id === user?.id &&
+        message.user.id !== guser?.id &&
           (message.state === MessageState.DELIVERED || message.state === MessageState.SENT)
           ? total + 1
           : total,
       0
     );
-    setCount(unreadMessages || 0);
+    setCount(unreadMessages);
   }, [conversation]);
 
   const date = lastMessage ? new Date(lastMessage?.updated_at) : null;
@@ -97,7 +96,7 @@ export function ConversationButton({ conversation }: Props) {
   }, [count, socket, active, updateMessage]);
 
   return (
-    <Link href={`/chat/${conversation.id}`}>
+    <Link href={`/chat/group/${conversation.id}`}>
       <Card
         className={classes.convoButton}
         data-active={active || undefined}
@@ -119,19 +118,22 @@ export function ConversationButton({ conversation }: Props) {
         radius={0}
       >
         <Group>
-          <Avatar src={user?.avatar?.signedUrl} size={mobile ? 'md' : 'lg'} radius="xl" name={user.fullName} />
+          <Avatar src={conversation.profile?.signedUrl} size={mobile ? 'md' : 'lg'} radius="xl" name={conversation.name} />
           <div style={{ flex: 1 }}>
-            <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
-              {user?.fullName}
-            </Text>
+            <Group c="orange.6" justify='space-between'>
+              <Text size="sm" fw={500}>
+                {conversation.name?.toUpperCase() || 'Unknown Group'}
+              </Text>
+              <IconUsersGroup size={20}/>
+            </Group>
             <Group py="3px" wrap="nowrap">
-              {lastMessage?.productId && guser?.id !== user.id ? (
+              {lastMessage && lastMessage.productId && guser?.id !== lastMessage.user.id ? (
                 <IconShoppingBag size={14} />
               ) : (
-                ''
+                ""
               )}
               <Text c={active ? '' : 'dimmed'} size="xs" lineClamp={1}>
-                {lastMessage?.message}
+                {lastMessage?.message ? lastMessage.message : conversation.creator?.id === guser?.id ? 'You created a new group' : 'You have been added to a new Group'}
               </Text>
             </Group>
           </div>
@@ -145,9 +147,9 @@ export function ConversationButton({ conversation }: Props) {
               </Badge>
             ) : (
               <Paper bg="none" pt={'4px'}>
-                {lastMessage && <LastMessage
+                {lastMessage && guser && <LastMessage
                   message={lastMessage}
-                  user={user}
+                  user={lastMessage.user}
                 />}
               </Paper>
             )}

@@ -129,3 +129,8 @@ export enum PaymentStatus {
   SUCCESS = 'success',
   FAILED = 'failed',
 }
+
+export enum ConversationType {
+  CONVERSATION = 'conversation',
+  GROUP = 'group',
+}

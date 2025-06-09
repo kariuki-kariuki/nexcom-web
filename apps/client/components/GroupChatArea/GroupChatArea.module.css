@@ -1,0 +1,46 @@
+.chat_area {
+  background-color: light-dark(var(--mantine-color-white),
+      var(--mantine-color-coco-1));
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+.scroll {
+  background-color: light-dark(var(--mantine-color-white),
+      var(--mantine-color-coco-1));
+  flex: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+.ps {
+  height: '100%';
+  overflow-y: scroll;
+  background-color: light-dark(var(--mantine-color-white),
+      var(--mantine-color-coco-1));
+  scroll-behavior: smooth;
+}
+
+.clearfix::after {
+  content: '';
+  clear: both;
+  display: table;
+}
+
+.empty {
+  height: 80vh;
+  /* background-image: url('/images/empty-bg.png'); */
+  display: flex;
+  background-position: center;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-color: 'blue';
+}

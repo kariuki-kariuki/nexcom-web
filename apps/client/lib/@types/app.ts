@@ -40,6 +40,11 @@ export interface ConversationProps {
   users: GlobalUser[];
   messages: Message[];
   updated_at: string;
+  name?: string;
+  admins?: GlobalUser[];
+  profile?: ImageInterface;
+  creator?: GlobalUser 
+  created_at: Date
 }
 
 export interface Message {

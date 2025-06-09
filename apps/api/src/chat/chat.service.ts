@@ -6,6 +6,7 @@ import { UsersService } from '../users/users.service';
 import { INewConverSation } from 'utils/interfaces';
 import { IncomingMessageBody } from './dto/chat-gateway.dto';
 import { ProjectIdType } from '../@types/types';
+import { CreateGroupDTO } from './conversations/dto/create-conversation.dto';
 
 @Injectable()
 export class ChatService {
@@ -21,8 +22,16 @@ export class ChatService {
     return { user, conversation };
   }
 
+  async newGroup(userId: string, createGroupDTO: CreateGroupDTO) {
+    return this.conversationService.createGroup(userId, createGroupDTO);
+  }
+
   async newMessage(message: IncomingMessageBody, userId: string) {
     return await this.messageService.createMessage(message, userId);
+  }
+
+  async groupMessage(message: IncomingMessageBody, userId: string) {
+    return await this.messageService.createGroupMessage(message, userId);
   }
 
   async newConversation(props: INewConverSation) {

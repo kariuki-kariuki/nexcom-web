@@ -1,20 +1,24 @@
 'use client'
 import {
-  ActionIcon,
   Avatar,
-  Box,
   Burger,
+  Button,
   Card,
   Divider,
   Flex,
   Group,
   InputWrapper,
+  Menu,
+  MenuDropdown,
+  MenuItem,
+  MenuLabel,
+  MenuTarget,
   Modal,
   ScrollArea,
   Text,
   TextInput
 } from '@mantine/core';
-import { IconCirclePlusFilled, IconSearch } from '@tabler/icons-react';
+import { IconCirclePlusFilled, IconMessageCirclePlus, IconSearch, IconUsersGroup } from '@tabler/icons-react';
 import { useState } from 'react';
 import classes from './SearchModal.module.css';
 import { GlobalUser } from '@/lib/@types/app';
@@ -24,18 +28,46 @@ import { useGlobalStore } from '@/lib/context/global-store.provider';
 import { useRouter } from 'next/navigation';
 import { useDisclosure } from '@mantine/hooks';
 import Link from 'next/link';
+import GroupModal from '../GroupModal/GroupModal';
 
 const SearchModal = () => {
-  const [value, setValue] = useState('');
   const [opened, { toggle }] = useDisclosure(false);
+  const [modalOpened, setOpened] = useState(false);
+
+  return (
+    <div className={classes.absolute}>
+      <Menu position='top-start'>
+        <MenuTarget>
+          <Button><IconCirclePlusFilled size={20} color={'white'} /></Button>
+        </MenuTarget>
+        <MenuDropdown>
+          <MenuLabel>Actions</MenuLabel>
+          <MenuItem onClick={toggle} leftSection={<IconMessageCirclePlus size={20} color={'white'} />}>
+            New Chat
+          </MenuItem>
+          <MenuItem onClick={() => setOpened(!modalOpened)} leftSection={<IconUsersGroup size={20} color={'white'} />}>
+            New Group
+          </MenuItem>
+        </MenuDropdown>
+      </Menu>
+      <NewChatModal opened={opened} toggle={toggle} />
+      <GroupModal open={setOpened} opened={modalOpened} />
+    </div>
+  );
+};
+
+interface INewChatModal {
+  opened: boolean,
+  toggle: () => void;
+}
+
+const NewChatModal = ({opened, toggle}: INewChatModal) => {
+  const [value, setValue] = useState('');
   const [users, setUsers] = useState<GlobalUser[] | null>(null);
-  const { setNewConversation } = useGlobalStore((state) => state);
   const conversations = useGlobalStore((store) => store.conversations);
   const [loading, setLoading] = useState(false)
   const user = useGlobalStore((state) => state.user);
   const [error, setError] = useState('')
-  const router = useRouter()
-  const setActiveConversation = useGlobalStore(state => state.setActiveConversation)
   const usersFound = users?.map((person) => {
     const convo = conversations.find(convo => convo.users[0].id === person.id);
     const isMe = person.id === user?.id;
@@ -78,55 +110,50 @@ const SearchModal = () => {
     }
     setLoading(loading)
   };
-  return (
-    <div className={classes.absolute}>
-      <ActionIcon bg={'blue'} size={40} onClick={toggle}>
-        <IconCirclePlusFilled size={20} color={'white'} />
-      </ActionIcon>
 
-      <Modal
-        opened={opened}
-        onClose={toggle}
-        classNames={{
-          body: classes.body,
-          content: classes.root,
-          header: classes.header
-        }}
-        withCloseButton={false}
-        centered
-      >
-        <Flex h={'100%'} className={classes.box} px="md" direction={'column'}>
-          <Group justify='end' py="sm">
-            <Burger opened={opened} color='red' onClick={toggle} />
-          </Group>
-          <Group >
-            <InputWrapper error={error}
-              w={'100%'}
-            >
-              <TextInput
-                rightSection={
-                  <IconSearch size={20} color="teal" onClick={handleSubmit} style={{ cursor: 'pointer' }} />
+  return (
+    <Modal
+      opened={opened}
+      onClose={toggle}
+      classNames={{
+        body: classes.body,
+        content: classes.root,
+        header: classes.header
+      }}
+      withCloseButton={false}
+      centered
+    >
+      <Flex h={'100%'} className={classes.box} px="md" direction={'column'}>
+        <Group justify='end' py="sm">
+          <Burger opened={opened} color='red' onClick={toggle} />
+        </Group>
+        <Group >
+          <InputWrapper error={error}
+            w={'100%'}
+          >
+            <TextInput
+              rightSection={
+                <IconSearch size={20} color="teal" onClick={handleSubmit} style={{ cursor: 'pointer' }} />
+              }
+              placeholder="Enter name, email or phone"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit()
                 }
-                placeholder="Enter name, email or phone"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handleSubmit()
-                  }
-                }}
-                radius={"lg"}
-                size='md'
-              />
-            </InputWrapper>
-          </Group>
-          <Divider my="md" />
-          <ScrollArea h={'100%'}>{usersFound}</ScrollArea>
-        </Flex>
-      </Modal>
-    </div>
-  );
-};
+              }}
+              radius={"lg"}
+              size='md'
+            />
+          </InputWrapper>
+        </Group>
+        <Divider my="md" />
+        <ScrollArea h={'100%'}>{usersFound}</ScrollArea>
+      </Flex>
+    </Modal>
+  )
+}
 
 
 const UserCard = ({ user }: { user: GlobalUser }) => {

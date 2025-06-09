@@ -11,7 +11,7 @@ export function Welcome() {
   return (
     <div className={classes.bg}>
       <SimpleHeader />
-      <Paper className={classes.main}>
+      <div className={classes.main}>
         <section className={classes.section}>
           <Title className={classes.title} ta="center" mt={100}>
             Welcome to{' '}
@@ -36,7 +36,7 @@ export function Welcome() {
             </Link>
           </Group>
         </section>
-      </Paper>
+      </div>
     </div>
   );
 }

@@ -10,7 +10,10 @@ import {
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { ChatService } from './chat.service';
-import { CreateConversationDTO } from './conversations/dto/create-conversation.dto';
+import {
+  CreateConversationDTO,
+  CreateGroupDTO,
+} from './conversations/dto/create-conversation.dto';
 import { UpdateStateDTO } from './messages/dto/update-state.dto';
 import { instanceToPlain } from 'class-transformer';
 import { GatewaySessionManager } from './gateway.session';
@@ -68,6 +71,22 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       console.log(e);
     }
     return res;
+  }
+
+  @SubscribeMessage('new-group')
+  async handleNewGroup(
+    @ConnectedSocket() client: AuthenticatedSocket,
+    @MessageBody() createGroupDto: CreateGroupDTO,
+  ) {
+    const { userId } = client.user;
+    const res = await this.chatService.newGroup(userId, createGroupDto);
+    const serialRes = instanceToPlain(res);
+    res.users.forEach((user) => {
+      const userSocket = this.gateWaySession.getUserSocket(user.id);
+      if (userSocket) {
+        this.server.to(userSocket.id).emit('new-conversation', serialRes);
+      }
+    });
   }
 
   @SubscribeMessage('new-conversation')
@@ -175,10 +194,30 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       const receiverSocket = this.gateWaySession.getUserSocket(
         messageBody.receiverId,
       );
+
+      if (messageBody.groupId) {
+        const { users, message } = await this.chatService.groupMessage(
+          messageBody,
+          userId,
+        );
+        const plainMessage = instanceToPlain(message);
+
+        users
+          .filter((user) => user.id !== userId)
+          .forEach((user) => {
+            const userSocket = this.gateWaySession.getUserSocket(user.id);
+            if (userSocket) {
+              this.server.to(userSocket.id).emit('message', plainMessage);
+            }
+          });
+
+        return plainMessage;
+      }
       const savedMessage = await this.chatService.newMessage(
         messageBody,
         userId,
       );
+
       const serializedMessage = instanceToPlain(savedMessage);
       if (receiverSocket) {
         this.server.to(receiverSocket.id).emit('message', serializedMessage);

@@ -5,15 +5,20 @@ import {
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Conversation } from './entities/Conversation.entity';
-import { CreateConversationDTO } from './dto/create-conversation.dto';
+import {
+  CreateConversationDTO,
+  CreateGroupDTO,
+} from './dto/create-conversation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Message } from '../messages/entities/message.entity';
 import { INewConverSation } from 'utils/interfaces';
 import { MessageState } from '../../@types/chat/chat';
-import { ProjectIdType } from '../../@types/types';
+import { ConversationType, ProjectIdType } from '../../@types/types';
 import { AwsService } from '../../aws/aws.service';
 import { ProductsService } from '../../shops/products/products.service';
 import { User } from '../../users/entities/user.entity';
+import { Image } from '../../shops/product_images/entities/image.entity';
+import { WsException } from '@nestjs/websockets';
 
 @Injectable()
 export class ConversationsService {
@@ -26,6 +31,7 @@ export class ConversationsService {
     private readonly awsService: AwsService,
     @InjectRepository(Message)
     private readonly messageRepo: Repository<Message>,
+    @InjectRepository(Image) private imageRepo: Repository<Image>,
   ) {}
 
   async findAll(id: string) {
@@ -33,8 +39,13 @@ export class ConversationsService {
       .createQueryBuilder('userr')
       .leftJoinAndSelect('userr.conversations', 'conversations')
       .leftJoinAndSelect('conversations.users', 'users')
+      .leftJoinAndSelect('conversations.creator', 'creator')
+      .leftJoinAndSelect('conversations.admins', 'admins')
       .leftJoinAndSelect('conversations.messages', 'messages')
+      .leftJoinAndSelect('messages.product', 'product')
+      .leftJoinAndSelect('product.images', 'images')
       .leftJoinAndSelect('messages.user', 'user')
+      .leftJoinAndSelect('messages.files', 'files')
       .leftJoinAndSelect('users.shop', 'shop')
       .leftJoinAndSelect('users.avatar', 'avatar')
       .orderBy('messages.created_at', 'ASC')
@@ -100,6 +111,39 @@ export class ConversationsService {
     } catch (e) {
       console.error('Error creating conversation:', e);
       throw new Error('Failed to create conversation');
+    }
+  }
+
+  async createGroup(userId: string, createGroupDTO: CreateGroupDTO) {
+    const { membersId, groupName, file } = createGroupDTO;
+    const user = await this.usersRepository.findOneByOrFail({ id: userId });
+    const members = await Promise.all(
+      membersId.map(
+        async (id) => await this.usersRepository.findOneByOrFail({ id }),
+      ),
+    );
+
+    const group = new Conversation();
+    group.name = groupName;
+    group.users = [...members, user];
+    group.admins = [user];
+    group.creator = user;
+    group.type = ConversationType.GROUP;
+
+    if (file) {
+      const profile = new Image();
+      profile.url = await this.awsService.uploadFile(file, 'groups');
+      const savedProfile = await this.imageRepo.save(profile);
+      group.profile = savedProfile;
+    }
+
+    try {
+      const newGroup = await this.conversationRepo.save(group);
+      newGroup.messages = [];
+      return newGroup;
+    } catch (e) {
+      console.log(e);
+      throw new WsException('Failed To Create group');
     }
   }
 

@@ -76,6 +76,20 @@ export class MessagesService {
     }
   }
 
+  async createGroupMessage(messageDTO: IncomingMessageBody, userId) {
+    const conversation = await this.conversationRepo.findOne({
+      where: {
+        id: messageDTO.conversationId,
+      },
+      relations: {
+        users: true,
+      },
+    });
+    const message = await this.createMessage(messageDTO, userId);
+
+    return { users: conversation.users, message };
+  }
+
   async updateMessageState(updateBody: UpdateStateDTO, email: string) {
     if (updateBody.state === 'delivered') {
       // const messages = await this.messageRepo

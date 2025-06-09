@@ -95,6 +95,12 @@ export class User {
   @OneToMany(() => Message, (message) => message.user)
   messages: Message[];
 
+  @OneToMany(() => Conversation, (group) => group.creator)
+  mygroups: Conversation[];
+
+  @ManyToMany(() => Conversation, (group) => group.admins)
+  groupsAdmininstrating: Conversation[];
+
   @OneToMany(() => ProductComment, (comment) => comment.user)
   productComments: ProductComment[];
 

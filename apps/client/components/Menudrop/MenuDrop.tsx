@@ -1,6 +1,6 @@
 'use client';
 
-import { Paper, Button, Menu, rem, useMantineColorScheme } from '@mantine/core';
+import { Paper, Button, Menu, rem, useMantineColorScheme, Group, Text } from '@mantine/core';
 import {
   IconMessageCircle,
   IconTrash,
@@ -23,7 +23,7 @@ import { useGlobalStore } from '@/lib/context/global-store.provider';
 
 
 export default function MenuDrop() {
-  const [opened, {toggle}] = useDisclosure();
+  const [opened, { toggle }] = useDisclosure();
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
   const setConversations = useGlobalStore((store) => store.setConversations)
   const user = useGlobalStore(state => state.user)
@@ -133,8 +133,11 @@ export default function MenuDrop() {
           </Menu.Dropdown>
         </Menu>
         :
-        <Link href="/auth/login">
-          <Button variant='subtle' rightSection={<IconLogin size={18} />}>Login</Button>
+        <Link href="/auth/login" className={classes.link}>
+          <Group>
+            <IconLogin size={18} />
+            <Text>Login</Text>
+          </Group>
         </Link>}
       {user ? <Dashboard opened={opened} toggle={toggle} actUser={user} /> : ''}
     </Paper>

@@ -9,6 +9,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 import SearchModal from '../SearchModal/SearchModal';
 import { useState, useMemo } from 'react';
+import { GroupButton } from '../GroupButton/GroupButton';
 
 interface Props {
   open?: () => void;
@@ -22,23 +23,24 @@ export default function ConversationButtonList({}: Props) {
   // Filter conversations with useMemo to avoid unnecessary recomputation
   const filteredConversations = useMemo(() => {
     return conversationsState
-      .filter((conversation) => conversation.messages.length !== 0)
       .filter((conversation) => {
         if (searchPhrase === '') return true;
         return (
-          conversation.messages.some((message) =>
+          conversation.messages?.some((message) =>
             message.message.toLowerCase().includes(searchPhrase.toLowerCase())
           ) ||
           conversation.users[0].fullName.toLowerCase().includes(searchPhrase.toLowerCase())
         );
       })
       .sort((a, b) => {
-        const timeA = new Date(
+        console.log('a: ', a);
+        console.log('b: ', b);
+        const timeA = a.messages.length > 1 ? new Date(
           a.messages[a.messages.length - 1].updated_at
-        ).getTime();
-        const timeB = new Date(
+        ).getTime() : new Date(a.created_at).getTime();
+        const timeB = b.messages.length > 1 ? new Date(
           b.messages[b.messages.length - 1].updated_at
-        ).getTime();
+        ).getTime() : new Date(b.created_at).getTime();
         return timeB - timeA;
       });
   }, [conversationsState, searchPhrase]);
@@ -46,7 +48,7 @@ export default function ConversationButtonList({}: Props) {
   // Map conversations with useMemo to memoize the result
   const conversationButtons = useMemo(() => {
     return filteredConversations.map((convo: ConversationProps, index) => (
-      <ConversationButton conversation={convo} key={convo.id} index={index} />
+      convo.name ? <GroupButton conversation={convo} key={convo.id} index={index} /> : <ConversationButton conversation={convo} key={convo.id} index={index} />
     ));
   }, [filteredConversations]);
 

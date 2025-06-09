@@ -1,0 +1,34 @@
+.body {
+  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-0));
+  padding: 0;
+}
+
+.root {
+  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-0));
+  padding: var(--mantine-spacing-sm);
+}
+
+.content {
+  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-0));
+  height: 70vh;
+}
+
+.box {
+  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-coco-0));
+}
+
+.card {
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-1));
+
+  &[data-active] {
+    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-4));
+  }
+}
+
+.paper {
+  overflow: scroll;
+  flex: 1;
+  height: 100%;
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-gray-9));
+  border-radius: var(--mantine-spacing-xl);
+}

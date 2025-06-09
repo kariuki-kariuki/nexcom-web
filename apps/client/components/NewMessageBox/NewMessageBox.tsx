@@ -26,8 +26,9 @@ interface INewMessageBox {
   convoId?: string
   close?: () => void;
   userId?: string;
+  groupId?: string;
 }
-const NewMessageBox = ({ productId, margin, convoId, close, userId }: INewMessageBox) => {
+const NewMessageBox = ({ productId, margin, convoId, groupId, close, userId }: INewMessageBox) => {
   const [message, setMessage] = useState<string>('');
   const socket = useSocketContext()
   const addMessage = useGlobalStore((state) => state.addMessage)
@@ -45,11 +46,13 @@ const NewMessageBox = ({ productId, margin, convoId, close, userId }: INewMessag
       message,
       productId,
       receiverId: userId || user?.id,
-      conversationId: convoId,
+      conversationId: convoId || groupId,
       files: processedFiles,
+      groupId,
     };
 
-    if (!convoId) {
+
+    if (!convoId && !groupId) {
       socket.emit('new-conversation', messageBody, (res: ConversationProps) => {
         addConversation(res);
         console.log(res);
@@ -83,7 +86,6 @@ const NewMessageBox = ({ productId, margin, convoId, close, userId }: INewMessag
     } catch (e) {
       console.log(e);
     }
-
   };
 
   return (
