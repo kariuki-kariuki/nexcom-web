@@ -6,7 +6,12 @@ import { UsersService } from '../users/users.service';
 import { INewConverSation } from 'utils/interfaces';
 import { IncomingMessageBody } from './dto/chat-gateway.dto';
 import { ProjectIdType } from '../@types/types';
-import { CreateGroupDTO } from './conversations/dto/create-conversation.dto';
+import {
+  CreateGroupDTO,
+  AddRemoveAdminDTO,
+  UpdateGroupProfileDto,
+  AddGroupMembersDTO,
+} from './conversations/dto/create-conversation.dto';
 
 @Injectable()
 export class ChatService {
@@ -16,6 +21,17 @@ export class ChatService {
     private readonly messageService: MessagesService,
   ) {}
 
+  async addGroupMembers(adminId: string, addmembersDTO: AddGroupMembersDTO) {
+    return this.conversationService.addGroupMembers(adminId, addmembersDTO);
+  }
+
+  async addGroupAdmin(adminId: string, addAdminDTO: AddRemoveAdminDTO) {
+    return this.conversationService.addGroupAdmin(adminId, addAdminDTO);
+  }
+
+  async removeAdmin(moderatorId: string, removeAdminDTO: AddRemoveAdminDTO) {
+    return this.conversationService.removeAdmin(moderatorId, removeAdminDTO);
+  }
   async getDetails(email: string, convoId: ProjectIdType) {
     const user = await this.userService.findOne(email);
     const conversation = await this.conversationService.findOne(convoId);
@@ -44,6 +60,10 @@ export class ChatService {
       updateBody.state,
       updateBody.conversationId,
     );
+  }
+
+  async updateGroupProfile(userId: string, bodyDTO: UpdateGroupProfileDto) {
+    return this.conversationService.updateGroupProfile(userId, bodyDTO);
   }
 
   async updateProfile(

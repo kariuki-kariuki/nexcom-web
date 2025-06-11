@@ -4,7 +4,9 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  IsUUID,
 } from 'class-validator';
+import { ProjectIdType } from '../../../@types/types';
 
 export class CreateConversationDTO {
   @IsNotEmpty()
@@ -22,6 +24,14 @@ export class CreateConversationDTO {
   files?: Array<Express.Multer.File>;
 }
 
+export class UpdateGroupProfileDto {
+  @IsString()
+  @IsUUID()
+  groupId: ProjectIdType;
+
+  file: Express.Multer.File;
+}
+
 export class CreateGroupDTO {
   @IsNotEmpty()
   @IsArray()
@@ -34,4 +44,26 @@ export class CreateGroupDTO {
   @IsNotEmpty()
   @IsString()
   groupName: string;
+}
+
+export class AddGroupMembersDTO {
+  @IsNotEmpty()
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsString({ each: true })
+  membersId: string[];
+
+  @IsNotEmpty()
+  @IsString()
+  groupId: string;
+}
+
+export class AddRemoveAdminDTO {
+  @IsString()
+  @IsUUID()
+  userId: ProjectIdType;
+
+  @IsString()
+  @IsUUID()
+  groupId: ProjectIdType;
 }

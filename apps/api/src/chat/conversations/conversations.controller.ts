@@ -36,7 +36,6 @@ export class ConversationsController {
     });
   }
 
-  @Post('try')
   @UseGuards(JwtAuthGuard)
   async try(
     @Body() body: { state: MessageState },

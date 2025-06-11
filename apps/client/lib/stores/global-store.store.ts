@@ -1,6 +1,7 @@
 import { createStore } from "zustand";
-import { ConversationProps, GlobalUser, NewMessage, PayloadMessage, UpdateProfile } from "../@types/app";
+import { AddUserInGroup, AddUsersToGroupDTO, ConversationProps, ConvsersationType, GlobalUser, NewMessage, PayloadMessage, UpdateGroupProfile, UpdateProfile, UserActionDTO } from "../@types/app";
 import { MessageState } from "../common/common";
+import { group } from "console";
 
 
 
@@ -21,10 +22,17 @@ type GlobalActions = {
   setActiveConversation: (payload: ConversationProps | null) => void;
   setNewConversation: (payload: GlobalUser | null) => void;
   setUser: (payload: GlobalUser | null) => void;
-  setIsLoading: (status: boolean) => void
+  setIsLoading: (status: boolean) => void,
 }
 
-export type GlobalStore = GlobalActions & GlobalState;
+type GroupAction = {
+  updateGroupProfile: (payload: UpdateGroupProfile) => void;
+  removeGroupAdmin: (payload: UserActionDTO) => void;
+  addGroupAdmin: (paylod: AddUserInGroup) => void;
+  addUsersToGroup: (payload: AddUsersToGroupDTO) => void;
+}
+
+export type GlobalStore = GlobalActions & GlobalState & GroupAction;
 
 export const defaultGlobalInitState: GlobalState = {
   user: null,
@@ -47,6 +55,36 @@ export const createGlobalStore = (initState: GlobalState = defaultGlobalInitStat
             : conv
         ),
       })),
+      addUsersToGroup: (payload: AddUsersToGroupDTO) => set((state) => ({
+        conversations: state.conversations.map((group) => {
+          if(group.id === payload.groupId && group.type === ConvsersationType.GROUP){
+            group.users = [...group.users, ...payload.users];
+            return group
+          }
+          return group;
+        })
+      }))
+      ,
+      addGroupAdmin: (paylod: AddUserInGroup)  => set((state) => ({
+        conversations: state.conversations.map((group) => {
+          if(group.id === paylod.groupId && group.admins) {
+            group.admins = [...group.admins, paylod.user];
+            return group;
+          }
+          return group;
+        })
+      })),
+
+      removeGroupAdmin: (payload: UserActionDTO) => set((state) => ({
+        conversations: state.conversations.map((group) => {
+          if(group.id === payload.groupId && group.admins) {
+            group.admins = group.admins.filter((admin) => admin.id === payload.userId)
+            return group;
+          }
+          return group;
+        })
+      })),
+
 
     addConversation: (payload: ConversationProps) =>
       set((state) => ({
@@ -73,6 +111,17 @@ export const createGlobalStore = (initState: GlobalState = defaultGlobalInitStat
     setConversations: (payload: ConversationProps[]) =>
       set(() => ({
         conversations: payload,
+      })),
+
+    updateGroupProfile: (payload: UpdateGroupProfile) =>
+      set((state) => ({
+        conversations: state.conversations.map((convo) => {
+          if (convo.id === payload.groupId) {
+            convo.profile = payload.profile;
+            return convo;
+          }
+          return convo
+        })
       })),
 
     updateProfile: (payload: UpdateProfile) =>
@@ -107,6 +156,8 @@ export const createGlobalStore = (initState: GlobalState = defaultGlobalInitStat
     setUser: (payload: GlobalUser | null) => set(() => ({
       user: payload
     }))
+
+
   }))
 }
 

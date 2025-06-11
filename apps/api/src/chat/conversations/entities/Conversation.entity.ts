@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
@@ -26,7 +27,8 @@ export class Conversation {
   @Column({ nullable: true })
   name: string;
 
-  @OneToOne(() => Image)
+  @OneToOne(() => Image, { eager: true, cascade: true })
+  @JoinColumn()
   profile: Image;
 
   @ManyToMany(() => User, (user) => user.conversations)

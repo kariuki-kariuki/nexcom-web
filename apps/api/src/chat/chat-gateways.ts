@@ -13,6 +13,9 @@ import { ChatService } from './chat.service';
 import {
   CreateConversationDTO,
   CreateGroupDTO,
+  AddRemoveAdminDTO,
+  UpdateGroupProfileDto,
+  AddGroupMembersDTO,
 } from './conversations/dto/create-conversation.dto';
 import { UpdateStateDTO } from './messages/dto/update-state.dto';
 import { instanceToPlain } from 'class-transformer';
@@ -85,6 +88,78 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       const userSocket = this.gateWaySession.getUserSocket(user.id);
       if (userSocket) {
         this.server.to(userSocket.id).emit('new-conversation', serialRes);
+      }
+    });
+  }
+
+  @SubscribeMessage('add-group-members')
+  async handleAddGroupMembers(
+    @ConnectedSocket() client: AuthenticatedSocket,
+    @MessageBody() messageBody: AddGroupMembersDTO,
+  ) {
+    const { userId: adminId } = client.user;
+    const { groupId } = messageBody;
+    const { newUsers, savedGroup, users } =
+      await this.chatService.addGroupMembers(adminId, messageBody);
+    const plainUsers = instanceToPlain(newUsers);
+    users.forEach((user) => {
+      const userSocket = this.gateWaySession.getUserSocket(user.id);
+      if (userSocket) {
+        this.server.to(userSocket.id).emit('add-group-members', {
+          groupId,
+          users: plainUsers,
+        });
+      }
+    });
+
+    newUsers.forEach((user) => {
+      const userSocket = this.gateWaySession.getUserSocket(user.id);
+      if (userSocket) {
+        this.server.to(userSocket.id).emit('new-conversation', savedGroup);
+      }
+    });
+  }
+
+  @SubscribeMessage('add-group-admin')
+  async handleAddAdmin(
+    @ConnectedSocket() client: AuthenticatedSocket,
+    @MessageBody() messageBody: AddRemoveAdminDTO,
+  ) {
+    const { userId: adminId } = client.user;
+    const { groupId } = messageBody;
+
+    const { users, user } = await this.chatService.addGroupAdmin(
+      adminId,
+      messageBody,
+    );
+    users.forEach((usr) => {
+      const userSocket = this.gateWaySession.getUserSocket(usr.id);
+      if (userSocket) {
+        this.server
+          .to(userSocket.id)
+          .emit('add-group-admin', { groupId, user });
+      }
+    });
+  }
+
+  @SubscribeMessage('remove-group-admin')
+  async handleRemoveAdmin(
+    @ConnectedSocket() client: AuthenticatedSocket,
+    @MessageBody() messageBody: AddRemoveAdminDTO,
+  ) {
+    const { userId: moderatorId } = client.user;
+    const { userId: adminId, groupId } = messageBody;
+
+    const { users } = await this.chatService.removeAdmin(
+      moderatorId,
+      messageBody,
+    );
+    users.forEach((user) => {
+      const userSocket = this.gateWaySession.getUserSocket(user.id);
+      if (userSocket) {
+        this.server
+          .to(userSocket.id)
+          .emit('remove-group-admin', { groupId, userId: adminId });
       }
     });
   }
@@ -182,6 +257,27 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       .emit('callUser', { callerId: userId, signalData });
 
     console.log(messageBody.signalData);
+  }
+
+  @SubscribeMessage('group-profile-update')
+  async handleGroupProfile(
+    @ConnectedSocket() client: AuthenticatedSocket,
+    @MessageBody()
+    messageBody: UpdateGroupProfileDto,
+  ) {
+    const { userId } = client.user;
+    const { users, profile, groupId } =
+      await this.chatService.updateGroupProfile(userId, messageBody);
+
+    users.forEach((user) => {
+      const userSocket = this.gateWaySession.getUserSocket(user.id);
+      if (userSocket) {
+        this.server
+          .to(userSocket.id)
+          .emit('group-profile-update', { profile, groupId });
+      }
+    });
+    return { status: true };
   }
 
   @SubscribeMessage('message')

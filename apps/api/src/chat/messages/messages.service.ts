@@ -92,14 +92,6 @@ export class MessagesService {
 
   async updateMessageState(updateBody: UpdateStateDTO, email: string) {
     if (updateBody.state === 'delivered') {
-      // const messages = await this.messageRepo
-      //   .createQueryBuilder('message')
-      //   .leftJoinAndSelect('message.user', 'user')
-      //   .where('user.email = :email', { email })
-      //   .andWhere('message.state = :state', { state: MessageState.SENT })
-      //   .getMany();
-      // console.log(email);
-      // return { email, state: MessageState.DELIVERED };
     } else {
       return {
         email,
@@ -107,38 +99,6 @@ export class MessagesService {
         state: MessageState.READ,
       };
     }
-    //   try {
-    //     messages.forEach(async (message) => {
-    //       message.state = MessageState.DELIVERED;
-    //       await this.messageRepo.save(message);
-    //     });
-    //     return {
-    //       state: MessageState.DELIVERED,
-    //       email,
-    //     };
-    //   } catch (e) {
-    //     console.log('Failed to update state: ', e);
-    //   }
-    // } else {
-    //   const messages = await this.messageRepo
-    //     .createQueryBuilder('message')
-    //     .leftJoinAndSelect('message.user', 'user')
-    //     .where('user.email = :email', { email })
-    //     .andWhere('message.state != :state', { state: MessageState.READ })
-    //     .getMany();
-    //   try {
-    //     messages.forEach(async (message) => {
-    //       message.state = MessageState.READ;
-    //       await this.messageRepo.save(message);
-    //     });
-    //     return {
-    //       state: MessageState.READ,
-    //       email,
-    //     };
-    //   } catch (e) {
-    //     console.log('Failed to update state: ', e);
-    //   }
-    // }
   }
 
   async save(message: Message) {

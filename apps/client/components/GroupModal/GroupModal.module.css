@@ -28,7 +28,11 @@
 .paper {
   overflow: scroll;
   flex: 1;
-  height: 100%;
+  height: 50vh;
   background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-gray-9));
   border-radius: var(--mantine-spacing-xl);
+}
+
+.button {
+  background-color: var(--mantine-color-coco-4);
 }

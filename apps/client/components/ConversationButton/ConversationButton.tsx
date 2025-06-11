@@ -119,7 +119,7 @@ export function ConversationButton({ conversation }: Props) {
         radius={0}
       >
         <Group>
-          <Avatar src={user?.avatar?.signedUrl} size={mobile ? 'md' : 'lg'} radius="xl" name={user.fullName} />
+          <Avatar src={user?.avatar?.signedUrl} size={mobile ? 'md' : 'lg'} radius="xl" name={user?.fullName} />
           <div style={{ flex: 1 }}>
             <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
               {user?.fullName}

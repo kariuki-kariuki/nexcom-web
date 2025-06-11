@@ -1,10 +1,10 @@
 'use client';
 import { ConversationButton } from '../ConversationButton/ConversationButton';
-import { Flex, Paper, ScrollArea } from '@mantine/core';
+import { Divider, Flex, Paper, ScrollArea, SegmentedControl } from '@mantine/core';
 import classes from './ConversationButtonList.module.css';
 import { useDisclosure } from '@mantine/hooks';
 
-import { ConversationProps } from '@/lib/@types/app';
+import { ConversationProps, ConvsersationType } from '@/lib/@types/app';
 import SearchBar from '../SearchBar/SearchBar';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 import SearchModal from '../SearchModal/SearchModal';
@@ -15,14 +15,19 @@ interface Props {
   open?: () => void;
 }
 
-export default function ConversationButtonList({}: Props) {
+export default function ConversationButtonList({ }: Props) {
   const conversationsState = useGlobalStore((state) => state.conversations);
   const [searchPhrase, setSearchPhrase] = useState('');
-  const [open, { toggle }] = useDisclosure(false);
+  const [generalValue, setValue] = useState('all')
+  
+  // const [open, { toggle }] = useDisclosure(false);
 
   // Filter conversations with useMemo to avoid unnecessary recomputation
   const filteredConversations = useMemo(() => {
-    return conversationsState
+    return conversationsState.filter((convo) => {
+      if (generalValue === 'all') return true;
+      return convo.type === generalValue;
+    })
       .filter((conversation) => {
         if (searchPhrase === '') return true;
         return (
@@ -33,8 +38,6 @@ export default function ConversationButtonList({}: Props) {
         );
       })
       .sort((a, b) => {
-        console.log('a: ', a);
-        console.log('b: ', b);
         const timeA = a.messages.length > 1 ? new Date(
           a.messages[a.messages.length - 1].updated_at
         ).getTime() : new Date(a.created_at).getTime();
@@ -43,7 +46,7 @@ export default function ConversationButtonList({}: Props) {
         ).getTime() : new Date(b.created_at).getTime();
         return timeB - timeA;
       });
-  }, [conversationsState, searchPhrase]);
+  }, [conversationsState, searchPhrase, generalValue]);
 
   // Map conversations with useMemo to memoize the result
   const conversationButtons = useMemo(() => {
@@ -63,6 +66,23 @@ export default function ConversationButtonList({}: Props) {
         className={classes.flex}
       >
         <SearchBar value={searchPhrase} onChange={setSearchPhrase} />
+        <Paper bg="none">
+          <SegmentedControl
+            value={generalValue}
+            onChange={setValue}
+            color='coco.4'
+            radius="lg"
+            size='md'
+            withItemsBorders={true}
+            transitionDuration={100}
+            transitionTimingFunction='linear'
+            data={[
+              { label: "All", value: 'all' },
+              { label: "Groups", value: ConvsersationType.GROUP }
+            ]}
+          />
+        </Paper>
+        <Divider my="sm" />
         <ScrollArea bg={'none'} type="scroll" h={'100%'}>
           {conversationButtons}
         </ScrollArea>

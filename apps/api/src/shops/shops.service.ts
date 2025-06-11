@@ -117,8 +117,11 @@ export class ShopsService {
       )
       .leftJoinAndSelect('products.images', 'images')
       .leftJoinAndSelect('products.product_sizes', 'product_sizes')
-      .where('LOWER(shop.name) = :name', { name })
+      .where('LOWER(shop.name) = :name', { name: name.toLocaleLowerCase() })
       .getOne();
+    if (!shop.products) {
+      shop.products = [];
+    }
     return shop;
   }
 

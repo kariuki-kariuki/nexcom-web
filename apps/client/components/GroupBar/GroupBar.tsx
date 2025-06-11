@@ -3,15 +3,19 @@ import { ActionIcon, Avatar, Group, Paper, Stack, Text, useMantineTheme } from '
 import classes from './GroupBar.module.css';
 import { ConversationProps } from '@/lib/@types/app';
 import { useRouter } from 'next/navigation';
-import { useMediaQuery } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import GroupInfo, { GroupInfoDrawer } from '../GroupInfo/GroupInfo';
 // Top Bar on the Chatbox Area
 interface BarProps {
   group: ConversationProps
+  opened: boolean;
+  toggle: () => void;
 }
-const GroupBar = ({ group }: BarProps) => {
+const GroupBar = ({ group, opened, toggle }: BarProps) => {
   const router = useRouter();
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const tab = useMediaQuery(`(max-width: ${theme.breakpoints.lg})`);
   return (
     <>
       <Group
@@ -32,7 +36,7 @@ const GroupBar = ({ group }: BarProps) => {
               color="teal"
             />
           </Paper>
-          <Group flex={1}>
+          <Group flex={1} onClick={toggle}>
             <Avatar src={group.profile?.signedUrl} name={group.name} size={mobile ? 'md' : "lg"} />
             <Stack gap={0} flex={1} >
               <Group c="orange.6">
@@ -49,6 +53,7 @@ const GroupBar = ({ group }: BarProps) => {
           <IconX />
         </ActionIcon>
       </Group>
+      {tab && <GroupInfoDrawer group={group} opened={opened} toggle={toggle}/>}
     </>
   );
 };

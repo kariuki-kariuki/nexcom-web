@@ -40,7 +40,7 @@ const SearchModal = () => {
         <MenuTarget>
           <Button><IconCirclePlusFilled size={20} color={'white'} /></Button>
         </MenuTarget>
-        <MenuDropdown>
+        <MenuDropdown className={classes.menu_drop}>
           <MenuLabel>Actions</MenuLabel>
           <MenuItem onClick={toggle} leftSection={<IconMessageCirclePlus size={20} color={'white'} />}>
             New Chat

@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useCallback, ReactNode, createContext, useState, useContext, useMemo } from "react";
-import { ChatState, ConversationProps, GlobalUser, NewMessage, PayloadMessage, UpdateProfile } from "../@types/app";
+import { AddUserInGroup, AddUsersToGroupDTO, ChatState, ConversationProps, GlobalUser, NewMessage, PayloadMessage, UpdateGroupProfile, UpdateProfile, UserActionDTO } from "../@types/app";
 import { useSocketContext } from "./useSocket";
 import { datasource } from "../common/datasource";
 import { useGlobalStore } from "../context/global-store.provider";
@@ -33,6 +33,8 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const conversations = useGlobalStore(state => state.conversations);
   const pathName = usePathname();
   const setUser = useGlobalStore(state => state.setUser);
+  const updateGroupProfile = useGlobalStore(state => state.updateGroupProfile);
+  const { addGroupAdmin, removeGroupAdmin, addUsersToGroup } = useGlobalStore((state) => state);
 
   const activeConversation = useMemo(() => {
     return conversations.find((conv) => `/chat/${conv.id}` === pathName);
@@ -61,12 +63,28 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
     updateMessage(res);
   }, [])
 
+  const handleAddGroupAdmin = useCallback((res: AddUserInGroup) => {
+    addGroupAdmin(res)
+  }, [])
+
+  const handleRemoveAdmin = useCallback((res: UserActionDTO) => {
+    removeGroupAdmin(res)
+  }, [])
+
+  const handleAddGroupMembers = useCallback((res: AddUsersToGroupDTO) => {
+    addUsersToGroup(res);
+  }, [])
+
+  const handleGroupProfile = useCallback((res: UpdateGroupProfile) => {
+    updateGroupProfile(res);
+  }, [])
+
   const handleUpdateProfile = useCallback((res: UpdateProfile) => {
     updateProfile(res);
   }, [])
 
   const handleNewConversation = useCallback((res: ConversationProps) => {
-    addConversation(res)
+    addConversation(res);
   }, []);
   const getConversations = async () => {
     try {
@@ -90,14 +108,14 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const getCartItems = async () => {
     const { data } = await datasource.get<CartItem[]>('carts')
     if (data && user) {
-      user.cartItems = data 
+      user.cartItems = data
       setUser(user)
     }
   }
 
 
   useEffect(() => {
-    if(!user) return;
+    if (!user) return;
     getConversations()
     getCartItems()
   }, [user])
@@ -113,6 +131,11 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
     socket.on("message", handleIncomingMessage);
     socket.on('new-conversation', handleNewConversation)
     socket.on('updateProfile', handleUpdateProfile)
+    socket.on('group-profile-update', handleGroupProfile)
+    socket.on('add-group-members', handleAddGroupMembers)
+    socket.on('remove-group-admin', handleRemoveAdmin)
+    socket.on('add-group-admin', handleAddGroupAdmin)
+
     socket.on("error", (e) => {
       console.error("Socket error:", e);
     });
@@ -123,6 +146,11 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
       socket.off("message", handleIncomingMessage);
       socket.off("updateProfile", handleUpdateProfile);
       socket.off("new-conversation", handleNewConversation);
+      socket.off('group-profile-update', handleGroupProfile)
+      socket.off('add-group-admin', handleAddGroupAdmin);
+      socket.off('add-group-members', handleAddGroupMembers);
+      socket.off('remove-group-admin', handleRemoveAdmin);
+
       socket.off("error");
     };
   }, [socket, user, handleIncomingMessage, handleMessageState, handleUpdateProfile, handleNewConversation]);

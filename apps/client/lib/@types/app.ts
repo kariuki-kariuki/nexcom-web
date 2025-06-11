@@ -42,9 +42,15 @@ export interface ConversationProps {
   updated_at: string;
   name?: string;
   admins?: GlobalUser[];
+  type: ConvsersationType;
   profile?: ImageInterface;
   creator?: GlobalUser 
   created_at: Date
+}
+
+export enum ConvsersationType {
+  CONVERSATION = 'conversation',
+  GROUP = 'group'
 }
 
 export interface Message {
@@ -83,6 +89,26 @@ export interface NewMessage extends Message {
 export interface UpdateProfile {
   user: GlobalUser;
   userId: string
+}
+
+export interface UpdateGroupProfile {
+  groupId: string;
+  profile: ImageInterface
+}
+
+export interface UserActionDTO {
+  groupId: string;
+  userId: string;
+}
+
+export interface AddUserInGroup {
+  groupId: string;
+  user: GlobalUser;
+}
+
+export interface AddUsersToGroupDTO {
+  groupId: string;
+  users: GlobalUser[];
 }
 
 // Action Types

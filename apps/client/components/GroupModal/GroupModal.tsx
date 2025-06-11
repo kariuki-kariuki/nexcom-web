@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { useGlobalStore } from '../../lib/context/global-store.provider'
-import { Card, Group, Avatar, Text, Modal, InputWrapper, Input, Title, Flex, Paper, FileInput, Button } from '@mantine/core';
+import { Card, Group, Avatar, Text, Modal, InputWrapper, Input, Title, Flex, Paper, FileInput, Button, Stepper, StepperCompleted, StepperStep } from '@mantine/core';
 import { GlobalUser } from '../../lib/@types/app';
 import classes from './GroupModal.module.css'
 import { FileWithPath } from '@mantine/dropzone';
 import { datasource } from '../../lib/common/datasource';
 import { notifications } from '@mantine/notifications';
-import { buffer } from 'stream/consumers';
 import { useSocketContext } from '../../lib/hooks/useSocket';
 
 interface IGroupModal {
@@ -27,7 +26,9 @@ const GroupModal = ({ open, opened }: IGroupModal) => {
   const [avatar, setAvatar] = useState<FileWithPath | null>(null);
   users = [...usersFromSearch, ...users].filter((usr) => usr.id !== user?.id);
   const [selectedUsers, setSelectedUsers] = useState<GlobalUser[]>([])
-
+  const [active, setActive] = useState(0)
+  const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
+  const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
 
   const handleUpdateGroupUsers = (user: GlobalUser) => {
     const isPresent = selectedUsers.find((usr: GlobalUser) => usr.id === user.id);
@@ -62,7 +63,12 @@ const GroupModal = ({ open, opened }: IGroupModal) => {
     }
 
     try {
-      socket.emit('new-group', formData)
+      socket.emit('new-group', formData, () => {
+        setGroupName('');
+        setSelectedUsers([]);
+        setActive(0);
+        open(!opened);
+      })
       return;
     } catch (e: any) {
       errorNotifications(e.message)
@@ -97,22 +103,25 @@ const GroupModal = ({ open, opened }: IGroupModal) => {
         header: classes.header
       }}
       withCloseButton={false}
+      size=''
       centered
     >
-      <Flex direction={'column'} h="80vh" flex={1}>
-        <div>
-          <Title ta="center">New Group</Title>
-          {
-            !avatar && (<InputWrapper label="Avatar" size="xl" my="sm">
-              <FileInput size='lg' radius="xl" accept='image/*' value={avatar} onChange={setAvatar} />
-            </InputWrapper>)
-          }
-          {avatar && <Group justify='center'>
-            <Avatar size="xl" name={groupName ?? 'Group Name'} src={URL.createObjectURL(avatar)} />
-          </Group>}
+      <Title ta="center">New Group</Title>
+      <Stepper active={active} onStepClick={setActive} flex={1}>
+        <StepperStep label="Group Name" description="Choose A group name">
           <InputWrapper my="sm" label="Name" size='xl'>
             <Input size='lg' radius="xl" placeholder='Group Name' value={groupName} onChange={(e) => setGroupName(e.target.value)} />
           </InputWrapper>
+        </StepperStep>
+        <StepperStep label="Display Picture" description="Choose Group Avatar">
+          <Group justify='center'>
+            <Avatar size="xl" name={groupName ?? 'Group Name'} src={avatar ? URL.createObjectURL(avatar) : ''} />
+          </Group>
+          <InputWrapper label="Avatar" size="xl" my="sm">
+            <FileInput size='lg' radius="xl" accept='image/*' value={avatar} onChange={setAvatar} />
+          </InputWrapper>
+        </StepperStep>
+        <StepperStep label="Members" description="Select Group Users">
           <InputWrapper my="sm" label="Filter" size='xl'>
             <Input size='lg' radius="xl" placeholder='Filter'
               value={value}
@@ -123,13 +132,21 @@ const GroupModal = ({ open, opened }: IGroupModal) => {
                 }
               }} />
           </InputWrapper>
+          <Paper className={classes.paper}>
+            {usersCards}
+          </Paper>
+        </StepperStep>
 
-        </div>
-        <Paper className={classes.paper}>
-          {usersCards}
-        </Paper>
-        <Button size='lg' my='sm' radius="xl" onClick={handleCreateGorup}>Create Group</Button>
-      </Flex>
+        <StepperCompleted>
+          <Group justify='center'>
+            <Button size='lg' my='sm' radius="xl" onClick={handleCreateGorup}>Create Group</Button>
+          </Group>
+        </StepperCompleted>
+      </Stepper>
+      <Group justify="center" mt="xl">
+        <Button size='lg' radius="xl" variant="default" onClick={prevStep}>Back</Button>
+        <Button onClick={nextStep} size='lg' className={classes.button} radius="xl">Next step</Button>
+      </Group>
     </Modal>
   )
 }

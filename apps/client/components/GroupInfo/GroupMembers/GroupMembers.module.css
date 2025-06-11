@@ -1,0 +1,13 @@
+.card {
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));
+
+  &[data-active] {
+    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-4));
+  }
+}
+
+.scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 40vh;
+}
