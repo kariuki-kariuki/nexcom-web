@@ -28,6 +28,7 @@ import {
 import { Logger } from '@nestjs/common';
 import { Conversation } from './conversations/entities/Conversation.entity';
 import { AuthenticatedSocket } from '../@types/chat/chat';
+import { ChatGroupsService } from './chat-groups.services';
 
 @WebSocketGateway(5000, {
   cors: { origin: '*' },
@@ -38,6 +39,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(
     private readonly chatService: ChatService,
     private readonly gateWaySession: GatewaySessionManager,
+    private readonly chatGroupsService: ChatGroupsService,
   ) {}
 
   async handleConnection(client: AuthenticatedSocket) {
@@ -82,7 +84,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @MessageBody() createGroupDto: CreateGroupDTO,
   ) {
     const { userId } = client.user;
-    const res = await this.chatService.newGroup(userId, createGroupDto);
+    const res = await this.chatGroupsService.newGroup(userId, createGroupDto);
     const serialRes = instanceToPlain(res);
     res.users.forEach((user) => {
       const userSocket = this.gateWaySession.getUserSocket(user.id);
@@ -100,7 +102,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const { userId: adminId } = client.user;
     const { groupId } = messageBody;
     const { newUsers, savedGroup, users } =
-      await this.chatService.addGroupMembers(adminId, messageBody);
+      await this.chatGroupsService.addGroupMembers(adminId, messageBody);
     const plainUsers = instanceToPlain(newUsers);
     users.forEach((user) => {
       const userSocket = this.gateWaySession.getUserSocket(user.id);
@@ -128,7 +130,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const { userId: adminId } = client.user;
     const { groupId } = messageBody;
 
-    const { users, user } = await this.chatService.addGroupAdmin(
+    const { users, user } = await this.chatGroupsService.addGroupAdmin(
       adminId,
       messageBody,
     );
@@ -150,7 +152,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const { userId: moderatorId } = client.user;
     const { userId: adminId, groupId } = messageBody;
 
-    const { users } = await this.chatService.removeAdmin(
+    const { users } = await this.chatGroupsService.removeAdmin(
       moderatorId,
       messageBody,
     );
@@ -170,9 +172,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @MessageBody() createConversationDTO: CreateConversationDTO,
   ) {
     try {
-      this.logger.log(
-        `Creating conversation with receiverId: ${createConversationDTO.receiverId}`,
-      );
       const { receiverId } = createConversationDTO;
       const { userId } = client.user;
 
@@ -267,7 +266,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   ) {
     const { userId } = client.user;
     const { users, profile, groupId } =
-      await this.chatService.updateGroupProfile(userId, messageBody);
+      await this.chatGroupsService.updateGroupProfile(userId, messageBody);
 
     users.forEach((user) => {
       const userSocket = this.gateWaySession.getUserSocket(user.id);
@@ -292,7 +291,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       );
 
       if (messageBody.groupId) {
-        const { users, message } = await this.chatService.groupMessage(
+        const { users, message } = await this.chatGroupsService.groupMessage(
           messageBody,
           userId,
         );

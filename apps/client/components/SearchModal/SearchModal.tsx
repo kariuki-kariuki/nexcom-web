@@ -21,7 +21,7 @@ import {
 import { IconCirclePlusFilled, IconMessageCirclePlus, IconSearch, IconUsersGroup } from '@tabler/icons-react';
 import { useState } from 'react';
 import classes from './SearchModal.module.css';
-import { GlobalUser } from '@/lib/@types/app';
+import { ConvsersationType, GlobalUser } from '@/lib/@types/app';
 import { datasource } from '@/lib/common/datasource';
 import { notifications } from '@mantine/notifications';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
@@ -69,11 +69,11 @@ const NewChatModal = ({opened, toggle}: INewChatModal) => {
   const user = useGlobalStore((state) => state.user);
   const [error, setError] = useState('')
   const usersFound = users?.map((person) => {
-    const convo = conversations.find(convo => convo.users[0].id === person.id);
+    const conversation = conversations.find(convo => convo.users[0].id === person.id && convo.type === ConvsersationType.CONVERSATION);
     const isMe = person.id === user?.id;
-    if (convo) {
+    if (conversation) {
       return (
-        <Link href={`/chat/${convo.id}`} key={person.id} onClick={toggle}>
+        <Link href={`/chat/${conversation.id}`} key={person.id} onClick={toggle}>
           <UserCard user={person} />
         </Link>
       )

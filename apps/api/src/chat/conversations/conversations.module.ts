@@ -8,6 +8,7 @@ import { AwsModule } from '../../aws/aws.module';
 import { ProductsModule } from '../../shops/products/products.module';
 import { User } from '../../users/entities/user.entity';
 import { Image } from '../../shops/product_images/entities/image.entity';
+import { GroupsService } from './groups.service';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { Image } from '../../shops/product_images/entities/image.entity';
     AwsModule,
   ],
   controllers: [ConversationsController],
-  providers: [ConversationsService],
-  exports: [ConversationsService],
+  providers: [ConversationsService, GroupsService],
+  exports: [ConversationsService, GroupsService],
 })
 export class ConversationsModule {}

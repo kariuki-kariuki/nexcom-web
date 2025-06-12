@@ -10,6 +10,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from '../auth/auth.module';
 import { SessionsModule } from '../sessions/sessions.module';
 import { UsersModule } from '../users/users.module';
+import { ChatGroupsService } from './chat-groups.services';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { UsersModule } from '../users/users.module';
     ChatService,
     GatewaySessionManager,
     WebSocketAdapter,
+    ChatGroupsService,
   ],
 })
 export class ChatsModule {}

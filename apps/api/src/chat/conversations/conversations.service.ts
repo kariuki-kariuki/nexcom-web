@@ -1,18 +1,11 @@
 import {
-  ForbiddenException,
   Injectable,
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Conversation } from './entities/Conversation.entity';
-import {
-  CreateConversationDTO,
-  CreateGroupDTO,
-  AddRemoveAdminDTO,
-  UpdateGroupProfileDto,
-  AddGroupMembersDTO,
-} from './dto/create-conversation.dto';
+import { CreateConversationDTO } from './dto/create-conversation.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Message } from '../messages/entities/message.entity';
 import { INewConverSation } from 'utils/interfaces';
@@ -22,21 +15,19 @@ import { AwsService } from '../../aws/aws.service';
 import { ProductsService } from '../../shops/products/products.service';
 import { User } from '../../users/entities/user.entity';
 import { Image } from '../../shops/product_images/entities/image.entity';
-import { WsException } from '@nestjs/websockets';
-import { instanceToPlain } from 'class-transformer';
 
 @Injectable()
 export class ConversationsService {
   constructor(
     @InjectRepository(Conversation)
-    private readonly conversationRepo: Repository<Conversation>,
+    readonly conversationRepo: Repository<Conversation>,
     @InjectRepository(User)
-    private readonly usersRepository: Repository<User>,
-    private readonly productsService: ProductsService,
-    private readonly awsService: AwsService,
+    readonly usersRepository: Repository<User>,
+    readonly productsService: ProductsService,
+    readonly awsService: AwsService,
     @InjectRepository(Message)
     private readonly messageRepo: Repository<Message>,
-    @InjectRepository(Image) private imageRepo: Repository<Image>,
+    @InjectRepository(Image) readonly imageRepo: Repository<Image>,
   ) {}
 
   async findAll(id: string) {
@@ -56,7 +47,7 @@ export class ConversationsService {
       .leftJoinAndSelect('users.avatar', 'avatar')
       .orderBy('messages.created_at', 'ASC')
       .where('userr.id = :id', { id })
-      .orWhere('creator.id = :id', { id })
+      // .orWhere('creator.id = :id', { id })
       .getOne();
 
     if (!user) {
@@ -79,23 +70,22 @@ export class ConversationsService {
     createConversationDTO,
     initiatorId,
   }: INewConverSation) {
+    const { receiverId } = createConversationDTO;
     const initiator = await this.usersRepository.findOneBy({ id: initiatorId });
-    if (!initiator) {
-      throw new Error('Initiator not found');
-    }
-
     const receiver = await this.usersRepository.findOneBy({
-      id: createConversationDTO.receiverId,
+      id: receiverId,
     });
-    if (!receiver) {
-      throw new Error('Receiver not found');
+    if (!initiator || !receiver) {
+      throw new Error('User not found');
     }
 
     // Check if conversation exists
     const conversations = await this.getAllConversation(initiator.id);
 
     const res = conversations.find(
-      (convo) => convo.users[0].id === createConversationDTO.receiverId,
+      (convo) =>
+        convo.users[0].id === receiverId &&
+        convo.type === ConversationType.CONVERSATION,
     );
 
     if (res) {
@@ -127,171 +117,14 @@ export class ConversationsService {
   }
 
   // Update Conversation Profile
-  async updateGroupProfile(userId: string, updateDto: UpdateGroupProfileDto) {
-    const { groupId, file } = updateDto;
-    const group = await this.conversationRepo.findOne({
-      where: {
-        id: groupId,
-        users: { id: userId },
-        admins: { id: userId },
-      },
-      relations: {
-        users: true,
-        profile: true,
-      },
-    });
-
-    if (!group) {
-      console.log('No Group found');
-      throw new WsException('Forbiden');
-    }
-
-    if (group.profile) {
-      await this.awsService.deleteImage(group.profile.url);
-      group.profile.url = await this.awsService.uploadFile(file, 'groups');
-    } else {
-      const profile = new Image();
-      profile.url = await this.awsService.uploadFile(file, 'groups');
-      profile.mimeType = file.mimetype;
-      group.profile = profile;
-    }
-    const savedGroup = await this.conversationRepo.save(group);
-    return { users: group.users, profile: savedGroup.profile, groupId };
-  }
-
-  async createGroup(userId: string, createGroupDTO: CreateGroupDTO) {
-    const { membersId, groupName, file } = createGroupDTO;
-    const user = await this.usersRepository.findOneByOrFail({ id: userId });
-    const members = await Promise.all(
-      membersId.map(
-        async (id) => await this.usersRepository.findOneByOrFail({ id }),
-      ),
-    );
-
-    const group = new Conversation();
-    group.name = groupName;
-    group.users = [...members, user];
-    group.admins = [user];
-    group.creator = user;
-    group.type = ConversationType.GROUP;
-
-    if (file) {
-      const profile = new Image();
-      profile.url = await this.awsService.uploadFile(file, 'groups');
-      profile.mimeType = file.mimetype;
-      const savedProfile = await this.imageRepo.save(profile);
-      group.profile = savedProfile;
-    }
-    try {
-      const newGroup = await this.conversationRepo.save(group);
-      newGroup.messages = [];
-      return newGroup;
-    } catch (e) {
-      console.log(e);
-      throw new WsException('Failed To Create group');
-    }
-  }
-
-  async addGroupMembers(adminId: string, addmembersDTO: AddGroupMembersDTO) {
-    const { groupId, membersId } = addmembersDTO;
-    const group = await this.conversationRepo.findOne({
-      where: {
-        id: groupId,
-        admins: {
-          id: adminId,
-        },
-      },
-      relations: {
-        users: true,
-        messages: {
-          user: true,
-        },
-        admins: true,
-        profile: true,
-      },
-    });
-
-    const newMembers = await Promise.all(
-      membersId.map(
-        async (id) =>
-          await this.usersRepository.findOneByOrFail({
-            id: id,
-          }),
-      ),
-    );
-    const oldUsers = group.users;
-
-    group.users = [...group.users, ...newMembers];
-
-    const savedGroup = await this.conversationRepo.save(group);
-
-    return {
-      users: oldUsers,
-      newUsers: newMembers,
-      savedGroup,
-    };
-  }
-
-  async addGroupAdmin(adminId: string, addAdminDTO: AddRemoveAdminDTO) {
-    const { userId, groupId } = addAdminDTO;
-    const group = await this.conversationRepo.findOne({
-      where: {
-        id: groupId,
-      },
-      relations: {
-        users: true,
-        admins: true,
-      },
-    });
-
-    const user = await this.usersRepository.findOneByOrFail({ id: userId });
-    const IAMadmin = group.admins.some((admin) => admin.id === adminId);
-    const userIsInGroup = group.users.some((usr) => usr.id === userId);
-    if (!group || !user || !IAMadmin || !userIsInGroup) {
-      throw new NotFoundException('Group Does Not Exist');
-    }
-    group.admins = [...group.admins, user];
-    await this.conversationRepo.save(group);
-    return { users: group.users, user: instanceToPlain(user) };
-  }
-
-  async removeAdmin(moderatorId: string, removeAdminDTO: AddRemoveAdminDTO) {
-    const { groupId, userId: adminId } = removeAdminDTO;
-    const group = await this.conversationRepo.findOne({
-      where: {
-        id: groupId,
-        creator: {
-          id: moderatorId,
-        },
-        admins: {
-          id: adminId,
-        },
-      },
-      relations: {
-        admins: true,
-        users: true,
-      },
-    });
-
-    if (!group) {
-      throw new ForbiddenException('No Group Found');
-    }
-
-    group.admins = group.admins.filter((admin) => admin.id !== adminId);
-    await this.conversationRepo.save(group);
-
-    return { users: group.users, userId: adminId };
-  }
 
   async getAllConversation(userId: string): Promise<Conversation[]> {
     const user = await this.usersRepository
       .createQueryBuilder('user')
-      .leftJoinAndSelect('users.conversations', 'conversations')
+      .leftJoinAndSelect('user.conversations', 'conversations')
       .leftJoinAndSelect('conversations.users', 'users')
       .leftJoinAndSelect('users.shop', 'shop')
-      .leftJoinAndSelect('users.avatar', 'avatar')
-      .orderBy('messages.created_at', 'DESC')
-      .where('user.id =: id', { id: userId })
+      .where('user.id = :id', { id: userId })
       .getOne();
 
     if (!user) {

@@ -5,7 +5,7 @@ import NewMessageBox from '../NewMessageBox/NewMessageBox';
 import classes from './NewChat.module.css';
 import { useRef } from 'react';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
-import { GlobalUser } from '@/lib/@types/app';
+import { ConvsersationType, GlobalUser } from '@/lib/@types/app';
 import { useRouter } from 'next/navigation';
 interface ChatAreaProps {
   user: GlobalUser
@@ -15,7 +15,7 @@ function NewChat({ user }: ChatAreaProps) {
   const loggedInUser = useGlobalStore((state) => state.user);
   const router = useRouter();
   const conversations = useGlobalStore((state) => state.conversations);
-  const convo = conversations.find((convo) => convo.users[0].id === user.id)
+  const convo = conversations.find((convo) => convo.users[0].id === user.id && convo.type === ConvsersationType.CONVERSATION)
   if (user.id === loggedInUser?.id) {
     router.push(`/chat`);
   } else if(convo){
