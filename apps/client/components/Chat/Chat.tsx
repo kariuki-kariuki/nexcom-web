@@ -7,6 +7,7 @@ import ChatArea from '../ChatArea/ChatArea';
 import ConversationButtonList from '../ConversationButtonList/ConversationButtonList';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 import { use } from 'react';
+import { ConvsersationType } from '../../lib/@types/app';
 
 function Chat() {
   const conversations = useGlobalStore((state) => state.conversations)
@@ -14,7 +15,7 @@ function Chat() {
     <Paper className={classes.container}>
       <Stack bg="none" justify='center' align='center'>
         <AvatarGroup w="fit-content">
-          {conversations.slice(0, 5).map((convo) => (
+          {conversations.filter(convo => convo.type === ConvsersationType.CONVERSATION).slice(0, 5).map((convo) => (
             <Avatar size="lg"
               key={convo.id}
               src={convo.users[0].avatar?.signedUrl}
