@@ -8,6 +8,7 @@ import classes from "./ContactSeller.module.css";
 import Link from 'next/link'
 import OgMessage from '../OgMessage/OgMessage';
 import { useGlobalStore } from '@/lib/context/global-store.provider'
+import { ConvsersationType } from '../../lib/@types/app'
 
 interface IProps { product: Product }
 
@@ -15,9 +16,8 @@ const ContactSeller = ({ product }: IProps) => {
     const owner = product?.shop?.user;
     const conversations = useGlobalStore((store) => store.conversations)
     const user = useGlobalStore((state) => state.user);
-    const userConversation = conversations.find((convo) => convo.users[0].id === owner?.id);
     const [opened, { toggle }] = useDisclosure();
-    const convo = conversations.find(convo => convo.users[0].id === owner?.id);
+    const convo = conversations.find(convo => convo.users[0].id === owner?.id && convo.type === ConvsersationType.CONVERSATION);
     return (
         <div>
             {user ?
@@ -58,7 +58,7 @@ const ContactSeller = ({ product }: IProps) => {
                             <OgMessage product={product} />
                         </Paper>
                     </ScrollArea>
-                    <NewMessageBox productId={product.id} userId={product.shop?.user?.id || ''} convoId={userConversation?.id} close={toggle} margin={'xs'} />
+                    <NewMessageBox productId={product.id} userId={product.shop?.user?.id || ''} convoId={convo?.id} close={toggle} margin={'xs'} />
                 </Flex>
             </Dialog>
         </div>
