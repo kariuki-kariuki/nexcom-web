@@ -36,6 +36,8 @@ import { DemoModule } from './demo/demo.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { CacheableMemory, Keyv } from 'cacheable';
 import { createKeyv } from '@keyv/redis';
+import { RedisService } from './redis/redis.service';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -92,9 +94,10 @@ import { createKeyv } from '@keyv/redis';
     AnalyticsModule,
     DiscordModule,
     DemoModule,
+    RedisModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RedisService],
 })
 export class AppModule implements NestModule {
   constructor(private dataSource: DataSource) {}

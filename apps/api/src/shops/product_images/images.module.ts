@@ -6,15 +6,18 @@ import { Image } from './entities/image.entity';
 import { AwsModule } from '../../aws/aws.module';
 import { Product } from '../products/entities/product.entity';
 import { WeaviateModule } from '../../weaviate/weaviate.module';
+import { ImageSubscriber } from '../../../utils/image.subscriber';
+import { RedisModule } from '../../redis/redis.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Image, Product]),
     WeaviateModule,
     AwsModule,
+    RedisModule,
   ],
   controllers: [ImagesController],
-  providers: [ImagesService],
+  providers: [ImagesService, ImageSubscriber],
   exports: [ImagesService],
 })
 export class ImagesModule {}

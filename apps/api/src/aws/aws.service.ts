@@ -38,9 +38,6 @@ export class AwsService {
   }
   async getSignedURL(key: string) {
     try {
-      if (!key) {
-        return null;
-      }
       const command = new GetObjectCommand({ Bucket: this.bucket, Key: key });
       const res = await getSignedUrl(this.s3Client, command, {
         expiresIn: 604800,

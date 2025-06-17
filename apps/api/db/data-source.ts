@@ -6,7 +6,6 @@ import {
 } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
-import { ImageSubscriber } from 'utils/image.subscriber';
 
 export const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
@@ -30,7 +29,6 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       entities: ['dist/**/*.entity.js'],
       synchronize: false,
       migrations: ['dist/db/migrations/*.js'],
-      subscribers: [ImageSubscriber],
     };
   },
 };
