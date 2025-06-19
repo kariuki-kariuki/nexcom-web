@@ -42,6 +42,7 @@ export class ConversationsService {
       .leftJoinAndSelect('messages.product', 'product')
       .leftJoinAndSelect('product.images', 'images')
       .leftJoinAndSelect('messages.user', 'user')
+      .leftJoinAndSelect('user.avatar', 'avatars')
       .leftJoinAndSelect('messages.files', 'files')
       .leftJoinAndSelect('users.shop', 'shop')
       .leftJoinAndSelect('users.avatar', 'avatar')

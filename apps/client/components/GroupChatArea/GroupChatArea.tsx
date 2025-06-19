@@ -44,7 +44,7 @@ function GroupChatArea({ groupId }: ChatAreaProps) {
   // });
 
   const messages = group.messages?.map((message, idx) => (
-    <Message message={message} key={idx} />
+    <Message message={message} key={idx} isGroup={true} />
   ));
   return (
     <Flex>
@@ -61,7 +61,9 @@ function GroupChatArea({ groupId }: ChatAreaProps) {
         </ScrollArea>
         <NewMessageBox convoId={groupId} groupId={groupId} />
       </Paper>
-      {opened && <GroupInfoPaper opened={opened} toggle={toggle} group={group} />}
+      <Paper>
+        {opened && <GroupInfoPaper opened={opened} toggle={toggle} group={group} />}
+      </Paper>
     </Flex>
   );
 }

@@ -44,13 +44,13 @@ export const GroupInfoPaper = ({ toggle, group }: IGDrawar) => {
 
   return (
     <Paper bg="none" visibleFrom='lg' className={classes.info} radius={0} w={{ md: "50%", lg: 'auto' }}>
-      <Paper className={classes.header} radius={0} p="md">
+      <Paper className={classes.header} radius={0} p="md" h={{ base: 80, xl: 100 }}>
         <Group justify='space-between' align='center' h="100%">
           <Text c="teal.6">{group.name?.toUpperCase()}</Text>
           <IconX size={23} color='red' onClick={toggle} />
         </Group>
       </Paper>
-      <Paper bg="none" px='md'>
+      <Paper bg="none" px='md' className={classes.content}>
         <GroupInfo group={group} />
       </Paper>
     </Paper>
@@ -60,7 +60,7 @@ export const GroupInfoPaper = ({ toggle, group }: IGDrawar) => {
 function GroupInfo({ group }: IProps) {
   const user = useGlobalStore((state) => state.user);
   const [profile, setProfile] = useState<FileWithPath | null>(null)
- 
+
   const IAMAdmin = group.admins?.some((member) => member.id === user?.id);
   const date = new Date(group.created_at);
   const socket = useSocketContext();

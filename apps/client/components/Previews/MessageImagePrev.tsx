@@ -21,7 +21,7 @@ function MessageImagePreviews({ files, setFiles }: Props) {
               src={imageUrl}
               w="100%"
               mah='300'
-              onLoad={() => URL.revokeObjectURL(imageUrl)}
+            // onLoad={() => URL.revokeObjectURL(imageUrl)}
             />
           </Paper>
           <Button
@@ -38,15 +38,15 @@ function MessageImagePreviews({ files, setFiles }: Props) {
   });
   return (
     <Paper mx="md" radius='lg' className={classes.paper}>
-        <Carousel 
+      <Carousel
         slidesToScroll={1}
-          slideSize={{ base: '33%', sm: '33%' }}
-          slideGap={{ base: rem(5), sm: 'sm' }}
-          align="start"
-          loop
-        >
-          {previews}
-        </Carousel>
+        slideSize={{ base: '33%', sm: '33%' }}
+        slideGap={{ base: rem(5), sm: 'sm' }}
+        align="start"
+        loop
+      >
+        {previews}
+      </Carousel>
     </Paper>
   );
 }

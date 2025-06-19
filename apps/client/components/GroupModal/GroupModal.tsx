@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useGlobalStore } from '../../lib/context/global-store.provider'
 import { Card, Group, Avatar, Text, Modal, InputWrapper, Input, Title, Flex, Paper, FileInput, Button, Stepper, StepperCompleted, StepperStep } from '@mantine/core';
-import { GlobalUser } from '../../lib/@types/app';
+import { ConvsersationType, GlobalUser } from '../../lib/@types/app';
 import classes from './GroupModal.module.css'
 import { FileWithPath } from '@mantine/dropzone';
 import { datasource } from '../../lib/common/datasource';
@@ -15,7 +15,7 @@ interface IGroupModal {
 const GroupModal = ({ open, opened }: IGroupModal) => {
   const { conversations, user } = useGlobalStore((state) => state);
   const socket = useSocketContext()
-  let users = conversations.map((convo) => convo.users[0]);
+  let users = conversations.filter((convo) => convo.type === ConvsersationType.CONVERSATION).map((convo) => convo.users[0]);
   const [errors, setErrors] = useState({
     name: '',
     filter: '',

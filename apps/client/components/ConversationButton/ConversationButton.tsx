@@ -32,7 +32,7 @@ export function ConversationButton({ conversation }: Props) {
   const updateMessage = useGlobalStore((state) => state.updateMessage)
   const [count, setCount] = useState(0);
   const theme = useMantineTheme();
-  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const tablet = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
   const path = usePathname()
   const active = path.endsWith(conversation.id);
 
@@ -101,25 +101,11 @@ export function ConversationButton({ conversation }: Props) {
       <Card
         className={classes.convoButton}
         data-active={active || undefined}
-        onClick={() => {
-          if (count > 0) {
-            socket.emit(
-              'message-state',
-              {
-                state: MessageState.READ,
-                conversationId: conversation.id,
-                receiverId: conversation.users[0].id
-              },
-              (res: PayloadMessage) => {
-                updateMessage(res);
-              }
-            );
-          }
-        }}
+        p={10}
         radius={0}
       >
         <Group>
-          <Avatar src={user?.avatar?.signedUrl} size={mobile ? 'md' : 'lg'} radius="xl" name={user?.fullName} />
+          <Avatar src={user?.avatar?.signedUrl} size='lg' radius="xl" name={user?.fullName} />
           <div style={{ flex: 1 }}>
             <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
               {user?.fullName}

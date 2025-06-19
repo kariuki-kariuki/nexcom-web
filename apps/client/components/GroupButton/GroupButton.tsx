@@ -100,6 +100,7 @@ export function GroupButton({ conversation }: Props) {
       <Card
         className={classes.convoButton}
         data-active={active || undefined}
+        p="10"
         onClick={() => {
           if (count > 0) {
             socket.emit(

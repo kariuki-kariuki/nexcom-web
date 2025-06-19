@@ -20,7 +20,7 @@ const GroupBar = ({ group, opened, toggle }: BarProps) => {
     <>
       <Group
         px={'lg'}
-        h={'100'}
+        h={{ base: 80, xl: 100 }}
         justify="space-between"
         align="center"
         className={classes.bar}

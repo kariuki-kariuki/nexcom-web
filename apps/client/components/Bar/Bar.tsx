@@ -37,8 +37,8 @@ const Bar = ({ user }: BarProps) => {
   return (
     <>
       <Group
-        px={'lg'}
-        h={'100'}
+        px={'sm'}
+        h={{ base: 80, xl: 100 }}
         justify="space-between"
         align="center"
         className={classes.bar}

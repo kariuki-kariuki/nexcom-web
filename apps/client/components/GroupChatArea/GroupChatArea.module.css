@@ -44,3 +44,8 @@
   background-size: cover;
   background-color: 'blue';
 }
+
+.groupInfo {
+  height: 100vh;
+  overflow: scroll;
+}
