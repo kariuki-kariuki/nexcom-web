@@ -39,7 +39,7 @@ const MessageCard = ({ message, isGroup }: Props) => {
       p={0}
     >
 
-      <Card className={isOutgoing ? classes.right : classes.left}>
+      <Card bg="none" className={isOutgoing ? classes.right : classes.left}>
         <Group align='start'>
           {isGroup && !isOutgoing && <Avatar src={message.user.avatar?.signedUrl} name={message.user.fullName} />}
           <Paper className={isOutgoing ? classes.box_right : classes.box_left} m={0}>

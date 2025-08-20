@@ -23,16 +23,15 @@ export class GroupsService extends ConversationsService {
     const group = await this.conversationRepo.findOne({
       where: {
         id: groupId,
-        users: { id: userId },
-        admins: { id: userId },
       },
       relations: {
         users: true,
         profile: true,
+        admins: true,
       },
     });
 
-    if (!group) {
+    if (!group || !group.admins.some((admin) => admin.id === userId)) {
       console.log('No Group found');
       throw new WsException('Forbiden');
     }
