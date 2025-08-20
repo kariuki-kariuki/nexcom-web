@@ -28,6 +28,7 @@ import { CreateShopDto } from '../shops/dto/create-shop.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthenticatedRequest } from '../@types/types';
 import { User } from '../users/entities/user.entity';
+import { useContainer } from 'class-validator';
 
 @ApiBearerAuth()
 @Controller('auth')
@@ -60,7 +61,9 @@ export class AuthController {
     @UploadedFile() file: Express.Multer.File,
     @Req() req: AuthenticatedRequest,
   ) {
-    return this.authService.createShop(createShopDto, req.user.email, file);
+    console.log("Email", req.user.email)
+    const {email, userId} = req.user;
+    return this.authService.createShop(createShopDto, email, userId, file);
   }
 
   @Get('me')

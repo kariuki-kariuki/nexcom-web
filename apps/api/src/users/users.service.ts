@@ -123,7 +123,7 @@ export class UsersService {
   }
 
   async findById(id: string): Promise<User> {
-    const user = await this.usersRepository.findOneBy({ id });
+    const user = await this.usersRepository.findOne({ where: { id }, relations: { shop: true } });
     return user;
   }
 

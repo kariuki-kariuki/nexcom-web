@@ -44,21 +44,21 @@ const ContactSeller = ({ product }: IProps) => {
                         <Text visibleFrom='sm'>Login To Contact Seller</Text>
                     </Button>
                 </Link>}
-            <Dialog opened={opened} onClose={toggle} withCloseButton size={"lg"} p="0" classNames={{ root: classes.bg }}>
-                <Flex h={'100%'} direction={'column'}>
+            <Dialog opened={opened} onClose={toggle} withCloseButton  p="0" radius={"md"} classNames={{ root: classes.bg }}>
+                <Flex mih={'70vh'} direction={'column'}>
                     <Group className={classes.header} wrap='nowrap' py="sm">
                         <Avatar src={owner?.avatar?.signedUrl} name={owner?.fullName} />
                         <Text ta="center" fz={{ base: 'xs', sm: 'lg' }}>{`Inquire About ${product.name}`}</Text>
                     </Group>
                     <ScrollArea h={'100%'} scrollbars={'y'}
                         className={classes.scroll}
-                        px="sm"
+                       
                     >
                         <Paper px={{ base: 'xs', sm: 'lg' }}>
                             <OgMessage product={product} />
                         </Paper>
                     </ScrollArea>
-                    <NewMessageBox productId={product.id} userId={product.shop?.user?.id || ''} convoId={convo?.id} close={toggle} margin={'xs'} />
+                    <NewMessageBox productId={product.id} userId={product.shop?.user?.id || ''} convoId={convo?.id} close={toggle} margin={0} radius={0} />
                 </Flex>
             </Dialog>
         </div>

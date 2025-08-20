@@ -162,7 +162,6 @@ function NewProduct({ categoriesdb }: { categoriesdb: Category[] | null }) {
             </Paper>
             <Paper w={{ base: '100%', sm: '50%' }}>
               <Card shadow="lg" className={classes.card} h="100%" p={0}>
-                
                {files.length < 1 &&  <DropzoneButton setFiles={setFiles} /> }
                 <Previews files={files} setFiles={setFiles} />
               </Card>

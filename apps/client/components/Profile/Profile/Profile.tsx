@@ -11,6 +11,7 @@ import { useGlobalStore } from '@/lib/context/global-store.provider';
 function Profile({ userClicked }: { userClicked: GlobalUser }) {
   const user = useGlobalStore((state) => state.user);
   const active = userClicked.id === user?.id;
+  console.log(user)
 
   return (
     <Card h={'100%'} bg="none" className={classes.profile} radius={0} pb={'lg'}>

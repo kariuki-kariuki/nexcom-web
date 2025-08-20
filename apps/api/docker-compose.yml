@@ -15,6 +15,24 @@ services:
       - 5540:5540
     volumes:
       - redis_insight_volume_data:/db
+  postgres:
+      image: postgres:10.4
+      restart: always
+      ports:
+          - "5432:5432"
+      environment: 
+          POSTGRES_USER: ${POSTGRES_USER}
+          POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+          POSTGRES_DB: ${POSTGRES_DB}
+  
+  pgadmin:
+      image: dpage/pgadmin4
+      restart: always
+      environment:
+          PGADMIN_DEFAULT_EMAIL: ${PG_EMAIL}
+          PGADMIN_DEFAULT_PASSWORD: ${PG_PASSWORD}
+      ports:
+          - "8080:80"
 
 volumes:
   redis_volume_data:

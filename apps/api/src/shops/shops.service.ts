@@ -16,6 +16,7 @@ import { Order } from './orders/entities/order.entity';
 import { Product } from './products/entities/product.entity';
 import { UserRoles, ProjectIdType } from '../@types/types';
 import { User } from '../users/entities/user.entity';
+import users from 'weaviate-client/dist/node/cjs/users';
 
 @Injectable()
 export class ShopsService {
@@ -54,7 +55,6 @@ export class ShopsService {
         description,
         phone: parseInt(phone),
         name,
-        user,
       });
 
       if (file) {
@@ -70,6 +70,9 @@ export class ShopsService {
         user.role = UserRoles.SHOP_ADMIN;
         await this.usersRepository.save(user);
       }
+
+      user.shop = myShop
+      await this.usersRepository.save(user);
 
       return myShop;
     } catch (e) {

@@ -52,7 +52,7 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (path.startsWith('/shop')) {
+  if (path.startsWith('/business')) {
     return NextResponse.next();
   }
 

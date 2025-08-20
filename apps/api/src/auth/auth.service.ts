@@ -39,12 +39,13 @@ export class AuthService {
   async createShop(
     createShopDto: CreateShopDto,
     email: string,
+    userId: string,
     file: Express.Multer.File,
   ) {
     const shop = await this.shopService.create(createShopDto, email, file);
     const payload: Payload = {
-      email: shop.user.email,
-      userId: shop.user.id,
+      email: email,
+      userId: userId,
       shopId: shop.id,
     };
     const token = await this.signedPayLoad(payload);

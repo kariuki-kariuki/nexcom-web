@@ -59,7 +59,7 @@ const MessageCard = ({ message, isGroup }: Props) => {
                   hour12: true,
                 })}
               </Text>
-              {getIconByState()}
+              { isOutgoing && getIconByState()}
             </Group>
           </Paper>
         </Group>
