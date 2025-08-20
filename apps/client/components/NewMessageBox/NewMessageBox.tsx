@@ -27,8 +27,9 @@ interface INewMessageBox {
   close?: () => void;
   userId?: string;
   groupId?: string;
+  radius?: string | number
 }
-const NewMessageBox = ({ productId, margin, convoId, groupId, close, userId }: INewMessageBox) => {
+const NewMessageBox = ({ productId, margin, convoId, groupId, close, userId, radius = 'xl' }: INewMessageBox) => {
   const [message, setMessage] = useState<string>('');
   const socket = useSocketContext()
   const addMessage = useGlobalStore((state) => state.addMessage)
@@ -90,8 +91,8 @@ const NewMessageBox = ({ productId, margin, convoId, groupId, close, userId }: I
 
   return (
     <>
-      <MessageImagePreviews files={files} setFiles={setFiles} />
-      <Paper pt={10} m={{ base: 'md', sm: margin }} shadow='lg' mih={{ base: 'auto', sm: 130 }} radius="xl" variant="div" px={mobile ? 'sm' : 'lg'} className={classes.msg}>
+      <MessageImagePreviews files={files} setFiles={setFiles}  />
+      <Paper pt={10} m={{ base: 'md', sm: margin }} shadow='lg' mih={{ base: 'auto', sm: 130 }} radius={radius} variant="div" px={mobile ? 'sm' : 'lg'} className={classes.msg}>
         <Textarea
           classNames={{ input: classes.textarea, wrapper: classes.textarea }}
           placeholder={"Enter Message"}

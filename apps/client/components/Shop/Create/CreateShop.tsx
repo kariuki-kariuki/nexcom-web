@@ -12,17 +12,18 @@ import { Category } from '@/lib/@types/shop';
 
 const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
   const [categories, setCategories] = useState(categoriesdb)
+  const [selectedCatId, setSelectedCatId] = useState<string | null>(null)
+  console.log(categories);
   const [shop, setShop] = useState({
     name: '',
     address: '',
     phone: '',
-    categoryId: categories[0].id,
     description: '',
   })
   const [error, setError] = useState('')
   const [file, setFile] = useState<FileWithPath | null>(null)
   const user = useGlobalStore((state) => state.user);
-  const category = categories.find((category) => category.id === shop.categoryId)
+  const category = categories?.find((category) => category.id === selectedCatId)
   const [isloading, setIsLoading] = useState(false);
   const router = useRouter()
   if (user?.shop) {
@@ -31,8 +32,8 @@ const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
 
   const handleCreateBusiness = async () => {
     setError('')
-    if (!shop.name || !shop.address || !shop.categoryId || !shop.phone || !file) {
-      setError('Make sure no field is empty')
+    if (!shop.name || !shop.address || !shop.phone || !file || !category) {
+      setError('Make sure no field is empty? Make Sure the banner is available')
       return;
     }
 
@@ -43,7 +44,7 @@ const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
     formData.append('name', shop.name)
     formData.append('address', shop.address)
     formData.append('phone', shop.phone)
-    formData.append('categoryId', shop.categoryId)
+    formData.append('categoryId', category.id)
     formData.append('description', shop.description)
 
     const { data, loading, error } = await datasource.post<{ token: string }>({ formData, path: 'auth/register-shops', contentType: false })
@@ -92,23 +93,22 @@ const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
                   setCategories={setCategories}
                 />
               </InputWrapper >
-              <Select
-                my="sm"
-                label="Select Category"
-                classNames={{ input: classes.input }}
-                value={shop.categoryId}
-                size="lg"
-                onChange={(_value, option) =>
-                  setShop((prev) => ({
-                    ...prev,
-                    categoryId: option.value
-                  }))
-                }
-                data={categories.map((category) => ({
-                  label: category.name,
-                  value: category.id
-                }))}
-              />
+              {categoriesdb && categoriesdb.length > 0 &&
+                <Select
+                  my="sm"
+                  label="Select Category"
+                  classNames={{ input: classes.input }}
+                  value={selectedCatId}
+                  size="lg"
+                  onChange={(_value, option) =>
+                    setSelectedCatId(option.value)
+                  }
+                  data={categories.map((category) => ({
+                    label: category.name,
+                    value: category.id
+                  }))}
+                />
+              }
             </Group>
             <InputWrapper label="Description" size="lg">
               <Textarea classNames={{ input: classes.input }} size="lg" value={shop.description} minRows={6} autosize onChange={(e) => setShop((prev) => ({ ...prev, description: e.target.value }))} />

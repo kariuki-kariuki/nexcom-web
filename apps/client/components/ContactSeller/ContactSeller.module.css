@@ -1,7 +1,9 @@
 .bg {
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+  background-color: rgba(0, 0, 0, 0);
   border: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-8));
   padding: 0px;
+  border-radius: var(--mantine-spacing-md);
+  overflow: hidden;
 }
 
 .header {
@@ -18,4 +20,5 @@
 .scroll {
   background-color: light-dark(var(--mantine-color-white),
       var(--mantine-color-coco-1));
+  flex: 1;
 }

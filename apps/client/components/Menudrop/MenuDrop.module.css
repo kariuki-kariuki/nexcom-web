@@ -14,7 +14,7 @@
 .link {
   color: var(--mantine-color-teal-5);
   &:hover {
-    color: var(--mantine-color-teal-6);
+    color: var(--mantine-color-orange-6);
     background-color: var(--mantine-color-coco-1);
   }
 }

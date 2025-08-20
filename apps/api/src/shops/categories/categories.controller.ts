@@ -21,15 +21,12 @@ import { Roles } from '../../../utils/roles.decorator';
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  @Roles(UserRoles.SHOP_ADMIN)
-  @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.create(createCategoryDto);
   }
 
-  @UseInterceptors(CacheInterceptor)
   @Get()
   findAll() {
     return this.categoriesService.findAll();

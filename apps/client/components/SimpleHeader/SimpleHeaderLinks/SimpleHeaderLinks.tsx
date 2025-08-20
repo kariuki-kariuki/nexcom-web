@@ -2,7 +2,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { IconMessageCircle, IconShoppingBag, IconShoppingCart } from '@tabler/icons-react'
-import { Avatar, Box, Burger, Drawer, Group, Paper, Stack, Text } from '@mantine/core'
+import { Avatar, Burger, Drawer, Group, Paper, Stack, Text } from '@mantine/core'
 import DashboardLink, { LoginLink } from './DashboardLink'
 import classes from './SimpleHeaderLinks.module.css';
 import { useDisclosure } from '@mantine/hooks'
@@ -24,7 +24,7 @@ const SimpleHeaderLinks = () => {
           {links.map((link, idx) => <Link href={link.link} className={classes.link} key={idx}>{link.label}</Link>)}
           <DashboardLink />
         </Group>
-        <Paper bg="none" visibleFrom='md'>
+        <Paper shadow='0' bg="none" visibleFrom='md'>
           <MenuDrop />
         </Paper>
       </Group>
