@@ -59,7 +59,7 @@ export function NavbarNested({ categoriesdb }: IProps) {
 
   return (
     <Paper bg="none" h={'100%'}>
-      <Paper visibleFrom='sm' h={'100%'}>
+      <Paper bg="none" visibleFrom='sm' h={'100%'}>
         <NavbarNestedT categories={categories} />
       </Paper>
       <Paper hiddenFrom='sm'>

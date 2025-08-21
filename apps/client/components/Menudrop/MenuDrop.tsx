@@ -1,6 +1,6 @@
 'use client';
 
-import { Paper, Button, Menu, rem, useMantineColorScheme, Group, Text } from '@mantine/core';
+import { Paper, Button, Menu, rem, useMantineColorScheme, Group, Text, ButtonGroup } from '@mantine/core';
 import {
   IconMessageCircle,
   IconTrash,
@@ -20,31 +20,33 @@ import Dashboard from '../Profile/ProfileDashboard';
 import Link from 'next/link';
 import logout from '@/utils/logout';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
+import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
+import { useRouter } from 'next/navigation';
 
 
 export default function MenuDrop() {
   const [opened, { toggle }] = useDisclosure();
   const user = useGlobalStore(state => state.user)
   const setUser = useGlobalStore(state => state.setUser)
-
+  const router = useRouter()
   return (
     <Paper bg={'none'} px={'md'} className={classes.menu}>
       {user ?
         <DropDown toggle={toggle} />
         :
-        <Link href="/auth/login" className={classes.link}>
-          <Group>
-            <IconLogin size={18} />
-            <Text>Login</Text>
-          </Group>
-        </Link>}
+        <ButtonGroup>
+          <Button onClick={() => router.push('/auth/login')} leftSection={<IconLogin size={18} />} size='md' color='teal.7'>
+            Login
+          </Button>
+        <ColorSchemeToggle />
+        </ButtonGroup>}
       {user ? <Dashboard opened={opened} toggle={toggle} actUser={user} /> : ''}
     </Paper>
   );
 }
 
 
-const DropDown = ({toggle}: {toggle: () => void}) => {
+const DropDown = ({ toggle }: { toggle: () => void }) => {
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
   const setConversations = useGlobalStore((store) => store.setConversations)
   const user = useGlobalStore(state => state.user)

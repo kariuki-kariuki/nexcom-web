@@ -32,12 +32,14 @@
   background-color: var(--mantine-color-coco-4);
   border-radius: 10px 0px 10px 10px;
   padding: 5px 10px;
+  color: white;
 }
 
 .box_left {
   border-radius: 0px 10px 10px 10px;
   padding: 5px 10px;
-  background-color: light-dark(var(--matine-color-gray-8)) var(--mantine-color-gray-9);
+  color: white;
+  background-color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-gray-9));
 }
 
 

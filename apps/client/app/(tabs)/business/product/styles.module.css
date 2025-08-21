@@ -1,6 +1,8 @@
 .container {
   width: 100%;
   overflow: scroll;
+  background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-coco-1));
+
   @media (min-width: $mantine-breakpoint-sm) {
     width: 80%;
   }
@@ -8,7 +10,8 @@
 
 .navContainer {
   /* display: none; */
-  background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-coco-1));
+  background-color: light-dark(rgba(255, 255, 255, .7), rgba(0, 0, 0, .5));
+
   @media (min-width: $mantine-breakpoint-sm) {
     width: 40%;
     height: 100%;

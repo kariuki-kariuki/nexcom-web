@@ -1,8 +1,8 @@
 .title {
   color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
-  font-size: rem(70px);
+  font-size: rem(50px);
   font-weight: 900;
-  letter-spacing: rem(-2px);
+  letter-spacing: rem(2px);
 
   @media (max-width: $mantine-breakpoint-md) {
     font-size: rem(50px);
@@ -14,7 +14,7 @@
 }
 
 .bg {
-  /* background-image: url('/images/bg.jpg'); */
+  background-image: light-dark(url('/images/nexcom-bg-light.png'), url('/images/nexcom-bg.png'));
   background-position: center;
   background-size: cover;
   display: flex;
@@ -27,6 +27,8 @@
 .main {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+  background-color: light-dark(rgba(255, 255, 255, .7), rgba(0, 0, 0, .7));
   flex: 1;
+  padding-left: var(--mantine-spacing-xl);
 }

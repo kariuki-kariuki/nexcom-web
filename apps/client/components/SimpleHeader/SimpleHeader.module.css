@@ -1,5 +1,5 @@
 .card {
-    background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0));
+    background-color: light-dark(rgba(255, 255, 255, .9), rgba(0, 0, 0, .5));
     border-bottom: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-8));
 
     &:hover {
@@ -8,8 +8,9 @@
 }
 
 .link {
-    color: light-dark(var(--mantine-color-coco-0), var(--mantine-color-coco-2));
+    color: var(--mantine-color-orange-6);
     margin-left: var(--mantine-spacing-md);
+    font-weight: 900;
 }
 
 .input {

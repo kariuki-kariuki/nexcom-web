@@ -10,7 +10,7 @@ const SimpleHeader = () => {
             <Group justify='space-between'>
                 <Group justify="start">
                     <Avatar src="/logos/logo.png" />
-                    <Text py="sm">Nexcom</Text>
+                    <Text py="sm" className={classes.link}>Nexcom</Text>
                 </Group>
                 <SimpleHeaderLinks />
             </Group>

@@ -11,7 +11,7 @@ import {
   Paper
 } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import { IconCheck, IconChecks, IconShoppingBag } from '@tabler/icons-react';
+import { IconCheck, IconChecks, IconImageInPicture, IconPhoto, IconShoppingBag } from '@tabler/icons-react';
 import { ConversationProps, GlobalUser, Message, PayloadMessage } from '@/lib/@types/app';
 import { MessageState } from '@/lib/common/common';
 import { useSocketContext } from '@/lib/hooks/useSocket';
@@ -116,9 +116,12 @@ export function ConversationButton({ conversation }: Props) {
               ) : (
                 ''
               )}
-              <Text c={active ? '' : 'dimmed'} size="xs" lineClamp={1}>
-                {lastMessage?.message}
-              </Text>
+              <Group>
+                {lastMessage?.files && lastMessage.files.length > 0 && <IconPhoto stroke={1.5} size={18}/>}
+                <Text c={active ? '' : 'dimmed'} size="xs" lineClamp={1}>
+                  {lastMessage?.message}
+                </Text>
+              </Group>
             </Group>
           </div>
           <Flex direction={'column'} justify={'center'} align={'center'}>

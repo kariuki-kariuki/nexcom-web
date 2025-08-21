@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import classes from './SimpleHeaderLinks.module.css';
 import { IconDiamond } from '@tabler/icons-react';
-import { Paper } from '@mantine/core';
+import { Button, Paper } from '@mantine/core';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 const DashboardLink = () => {
   const user = useGlobalStore((state) => state.user);
@@ -21,7 +21,11 @@ export const LoginLink = () => {
   const user = useGlobalStore((state) => state.user);
   return (
     <div>
-      {!user && <Link href='/auth/login' className={classes.link}>Login</Link>}
+      {!user && <Link href='/auth/login' className={classes.link}>
+        <Button size='xl'>
+          Login
+        </Button>
+      </Link>}
     </div>
   )
 }
