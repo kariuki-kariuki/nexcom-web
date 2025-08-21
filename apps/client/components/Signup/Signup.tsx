@@ -5,6 +5,7 @@ import {
   Avatar,
   Box,
   Button,
+  Card,
   Flex,
   Group,
   Input,
@@ -62,59 +63,61 @@ function SignUp() {
     setLoading(false)
   }
   return (
-    <Paper className={classes.main} mih="100%">
+    <Paper className={classes.main} mih="100vh">
       <LoadingOverlay visible={loading} />
-      <Flex align="center" h="fit-content" pt="md" justify="center">
-        <Stack gap="lg" align="center">
-          <Group justify="start" mb="md">
-            <Avatar size="lg" src="/logos/logo.png" />
-            <Text py="sm">SignUp</Text>
-          </Group>
-          <InputWrapper label="" error={error}>
-            <Input
-              type="text"
-              name="firstName"
-              required
-              size="xl"
-              placeholder="First name"
-              value={details.firstName}
-              onChange={(e) => setDetails(prev => ({ ...prev, firstName: e.target.value }))}
-              classNames={{ input: classes.input }}
-            />
-          </InputWrapper>
-          <InputWrapper label="" error={error}>
-            <Input
-              type="text"
-              name="lastName"
-              required
-              size="xl"
-              value={details.lastName}
-              onChange={(e) => setDetails(prev => ({ ...prev, lastName: e.target.value }))}
-              placeholder="Last name"
-              classNames={{ input: classes.input }}
-            />
-          </InputWrapper>
-          <InputWrapper label="" error={error}>
-            <Input
-              type="email"
-              name="email"
-              required
-              size="xl"
-              placeholder="Email"
-              value={details.email}
-              onChange={(e) => setDetails(prev => ({ ...prev, email: e.target.value }))}
-              classNames={{ input: classes.input }}
-            />
-          </InputWrapper>
-          <PasswordStrength value={details.password} setPassword={setDetails} />
-          <Stack justify="center" gap={"md"}>
-            <Text>Have an account? <Link href="/auth/login" className='text-blue-700 hover:text-gray-500'>Login.</Link></Text>
+      <Flex align="center" p={0} h="100vh" justify="end" className={classes.flex}>
+        <Card withBorder shadow='lg' h="100%" py="xl" className={classes.card}>
+          <Stack gap="lg" align="center">
+            <Group justify="start" mb="md">
+              <Avatar size="lg" src="/logos/logo.png" />
+              <Text py="sm">SignUp</Text>
+            </Group>
+            <InputWrapper label="" error={error}>
+              <Input
+                type="text"
+                name="firstName"
+                required
+                size="lg"
+                placeholder="First name"
+                value={details.firstName}
+                onChange={(e) => setDetails(prev => ({ ...prev, firstName: e.target.value }))}
+                classNames={{ input: classes.input }}
+              />
+            </InputWrapper>
+            <InputWrapper label="" error={error}>
+              <Input
+                type="text"
+                name="lastName"
+                required
+                size="lg"
+                value={details.lastName}
+                onChange={(e) => setDetails(prev => ({ ...prev, lastName: e.target.value }))}
+                placeholder="Last name"
+                classNames={{ input: classes.input }}
+              />
+            </InputWrapper>
+            <InputWrapper label="" error={error}>
+              <Input
+                type="email"
+                name="email"
+                required
+                size="lg"
+                placeholder="Email"
+                value={details.email}
+                onChange={(e) => setDetails(prev => ({ ...prev, email: e.target.value }))}
+                classNames={{ input: classes.input }}
+              />
+            </InputWrapper>
+            <PasswordStrength value={details.password} setPassword={setDetails} />
+            <Stack justify="center" gap={"md"}>
+              <Text>Have an account? <Link href="/auth/login" className='text-blue-700 hover:text-gray-500'>Login.</Link></Text>
 
-            <Button type="submit" size="lg" radius="xl" color="coco.0" onClick={handleSubmit}>
-              SignUp
-            </Button>
+              <Button type="submit" size="lg" radius="lg" color="coco.0" onClick={handleSubmit}>
+                SignUp
+              </Button>
+            </Stack>
           </Stack>
-        </Stack>
+        </Card>
       </Flex>
     </Paper>
   );

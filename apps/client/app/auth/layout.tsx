@@ -7,7 +7,6 @@ interface IProps {
 const layout = ({ children }: IProps) => {
   return (
     <div className={classes.main}>
-      <SimpleHeader />
       <div className={classes.section}>{children}</div>
     </div>
   )

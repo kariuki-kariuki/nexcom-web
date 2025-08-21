@@ -1,0 +1,47 @@
+.bg {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));
+  background-color: light-dark(rgba(255, 255, 255, .7), rgba(0, 0, 0, .5));
+}
+
+.title {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-size: rem(50px);
+  font-weight: 900;
+  letter-spacing: rem(2px);
+
+  @media (max-width: var(--mantine-breakpoint-md)) {
+    font-size: rem(36px);
+  }
+}
+
+.description {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-size: rem(18px);
+  max-width: 700px;
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: light-dark(
+    rgba(255, 255, 255, 0.7),
+    rgba(0, 0, 0, 0.7)
+  );
+  flex: 1;
+  padding: var(--mantine-spacing-xl);
+  text-align: center;
+  flex-direction: row;
+}
+
+.image {
+  margin-top: 2rem;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 100%;
+}

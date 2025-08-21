@@ -5,6 +5,7 @@ import {
   Avatar,
   Box,
   Button,
+  Card,
   Flex,
   Group,
   Input,
@@ -55,40 +56,44 @@ function Login() {
   return (
     <Paper className={classes.main} mih="100%">
       <LoadingOverlay visible={loading} />
-      <Flex align="center" h="70vh" justify="center">
-        <Stack gap="lg" align="center">
-          <Group justify="start" mb="xl">
+      <Flex align="center" h="100vh" justify="end" className={classes.flex}>
+        <Card withBorder shadow='lg' h='100%' radius="0" py="xl" className={classes.card}>
+          <Group justify="start" mb="lg" w='100%'>
             <Avatar size="lg" src="/logos/logo.png" />
-            <Text py="sm">Login</Text>
+            <Text size='sm' py="sm">Login to manage<br />your account</Text>
           </Group>
-          <InputWrapper label="" error={error}>
-            <Input
-              type="email"
-              name="email"
+          <Stack gap="lg" align="center">
+            <InputWrapper label="" error={error}>
+              <Input
+                type="email"
+                name="email"
+                required
+                size="lg"
+                radius="lg"
+                placeholder="Email"
+                classNames={{ input: classes.input }}
+                value={loginData.email}
+                onChange={(e) => setLoginData(prev => ({ ...prev, email: e.target.value }))}
+              />
+            </InputWrapper>
+            <PasswordInput
               required
-              size="xl"
-              placeholder="Email"
+              w={'100%'}
+              size="lg"
+              radius="lg"
+              value={loginData.password}
+              onChange={(e) => setLoginData(prev => ({ ...prev, password: e.target.value }))}
+              placeholder="Password"
               classNames={{ input: classes.input }}
-              value={loginData.email}
-              onChange={(e) => setLoginData(prev => ({ ...prev, email: e.target.value }))}
             />
-          </InputWrapper>
-          <PasswordInput
-            required
-            w={'100%'}
-            size="xl"
-            value={loginData.password}
-            onChange={(e) => setLoginData(prev => ({ ...prev, password: e.target.value }))}
-            placeholder="Password"
-            classNames={{ input: classes.input }}
-          />
-          <Stack justify="center" gap={"md"} >
-            <Text>Don't have an account? <Link href="/auth/signup">Signup.</Link></Text>
-            <Button type="submit" size="lg" radius="xl" className={classes.btn} onClick={handleSubmit}>
-              Login
-            </Button>
+            <Stack justify="center" gap={"md"} >
+              <Text>Don't have an account? <Link href="/auth/signup">Signup.</Link></Text>
+              <Button type="submit" size="lg" radius="lg" className={classes.btn} onClick={handleSubmit}>
+                Login
+              </Button>
+            </Stack>
           </Stack>
-        </Stack>
+        </Card>
       </Flex>
     </Paper>
   );

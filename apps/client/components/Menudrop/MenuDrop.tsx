@@ -35,10 +35,10 @@ export default function MenuDrop() {
         <DropDown toggle={toggle} />
         :
         <ButtonGroup>
-          <Button onClick={() => router.push('/auth/login')} leftSection={<IconLogin size={18} />} size='md' color='teal.7'>
+          <Button onClick={() => router.push('/auth/login')} leftSection={<IconLogin size={18} />} size='md' color='coco.4'>
             Login
           </Button>
-        <ColorSchemeToggle />
+          <ColorSchemeToggle />
         </ButtonGroup>}
       {user ? <Dashboard opened={opened} toggle={toggle} actUser={user} /> : ''}
     </Paper>

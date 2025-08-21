@@ -87,7 +87,7 @@ export default function PasswordStrength({ value, setPassword }: {value: string,
         }
         placeholder="Your password"
         c={'white'}
-        size='xl'
+        size='lg'
         name='password'
         type='password'
         required

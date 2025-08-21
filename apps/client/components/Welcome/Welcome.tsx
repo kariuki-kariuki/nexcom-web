@@ -25,13 +25,18 @@ export function Welcome() {
             </Text>
             com 
           </Title>
-          <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">
+          <Text ta="center" size="lg" className={classes.description} maw={580} mx="auto" mt="xl">
             The Future of Connected Commerce.
           </Text>
           <Group justify="center" mt="xl">
             <Link href='/business/product'>
-              <Button size="xl" color="coco.0" radius="xl" fw="bold" onClick={() => play()}>
-                Get Started
+              <Button size="lg" color="coco.0" radius="xl" fw="bold" onClick={() => play()}>
+                Start Shopping
+              </Button>
+            </Link>
+             <Link href='/chat'>
+              <Button size="lg" color="orange.7" radius="xl" fw="bold" onClick={() => play()}>
+                Start Charting
               </Button>
             </Link>
           </Group>

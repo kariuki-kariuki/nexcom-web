@@ -9,6 +9,10 @@
   }
 }
 
+.description {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+}
+
 .section {
   margin-bottom: calc(var(--mantine-spacing-xl) * 6);
 }
@@ -27,7 +31,7 @@
 .main {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: center;
   background-color: light-dark(rgba(255, 255, 255, .7), rgba(0, 0, 0, .7));
   flex: 1;
   padding-left: var(--mantine-spacing-xl);
