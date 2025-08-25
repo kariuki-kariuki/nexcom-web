@@ -3,10 +3,7 @@
   flex-direction: column;
   height: 100vh;
   color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));
-  background-color: light-dark(rgba(255, 255, 255, 0.7), rgba(0, 0, 0, 0.0));
-}
-
-.section {
+  background-color: light-dark(rgba(255, 255, 255, 0.7), rgba(0, 0, 0, 0.5));
 }
 
 .title {
@@ -32,10 +29,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: light-dark(
-    rgba(255, 255, 255, 0.7),
-    rgba(0, 0, 0, 0.7)
-  );
   flex: 1;
   padding: var(--mantine-spacing-xl);
   text-align: center;
@@ -52,6 +45,5 @@
   margin-top: 2rem;
   max-width: 400px;
   width: 100%;
-  border-radius: var(--mantine-radius-xl);
   box-shadow: var(--mantine-shadow-md);
 }

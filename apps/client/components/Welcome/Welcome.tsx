@@ -35,7 +35,7 @@ export function Welcome() {
               </Button>
             </Link>
              <Link href='/chat'>
-              <Button size="lg" color="orange.7" radius="xl" fw="bold" onClick={() => play()}>
+              <Button size="lg" color="coco.4" radius="xl" fw="bold" onClick={() => play()}>
                 Start Charting
               </Button>
             </Link>
