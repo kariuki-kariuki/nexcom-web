@@ -1,6 +1,6 @@
 "use client";
 
-import { Title, Text, Image, Container } from "@mantine/core";
+import { Title, Text, Image, Container, Flex } from "@mantine/core";
 import styles from "./ShoppingFeatureInfo.module.css";
 import { IconShoppingBag } from "@tabler/icons-react";
 
@@ -8,7 +8,8 @@ export default function ShoppingFeatureInfo() {
   return (
     <div className={styles.bg}>
       <Container size="lg">
-        <div className={styles.main}>
+        <Flex direction={{ base: 'column', md: "row" }} className={styles.main}>
+
           <div className={styles.content}>
             <Title order={1} className={styles.title}>
               <IconShoppingBag stroke={1.5} size={36} /> Shopping & Business Made Easy
@@ -33,7 +34,7 @@ export default function ShoppingFeatureInfo() {
             alt="Shopping dashboard illustration"
             className={styles.image}
           />
-        </div>
+        </Flex>
       </Container>
     </div>
   );

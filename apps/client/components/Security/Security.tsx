@@ -1,11 +1,14 @@
 "use client";
 
-import { Title, Text, Image } from "@mantine/core";
+import { Title, Text, Image, Flex } from "@mantine/core";
 import styles from "./security.module.css";
 
 export default function Security() {
     return (
-        <section className={styles.section}>
+        <Flex
+        direction={{ base: 'column-reverse', lg: 'row'}}
+         className={styles.section
+        }>
              <Image
                 src="/images/e2e.jpg"
                 alt="End-to-end encryption illustration"
@@ -25,6 +28,6 @@ export default function Security() {
             </div>
 
            
-        </section>
+        </Flex>
     );
 }

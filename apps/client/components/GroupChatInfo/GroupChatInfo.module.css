@@ -1,7 +1,7 @@
 .bg {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));
   background-color: light-dark(rgba(255, 255, 255, .7), rgba(0, 0, 0, .5));
 }

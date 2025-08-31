@@ -1,6 +1,6 @@
 "use client";
 
-import { Title, Text, Image, Container } from "@mantine/core";
+import { Title, Text, Image, Container, Flex } from "@mantine/core";
 import styles from "./GroupChatInfo.module.css";
 import { IconUsersGroup } from "@tabler/icons-react";
 
@@ -8,7 +8,7 @@ export default function GroupChatInfo() {
     return (
         <div className={styles.bg}>
             <Container size="lg">
-            <div className={styles.main}>
+            <Flex direction={{base: 'column', md: "row"}}className={styles.main}>
                 <div>
                     <Title order={1} className={styles.title}>
                         <IconUsersGroup stroke={1.5} size={36} /> Group Chat Made Simple
@@ -22,15 +22,13 @@ export default function GroupChatInfo() {
                         safe. Organize communities, collaborate on projects, or just have
                         fun chatting together.
                     </Text>
-
-
                 </div>
                 <Image
                     src="/images/group-chat.jpeg"
                     alt="Group chat illustration"
                     className={styles.image}
                 />
-            </div>
+            </Flex>
             </Container>
         </div>
 
