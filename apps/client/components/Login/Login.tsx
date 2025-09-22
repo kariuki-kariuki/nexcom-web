@@ -43,7 +43,7 @@ function Login() {
         localStorage.setItem('token', data.token);
         setUser(data.user);
         setLoading(false);
-        router.push('/chat')
+        router.back()
       });
 
     }

@@ -8,7 +8,8 @@ import {
   Flex,
   Box,
   useMantineTheme,
-  Paper
+  Paper,
+  Indicator
 } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { IconCheck, IconChecks, IconImageInPicture, IconPhoto, IconShoppingBag } from '@tabler/icons-react';
@@ -35,7 +36,26 @@ export function ConversationButton({ conversation }: Props) {
   const tablet = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
   const path = usePathname()
   const active = path.endsWith(conversation.id);
+  const [onlineStatus, setOnlineStatus] = useState('offline')
+  const user: GlobalUser = conversation.users[0];
 
+  const socket = useSocketContext();
+
+  useEffect(() => {
+    socket.emit("online-status", { userId: user.id }, (res: { userId: string, status: string }) => {
+      setOnlineStatus(res.status);
+    })
+
+    socket.on("online-status", (res: { userId: string, status: string }) => {
+      if (res.userId === user?.id) {
+        setOnlineStatus(res.status);
+      }
+    })
+
+    return () => {
+      socket.off('online-status')
+    }
+  }, [socket, user, onlineStatus])
   // Sort messages outside of render
   const sortedMessages = conversation.messages?.sort((a, b) => {
     const timeA = new Date(a.created_at).getTime();
@@ -44,7 +64,6 @@ export function ConversationButton({ conversation }: Props) {
   });
 
   const lastMessage = sortedMessages ? sortedMessages[sortedMessages.length - 1] : null;
-  const user: GlobalUser = conversation.users[0];
 
   // Calculate unread messages count inside useEffect
   useEffect(() => {
@@ -60,7 +79,6 @@ export function ConversationButton({ conversation }: Props) {
   }, [conversation]);
 
   const date = lastMessage ? new Date(lastMessage?.updated_at) : null;
-  const socket = useSocketContext();
 
   useEffect(() => {
     if (count > 0) {
@@ -105,7 +123,9 @@ export function ConversationButton({ conversation }: Props) {
         radius={0}
       >
         <Group>
-          <Avatar src={user?.avatar?.signedUrl} size='lg' radius="xl" name={user?.fullName} />
+          <Indicator inline size={10} offset={7} position="bottom-end" color={onlineStatus === 'online' ? 'green': 'red'} withBorder>
+            <Avatar src={user?.avatar?.signedUrl} size='lg' radius="xl" name={user?.fullName} />
+          </Indicator>
           <div style={{ flex: 1 }}>
             <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
               {user?.fullName}
@@ -117,7 +137,7 @@ export function ConversationButton({ conversation }: Props) {
                 ''
               )}
               <Group>
-                {lastMessage?.files && lastMessage.files.length > 0 && <IconPhoto stroke={1.5} size={18}/>}
+                {lastMessage?.files && lastMessage.files.length > 0 && <IconPhoto stroke={1.5} size={18} />}
                 <Text c={active ? '' : 'dimmed'} size="xs" lineClamp={1}>
                   {lastMessage?.message}
                 </Text>

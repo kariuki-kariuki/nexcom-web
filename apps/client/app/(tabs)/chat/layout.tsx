@@ -19,6 +19,7 @@ const ChatLayout = ({ children }: { children: ReactNode }) => {
       <Paper
         className={mobile ? classes.linksMobile : classes.links}
         data-active={isHome || undefined}
+        bg="none"
         w={{ base: '100%', sm: '50%', md: '40%', lg: '30%', xl: '25%' }}
       >
         <ConversationButtonList />

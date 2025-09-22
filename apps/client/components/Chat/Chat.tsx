@@ -12,7 +12,7 @@ import { ConvsersationType } from '../../lib/@types/app';
 function Chat() {
   const conversations = useGlobalStore((state) => state.conversations)
   return (
-    <Paper className={classes.container}>
+    <div className={classes.container}>
       <div className={classes.main}>
         <Stack bg="none" justify='center' align='center'>
           <AvatarGroup w="fit-content">
@@ -28,7 +28,7 @@ function Chat() {
           <Text py="md">Select a Conversation and start Talking</Text>
         </Stack>
       </div>
-    </Paper>
+    </div>
   )
 }
 

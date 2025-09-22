@@ -1,6 +1,6 @@
 .container {
   height: 100vh;
-  background-image: light-dark(url('/images/nexcom-bg-light.png'), url('/images/nexcom-bg.png'));
+  /* background-image: light-dark(url('/images/nexcom-bg-light.png'), url('/images/nexcom-bg.png')); */
   background-position: center;
   background-size: cover;
 }
@@ -14,5 +14,5 @@
   flex-wrap: nowrap;
   height: 100%;
   flex: 1;
-  background-color: light-dark(rgba(255, 255, 255, .85), rgba(0, 0, 0, .7));
+  background-color: light-dark(rgba(255, 255, 255, .85), rgba(0, 0, 0, .5));
 }
