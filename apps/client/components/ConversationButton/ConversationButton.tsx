@@ -6,18 +6,16 @@ import {
   Card,
   Badge,
   Flex,
-  Box,
   useMantineTheme,
   Paper,
   Indicator
 } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import { IconCheck, IconChecks, IconImageInPicture, IconPhoto, IconShoppingBag } from '@tabler/icons-react';
+import { IconCheck, IconChecks, IconPhoto, IconShoppingBag } from '@tabler/icons-react';
 import { ConversationProps, GlobalUser, Message, PayloadMessage } from '@/lib/@types/app';
 import { MessageState } from '@/lib/common/common';
 import { useSocketContext } from '@/lib/hooks/useSocket';
 import { formatDate } from '@/utils/helpers';
-import { useMediaQuery } from '@mantine/hooks';
 import classes from './ConversationButton.module.css'
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 import Link from 'next/link';
@@ -33,7 +31,6 @@ export function ConversationButton({ conversation }: Props) {
   const updateMessage = useGlobalStore((state) => state.updateMessage)
   const [count, setCount] = useState(0);
   const theme = useMantineTheme();
-  const tablet = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
   const path = usePathname()
   const active = path.endsWith(conversation.id);
   const [onlineStatus, setOnlineStatus] = useState('offline')
@@ -127,7 +124,7 @@ export function ConversationButton({ conversation }: Props) {
             <Avatar src={user?.avatar?.signedUrl} size='lg' radius="xl" name={user?.fullName} />
           </Indicator>
           <div style={{ flex: 1 }}>
-            <Text size="sm" c={active ? 'white' : 'teal'} fw={500}>
+            <Text size="sm" c="teal" fw={500}>
               {user?.fullName}
             </Text>
             <Group py="3px" wrap="nowrap">
@@ -145,7 +142,7 @@ export function ConversationButton({ conversation }: Props) {
             </Group>
           </div>
           <Flex direction={'column'} justify={'center'} align={'center'}>
-            <Text c={active ? 'white' : 'lime'} size="xs">
+            <Text c={'lime'} size="xs">
               {date ? formatDate(date) : ''}
             </Text>
             {count > 0 ? (

@@ -43,7 +43,7 @@ const MessageCard = ({ message, isGroup }: Props) => {
         <Group align='start'>
           {isGroup && !isOutgoing && <Avatar src={message.user.avatar?.signedUrl} name={message.user.fullName} />}
           <Paper className={isOutgoing ? classes.box_right : classes.box_left} m={0}>
-            {isGroup && !isOutgoing && <Text c="teal.6">{message.user.fullName}</Text>}
+            {isGroup && !isOutgoing && <Text c="teal.6" size='sm'>{message.user.fullName}</Text>}
             <MessageImages images={message.files} />
             <Text className="font-serif" pr={0}>
               {message?.message}
@@ -52,7 +52,7 @@ const MessageCard = ({ message, isGroup }: Props) => {
             {message.product && <OgMessage product={message.product} outGoing={isOutgoing} />}
 
             <Group align="center" mt={0} pl={20} gap={'sm'} justify="end">
-              <Text c={'gray.4'} fz={rem(10)} fw={100}>
+              <Text c={'lime'} fz={rem(10)} fw={100}>
                 {date.toLocaleString('en-US', {
                   hour: 'numeric',
                   minute: 'numeric',

@@ -1,22 +1,17 @@
 .convoButton {
-    display: block;
-    width: 100%;
-    /* margin-bottom: var(--mantine-spacing-xs); */
-    padding: var(--mantine-spacing-md);
-    color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
-    background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
-    border-bottom: 1px solid light-dark(var(--mantine-color-gray-0), var(--mantine-color-gray-8));
-    
-    &:hover {
-      background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-coco-2));
-    }
+  display: block;
+  width: 100%;
+  margin-bottom: 2px;
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
+  background-color: light-dark(rgba(255, 255, 255, .0), rgba(0, 0, 0, .0));
+  border-radius: var(--mantine-spacing-sm);
 
-   &[data-active] {
-    width: 100%;
-    padding: var(--mantine-spacing-md);
-    color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-0));
-    background-color: var(--mantine-color-coco-4);
-    }
+  &:hover {
+    background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-coco-2));
   }
-
-  
+  &[data-active] {
+    width: 100%;
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
+    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-gray-9));
+  }
+}

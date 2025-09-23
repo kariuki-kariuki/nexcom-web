@@ -139,7 +139,7 @@ export function GroupButton({ conversation }: Props) {
             </Group>
           </div>
           <Flex direction={'column'} justify={'center'} align={'center'}>
-            <Text c={active ? 'white' : 'lime'} size="xs">
+            <Text c='lime' size="xs">
               {date ? formatDate(date) : ''}
             </Text>
             {count > 0 ? (
