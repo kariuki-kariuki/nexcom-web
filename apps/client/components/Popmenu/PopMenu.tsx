@@ -10,13 +10,10 @@ import {
   IconShoppingBagCheck
 } from '@tabler/icons-react';
 import { useContext } from 'react';
-import {
-  ScreenContext,
-  screenContextType
-} from '../../lib/context/screenContext';
+
 
 function PopMenu() {
-  const { updateActiveScreen } = useContext(ScreenContext) as screenContextType;
+  
   return (
     <Menu shadow="md" width={200}>
       <Menu.Target>
@@ -30,7 +27,7 @@ function PopMenu() {
             <IconShoppingBagCheck style={{ width: rem(14), height: rem(14) }} />
           }
           onClick={() => {
-            updateActiveScreen('shop');
+            
           }}
         >
           Shop

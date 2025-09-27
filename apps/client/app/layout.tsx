@@ -1,5 +1,3 @@
-import NewConversationProvider from '@/lib/context/newConversation';
-import ScreenProvider from '@/lib/context/screenContext';
 import { theme } from '@/theme';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import React from 'react';
@@ -89,12 +87,8 @@ export default function RootLayout({
           <GlobalStoreProvider>
             <SocketProvider>
               <WebSocketProvider>
-                <ScreenProvider>
-                  <NewConversationProvider>
-                    <Notifications />
-                    <div id="root">{children}</div>
-                  </NewConversationProvider>
-                </ScreenProvider>
+                <Notifications />
+                <div id="root">{children}</div>
               </WebSocketProvider>
             </SocketProvider>
           </GlobalStoreProvider>
