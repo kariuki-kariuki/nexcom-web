@@ -1,0 +1,39 @@
+.progressLabel {
+  font-family:
+    Greycliff CF,
+    var(--mantine-font-family);
+  line-height: 1;
+  font-size: var(--mantine-font-size-sm);
+}
+
+.stats {
+  background-color: light-dark(var(--mantine-color-white), rgba(0, 0, 0, .2));
+  box-shadow: 5px 5px 5px light-dark(rgba(0, 0, 0, .3), rgba(0, 0, 0, 0.7));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.stat {
+  border-bottom: rem(3px) solid;
+  padding-bottom: rem(5px);
+}
+
+.statCount {
+  font-family:
+    Greycliff CF,
+    var(--mantine-font-family);
+  line-height: 1.3;
+}
+
+.diff {
+  font-family:
+    Greycliff CF,
+    var(--mantine-font-family);
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
+}

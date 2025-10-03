@@ -1,0 +1,19 @@
+{
+  "name": "@repo/nexcom-types",
+  "version": "1.0.0",
+  "description": "Global types",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+     "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "eslint": "^9.34.0",
+    "typescript": "5.9.2"
+  },
+  "author": "Martin Kariuki",
+  "license": "MIT"
+}

@@ -1,0 +1,21 @@
+.profile {
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+ 
+}
+
+.main {
+  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0));
+}
+.sections {
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-1));
+
+  margin-top: var(--mantinr-spacing-md);
+}
+
+.card {
+  background-color: var(--mantine-color-body);
+}
+
+.avatar {
+  border: rem(2px) solid var(--mantine-color-body);
+}

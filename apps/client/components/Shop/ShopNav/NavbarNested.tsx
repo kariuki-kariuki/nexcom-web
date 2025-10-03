@@ -28,7 +28,7 @@ function NavbarNestedT({ categories, toggle, opened }: INavbar) {
       <div className={classes.header}>
         <Group justify="space-between" h="50">
           <Code fw={700}>Filter</Code>
-          <SearchByImage />
+          {/* <SearchByImage /> */}
           {toggle &&
             <Burger opened={opened} onClick={toggle} />
           }

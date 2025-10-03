@@ -1,0 +1,27 @@
+.admin {
+  background-color: light-dark(
+    var(--mantine-color-coco-0),
+    var(--mantine-color-coco-0)
+  );
+}
+
+
+.card {
+  background-color: rgba(0, 0, 0, .3);
+}
+
+
+.scroll {
+  width: 100%;
+  height: 100%;
+  background-color: light-dark(var(--mantine-color-white),
+      var(--mantine-color-coco-1));
+  padding: 5px 5px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+
+  @media (min-width: $mantine-breakpoint-sm) {
+    padding: 10px;
+  }
+}

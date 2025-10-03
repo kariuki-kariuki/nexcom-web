@@ -2,8 +2,8 @@
 import { Paper } from '@mantine/core';
 import { StatsGrid } from './components/StatsGrid/StatsGrid';
 import Header from './components/Header/Header';
-import { Product } from '@/lib/@types/shop';
 import ProductAnalyticsTable from '../Products/ProductAnalyticsTable/ProductAnalyticsTable';
+import { Product } from '@repo/nexcom-types';
 
 interface IPros {
   products: Product[],

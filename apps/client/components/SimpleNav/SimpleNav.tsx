@@ -46,16 +46,7 @@ const SimpleNav = () => {
   const isChat = useMemo(() => pathName.startsWith('/chat/'), [pathName]);
   const router = useRouter();
 
-  const links = useMemo(() => {
-    let result = [...defaultLinks];
-    if (user?.shop) {
-      result = [{ label: 'Dashboard', link: '/dashboard', icon: IconDiamondFilled }, ...result];
-    }
-    if (dashboard) {
-      result = [...dashboardLinks, ...result];
-    }
-    return result;
-  }, [user?.shop, dashboard]);
+  
 
   return (
     <div className={`${classes.main} ${mobile && isChat ? classes.mobile : ''}`} data-active={isChat || undefined}>
@@ -67,7 +58,7 @@ const SimpleNav = () => {
             name={user?.fullName}
             style={{ cursor: 'pointer' }}
           />
-          {links.map((link) => (
+          {defaultLinks.map((link) => (
             <Link
               href={link.link}
               className={classes.link}
