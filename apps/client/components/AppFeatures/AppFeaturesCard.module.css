@@ -1,0 +1,50 @@
+.title {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-size: rem(50px);
+  font-weight: 900;
+  letter-spacing: rem(2px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    font-size: rem(50px);
+  }
+}
+
+.card {
+    background-color: light-dark(rgba(255, 255, 255, .7), rgba(0, 0, 0, .5));
+    border: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-7));
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    border-radius: 20;
+    margin-bottom: var(--mantine-spacing-sm);
+
+    @media (min-width: $mantine-breakpoint-xs) {
+        width: 48%;
+    }
+
+    @media (min-width: $mantine-breakpoint-sm) {
+        width: 48%;
+    }
+
+    @media (min-width: $mantine-breakpoint-md) {
+        width: 32%;
+    }
+
+    /*
+  @media (min-width: $mantine-breakpoint-lg) {
+    width: 24%;
+  } */
+
+    &:hover {
+        scale: 1.04;
+        transition-duration: 1s;
+    }
+}
+
+.features {
+    background-color: light-dark(rgba(255, 255, 255, .7), rgba(0, 0, 0, .5));
+    background: light-dark(rgba(255, 255, 255, .7), radial-gradient(circle, rgba(98, 114, 164, 1) 0%, rgba(29, 27, 34, 1) 73%, rgba(40, 42, 54, 1) 100%));
+}
+
+.card_section {
+    border-top: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-coco-4));
+}
