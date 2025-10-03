@@ -23,7 +23,7 @@ export const MotionWrapper = ({
   children,
   direction = "up",
   variants,
-  amount = 0.6,
+  amount = 0.3,
   once = true,
   className,
   style,

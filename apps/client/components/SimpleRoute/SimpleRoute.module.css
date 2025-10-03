@@ -21,6 +21,6 @@
   }
 
   &[data-active]{
-    color: var(--mantine-color-orange-7);
+    color: var(--mantine-color-coco-5);
   }
 }

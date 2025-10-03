@@ -57,7 +57,7 @@ export function FooterLinks() {
 
   return (
     <footer className={classes.footer}>
-      <Container className={classes.inner}>
+      <Container size="xl" className={classes.inner}>
         <div className={classes.logo}>
           <Avatar size={30} src='/images/logo.png'/>
           <Text size="xs" c="dimmed" className={classes.description}>
@@ -66,9 +66,9 @@ export function FooterLinks() {
         </div>
         <div className={classes.groups}>{groups}</div>
       </Container>
-      <Container className={classes.afterFooter}>
+      <Container size="100%" className={classes.afterFooter}>
         <Text c="dimmed" size="sm">
-          © 2020 mantine.dev. All rights reserved.
+          © 2025 nexcom.site All rights reserved.
         </Text>
 
         <Group gap={0} className={classes.social} justify="flex-end" wrap="nowrap">

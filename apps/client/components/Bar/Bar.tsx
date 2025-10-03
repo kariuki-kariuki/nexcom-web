@@ -94,7 +94,7 @@ function Details({
     <Group onClick={() => toggle()} wrap='nowrap'>
       <Avatar src={avatar} size={mobile ? 'md' : "lg"} name={name} />
       <Stack gap={0} >
-        <Text fz={mobile ? 'xs' : 'am'}>{name}</Text>
+        <Text c="coco.5" fz={mobile ? 'xs' : 'am'}>{name}</Text>
         <Text fz={'xs'} c={onlineStatus === "online" ? "green" : "dimmed"} flex={1} lineClamp={1} w={{ base: '100%', sm: '80%' }}>
           {onlineStatus}
         </Text>

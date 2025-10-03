@@ -124,7 +124,7 @@ export function ConversationButton({ conversation }: Props) {
             <Avatar src={user?.avatar?.signedUrl} size='lg' radius="xl" name={user?.fullName} />
           </Indicator>
           <div style={{ flex: 1 }}>
-            <Text size="sm" c="teal" fw={500}>
+            <Text size="sm" c="coco.5" fw={500}>
               {user?.fullName}
             </Text>
             <Group py="3px" wrap="nowrap">

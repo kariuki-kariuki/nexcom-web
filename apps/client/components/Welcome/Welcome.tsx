@@ -13,7 +13,7 @@ export function Welcome() {
       <SimpleHeader />
       <div className={classes.main}>
         <section className={classes.section}>
-          <Title className={classes.title} ta="center" mt={100}>
+          <Title c="coco.5" className={classes.title} ta="center" mt={100}>
             Welcome to{' '}
             <Text
               inherit

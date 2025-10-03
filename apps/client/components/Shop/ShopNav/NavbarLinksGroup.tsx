@@ -45,7 +45,7 @@ export function LinksGroup({
         <Link href={link} className={classes.link} data-active={link === pathname || undefined}>
           <Group justify="space-between" gap={0}>
             <Paper bg="none" style={{ display: 'flex', alignItems: 'center' }}>
-              <Paper  bg="none" ml="md" c={link === pathname ? "orange.8" : ''}>{name}</Paper>
+              <Paper  bg="none" ml="md" c={link === pathname ? "coco.5" : ''}>{name}</Paper>
             </Paper>
             {hasCategories && sub_category.length > 1 && (
               <IconChevronRight
