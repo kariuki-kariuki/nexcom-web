@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useCallback, ReactNode, createContext, useState, useContext, useMemo } from "react";
-import { AddUserInGroup, AddUsersToGroupDTO, ChatState, ConversationProps, GlobalUser, NewMessage, PayloadMessage, UpdateGroupProfile, UpdateProfile, UserActionDTO } from "../@types/app";
+import { AddUserInGroup, AddUsersToGroupDTO, ChatState, ConversationProps, GlobalUser, NewMessage, PayloadMessage, UpdateGroupProfile, UpdateProfile, UserActionDTO } from "@repo/nexcom-types";
 import { useSocketContext } from "./useSocket";
 import { datasource } from "../common/datasource";
 import { useGlobalStore } from "../context/global-store.provider";

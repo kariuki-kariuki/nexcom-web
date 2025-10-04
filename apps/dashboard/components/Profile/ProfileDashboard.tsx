@@ -1,4 +1,4 @@
-import { GlobalUser } from '@/lib/@types/app';
+import { GlobalUser } from '@repo/nexcom-types';
 import Profile from './Profile/Profile';
 import classes from './Dashboard.module.css';
 import { Drawer } from '@mantine/core';

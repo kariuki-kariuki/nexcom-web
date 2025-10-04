@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Button, Dialog, Group, Text, TextInput, useMantineTheme } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import classes from './NewCategory.module.css'
-import { datasource } from '@/lib/common/datasource';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import { Category } from '@/lib/@types/shop';
+import { datasource } from '@repo/shared-logic';
+import { Category } from '@repo/nexcom-types';
 
 interface Props {
   setCategories: (updater: (categories: Category[]) => Category[]) => void;

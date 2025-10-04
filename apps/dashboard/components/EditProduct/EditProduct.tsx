@@ -20,14 +20,14 @@ import {
 import { FileWithPath } from '@mantine/dropzone';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { Category, ImageInterface, Product } from '../../lib/@types/shop';
-import { DropzoneButton } from '../DropzoneButton/DropzoneButton';
-import { ProductCorousel } from '../ImageCarousel/ImageCarousel';
+import { Category, ImageInterface, Product } from '@repo/nexcom-types';
 import Previews from '../Previews/Previews';
 import { createImage } from './create';
 import PriceSize from './PriceSize/PriceSize';
 import classes from './EditProduct.module.css';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
+import { DropzoneButton } from '../Admin/products/DropzoneButton/DropzoneButton';
+import { ProductCorousel } from '../ImageCarousel/ImageCarousel';
 
 function EditProduct({
   productEdit, categories

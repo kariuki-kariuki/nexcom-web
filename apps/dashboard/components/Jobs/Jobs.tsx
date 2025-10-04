@@ -13,7 +13,7 @@ import {
   useMantineTheme
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { JobDto, JobState } from '../../lib/@types/jobs';
+import { JobDto, JobState } from '@repo/nexcom-types';
 import classes from './Jobs.module.css';
 
 function Jobs({ jobsdb }: { jobsdb: JobDto[] | null }): React.JSX.Element {
@@ -102,7 +102,8 @@ function Jobs({ jobsdb }: { jobsdb: JobDto[] | null }): React.JSX.Element {
         </Link>
       </Group>
       {jobsdb ? (
-        <Accordion variant="separated">{jobs}</Accordion>
+        <div>Need fix</div>
+        // <Accordion variant="separated">{jobs}</Accordion>
       ) : (
         <Text>No Jobs Available</Text>
       )}

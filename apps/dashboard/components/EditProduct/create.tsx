@@ -1,6 +1,4 @@
-import { API_URL } from '../../lib/common/constans';
-import { getErrorMessage } from '../../utils/errors';
-import { getAuthToken } from '../../utils/token';
+import { API_URL, getAuthToken, getErrorMessage } from "@repo/shared-logic";
 
 interface Props {
   resource: string;

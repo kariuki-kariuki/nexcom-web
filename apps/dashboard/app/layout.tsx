@@ -1,5 +1,4 @@
-import SimpleRoute from '@/components/SimpleRoute/SimpleRoute';
-import { ColorSchemeScript, Container, MantineProvider } from '@mantine/core';
+import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import classes from "./styles.module.css"
 import { Notifications } from '@mantine/notifications';
 import { GlobalStoreProvider, SocketProvider, theme, WebSocketProvider } from '@repo/shared-logic';
@@ -43,10 +42,9 @@ export default function RootLayout({ children }: PageProps) {
               <SocketProvider>
                 <WebSocketProvider>
                   <Notifications />
-                  <Container size="xl" p="sm" className={classes.container}>
-                    <SimpleRoute />
+                  <div className={classes.container}>
                     {children}
-                  </Container>
+                  </div>
                 </WebSocketProvider>
               </SocketProvider>
             </GlobalStoreProvider>

@@ -1,5 +1,5 @@
 import { Group, Avatar, Text } from '@mantine/core';
-import { useGlobalStore } from '@/lib/context/global-store.provider';
+import { useGlobalStore } from '@repo/shared-logic';
 
 const UserButton = () => {
   const user = useGlobalStore((state) => state.user);

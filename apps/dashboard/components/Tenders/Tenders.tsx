@@ -13,7 +13,7 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { TenderInterface } from '../../lib/@types/tender';
+import { TenderInterface } from '@repo/nexcom-types';
 import { createImage } from '../EditProduct/create';
 import { datasource } from '@repo/shared-logic';
 

@@ -14,10 +14,8 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { UserContextType } from '../../lib/@types/app';
-import { UploadImage } from './uploadImage';
 import classes from './UserButton.module.css';
-import { useGlobalStore } from '@/lib/context/global-store.provider';
+import { datasource, useGlobalStore } from '@repo/shared-logic';
 
 interface Res {
   link: string;
@@ -31,20 +29,21 @@ export function UserButton() {
     const formData = new FormData();
     if (value) {
       formData.append('file', value);
-      const res = await UploadImage<Res | string>({
-        resource: 'users/avatar',
-        formData
+      const { data, error } = await datasource.post<Res>({
+        path: 'users/avatar',
+        formData,
+        contentType: true
       });
-      if (typeof res === 'string') {
+      if (error || !data) {
         notifications.show({
-          message: res,
+          message: error,
           title: 'Error',
           color: 'red'
         });
         return;
       }
       if (user) {
-        user.avatar.signedUrl = res.link;
+        user.avatar.signedUrl = data.link;
         setUser(user);
         setValue(null);
         notifications.show({

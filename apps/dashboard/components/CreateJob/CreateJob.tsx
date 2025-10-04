@@ -17,9 +17,9 @@ import {
 } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import { notifications } from '@mantine/notifications';
-import { JobInterface, JobState } from '../../lib/@types/jobs';
 import Editrequirements from './EditRequirements';
-import { datasource } from '@/lib/common/datasource';
+import { JobInterface, JobState } from '@repo/nexcom-types';
+import { datasource } from '@repo/shared-logic';
 
 const jobState: JobInterface = {
   title: '',

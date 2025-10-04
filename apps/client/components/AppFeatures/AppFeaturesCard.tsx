@@ -3,7 +3,6 @@ import { Avatar, Card, CardSection, Divider, List, ListItem, Paper, Text, ThemeI
 import { IconCircleCheck } from '@tabler/icons-react';
 import React from 'react'
 import classes from "./AppFeaturesCard.module.css"
-import { MotionWrapper } from '../ui/MotionWrapper';
 
 export interface AppFeaturesCardProps {
     title: string;
@@ -16,8 +15,7 @@ const AppFeaturesCard = ({ props }: { props: AppFeaturesCardProps }) => {
     const { colorScheme } = useMantineColorScheme()
     const srcRoute = colorScheme === "dark" ? "/images/features" : "/images/features/light"
     return (
-        <MotionWrapper className={classes.card} direction='up'>
-            <Card radius={20} bg="none">
+            <Card radius={20} bg="none" className={classes.card}>
                 <CardSection>
                     <Avatar w="100%" radius={0} h={'auto'} src={srcRoute + props.image} name={props.title} />
                 </CardSection>
@@ -41,7 +39,6 @@ const AppFeaturesCard = ({ props }: { props: AppFeaturesCardProps }) => {
                     </List>
                 </CardSection>
             </Card>
-        </MotionWrapper>
     )
 }
 

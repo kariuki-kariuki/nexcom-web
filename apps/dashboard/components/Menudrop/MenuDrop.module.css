@@ -1,5 +1,6 @@
 .menu {
   border-radius: var(--mantine-spacing-md);
+  width: 100%;
 
   @mixin hover {
     background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));

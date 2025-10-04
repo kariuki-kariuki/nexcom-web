@@ -1,0 +1,8 @@
+.card {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+}
+
+.controls {
+  background-color: var(--mantine-color-orange-7);
+}

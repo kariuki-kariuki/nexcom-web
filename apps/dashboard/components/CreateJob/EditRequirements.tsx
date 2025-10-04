@@ -3,7 +3,7 @@ import { IconEdit } from '@tabler/icons-react';
 import { Button, Dialog, Group, Text, TextInput } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { JobInterface } from '../../lib/@types/jobs';
+import { JobInterface } from '@repo/nexcom-types';
 
 interface Iprops {
   setJob: (updater: (prev: JobInterface) => JobInterface) => void;

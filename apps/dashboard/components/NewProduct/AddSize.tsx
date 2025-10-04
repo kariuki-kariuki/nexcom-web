@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { IconCirclePlusFilled, IconX } from '@tabler/icons-react';
 import { Button, Container, Group, Input } from '@mantine/core';
-import { INewProduct } from '../../lib/@types/shop';
-import { SizeWithPrice } from '../../lib/@types/product-price-size';
+import { INewProduct } from '@repo/nexcom-types';
+import { SizeWithPrice } from '@repo/nexcom-types';
 import classes from './NewProduct.module.css'
 interface IAddSize {
   product: INewProduct;

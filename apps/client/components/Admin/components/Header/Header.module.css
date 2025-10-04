@@ -1,8 +1,0 @@
-.header {
-  height: 80px;
-  /* background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-0)); */
-}
-
-.color {
-  background-color: light-dark(var(--mantine-color-white), var(--mantine-color-coco-1));
-}

@@ -27,7 +27,7 @@ import { notifications } from '@mantine/notifications';
 import ReadMessage from './ReadMessage';
 import classes from './Messages.module.css';
 import { Message } from '@repo/nexcom-types';
-import { datasource, useGlobalStore } from '@repo/shared-logic';
+import { datasource, MessageState, useGlobalStore } from '@repo/shared-logic';
 
 interface IRow {
   message: Message;
@@ -50,7 +50,7 @@ const Rows = ({ message, handleUpdate }: IRow) => {
           variant="outline"
           w="fit-content"
           bd="none"
-          color={message.state === '' ? 'orange.7' : 'green.9'}
+          color={message.state === MessageState.DELIVERED ? 'orange.7' : 'green.9'}
         >
           {message.state}
         </Button>
@@ -65,17 +65,17 @@ const Rows = ({ message, handleUpdate }: IRow) => {
             <MenuItem
               onClick={() => {
                 toggle();
-                if (user?.role !== 'Employee' && message.state !== 'Read') {
+                if (user?.role !== 'Employee' && message.state !== MessageState.READ) {
                   handleUpdate(message, 'Read');
                 }
               }}
             >
               Read
             </MenuItem>
-            {message.state === 'Read' && (
+            {message.state === MessageState.READ && (
               <MenuItem
                 onClick={() => {
-                  if (user?.role !== 'Employee' && message.state === 'Read') {
+                  if (user?.role !== 'Employee' && message.state === MessageState.READ) {
                     handleUpdate(message, 'Unread');
                   }
                 }}
@@ -111,7 +111,7 @@ const NotificationRows = ({ message, handleUpdate }: IRow) => {
   return (
     <Notification
       key={message.id}
-      color={message.state === 'Unread' ? 'orange.7' : 'green.9'}
+      color={message.state === MessageState.DELIVERED ? 'orange.7' : 'green.9'}
       withCloseButton={false}
       mb="sm"
     >
@@ -133,19 +133,19 @@ const NotificationRows = ({ message, handleUpdate }: IRow) => {
               <MenuItem
                 onClick={() => {
                   toggle();
-                  if (user?.role !== 'Employee' && message.state !== 'Read') {
+                  if (user?.role !== 'Employee' && message.state !== MessageState.DELIVERED) {
                     handleUpdate(message, 'Read');
                   }
                 }}
               >
                 Read
               </MenuItem>
-              {message.state === 'Read' && (
+              {message.state === MessageState.READ && (
                 <MenuItem
                   onClick={() => {
                     if (
                       user?.role !== 'Employee' &&
-                      message.state === 'Read'
+                      message.state === MessageState.READ
                     ) {
                       handleUpdate(message, 'Unread');
                     }
@@ -196,7 +196,7 @@ export function Messages({ messagesDb }: { messagesDb: Message[] }) {
       setMessage((prevmSages) =>
         prevmSages.map((item) => {
           if (item.id === message.id) {
-            item.state = status;
+            // item.state = status;
             return item;
           }
           return item;
@@ -207,7 +207,7 @@ export function Messages({ messagesDb }: { messagesDb: Message[] }) {
   const rows = messages
     .filter((item) => {
       if (active.toLowerCase() === 'all') return true;
-      return active.toLowerCase() === item.state.toLowerCase();
+      return active.toLowerCase() === item.state?.toLowerCase() || "";
     })
     .map((message) => (
       <Rows message={message} handleUpdate={handleUpdate} key={message.id} />
@@ -216,7 +216,7 @@ export function Messages({ messagesDb }: { messagesDb: Message[] }) {
   const nRows = messages
     .filter((item) => {
       if (active.toLowerCase() === 'all') return true;
-      return active.toLowerCase() === item.state.toLowerCase();
+      return active.toLowerCase() === item.state?.toLowerCase() || "";
     })
     .map((message) => (
       <NotificationRows

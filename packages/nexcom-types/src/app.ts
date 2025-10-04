@@ -1,4 +1,4 @@
-import { MessageState } from '@/lib/common/common';
+import { MessageState } from '../../shared-logic';
 import { CartItem, ImageInterface, Product, Shop } from './shop';
 
 export type UserContextType = {

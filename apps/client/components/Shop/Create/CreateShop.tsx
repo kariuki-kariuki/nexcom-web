@@ -3,7 +3,6 @@ import { Avatar, Button, Container, FileInput, Flex, Group, Input, InputWrapper,
 import { FileWithPath } from '@mantine/dropzone'
 import React, { useState } from 'react'
 import classes from './CreateShop.module.css';
-import NewCategory from '@/components/NewProduct/NewCategory';
 import { datasource } from '@/lib/common/datasource';
 import setToken from '@/utils/setToken';
 import { useRouter } from 'next/navigation';
@@ -89,9 +88,6 @@ const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {
             </Group>
             <Group grow wrap='nowrap' align='center'>
               <InputWrapper label="New Category" size="lg">
-                <NewCategory
-                  setCategories={setCategories}
-                />
               </InputWrapper >
               {categoriesdb && categoriesdb.length > 0 &&
                 <Select

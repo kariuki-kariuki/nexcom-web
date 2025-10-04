@@ -1,7 +1,7 @@
-import CreateShop from '@/components/Shop/Create/CreateShop'
-import { Category } from '@/lib/@types/shop'
-import { datasource } from '@/lib/common/datasource'
+import CreateShop from '@/components/Create/CreateShop'
 import { Text } from '@mantine/core'
+import { Category } from '@repo/nexcom-types'
+import { datasource } from '@repo/shared-logic'
 import React from 'react'
 
 const page = async () => {

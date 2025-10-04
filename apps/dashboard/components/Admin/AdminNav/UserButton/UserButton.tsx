@@ -1,7 +1,7 @@
 import { UnstyledButton, Group, Avatar, Text, rem } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 import classes from './UserButton.module.css';
-import { useGlobalStore } from '@/lib/context/global-store.provider';
+import { useGlobalStore } from '@repo/shared-logic';
 
 export function UserButton() {
   const user = useGlobalStore((state) => state.user);

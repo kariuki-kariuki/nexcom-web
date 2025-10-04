@@ -10,7 +10,7 @@ import {
   IconTrendingUp3,
 } from '@tabler/icons-react';
 import classes from './StatsGrid.module.css';
-import { Product } from '@/lib/@types/shop';
+import { Product } from '@repo/nexcom-types';
 
 const icons = {
   user: IconUserPlus,

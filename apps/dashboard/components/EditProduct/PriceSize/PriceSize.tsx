@@ -11,10 +11,9 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { SizeWithPrice } from '../../../lib/@types/product-price-size';
-import { Product } from '../../../lib/@types/shop';
 import classes from './PriceSize.module.css';
-import { datasource } from '@/lib/common/datasource';
+import { Product, SizeWithPrice } from '@repo/nexcom-types';
+import { datasource } from '@repo/shared-logic';
 
 interface IProps {
   product: Product;

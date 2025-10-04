@@ -1,103 +1,71 @@
 .navbar {
-    background-color: light-dark( var(--mantine-color-white),var(--mantine-color-coco-0));
-    height: 100%;
-    width: 100%;
-    overflow-y: scroll;
-    padding: var(--mantine-spacing-md);
-    padding-top: 0;
-    display: flex;
-    border-radius: var(--mantine-spacing-md);
-    flex-direction: column;
-    border: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-  @media (max-width: $mantine-breakpoint-md) {
-      /* font-size: rem(50px); */
-      width: 100%;
+  height: 100vh;
+  width: 100%;
+  padding: var(--mantine-spacing-md);
+  display: flex;
+  flex-direction: column;
+  background-color: light-dark(rgba(255, 255, 255, .0), rgba(0, 0, 0, .3));
+  border-right: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-gray-8));
+}
+
+.navbarMain {
+  flex: 1;
+}
+
+.header {
+  padding-bottom: var(--mantine-spacing-md);
+  margin-bottom: calc(var(--mantine-spacing-md) * 1.5);
+  border-bottom: 1px solid var(--mantine-color-blue-7);
+}
+
+.footer {
+  padding-top: var(--mantine-spacing-md);
+  margin-top: var(--mantine-spacing-md);
+  border-top: 1px solid var(--mantine-color-coco-4);
+}
+
+.version {
+  background-color: var(--mantine-color-blue-7);
+  color: var(--mantine-color-white);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 10px;
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-coco-5);
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
+  border-radius: var(--mantine-radius-sm);
+  font-weight: 500;
+
+  @mixin hover {
+    background-color: var(--mantine-color-coco-0);
+    color: var(--mantine-color-white);
+
+    .linkIcon {
+      color: var(--mantine-color-white);
     }
-    
   }
-  
-  .section {
-    margin-left: calc(var(--mantine-spacing-md) * -1);
-    margin-right: calc(var(--mantine-spacing-md) * -1);
-    margin-bottom: var(--mantine-spacing-md);
-  
-    &:not(:last-of-type) {
-      border-bottom: rem(1px) solid
-        light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-    }
-  }
-  
-  .searchCode {
-    font-weight: 700;
-    font-size: rem(10px);
-    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-7));
-    border: rem(1px) solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-7));
-  }
-  
-  .mainLinks {
-    padding-left: calc(var(--mantine-spacing-md) - var(--mantine-spacing-xs));
-    padding-right: calc(var(--mantine-spacing-md) - var(--mantine-spacing-xs));
-    padding-bottom: var(--mantine-spacing-md);
-  }
-  
-  .mainLink {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    font-size: var(--mantine-font-size-xs);
-    padding: rem(8px) var(--mantine-spacing-xs);
-    border-radius: var(--mantine-radius-sm);
-    font-weight: 500;
-    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
-  
+
+  &[data-active] {
+    &,
     &:hover {
-      background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
-      color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+      box-shadow: var(--mantine-shadow-sm);
+      background-color:light-dark(var(--mantine-color-coco-1), var(--mantine-color-white));
+      color: var(--mantine-color-blue-filled);
+
+      .linkIcon {
+        color: var(--mantine-color-blue-filled);
+      }
     }
   }
-  
-  .mainLinkInner {
-    display: flex;
-    align-items: center;
-    flex: 1;
-  }
-  
-  .mainLinkIcon {
-    margin-right: var(--mantine-spacing-sm);
-    color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
-  }
-  
-  .mainLinkBadge {
-    padding: 0;
-    width: rem(20px);
-    height: rem(20px);
-    pointer-events: none;
-  }
-  
-  .collections {
-    padding-left: calc(var(--mantine-spacing-md) - rem(6px));
-    padding-right: calc(var(--mantine-spacing-md) - rem(6px));
-    padding-bottom: var(--mantine-spacing-md);
-  }
-  
-  .collectionsHeader {
-    padding-left: calc(var(--mantine-spacing-md) + rem(2px));
-    padding-right: var(--mantine-spacing-md);
-    margin-bottom: rem(5px);
-  }
-  
-  .collectionLink {
-    display: block;
-    padding: rem(8px) var(--mantine-spacing-xs);
-    text-decoration: none;
-    border-radius: var(--mantine-radius-sm);
-    font-size: var(--mantine-font-size-xs);
-    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
-    line-height: 1;
-    font-weight: 500;
-  
-    &:hover {
-      background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
-      color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
-    }
-  }
+}
+
+.linkIcon {
+  color: var(--mantine-color-coco-5);
+  margin-right: var(--mantine-spacing-sm);
+  width: 25px;
+  height: 25px;
+}

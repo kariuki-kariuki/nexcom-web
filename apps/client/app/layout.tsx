@@ -8,6 +8,7 @@ import '@mantine/dropzone/styles.css';
 import '@mantine/carousel/styles.css';
 import '@mantine/notifications/styles.css';
 import './index.css';
+
 import { Notifications } from '@mantine/notifications';
 import { SocketProvider } from '@/lib/hooks/useSocket';
 import { siteMetadata } from '@/lib/data/siteMetadata';
@@ -68,6 +69,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  console.log("Rerender")
   return (
     <html lang="en">
       <head>

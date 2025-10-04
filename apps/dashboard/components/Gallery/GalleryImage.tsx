@@ -10,8 +10,8 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { IconTrashXFilled } from '@tabler/icons-react';
-import { IGallery, ImageGallery } from '../../lib/@types/gallery';
-import { datasource } from '@/lib/common/datasource';
+import { IGallery, ImageGallery } from '@repo/nexcom-types';
+import { datasource } from '@repo/shared-logic';
 
 interface Iprops {
   image: ImageGallery;

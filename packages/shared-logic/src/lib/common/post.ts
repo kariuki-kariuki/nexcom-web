@@ -33,9 +33,9 @@ export default async function PostSrr(
   return { error: '', name: parsedResponse.name, id: parsedResponse.id };
 }
 
-const setAuthCookie = (token: string) => {
+const setAuthCookie = async (token: string) => {
   if (token) {
-    cookies().set({
+    (await cookies()).set({
       name: AUTHENTICATION_COOKIE,
       value: token,
       secure: true,

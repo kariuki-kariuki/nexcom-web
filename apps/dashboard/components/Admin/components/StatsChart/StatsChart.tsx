@@ -2,7 +2,7 @@ import { Grid, Group, Paper, Text } from '@mantine/core';
 import { DonutChart } from '@mantine/charts';
 import { IconUserBolt, IconUserCheck } from '@tabler/icons-react';
 import classes from './StatsChart.module.css';
-import { useGlobalStore } from '@/lib/context/global-store.provider';
+import { useGlobalStore } from '@repo/shared-logic';
 
 const data = [
   { name: 'Kenya', value: 400, color: 'purple' },
