@@ -1,6 +1,6 @@
 'use server';
 
-import { AUTHENTICATION_COOKIE } from "@repo/shared-logic";
+import { APP_URL, AUTHENTICATION_COOKIE } from "@repo/shared-logic";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 
@@ -10,6 +10,7 @@ export async function setToken(token: string) {
     cookieStore.set({
       name: AUTHENTICATION_COOKIE,
       value: token,
+      domain: APP_URL,
       secure: true,
       expires: new Date(jwtDecode(token).exp! * 1000)
     });
