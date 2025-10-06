@@ -12,6 +12,18 @@ import { ConfigService } from '@nestjs/config';
 import { DiscordExceptionFilter } from '../utils/filters/discord-exception.filter';
 import { DiscordService } from './discord/discord.service';
 
+let allowedOrigins = [
+  'https://nexcom.site',
+  'https://auth.nexcom.site',
+  'https://dashboard.nexcom.site',
+];
+
+const localOrigins = [
+  'http://localhost:3000',
+  'http://localhost:3500',
+  'http://localhost:3400',
+];
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
@@ -29,12 +41,22 @@ async function bootstrap() {
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, apiConfig);
-  process.env.NODE_ENV === 'development' &&
+  if (process.env.NODE_ENV === 'development') {
+    allowedOrigins = [...allowedOrigins, ...localOrigins];
     SwaggerModule.setup('swagger', app, documentFactory);
+  }
   const webSocketAdapter = app.get(WebSocketAdapter);
   app.useWebSocketAdapter(webSocketAdapter);
   app.useGlobalFilters(new DiscordExceptionFilter(app.get(DiscordService)));
-  app.enableCors({ origin: configService.get<string>('CORS_ORIGIN') });
+  app.enableCors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+  });
   runMigrations();
 
   try {
