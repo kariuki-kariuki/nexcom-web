@@ -20,7 +20,7 @@ import Dashboard from '../Profile/ProfileDashboard';
 import Link from 'next/link';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 import { useRouter } from 'next/navigation';
-import { useGlobalStore } from '@repo/shared-logic';
+import { APP_URL, AUTH_URL, useGlobalStore } from '@repo/shared-logic';
 import logout from '@repo/shared-logic/src/utils/logout';
 
 
@@ -35,7 +35,7 @@ export default function MenuDrop() {
         <DropDown toggle={toggle} />
         :
         <ButtonGroup>
-          <Button onClick={() => router.push('/auth/login')} leftSection={<IconLogin size={18} />} size='md' color='coco.4'>
+          <Button onClick={() => router.push(`${AUTH_URL}/login`)} leftSection={<IconLogin size={18} />} size='md' color='coco.4'>
             Login
           </Button>
           <ColorSchemeToggle />
@@ -61,13 +61,13 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
 
       <Menu.Dropdown className={classes.menu_drop}>
         <Menu.Label>Application</Menu.Label>
-        <Link href="/business">
+        <Link href={`${APP_URL}/business/product/tags/all`}>
           <Menu.Item
             leftSection={
               <IconShoppingBag style={{ width: rem(14), height: rem(14) }} />
             }
           >
-            Business
+            Shop
           </Menu.Item>
         </Link>
         <Menu.Item
@@ -80,7 +80,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
         >
           Profile
         </Menu.Item>
-        <Link href="/chat">
+        <Link href={`${APP_URL}/chat`}>
           <Menu.Item
             leftSection={
               <IconMessageCircle

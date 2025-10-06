@@ -11,7 +11,7 @@ function SimpleRoute({ tag, main }: { tag?: string; main?: string }) {
   const pathArray = path.split('/')
   pathArray.shift()
   return (
-    <Paper className={classes.nav}>
+    <div className={classes.nav}>
       <Group justify="space-between" align="center" w="100%">
         <Breadcrumbs separator="→" separatorMargin="lg" c='maroon.6' h="100%">
           {pathArray.map((item, index) => {
@@ -26,7 +26,7 @@ function SimpleRoute({ tag, main }: { tag?: string; main?: string }) {
           <MenuDrop />
         </Paper>
       </Group>
-    </Paper>
+    </div>
   );
 }
 

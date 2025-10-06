@@ -22,6 +22,8 @@
     "@tabler/icons-react": "^3.33.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
+    "jose": "^5.10.0",
+    "jwt-decode": "^4.0.0",
     "next": "15.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",

@@ -4,7 +4,7 @@
   padding: 0px var(--mantine-spacing-md);
   display: flex;
   align-items: center;
-  background-color: light-dark(rgba(255, 255, 255, .7), rgba(0, 0, 0, .5));
+  background-color: light-dark(rgba(255, 255, 255, .7), rgba(0, 0, 0, .3));
   
 }
 

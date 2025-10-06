@@ -20,7 +20,7 @@ import PasswordStrength from './PasswordStrength';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { datasource, useGlobalStore } from '@repo/shared-logic';
-import setToken from '@repo/shared-logic/src/utils/setToken';
+import { setToken } from '@repo/shared-logic/src/utils/setToken';
 import { AuthResponse } from '@repo/nexcom-types';
 
 export interface IDetails {

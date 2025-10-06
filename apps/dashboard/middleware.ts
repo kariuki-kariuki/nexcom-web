@@ -1,0 +1,73 @@
+import { cookies } from 'next/headers';
+import { NextRequest, NextResponse } from 'next/server';
+import { decodeJwt } from 'jose';
+
+// Define protected and public routes
+const protectedRoutes = [
+  '/chat',
+  '/dashboard',
+  '/dashboard/products',
+  '/dashboard/users',
+  '/dashboard/settings',
+  '/dashboard/projects',
+  '/dashboard/blogs',
+  '/dashboard/faq',
+  '/dashboard/gallery',
+  '/dashboard/jobs',
+  '/dashboard/tenders',
+  '/dashboard/resources',
+  '/business/register',
+];
+const publicRoutes = ['/auth/login', '/auth/signup'];
+
+export default async function middleware(req: NextRequest) {
+  const path = req.nextUrl.pathname;
+
+  // Extract cookies asynchronously
+  const cookieStore = cookies();
+  const token = (await cookieStore).get('Authentication')?.value;
+
+  // Attempt to decrypt the session token
+  const claims = await decrypt(token);
+  const shopId = claims?.shopId;
+  const isAuthenticated = !!claims?.userId;
+
+  const isProtectedRoute = protectedRoutes.includes(path);
+  const isPublicRoute = publicRoutes.includes(path);
+
+
+  // Allow access to the root route '/' for everyone
+  if (path === "/" && shopId){
+    return NextResponse.redirect(new URL('/dashboard', req.nextUrl));
+    
+  }
+  
+  if (path === '/') {
+    return NextResponse.next();
+  }
+
+  // Restrict access to shop owner routes to authenticated users with a shopId
+  if (path.startsWith('/dashboard') && !shopId) {
+    return NextResponse.redirect(new URL('/', req.nextUrl));
+  }
+
+  // Proceed if all checks pass
+  return NextResponse.next();
+}
+
+// Helper function to decrypt session token and extract claims
+async function decrypt(token: string | undefined) {
+  if (!token) return null;
+
+  try {
+    return decodeJwt(token);
+  } catch (error) {
+    console.error('Failed to verify session token:', error);
+    return null;
+  }
+}
+
+// Configure middleware to exclude specific routes and assets
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.(?:png|mp3)$).*)'],
+};

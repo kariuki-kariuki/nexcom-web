@@ -7,6 +7,7 @@ import DashboardLink, { LoginLink } from './DashboardLink'
 import classes from './SimpleHeaderLinks.module.css';
 import { useDisclosure } from '@mantine/hooks'
 import MenuDrop from '@/components/Menudrop/MenuDrop'
+import { APP_URL } from '@repo/shared-logic'
 
 const links = [
   // { label: 'Videos', link: '/videos', icon: IconVideoFilled },
@@ -21,7 +22,7 @@ const SimpleHeaderLinks = () => {
     <div>
       <Group visibleFrom='sm'>
         <Group gap={"lg"}>
-          {links.map((link, idx) => <Link href={link.link} className={classes.link} key={idx}>{link.label}</Link>)}
+          {links.map((link, idx) => <Link href={`${APP_URL}link.link`} className={classes.link} key={idx}>{link.label}</Link>)}
           <DashboardLink />
         </Group>
         <Paper shadow='0' bg="none" visibleFrom='md'>

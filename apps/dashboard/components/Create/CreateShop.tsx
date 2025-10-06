@@ -6,7 +6,7 @@ import classes from './CreateShop.module.css';
 import { useRouter } from 'next/navigation';
 import { datasource, useGlobalStore } from '@repo/shared-logic';
 import NewCategory from '../NewProduct/NewCategory';
-import setToken from '@repo/shared-logic/src/utils/setToken';
+import { setToken } from '@repo/shared-logic/src/utils/setToken';
 import { Category } from '@repo/nexcom-types';
 
 const CreateShop = ({ categoriesdb }: { categoriesdb: Category[] }) => {

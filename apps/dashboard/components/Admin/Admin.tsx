@@ -1,5 +1,5 @@
 'use client'
-import { Paper } from '@mantine/core';
+import { Container, Paper } from '@mantine/core';
 import { StatsGrid } from './components/StatsGrid/StatsGrid';
 import Header from './components/Header/Header';
 import ProductAnalyticsTable from '../Products/ProductAnalyticsTable/ProductAnalyticsTable';
@@ -11,12 +11,12 @@ interface IPros {
 }
 function Admin({products, name}: IPros) {
   return (
-      <Paper bg="none"
+      <Container size="lg" bg="none"
       >
-        <Header name={name}/>
+        {/* <Header name={name}/> */}
           <StatsGrid products={products} />
           <ProductAnalyticsTable products={products}/>
-      </Paper>
+      </Container>
   );
 }
 

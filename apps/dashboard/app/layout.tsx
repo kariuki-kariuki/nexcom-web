@@ -25,13 +25,13 @@ export default function RootLayout({ children }: PageProps) {
     <html lang="en">
       <head>
         <meta charSet="UTF-8" />
-        <link rel="icon" href="/favicon.ico" />
+        {/* <link rel="icon" href="/favicon.ico" /> */}
         {process.env.NEXT_PUBLIC_NODE_ENV === 'development' && <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script>}
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
         />
-        <title>Nexcom</title>
+        <title>Dashboard - Nexcom | Management | Analytics</title>
         <meta name="description" content="Web site created..." />
         <ColorSchemeScript />
       </head>

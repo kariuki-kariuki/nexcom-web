@@ -3,8 +3,10 @@ import Link from 'next/link';
 import { Box, Button, Group, Paper, Text, Title } from '@mantine/core';
 import classes from './Welcome.module.css';
 import SimpleHeader from '../SimpleHeader/SimpleHeader';
+import { AUTH_URL, useGlobalStore } from '@repo/shared-logic';
 
 export function Welcome() {
+  const user = useGlobalStore((state) => state.user)
   return (
     <div className={classes.bg}>
       <SimpleHeader />
@@ -26,7 +28,7 @@ export function Welcome() {
             Manage Your Resources Like A Pro
           </Text>
           <Group justify="center" mt="xl">
-             <Link href='/chat'>
+             <Link href={ user ? '/dashboard' : `${AUTH_URL}`}>
               <Button size="lg" color="coco.4" radius="xl" fw="bold">
                 Continue
               </Button>
