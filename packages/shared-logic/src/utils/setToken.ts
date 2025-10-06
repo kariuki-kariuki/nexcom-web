@@ -2,7 +2,7 @@
 
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
-import { AUTHENTICATION_COOKIE } from "../lib/common/constants";
+import { AUTHENTICATION_COOKIE, DOMAIN_URL } from "../lib/common/constants";
 
 export async function setToken(token: string) {
   if (token) {
@@ -11,6 +11,7 @@ export async function setToken(token: string) {
       name: AUTHENTICATION_COOKIE,
       value: token,
       secure: true,
+      domain: DOMAIN_URL,
       expires: new Date(jwtDecode(token).exp! * 1000)
     });
   }
