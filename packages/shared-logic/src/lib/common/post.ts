@@ -3,7 +3,7 @@
 import { jwtDecode } from 'jwt-decode';
 import { cookies } from 'next/headers';
 import { getErrorMessage } from '../../utils/errors';
-import { API_URL, AUTHENTICATION_COOKIE } from '../../lib/common/constans';
+import { API_URL, AUTHENTICATION_COOKIE } from '../../lib/common/constants';
 import { datasource } from './datasource';
 
 

@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { API_URL, WS_URL } from './constans';
+import { API_URL, WS_URL } from './constants';
 import { io, Socket } from 'socket.io-client';
 
 enum CRUDMETHODS {
