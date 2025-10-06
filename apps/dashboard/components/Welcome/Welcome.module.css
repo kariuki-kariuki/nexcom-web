@@ -1,0 +1,38 @@
+.title {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-size: rem(50px);
+  font-weight: 900;
+  letter-spacing: rem(2px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    font-size: rem(50px);
+  }
+}
+
+.description {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+}
+
+.section {
+  margin-bottom: calc(var(--mantine-spacing-xl) * 6);
+}
+
+.bg {
+  background-image: light-dark(url('/images/nexcom-bg-light.png'), url('/images/nexcom-bg.png'));
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-0));
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-coco-1));
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: light-dark(rgba(255, 255, 255, .9), rgba(0, 0, 0, .3));
+  flex: 1;
+  padding-left: var(--mantine-spacing-xl);
+}

@@ -6,6 +6,7 @@ import { Paper, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { usePathname } from 'next/navigation';
 import ConversationButtonList from '@/components/ConversationButtonList/ConversationButtonList';
+import SimpleNav from '@/components/SimpleNav/SimpleNav';
 
 const ChatLayout = ({ children }: { children: ReactNode }) => {
   const theme = useMantineTheme();
@@ -16,6 +17,7 @@ const ChatLayout = ({ children }: { children: ReactNode }) => {
   const isHome = useMemo(() => pathName === '/chat', [pathName]);
   return (
     <div className={classes.main}>
+      <SimpleNav />
       <Paper
         className={mobile ? classes.linksMobile : classes.links}
         data-active={isHome || undefined}

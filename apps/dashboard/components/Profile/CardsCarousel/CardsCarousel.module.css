@@ -1,0 +1,37 @@
+.card {
+  background-color: none;
+}
+
+.title {
+  font-family:
+    Greycliff CF,
+    sans-serif;
+  font-weight: 900;
+  color: var(--mantine-color-white);
+  line-height: 1.2;
+  font-size: rem(32px);
+  margin-top: var(--mantine-spacing-xs);
+}
+
+.category {
+  color: var(--mantine-color-white);
+  opacity: 0.7;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.control {
+  background-color: var(--mantine-color-orange-7);
+    &[data-inactive] {
+      opacity: 0;
+      cursor: default;
+    }
+    height: 20px;
+  }
+
+.indicators {
+  background-color: purple;
+    &[data-active] {
+        background-color: blue;
+    }
+}

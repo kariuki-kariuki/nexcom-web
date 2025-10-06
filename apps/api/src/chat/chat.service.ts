@@ -3,9 +3,9 @@ import { ConversationsService } from './conversations/conversations.service';
 import { MessagesService } from './messages/messages.service';
 import { UpdateStateDTO } from './messages/dto/update-state.dto';
 import { UsersService } from '../users/users.service';
-import { INewConverSation } from 'utils/interfaces';
 import { IncomingMessageBody } from './dto/chat-gateway.dto';
 import { ProjectIdType } from '../@types/types';
+import { INewConverSation } from '../../utils/interfaces';
 
 @Injectable()
 export class ChatService {

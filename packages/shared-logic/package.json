@@ -1,0 +1,32 @@
+{
+  "name": "@repo/shared-logic",
+  "version": "1.0.0",
+  "description": "Shared app logic",
+  "main": "./index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/js-cookie": "^3.0.6",
+    "@types/react": "19.1.0",
+    "@types/react-dom": "19.1.0",
+    "eslint": "^9.34.0",
+    "typescript": "5.9.2"
+  },
+  "author": "Martin Kariuki",
+  "license": "ISC",
+  "dependencies": {
+    "@mantine/core": "^8.3.3",
+    "@repo/nexcom-types": "workspace:*",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
+    "next": "^15.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "socket.io-client": "^4.8.1",
+    "use-sound": "^5.0.0",
+    "zustand": "^5.0.5"
+  }
+}

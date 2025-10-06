@@ -1,0 +1,26 @@
+.main {
+  background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-1));
+  background-image: light-dark(url('/images/nexcom-bg-light.png'), url('/images/nexcom-bg.png'));
+  background-position: center;
+  background-size: cover;
+}
+
+.flex {
+  background-color: light-dark(rgba(255, 255, 255, .8), rgba(0, 0, 0, .7));
+}
+
+.input {
+  /* background-color: light-dark(var(--mantine-color-body), var(--mantine-color-coco-0)); */
+  background-color: rgba(0, 0, 0, .0);
+  border-radius: var(--mantine-spacing-sm);
+  color: light-dark(black, white);
+  border: 1px solid light-dark(var(--mantine-color-black), var(--mantine-color-white)) 
+}
+
+.card {
+    background-color: light-dark(rgba(255, 255, 255, .7), rgba(0, 0, 0, .7));
+
+  &:hover {
+    box-shadow: 5px 5px 10px light-dark(var(--mantine), var(--mantine-color-dark-9));
+  }
+}

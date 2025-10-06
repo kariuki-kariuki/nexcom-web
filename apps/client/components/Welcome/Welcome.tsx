@@ -1,16 +1,16 @@
 'use client';
 import Link from 'next/link';
-import { Box, Button, Group, Paper, Text, Title } from '@mantine/core';
+import { Button, Group, Text, Title } from '@mantine/core';
 import classes from './Welcome.module.css';
 import SimpleHeader from '../SimpleHeader/SimpleHeader';
 import useSound from 'use-sound';
-
 export function Welcome() {
   const [play] = useSound('/sounds/message.mp3');
   const [playFx] = useSound('/sounds/level-up.mp3');
   return (
     <div className={classes.bg}>
       <SimpleHeader />
+
       <div className={classes.main}>
         <section className={classes.section}>
           <Title c="coco.5" className={classes.title} ta="center" mt={100}>

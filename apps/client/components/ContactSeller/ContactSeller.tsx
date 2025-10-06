@@ -9,6 +9,7 @@ import Link from 'next/link'
 import OgMessage from '../OgMessage/OgMessage';
 import { useGlobalStore } from '@/lib/context/global-store.provider'
 import { ConvsersationType } from '../../lib/@types/app'
+import { AUTH_URL } from '@/lib/common/constants'
 
 interface IProps { product: Product }
 
@@ -35,7 +36,7 @@ const ContactSeller = ({ product }: IProps) => {
                         toggle();
                     }} leftSection={<IconMessage stroke={1.5} />}>
                     <Text visibleFrom='sm'>{`Contact ${owner?.fullName}`}</Text>
-                </Button> : <Link href="/auth/login">
+                </Button> : <Link href={`${AUTH_URL}/login`}>
                     <Button leftSection={<IconMessage stroke={1.5} />}
                         className={classes.btn}
                         size='lg'

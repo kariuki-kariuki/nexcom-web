@@ -1,6 +1,8 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { decodeJwt } from 'jose';
+import { url } from 'inspector';
+import { APP_URL, AUTH_URL } from './lib/common/constants';
 
 // Define protected and public routes
 const protectedRoutes = [
@@ -36,6 +38,9 @@ export default async function middleware(req: NextRequest) {
   const isProtectedRoute = protectedRoutes.includes(path);
   const isPublicRoute = publicRoutes.includes(path);
 
+  if(path.startsWith('/chat') && !isAuthenticated){
+    return NextResponse.redirect(new URL(`${AUTH_URL}/login?redirect=${APP_URL}${path}`))
+  }
 
   // Revoke access to the '/videos' route
   if (path.startsWith('/videos')) {
@@ -58,7 +63,7 @@ export default async function middleware(req: NextRequest) {
 
   // Redirect to login if attempting to access a protected route without authentication
   if (isProtectedRoute && !isAuthenticated) {
-    return NextResponse.redirect(new URL('/auth/login', req.nextUrl));
+    return NextResponse.redirect(new URL(`${AUTH_URL}/login`, req.nextUrl));
   }
 
   // Redirect authenticated users from public routes to '/chat'

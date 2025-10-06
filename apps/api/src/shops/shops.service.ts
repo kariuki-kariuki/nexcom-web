@@ -16,7 +16,6 @@ import { Order } from './orders/entities/order.entity';
 import { Product } from './products/entities/product.entity';
 import { UserRoles, ProjectIdType } from '../@types/types';
 import { User } from '../users/entities/user.entity';
-import users from 'weaviate-client/dist/node/cjs/users';
 
 @Injectable()
 export class ShopsService {
@@ -156,7 +155,7 @@ export class ShopsService {
       .leftJoinAndSelect('cartItems.size', 'size')
       .where('shop.id = :id', { id })
       .getMany();
-    return products;
+    return products || [];
   }
 
   async update(id: string, updateShopDto: UpdateShopDto, userId: string) {

@@ -1,5 +1,5 @@
 'use client';
-import { Box, Avatar, Stack, useMantineColorScheme, useMantineTheme, Indicator, Paper } from '@mantine/core';
+import { Box, Avatar, Stack, useMantineColorScheme, useMantineTheme, Indicator, Paper, Divider } from '@mantine/core';
 import { IconSunFilled, IconSunMoon, IconLogout, IconListTree, IconBriefcaseFilled, IconMessageCircleFilled, IconShoppingCartFilled, IconShoppingBagPlus, IconLogin, IconDiamondFilled } from '@tabler/icons-react';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
@@ -46,16 +46,7 @@ const SimpleNav = () => {
   const isChat = useMemo(() => pathName.startsWith('/chat/'), [pathName]);
   const router = useRouter();
 
-  const links = useMemo(() => {
-    let result = [...defaultLinks];
-    if (user?.shop) {
-      result = [{ label: 'Dashboard', link: '/dashboard', icon: IconDiamondFilled }, ...result];
-    }
-    if (dashboard) {
-      result = [...dashboardLinks, ...result];
-    }
-    return result;
-  }, [user?.shop, dashboard]);
+  
 
   return (
     <div className={`${classes.main} ${mobile && isChat ? classes.mobile : ''}`} data-active={isChat || undefined}>
@@ -67,7 +58,7 @@ const SimpleNav = () => {
             name={user?.fullName}
             style={{ cursor: 'pointer' }}
           />
-          {links.map((link) => (
+          {defaultLinks.map((link) => (
             <Link
               href={link.link}
               className={classes.link}
@@ -95,6 +86,7 @@ const SimpleNav = () => {
           </Link>
         </Stack>
         <Stack gap="md" align="center">
+        <Divider w="100%" />
           <Paper
             bg={'none'}
             className={classes.link}

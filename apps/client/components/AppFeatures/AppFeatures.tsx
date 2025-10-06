@@ -50,7 +50,7 @@ const appFeatures: AppFeaturesCardProps[] = [
 
 const AppFeatures = () => {
     return (
-        <Paper className={classes.features}>
+        <Paper className={classes.features} p="sm">
         <header>
             <Title ta="center" py="md" c="coco.5" className={classes.title}>Features</Title>
             <Text ta="center" mb="xl">What we offer on the go!</Text>
