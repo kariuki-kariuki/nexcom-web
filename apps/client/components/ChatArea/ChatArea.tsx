@@ -1,10 +1,10 @@
 'use client'
 import Message from '../../components/MessageCard/MessageCard';
 import Bar from '../Bar/Bar';
-import { Box, Paper, ScrollArea } from '@mantine/core';
+import { Paper, ScrollArea } from '@mantine/core';
 import NewMessageBox from '../../components/NewMessageBox/NewMessageBox';
 import classes from './ChatArea.module.css';
-import { act, useEffect, useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 import { useRouter } from 'next/navigation';
 interface ChatAreaProps {

@@ -5,7 +5,6 @@ import React from 'react'
 const TabsLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Flex h="100vh">
-      <SimpleNav />
       <div style={{ flex: 1, maxHeight: '100vh', overflowY: 'scroll' }}>
         {children}
       </div>

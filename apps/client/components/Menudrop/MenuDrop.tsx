@@ -21,13 +21,15 @@ import Link from 'next/link';
 import logout from '@/utils/logout';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { APP_URL, AUTH_URL, DASHBOARD_URL } from '@/lib/common/constants';
 
 
 export default function MenuDrop() {
   const [opened, { toggle }] = useDisclosure();
   const user = useGlobalStore(state => state.user)
   const setUser = useGlobalStore(state => state.setUser)
+  const path = usePathname()
   const router = useRouter()
   return (
     <Paper bg={'none'} px={'md'} className={classes.menu}>
@@ -35,9 +37,11 @@ export default function MenuDrop() {
         <DropDown toggle={toggle} />
         :
         <ButtonGroup>
-          <Button onClick={() => router.push('/auth/login')} leftSection={<IconLogin size={18} />} size='md' color='coco.4'>
-            Login
-          </Button>
+          <Link href={`${AUTH_URL}/login?redirect=${APP_URL}${path}`} referrerPolicy='origin-when-cross-origin' >
+            <Button leftSection={<IconLogin size={18} />} size='md' color='teal.5'>
+              Login
+            </Button>
+          </Link>
           <ColorSchemeToggle />
         </ButtonGroup>}
       {user ? <Dashboard opened={opened} toggle={toggle} actUser={user} /> : ''}
@@ -61,7 +65,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
 
       <Menu.Dropdown className={classes.menu_drop}>
         <Menu.Label>Application</Menu.Label>
-        <Link href="/business">
+        <Link href={`/business`}>
           <Menu.Item
             leftSection={
               <IconShoppingBag style={{ width: rem(14), height: rem(14) }} />
@@ -80,7 +84,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
         >
           Profile
         </Menu.Item>
-        <Link href="/chat">
+        <Link href={`/chat`}>
           <Menu.Item
             leftSection={
               <IconMessageCircle
@@ -98,10 +102,10 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
         )}
           onClick={toggleColorScheme} >
 
-          <span>{colorScheme === 'dark' ? 'light' : 'Dark'}</span>
+          <span>{colorScheme === 'dark' ? 'Light' : 'Dark'}</span>
         </Menu.Item>
         {user?.shop ? (
-          <Link href="/dashboard">
+          <Link href={`${DASHBOARD_URL}/dashboard`}>
             <Menu.Item
               leftSection={
                 <IconDiamond style={{ width: rem(14), height: rem(14) }} />

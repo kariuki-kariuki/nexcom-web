@@ -1,5 +1,5 @@
 'use client';
-import { Box, Avatar, Stack, useMantineColorScheme, useMantineTheme, Indicator, Paper } from '@mantine/core';
+import { Box, Avatar, Stack, useMantineColorScheme, useMantineTheme, Indicator, Paper, Divider } from '@mantine/core';
 import { IconSunFilled, IconSunMoon, IconLogout, IconListTree, IconBriefcaseFilled, IconMessageCircleFilled, IconShoppingCartFilled, IconShoppingBagPlus, IconLogin, IconDiamondFilled } from '@tabler/icons-react';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
@@ -86,6 +86,7 @@ const SimpleNav = () => {
           </Link>
         </Stack>
         <Stack gap="md" align="center">
+        <Divider w="100%" />
           <Paper
             bg={'none'}
             className={classes.link}

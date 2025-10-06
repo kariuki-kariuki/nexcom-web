@@ -35,14 +35,14 @@
   } */
 
     &:hover {
-        scale: 1.04;
+        scale: 1.01;
         transition-duration: 1s;
     }
 }
 
 .features {
     background-color: light-dark(rgba(255, 255, 255, .7), rgba(0, 0, 0, .5));
-    background: light-dark(rgba(255, 255, 255, .7), radial-gradient(circle, rgba(98, 114, 164, 1) 0%, rgba(29, 27, 34, 1) 73%, rgba(40, 42, 54, 1) 100%));
+    background: light-dark(rgba(255, 255, 255, .7), radial-gradient(circle, rgb(43, 51, 75) 0%, rgba(29, 27, 34, 1) 70%, rgba(40, 42, 54, 1) 100%));
 }
 
 .card_section {

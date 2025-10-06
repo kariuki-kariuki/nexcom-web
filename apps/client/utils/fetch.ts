@@ -1,7 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { API_URL, AUTHENTICATION_COOKIE } from '../lib/common/constans';
+import { API_URL, AUTHENTICATION_COOKIE } from '../lib/common/constants';
 
 export const getToken = async () => {
   const cookieStore = await cookies();

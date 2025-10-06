@@ -7,7 +7,7 @@ import { notifications } from '@mantine/notifications';
 import { IconFileSearch } from '@tabler/icons-react';
 import React, { useState } from 'react';
 import SearchedImage from '../SearchedImage/SearchedImage';
-import { NODE_ENV } from '@/lib/common/constans';
+import { NODE_ENV } from '@/lib/common/constants';
 
 const SearchByImage = () => {
   const [opened, { toggle }] = useDisclosure(false)

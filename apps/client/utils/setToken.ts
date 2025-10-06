@@ -1,6 +1,6 @@
 'use server';
 
-import { AUTHENTICATION_COOKIE } from "@/lib/common/constans";
+import { AUTHENTICATION_COOKIE } from "@/lib/common/constants";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 

@@ -1,4 +1,4 @@
-import { API_URL } from '../../lib/common/constans';
+import { API_URL } from '../../lib/common/constants';
 import { getErrorMessage } from '../../utils/errors';
 import { getAuthToken } from '../../utils/token';
 
