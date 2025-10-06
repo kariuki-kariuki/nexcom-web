@@ -30,7 +30,6 @@ import { ProductVideosModule } from './product-videos/product-videos.module';
 import { ProductCommentsModule } from './product-comments/product-comments.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AnalyticsModule } from './analytics/analytics.module';
-import { UserAgentMiddleware } from 'utils/middlewares/user-agent.middleware';
 import { DiscordModule } from './discord/discord.module';
 import { DemoModule } from './demo/demo.module';
 import { CacheModule } from '@nestjs/cache-manager';
@@ -38,6 +37,7 @@ import { CacheableMemory, Keyv } from 'cacheable';
 import { createKeyv } from '@keyv/redis';
 import { RedisService } from './redis/redis.service';
 import { RedisModule } from './redis/redis.module';
+import { UserAgentMiddleware } from '../utils/middlewares/user-agent.middleware';
 
 @Module({
   imports: [

@@ -9,7 +9,7 @@ import { runMigrations } from '../db/migration-runner';
 import { WebSocketAdapter } from './chat/gateway.adpater';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import { DiscordExceptionFilter } from 'utils/filters/discord-exception.filter';
+import { DiscordExceptionFilter } from '../utils/filters/discord-exception.filter';
 import { DiscordService } from './discord/discord.service';
 
 async function bootstrap() {
