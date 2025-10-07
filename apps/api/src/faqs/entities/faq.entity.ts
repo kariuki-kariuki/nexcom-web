@@ -1,13 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { ProjectIdType } from '../../@types/types';
+import { Shop } from '../../shops/entities/shop.entity';
 
 @Entity()
 export class Faq {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: ProjectIdType;
 
   @Column()
   question: string;
 
   @Column()
   answer: string;
+
+  @ManyToOne(() => Shop, (shop) => shop.faqs, { cascade: true })
+  shop: Shop;
 }

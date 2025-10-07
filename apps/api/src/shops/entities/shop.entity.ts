@@ -12,6 +12,8 @@ import { Product } from '../products/entities/product.entity';
 import { Category } from '../categories/entities/category.entity';
 import { Image } from '../product_images/entities/image.entity';
 import { ProjectIdType } from '../../@types/types';
+import { Job } from '../../jobs/entities/job.entity';
+import { Faq } from '../../faqs/entities/faq.entity';
 
 @Entity()
 export class Shop {
@@ -45,4 +47,10 @@ export class Shop {
 
   @OneToMany(() => Product, (product) => product.shop, { onDelete: 'CASCADE' })
   products: Product[];
+
+  @OneToMany(() => Job, (job) => job.shop)
+  jobs: Job[];
+
+  @OneToMany(() => Faq, (faq) => faq.shop)
+  faqs: Faq[];
 }

@@ -16,13 +16,18 @@ import { UpdateJobDto } from './dto/update-job.dto';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtShopGuard } from '../auth/guard/jwt-shop.guard';
+import { Roles } from '../../utils/roles.decorator';
+import { UserRoles } from '../@types/types';
+import { RolesGuard } from '../auth/roles/roles.guard';
 
 @Controller('jobs')
 export class JobsController {
   constructor(private readonly jobsService: JobsService) {}
 
   @Post()
-  @UseGuards(JwtShopGuard)
+  @Roles(UserRoles.SHOP_ADMIN)
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
   create(@Body() createJobDto: CreateJobDto) {
     return this.jobsService.create(createJobDto);
   }
@@ -33,6 +38,8 @@ export class JobsController {
   }
 
   @Get('admin')
+  @Roles(UserRoles.SHOP_ADMIN)
+  @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   findAllAdmin() {
     return this.jobsService.findAllAdmin();
@@ -40,23 +47,27 @@ export class JobsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.jobsService.findOne(+id);
+    return this.jobsService.findOne(id);
   }
 
   @Patch(':id')
-  @UseGuards(JwtShopGuard)
+  @Roles(UserRoles.SHOP_ADMIN)
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateJobDto: UpdateJobDto) {
-    return this.jobsService.update(+id, updateJobDto);
+    return this.jobsService.update(id, updateJobDto);
   }
   @Patch('jd/:id')
   @UseInterceptors(FileInterceptor('file'))
-  @UseGuards(JwtShopGuard)
+  @Roles(UserRoles.SHOP_ADMIN)
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
   async updateProfile(
     @Param('id') id: string,
     @UploadedFile() file: Express.Multer.File,
   ) {
     if (file) {
-      return await this.jobsService.updateFile(file, +id);
+      return await this.jobsService.updateFile(file, id);
     }
   }
 

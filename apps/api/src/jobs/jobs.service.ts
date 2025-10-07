@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { Job } from './entities/job.entity';
 import { JobState } from '../@types/jobs';
 import { AwsService } from '../aws/aws.service';
+import { Image } from '../shops/product_images/entities/image.entity';
 
 @Injectable()
 export class JobsService {
@@ -14,8 +15,8 @@ export class JobsService {
     private readonly awsService: AwsService,
   ) {}
   async create(createJobDto: CreateJobDto) {
-    const job = await this.jobRepository.create(createJobDto);
-    return this.jobRepository.save(job);
+    const job = this.jobRepository.create(createJobDto);
+    return await this.jobRepository.save(job);
   }
 
   async findAll() {
@@ -24,25 +25,18 @@ export class JobsService {
         status: JobState.Published,
       },
     });
-    const withLinks = await Promise.all(
-      jobs.map(async (job) =>
-        job.jd
-          ? { ...job, jd: await this.awsService.getSignedURL(job.jd) }
-          : job,
-      ),
-    );
-    return withLinks;
+    return jobs;
   }
 
   findAllAdmin() {
     return this.jobRepository.find();
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.jobRepository.findOneByOrFail({ id });
   }
 
-  async update(id: number, updateJobDto: UpdateJobDto) {
+  async update(id: string, updateJobDto: UpdateJobDto) {
     const job = await this.findOne(id);
     const {
       title = job.title,
@@ -63,12 +57,23 @@ export class JobsService {
     return this.jobRepository.save(job);
   }
 
-  async updateFile(file: Express.Multer.File, id: number) {
-    const url = await this.awsService.uploadFile(file, 'users');
+  async updateFile(file: Express.Multer.File, id: string) {
+    const job = await this.jobRepository.findOneByOrFail({ id });
     try {
-      await this.jobRepository.update({ id: id }, { jd: url });
-      const link = await this.awsService.getSignedURL(url);
-      return { link: link };
+      if (file) {
+        const urlKey = await this.awsService.uploadFile(file, 'users');
+        if (job.jd) {
+          await this.awsService.deleteImage(job.jd.url);
+          job.jd.url = urlKey;
+        } else {
+          const jd = new Image();
+          jd.url = urlKey;
+          job.jd = jd;
+        }
+      }
+      const savedJob = await this.jobRepository.save(job);
+
+      return { link: savedJob.jd.signedUrl };
     } catch (err) {
       throw new UnprocessableEntityException('failed to update');
     }

@@ -8,7 +8,6 @@ import {
 import { runMigrations } from '../db/migration-runner';
 import { WebSocketAdapter } from './chat/gateway.adpater';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ConfigService } from '@nestjs/config';
 import { DiscordExceptionFilter } from '../utils/filters/discord-exception.filter';
 import { DiscordService } from './discord/discord.service';
 
@@ -26,7 +25,6 @@ const localOrigins = [
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const configService = app.get(ConfigService);
   const logger = new Logger('Main');
   const { PORT } = process.env;
   app.useGlobalPipes(new ValidationPipe());

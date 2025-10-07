@@ -1,13 +1,26 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { JobState } from '../../@types/jobs';
+import { ProjectIdType } from '../../@types/types';
+import { Image } from '../../shops/product_images/entities/image.entity';
+import { Shop } from '../../shops/entities/shop.entity';
 
 @Entity()
 export class Job {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: ProjectIdType;
 
   @Column()
   title: string;
+
+  @ManyToOne(() => Shop, (shop) => shop.jobs)
+  shop: Shop;
 
   @Column()
   description: string;
@@ -24,8 +37,9 @@ export class Job {
   @Column()
   type: string;
 
-  @Column({ nullable: true })
-  jd: string;
+  @OneToOne(() => Image, { eager: true, cascade: true })
+  @JoinColumn()
+  jd: Image;
 
   @Column({ type: 'enum', enum: JobState, default: JobState.Published })
   status: JobState;
