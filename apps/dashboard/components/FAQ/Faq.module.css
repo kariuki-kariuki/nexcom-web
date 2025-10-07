@@ -12,4 +12,12 @@
   border-radius: var(--mantine-radius-md);
   margin-bottom: var(--mantine-spacing-lg);
   border: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  background-color: light-dark(rgba(255, 255, 255, .7),rgba(0, 0, 0, .3));
+}
+
+
+
+.input {
+  background: var(--mantine-color-gray-0);
+  border-radius: var(--mantine-radius-md);
 }

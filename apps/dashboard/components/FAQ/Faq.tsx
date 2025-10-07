@@ -1,20 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
-import { IconCirclePlus2, IconPencil, IconTrashX } from '@tabler/icons-react';
+import React, { useState, useCallback } from 'react';
+import { IconCirclePlusFilled, IconPencil, IconTrashX } from '@tabler/icons-react';
 import {
   Accordion,
   Button,
   Dialog,
+  Flex,
   Group,
-  rem,
+  Loader,
+  Paper,
   Stack,
   Text,
-  TextInput
+  Textarea,
+  TextInput,
+  useMantineTheme,
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useMediaQuery, useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import classes from './Faq.module.css';
+import classes from './Faq.module.css'; // Assuming Faq.module.css exists, or reuse CreateJob.module.css
 import { datasource } from '@repo/shared-logic';
 
 export interface IFaq {
@@ -24,89 +28,204 @@ export interface IFaq {
 }
 
 function Faq({ faqsdb }: { faqsdb: IFaq[] | null }) {
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const [faqs, setFaqs] = useState<IFaq[]>(faqsdb ?? []);
+  const [isLoading, setIsLoading] = useState(false); // For async loading state
+
   const accords = faqs.map((item, idx) => (
-    <FAQ item={item} key={idx} setFaqs={setFaqs} />
+    <FAQ item={item} key={`${item.id}-${idx}`} setFaqs={setFaqs} />
   ));
-  if (faqs.length < 1) {
-    return <Header setFaqs={setFaqs} />;
-  }
+
   return (
-    <div>
+    <Paper
+      shadow="lg"
+      radius="lg"
+      p={{ base: 'sm', sm: 'md', lg: 'xl' }}
+      withBorder
+      bg="none"
+      maw={1000}
+      mx="auto"
+      mt="sm"
+    >
       <Header setFaqs={setFaqs} />
-      <Accordion>{accords}</Accordion>
-    </div>
+      {isLoading ? (
+        <Flex align="center" justify="center" direction="column" gap="md" mih={300}>
+          <Loader size="lg" color="teal" />
+          <Text c="dimmed" size="lg" ta="center">
+            Loading FAQs...
+          </Text>
+        </Flex>
+      ) : faqs.length > 0 ? (
+        <Accordion
+          variant="separated"
+          radius="md"
+          transitionDuration={300}
+        >
+          {accords}
+        </Accordion>
+      ) : (
+        <Flex align="center" justify="center" direction="column" gap="md" mih={300}>
+          <Text c="dimmed" size="lg" ta="center">
+            No FAQs available.
+          </Text>
+          <Button
+            variant="light"
+            color="teal"
+            size="md"
+            radius="xl"
+            // onClick={() => document.querySelector('button[aria-label="Add new FAQ"]')?.click()}
+          >
+            Create Your First FAQ
+          </Button>
+        </Flex>
+      )}
+    </Paper>
   );
 }
 
-interface Ihaeder {
+interface IHeader {
   setFaqs: (updater: (faq: IFaq[]) => IFaq[]) => void;
 }
 
-function Header({ setFaqs }: Ihaeder) {
+function Header({ setFaqs }: IHeader) {
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const [newFaq, setNewFaq] = useState<IFaq>({ question: '', answer: '' });
-  const [opened, setOpened] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [opened, { toggle, close }] = useDisclosure(false);
+
+  const validateForm = useCallback(() => {
+    const newErrors: { [key: string]: string } = {};
+    if (!newFaq.question.trim()) newErrors.question = 'Question is required';
+    if (!newFaq.answer.trim()) newErrors.answer = 'Answer is required';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }, [newFaq]);
+
   const handleSubmit = async () => {
-    if (!newFaq.question || !newFaq.answer) {
+    if (!validateForm()) {
       notifications.show({
-        title: 'Input Error',
-        message: 'Question and answer cannot be empty.',
-        color: 'red'
+        title: 'Validation Error',
+        message: 'Please fill in all required fields',
+        color: 'red',
       });
       return;
     }
 
-      const {data, error} = await datasource.post<IFaq>({ path: 'faqs', formData: newFaq });
-    if (data) {
-      setFaqs((prev: IFaq[]) => [...prev, { ...newFaq, id: data.id }]);
+    setIsSubmitting(true);
+    try {
+      const { data, error } = await datasource.post<IFaq>({ path: 'faqs', formData: newFaq });
+      if (error || !data) {
+        throw new Error('Failed to create FAQ');
+      }
+      setFaqs((prev) => [...prev, { ...newFaq, id: data.id }]);
       notifications.show({
         title: 'Success',
-        message: 'New FAQ created successfully.',
-        color: 'green'
+        message: 'New FAQ created successfully',
+        color: 'teal',
       });
       setNewFaq({ question: '', answer: '' });
-      setOpened(false);
+      setErrors({});
+      close();
+    } catch (error) {
+      notifications.show({
+        title: 'Error',
+        message: 'Failed to create FAQ. Please try again.',
+        color: 'red',
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
+  const handleReset = () => {
+    setNewFaq({ question: '', answer: '' });
+    setErrors({});
+    notifications.show({
+      title: 'Form Reset',
+      message: 'Form has been reset',
+      color: 'blue',
+    });
+  };
+
   return (
-    <div>
-      <Group py="md">
-        <Button
-          leftSection={<IconCirclePlus2 />}
-          onClick={() => setOpened((prev) => !prev)}
-        >
-          New FAQ
-        </Button>
-      </Group>
+    <Group justify="space-between" mb="lg">
+      <Text fw={600} size="lg">
+        FAQs
+      </Text>
+      <Button
+        leftSection={<IconCirclePlusFilled size={20} />}
+        variant="filled"
+        color="teal"
+        size={mobile ? 'sm' : 'md'}
+        radius="xl"
+        onClick={toggle}
+        aria-label="Add new FAQ"
+      >
+        New FAQ
+      </Button>
       <Dialog
         opened={opened}
         withCloseButton
-        onClose={() => setOpened((prev) => !prev)}
+        onClose={close}
+        size={mobile ? '100%' : 'lg'}
+        radius="md"
+        position={{ top: mobile ? 'auto' : '20%', left: mobile ? 'auto' : '50%' }}
+        style={{ transform: mobile ? 'none' : 'translate(-50%, -20%)' }}
       >
-        <Text size="sm" mb="xs" fw={500}>
-          Add new FAQ
+        <Text size="sm" mb="md" fw={600}>
+          Add New FAQ
         </Text>
         <Stack gap="md">
           <TextInput
+            label="Question"
             placeholder="Enter question"
             value={newFaq.question}
-            onChange={(e) =>
-              setNewFaq((prev) => ({ ...prev, question: e.target.value }))
-            }
+            onChange={(e) => setNewFaq((prev) => ({ ...prev, question: e.target.value }))}
+            error={errors.question}
+            classNames={{ input: classes.input }}
+            variant="filled"
+            size="lg"
+            required
           />
-          <TextInput
+          <Textarea
+            label="Answer"
             placeholder="Enter answer"
             value={newFaq.answer}
-            onChange={(e) =>
-              setNewFaq((prev) => ({ ...prev, answer: e.target.value }))
-            }
+            onChange={(e) => setNewFaq((prev) => ({ ...prev, answer: e.target.value }))}
+            error={errors.answer}
+            classNames={{ input: classes.input }}
+            variant="filled"
+            size="lg"
+            rows={4}
+            required
           />
         </Stack>
-        <Button mt="md" onClick={handleSubmit}>
-          Submit
-        </Button>
+        <Group justify="space-between" mt="md">
+          <Button
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+            leftSection={isSubmitting && <Loader size="sm" />}
+            color="coco.5"
+            size="md"
+            radius="md"
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit'}
+          </Button>
+          <Button
+            onClick={handleReset}
+            variant="outline"
+            color="gray"
+            size="md"
+            radius="md"
+          >
+            Reset
+          </Button>
+        </Group>
       </Dialog>
-    </div>
+    </Group>
   );
 }
 
@@ -116,72 +235,98 @@ interface IFAQ {
 }
 
 const FAQ = ({ item, setFaqs }: IFAQ) => {
-  const [opened, { toggle }] = useDisclosure();
-  const [faq, setFaq] = useState(item);
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const [opened, { toggle, close }] = useDisclosure();
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
-    if (!item.id) return; // Ensure item has an ID to delete
+    if (!item.id) {
+      notifications.show({
+        title: 'Error',
+        message: 'Cannot delete FAQ without an ID',
+        color: 'red',
+      });
+      return;
+    }
+
+    setIsDeleting(true);
     try {
-      const {data, error} = await datasource.delete(`faqs/${item.id}`);
-      if (data) {
-        notifications.show({
-          title: 'Success',
-          message: `Deleted FAQ ${item.id}`,
-          color: 'teal'
-        });
-        setFaqs((prevFaqs) =>
-          prevFaqs.filter((faqItem) => faqItem.id !== item.id)
-        );
-      } else {
+      const { data, error } = await datasource.delete(`faqs/${item.id}`);
+      if (error || !data) {
         throw new Error('Failed to delete FAQ');
       }
+      setFaqs((prevFaqs) => prevFaqs.filter((faqItem) => faqItem.id !== item.id));
+      notifications.show({
+        title: 'Success',
+        message: `FAQ "${item.question}" deleted successfully`,
+        color: 'teal',
+      });
     } catch (error) {
       notifications.show({
-        title: 'Delete Failure',
-        message: `Failed to delete FAQ ${item.id}. Please try again.`,
-        color: 'red'
+        title: 'Error',
+        message: `Failed to delete FAQ. Please try again.`,
+        color: 'red',
       });
+    } finally {
+      setIsDeleting(false);
     }
   };
 
   return (
     <Accordion.Item
       className={classes.item}
-      value={faq.id?.toString() ?? faq.question}
+      value={item.id?.toString() ?? item.question}
     >
-      <Accordion.Control>
-        {faq.id}: {faq.question}
+      <Accordion.Control fw={600} c="teal.6">
+        <Flex align="center" gap="xs">
+          <Text size={mobile ? 'sm' : 'md'}>{item.question}</Text>
+          {item.id && (
+            <Text size="xs" c="dimmed">
+              (ID: {item.id})
+            </Text>
+          )}
+        </Flex>
       </Accordion.Control>
       <Accordion.Panel>
-        <Text>{faq.answer}</Text>
-        <Group py="md">
-          <Button
-            color="blue"
-            onClick={toggle}
-            leftSection={
-              <IconPencil style={{ width: rem(14), height: rem(14) }} />
-            }
-          >
-            Edit
-          </Button>
-          <Button
-            color="red"
-            leftSection={
-              <IconTrashX style={{ width: rem(14), height: rem(14) }} />
-            }
-            onClick={handleDelete}
-          >
-            Delete
-          </Button>
-        </Group>
+        <Flex direction="column" gap="md">
+          <Text size={mobile ? 'sm' : 'md'} c="dimmed">
+            {item.answer || 'No answer provided.'}
+          </Text>
+          <Group gap="xs">
+            <Button
+              color="coco.5"
+              variant="light"
+              size={mobile ? 'xs' : 'sm'}
+              radius="md"
+              onClick={toggle}
+              leftSection={<IconPencil size={16} />}
+            >
+              Edit
+            </Button>
+            <Button
+              color="red"
+              variant="light"
+              size={mobile ? 'xs' : 'sm'}
+              radius="md"
+              onClick={handleDelete}
+              disabled={isDeleting}
+              leftSection={isDeleting ? <Loader size="sm" /> : <IconTrashX size={16} />}
+            >
+              {isDeleting ? 'Deleting...' : 'Delete'}
+            </Button>
+          </Group>
+        </Flex>
         <Dialog
           opened={opened}
-          onClose={toggle}
+          onClose={close}
           withCloseButton
-          size="xl"
-          position={{ top: '40%', left: '40%' }}
+          size={mobile ? '100%' : 'lg'}
+          radius="md"
+          position={{ top: mobile ? 'auto' : '20%', left: mobile ? 'auto' : '50%' }}
+          style={{ transform: mobile ? 'none' : 'translate(-50%, -20%)' }}
         >
-          <Edit faq={faq} setFaq={setFaq} toggle={toggle} />
+          <Edit faq={item} setFaqs={setFaqs} toggle={close} />
         </Dialog>
       </Accordion.Panel>
     </Accordion.Item>
@@ -190,66 +335,130 @@ const FAQ = ({ item, setFaqs }: IFAQ) => {
 
 interface IEdit {
   faq: IFaq;
-  setFaq: (faq: IFaq) => void;
+  setFaqs: (updater: (faqs: IFaq[]) => IFaq[]) => void;
   toggle: () => void;
 }
 
-function Edit({ faq, setFaq, toggle }: IEdit) {
+function Edit({ faq, setFaqs, toggle }: IEdit) {
+  const theme = useMantineTheme();
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   const [item, setItem] = useState(faq);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const validateForm = useCallback(() => {
+    const newErrors: { [key: string]: string } = {};
+    if (!item.question.trim()) newErrors.question = 'Question is required';
+    if (!item.answer.trim()) newErrors.answer = 'Answer is required';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }, [item]);
 
   const handleSubmit = async () => {
-    if (!item.question || !item.answer) {
+    if (!validateForm()) {
       notifications.show({
-        title: 'Update Failure',
-        message: 'Question and answer cannot be empty.',
-        color: 'red'
+        title: 'Validation Error',
+        message: 'Please fill in all required fields',
+        color: 'red',
       });
       return;
     }
 
-    const {data, error} = await datasource.update(item, `faqs/${faq.id}`);
-    if (data) {
+    if (!item.id) {
+      notifications.show({
+        title: 'Error',
+        message: 'Cannot update FAQ without an ID',
+        color: 'red',
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const { data, error } = await datasource.update(item, `faqs/${item.id}`);
+      if (error || !data) {
+        throw new Error('Failed to update FAQ');
+      }
+      setFaqs((prev) =>
+        prev.map((f) => (f.id === item.id ? { ...item } : f))
+      );
       notifications.show({
         title: 'Success',
-        message: 'FAQ updated successfully.',
-        color: 'green'
+        message: 'FAQ updated successfully',
+        color: 'teal',
       });
-      setFaq(item);
       toggle();
-    } else {
+    } catch (error) {
       notifications.show({
-        title: 'Update Failure',
-        message: error,
-        color: 'red'
+        title: 'Error',
+        message: 'Failed to update FAQ. Please try again.',
+        color: 'red',
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
+  const handleReset = () => {
+    setItem(faq);
+    setErrors({});
+    notifications.show({
+      title: 'Form Reset',
+      message: 'Form has been reset',
+      color: 'blue',
+    });
+  };
+
   return (
-    <>
-      <Text size="sm" mb="xs" fw={500}>
-        Edit Question {faq.id}
+    <Stack gap="md">
+      <Text size="sm" fw={600}>
+        Edit FAQ {faq.id}
       </Text>
-      <Stack gap="md">
-        <TextInput
-          placeholder="Edit question"
-          value={item.question}
-          onChange={(e) =>
-            setItem((prev) => ({ ...prev, question: e.target.value }))
-          }
-        />
-        <TextInput
-          placeholder="Edit answer"
-          value={item.answer}
-          onChange={(e) =>
-            setItem((prev) => ({ ...prev, answer: e.target.value }))
-          }
-        />
-      </Stack>
-      <Button mt="md" onClick={handleSubmit}>
-        Submit
-      </Button>
-    </>
+      <TextInput
+        label="Question"
+        placeholder="Edit question"
+        value={item.question}
+        onChange={(e) => setItem((prev) => ({ ...prev, question: e.target.value }))}
+        error={errors.question}
+        classNames={{ input: classes.input }}
+        variant="filled"
+        size="lg"
+        required
+      />
+      <Textarea
+        label="Answer"
+        placeholder="Edit answer"
+        value={item.answer}
+        onChange={(e) => setItem((prev) => ({ ...prev, answer: e.target.value }))}
+        error={errors.answer}
+        classNames={{ input: classes.input }}
+        variant="filled"
+        size="lg"
+        rows={4}
+        required
+      />
+      <Group justify="space-between" mt="md">
+        <Button
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+          leftSection={isSubmitting && <Loader size="sm" />}
+          color="coco.5"
+          size="md"
+          radius="md"
+        >
+          {isSubmitting ? 'Submitting...' : 'Submit'}
+        </Button>
+        <Button
+          onClick={handleReset}
+          variant="outline"
+          color="gray"
+          size="md"
+          radius="md"
+        >
+          Reset
+        </Button>
+      </Group>
+    </Stack>
   );
 }
 

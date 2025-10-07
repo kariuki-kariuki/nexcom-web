@@ -3,6 +3,7 @@ import { useState } from 'react';
 import {
   IconBellRinging,
   IconFileCvFilled,
+  IconFilter2Question,
   IconGraph,
   IconJoinBevel,
   IconListDetails,
@@ -11,7 +12,6 @@ import {
   IconSwitchHorizontal,
 } from '@tabler/icons-react';
 import classes from './NavbarSearch.module.css';
-import MenuDrop from '@/components/Menudrop/MenuDrop';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Avatar, Divider, Group, Paper, Text } from '@mantine/core';
@@ -22,7 +22,7 @@ const data = [
   { link: '/dashboard/products', label: 'Products', icon: IconShoppingBag },
   { link: '/dashboard/jobs', label: 'Jobs', icon: IconFileCvFilled },
   { link: '#', label: 'Notifications', icon: IconBellRinging },
-  { link: '#', label: 'Blogs', icon: IconListDetails },
+  { link: '/dashboard/faq', label: 'FAQs', icon: IconFilter2Question },
 ];
 
 export function NavbarSearch() {
