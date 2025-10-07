@@ -13,6 +13,7 @@ import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { AuthenticatedRequest } from '../../@types/types';
 
 @Controller('orders')
 export class OrdersController {
@@ -20,13 +21,16 @@ export class OrdersController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  create(@Body() createOrderDto: CreateOrderDto, @Request() req) {
+  create(
+    @Body() createOrderDto: CreateOrderDto,
+    @Request() req: AuthenticatedRequest,
+  ) {
     return this.ordersService.create(createOrderDto, req.user.userId);
   }
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  findAll(@Request() req) {
+  findAll(@Request() req: AuthenticatedRequest) {
     return this.ordersService.findAll(req.user.userId);
   }
 
@@ -40,7 +44,7 @@ export class OrdersController {
   update(
     @Param('id') id: string,
     @Body() updateOrderDto: UpdateOrderDto,
-    @Request() req,
+    @Request() req: AuthenticatedRequest,
   ) {
     id;
     updateOrderDto;
@@ -50,7 +54,7 @@ export class OrdersController {
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
-  remove(@Param('id') id: string, @Request() req) {
+  remove(@Param('id') id: string, @Request() req: AuthenticatedRequest) {
     return this.ordersService.remove(+id, req.user.userId);
   }
 }

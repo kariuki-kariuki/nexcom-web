@@ -94,7 +94,7 @@ export class OrdersService {
 
   async update() {} // userId: ProjectIdType, // updateOrderDto: UpdateOrderDto, // id: ProjectIdType,
 
-  async remove(id: number, userId: number) {
+  async remove(id: number, userId: string) {
     try {
       const order = await this.ordersRepo
         .createQueryBuilder()

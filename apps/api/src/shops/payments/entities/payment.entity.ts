@@ -24,40 +24,39 @@ export class Payment {
   checkoutRequestId: string;
 
   @Exclude()
-  @Column()
+  @Column({ type: 'int' }) // Explicitly define type for better database consistency
   resultCode: number;
 
   @Exclude()
   @Column()
   resultDesc: string;
 
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 }) // Use decimal for monetary values
   amount: number;
 
   @Exclude()
   @Column()
   mpesaReceiptNumber: string;
 
-  @Column()
+  @Column({ type: 'timestamp' }) // Ensure proper date handling
   transactionDate: Date;
 
   @Column()
   @Exclude()
   phoneNumber: string;
 
-  @Column({ default: PaymentStatus.PENDING }) // pending, success, failed
+  @Column({ default: PaymentStatus.PENDING, enum: PaymentStatus }) // Use enum for type safety
   status: PaymentStatus;
 
-  @Column({ nullable: true }) // Reason for failure, if any
-  failureReason: string;
+  @Column({ nullable: true })
+  failureReason: string | null; // Explicitly allow null
 
   @Column({ default: false })
   verified: boolean;
 
-  @OneToOne(() => Order, (order) => order.payment)
+  @OneToOne(() => Order, (order) => order.payment, { onDelete: 'CASCADE' }) // Add cascading delete
   order: Order;
 
-  // Special columns
   @Exclude()
   @CreateDateColumn()
   created_at: Date;

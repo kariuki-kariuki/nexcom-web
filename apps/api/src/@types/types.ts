@@ -26,7 +26,7 @@ export type CallbackMetadata = {
   Item: CallbackMetadataItem[];
 };
 
-export type StkCallBack = {
+export type stkCallback = {
   MerchantRequestID: string;
   CheckoutRequestID: string;
   ResultCode: number;
@@ -36,17 +36,17 @@ export type StkCallBack = {
 
 export type MpesaResponse = {
   Body: {
-    stkCallback: StkCallBack;
+    stkCallback: stkCallback;
   };
 };
 
 export type MpesaFailure = {
   Body: {
-    stkCallBack: StkCallBackFailure;
+    stkCallback: stkCallbackFailure;
   };
 };
 
-export type StkCallBackFailure = {
+export type stkCallbackFailure = {
   MerchantRequestID: string;
   CheckoutRequestID: string;
   ResultCode: number;
