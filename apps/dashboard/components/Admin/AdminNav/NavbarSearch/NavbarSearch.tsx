@@ -1,69 +1,67 @@
 'use client'
 import { useState } from 'react';
 import {
-  Icon2fa,
   IconBellRinging,
-  IconDatabaseImport,
-  IconFingerprint,
-  IconKey,
+  IconFileCvFilled,
+  IconGraph,
+  IconJoinBevel,
+  IconListDetails,
   IconLogout,
-  IconReceipt2,
-  IconSettings,
+  IconShoppingBag,
   IconSwitchHorizontal,
 } from '@tabler/icons-react';
-import { Avatar, Code, Group } from '@mantine/core';
 import classes from './NavbarSearch.module.css';
-import { UserButton } from '@/components/SimpleRoute/UserButton';
 import MenuDrop from '@/components/Menudrop/MenuDrop';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Avatar, Divider, Group, Paper, Text } from '@mantine/core';
 
 const data = [
-  { link: '', label: 'Notifications', icon: IconBellRinging },
-  { link: '', label: 'Billing', icon: IconReceipt2 },
-  { link: '', label: 'Security', icon: IconFingerprint },
-  { link: '', label: 'SSH Keys', icon: IconKey },
-  { link: '', label: 'Databases', icon: IconDatabaseImport },
-  { link: '', label: 'Authentication', icon: Icon2fa },
-  { link: '', label: 'Other Settings', icon: IconSettings },
+
+  { link: '/dashboard', label: 'Analytics', icon: IconGraph },
+  { link: '/dashboard/products', label: 'Products', icon: IconShoppingBag },
+  { link: '/dashboard/jobs', label: 'Jobs', icon: IconFileCvFilled },
+  { link: '#', label: 'Notifications', icon: IconBellRinging },
+  { link: '#', label: 'Blogs', icon: IconListDetails },
 ];
 
 export function NavbarSearch() {
-  const [active, setActive] = useState('Billing');
+  const path = usePathname()
+  console.log(path)
 
   const links = data.map((item) => (
-    <a
+    <Link
       className={classes.link}
-      data-active={item.label === active || undefined}
+      data-active={item.link === path || undefined}
       href={item.link}
       key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(item.label);
-      }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>{item.label}</span>
-    </a>
+    </Link>
   ));
 
   return (
     <nav className={classes.navbar}>
       <div className={classes.navbarMain}>
-        <div>
-          <MenuDrop />
-        </div>
+        <Group bg="none" pb="sm">
+          <Avatar src="/logo.png" size="lg" name="N C" />
+          <Text>Dashboard</Text>
+        </Group>
+        <Divider py="md"/>
         {links}
       </div>
 
       <div className={classes.footer}>
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+        <Link href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
           <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
           <span>Change account</span>
-        </a>
+        </Link>
 
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+        <Link href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
-        </a>
+        </Link>
       </div>
     </nav>
   );

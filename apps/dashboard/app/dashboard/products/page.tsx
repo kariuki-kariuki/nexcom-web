@@ -14,7 +14,7 @@ const Page = async () => {
         <>
           <Group justify="space-between">
             <Text>No Products Yet</Text>
-            <Link href="/products/create">
+            <Link href="/dashboard/products/create">
               <Button
                 variant="default"
                 mx="sm"

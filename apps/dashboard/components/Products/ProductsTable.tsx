@@ -6,7 +6,9 @@ import { IconCirclePlusFilled } from '@tabler/icons-react';
 import {
   Box,
   Button,
+  Container,
   Group,
+  Paper,
   SegmentedControl,
   Table,
   Text,
@@ -48,8 +50,8 @@ export function ProductsTable({ products }: { products: Product[] }) {
       />
     ));
   return (
-    <div>
-      <Group justify="space-between" wrap="nowrap" pb="md">
+    <Paper p={{ base: 'xs', sm: 'sm', lg: 'md'}} bg="none">
+      <Group justify="space-between" wrap="nowrap">
         <SegmentedControl
           radius="xl"
           size={mobile ? 'xs' : 'sm'}
@@ -68,7 +70,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
           </Button>
         </Link>
       </Group>
-      <Table miw={800} verticalSpacing="sm" striped stripedColor={colorScheme === 'dark' ? 'rgba(0, 0, 0, .2)' : 'gray.1'} >
+      <Table miw={800} verticalSpacing="sm" striped stripedColor={'light-dark(var(--mantine-color-gray-1), rgba(0, 0, 0, .2))'} >
         <Table.Thead>
           <Table.Tr>
             <Table.Th>Image</Table.Th>
@@ -81,6 +83,6 @@ export function ProductsTable({ products }: { products: Product[] }) {
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
-    </div>
+    </Paper>
   );
 }

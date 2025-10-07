@@ -11,12 +11,12 @@ interface IPros {
 }
 function Admin({products, name}: IPros) {
   return (
-      <Container size="lg" bg="none"
+      <Paper  p={{ base: 'xs', sm: 'sm', lg: 'md'}} bg="none"
       >
         {/* <Header name={name}/> */}
           <StatsGrid products={products} />
           <ProductAnalyticsTable products={products}/>
-      </Container>
+      </Paper>
   );
 }
 

@@ -1,4 +1,4 @@
-import { Table, useMantineColorScheme, Text, Avatar, Group, TableTd } from '@mantine/core'
+import { Table, Text, Avatar, Group, TableTd } from '@mantine/core'
 import React from 'react'
 import StatusButton from '../StatusButton/StatusButton'
 import { Product } from '@repo/nexcom-types'
@@ -39,9 +39,8 @@ const ProductAnalyticsTable = ({ products }: IProps) => {
       </Table.Tr>
     )
   })
-  const { colorScheme } = useMantineColorScheme()
   return (
-    <Table miw={800} verticalSpacing="sm" striped stripedColor={colorScheme === 'dark' ? 'rgba(0, 0, 0, .2)' : 'gray.1'}>
+    <Table miw={800} verticalSpacing="sm" striped stripedColor={'light-dark(var(--mantine-color-gray-1), rgba(0, 0, 0, .2))'}>
       <Table.Thead>
         <Table.Tr>
           <Table.Th>Image</Table.Th>
