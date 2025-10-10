@@ -1,0 +1,7 @@
+.main {
+    background-color: light-dark(var(--mantine-color-gray-0), rgba(0, 0, 0, .1));
+}
+
+.itemList {
+    background-color: light-dark(var(--mantine-color-white), rgba(0, 0, 0, .1));
+}
