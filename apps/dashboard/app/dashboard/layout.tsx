@@ -8,17 +8,15 @@ interface PageProps {
 }
 const DashboardLayout = ({ children }: PageProps) => {
     return (
-        <div>
-            <Flex direction={{ base: 'column', sm: 'row'}}>
-                <Paper bg="none" w={{ base: '100%', xs: "50%", sm: "40%", md: "30%", lg: "20%"}}>
-                    <NavbarSearch />
-                </Paper>
-                <Paper bg="none" w={{ base: "100%", xs: "50%", sm: "60%", md: "70%", lg: '80%' }}>
-                    <SimpleRoute />
-                    {children}
-                </Paper>
-            </Flex>
-        </div>
+        <Flex direction={{ base: 'column', sm: 'row' }}>
+            <Paper bg="none" w={{ base: '100%', xs: "50%", sm: "40%", md: "30%", lg: "20%" }}>
+                <NavbarSearch />
+            </Paper>
+            <Paper bg="none" w={{ base: "100%", xs: "50%", sm: "60%", md: "70%", lg: '80%' }} h="100vh" style={{ overflowY: "scroll" }}>
+                <SimpleRoute />
+                {children}
+            </Paper>
+        </Flex>
     )
 }
 

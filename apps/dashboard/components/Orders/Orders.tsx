@@ -1,28 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
-import { IconPlus, IconClock, IconMapPin, IconPhone, IconCheck } from '@tabler/icons-react';
+import React from 'react';
 import {
-    Accordion,
-    ActionIcon,
-    Badge,
-    Button,
-    Card,
-    Flex,
-    Group,
-    Paper,
-    SegmentedControl,
-    Text,
-    Title,
-    useMantineTheme,
+  Flex,
+  Paper,
+  Text,
 } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
-import classes from './Orders.module.css'; // Assuming a CSS module for custom styling
-import OrderItem from './OrderItem/OrderItem';
-import OrderNavCard from './OrderNavCard/OrderNavCard';
-import OrderDescriptionCard from './OrderDescriptionCard/OrderDescriptionCard';
 
-const sampleOders = [
+export const sampleOders = [
   {
     id: '00349',
     status: 'New',
@@ -98,69 +83,14 @@ const sampleOders = [
 
 
 const Orders = () => {
-    const theme = useMantineTheme();
-    const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
-    const [activeTab, setActiveTab] = useState('All');
-    const [orders] = useState(sampleOders);
-    const [activeOrderId, setActiveOrderId] = useState(orders[0].id)
 
-
-    const activeOrder = orders.find((order) => order.id === activeOrderId);
-
-    const handleAcceptOrder = () => {
-        // Logic to accept order
-        console.log(`Order ${activeOrder?.id} accepted`);
-    };
-
-    return (
-        <Paper
-            shadow="lg"
-            radius="lg"
-            p={{ base: 'sm', sm: 'md', lg: 'md' }}
-            bg="none"
-            mx="auto"
-            mt="sm"
-            h="100%"
-        >
-            <Flex direction={{ base: 'column', sm: 'row' }} flex={1} gap="md">
-                {/* Sidebar */}
-                <Card
-                    withBorder
-                    radius="md"
-                    p="xs"
-                    w={{ base: '100%', sm: "auto" }}
-                    bg="light-dark(var(--mantine-color-gray-0), rgba(0, 0, 0, .3))"
-                >
-                    <Group justify="space-between" mb="sm">
-                        <Title order={4} c="white">Task list</Title>
-                        <ActionIcon variant="transparent" color="blue" aria-label="Add new order">
-                            <IconPlus size={18} />
-                        </ActionIcon>
-                    </Group>
-                    <SegmentedControl
-                        radius="xl"
-                        size={mobile ? 'xs' : 'md'}
-                        data={['All', 'Published', 'Draft', 'Archived']}
-                        value={activeTab}
-                        onChange={setActiveTab}
-                        classNames={classes}
-                        aria-label="Filter jobs by status"
-                        color="teal"
-                        transitionDuration={200}
-                        transitionTimingFunction="ease"
-                    />
-                    {
-                        orders.map((order) => <OrderNavCard {...order} setActiveOrder={setActiveOrderId} activeOrderId={activeOrderId} key={order.id}/>)
-                    }
-                </Card>
-
-                {/* Order Details */}
-                {activeOrder && (
-                   <OrderDescriptionCard orders={orders} activeOrder={activeOrder} activeTab={activeTab} />
-                )}
-            </Flex>
-        </Paper>
-    );
+  return (
+    <Paper withBorder bg="none" flex={1} visibleFrom='sm'>
+      <Flex h="100%" align="center" justify="center">
+        {sampleOders.length < 1 ? <Text>No Products Yet</Text> : <Text>Select order to view</Text>}
+      </Flex>
+    </Paper>
+  );
 };
 
 export default Orders;

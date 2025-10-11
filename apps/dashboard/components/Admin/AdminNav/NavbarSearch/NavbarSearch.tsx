@@ -8,6 +8,7 @@ import {
   IconJoinBevel,
   IconListDetails,
   IconLogout,
+  IconMenuOrder,
   IconShoppingBag,
   IconSwitchHorizontal,
 } from '@tabler/icons-react';
@@ -20,6 +21,7 @@ const data = [
 
   { link: '/dashboard', label: 'Analytics', icon: IconGraph },
   { link: '/dashboard/products', label: 'Products', icon: IconShoppingBag },
+  { link: '/dashboard/orders', label: 'Orders', icon: IconMenuOrder },
   { link: '/dashboard/jobs', label: 'Jobs', icon: IconFileCvFilled },
   { link: '#', label: 'Notifications', icon: IconBellRinging },
   { link: '/dashboard/faq', label: 'FAQs', icon: IconFilter2Question },
