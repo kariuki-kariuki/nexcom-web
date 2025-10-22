@@ -5,6 +5,7 @@ import {
   Avatar,
   Button,
   Card,
+  Divider,
   Flex,
   Group,
   Input,
@@ -20,6 +21,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { APP_URL, datasource, setToken } from '@repo/shared-logic';
 import { AuthResponse } from '../../../../packages/nexcom-types';
+import LoginButton from '../LoginButton/LoginButton';
 
 function Login({ searchParams }: {searchParams: string}) {
   const [loginData, setLoginData] = useState({
@@ -87,6 +89,11 @@ function Login({ searchParams }: {searchParams: string}) {
               <Button type="submit" size="lg" radius="lg" className={classes.btn} onClick={handleSubmit}>
                 Login
               </Button>
+            </Stack>
+
+            <Stack>
+              <Divider />
+              <LoginButton />
             </Stack>
           </Stack>
         </Card>

@@ -4,15 +4,15 @@ import { UpdateProductVideoDto } from './dto/update-product-video.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductVideo } from './entities/product-video.entity';
 import { Repository } from 'typeorm';
-import { Payload } from '../@types/chat/chat';
 import { ProductStatus } from '../@types/product-status';
 import { AwsService } from '../aws/aws.service';
 import { ProductsService } from '../shops/products/products.service';
+import { User } from '../users/entities/user.entity';
 
 interface INewProduct {
   createProductVideoDto: CreateProductVideoDto;
   file: Express.Multer.File;
-  payload: Payload;
+  user: User;
 }
 
 @Injectable()
@@ -24,11 +24,11 @@ export class ProductVideosService {
     private productService: ProductsService,
     private awsService: AwsService,
   ) {}
-  async create({ createProductVideoDto, file, payload }: INewProduct) {
+  async create({ createProductVideoDto, file, user }: INewProduct) {
     const { productId, description } = createProductVideoDto;
     const product = await this.productService.findOne(productId);
 
-    if (product.shop.id !== payload.shopId) {
+    if (product.shop.id !== user.shop?.id) {
       throw new ForbiddenException('You are forbiden to perfom the action');
     }
 

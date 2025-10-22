@@ -60,7 +60,9 @@ export class UsersService {
     user.lastName = data.lastName;
     user.email = data.email;
     user.apiKey = uuid4();
+    user.provider = 'google';
     user.phone = '123-345-899';
+    user.providerId = data.providerId;
     const initiator = await this.findOne('nexcom.bot@gmail.com');
 
     try {

@@ -38,7 +38,7 @@ export class ShopsController {
   @UseGuards(JwtAuthGuard)
   @Get('myshop')
   getMyShop(@Req() req: AuthenticatedRequest) {
-    return this.shopsService.findMyShop(req.user.shopId);
+    return this.shopsService.findMyShop(req.user.shop?.id);
   }
 
   @Roles(UserRoles.SHOP_ADMIN)
@@ -46,7 +46,7 @@ export class ShopsController {
   @UseGuards(JwtAuthGuard)
   @Get('orders')
   getOrders(@Req() req: AuthenticatedRequest) {
-    return this.shopsService.getOrders(req.user.shopId);
+    return this.shopsService.getOrders(req.user.shop?.id);
   }
 
   @Get(':id')
@@ -63,7 +63,7 @@ export class ShopsController {
     @Body() updateShopDto: UpdateShopDto,
     @Request() req: AuthenticatedRequest,
   ) {
-    return this.shopsService.update(id, updateShopDto, req.user.userId);
+    return this.shopsService.update(id, updateShopDto, req.user.id);
   }
 
   @Roles(UserRoles.SHOP_ADMIN)

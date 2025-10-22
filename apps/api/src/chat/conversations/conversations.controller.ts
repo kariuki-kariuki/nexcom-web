@@ -21,7 +21,7 @@ export class ConversationsController {
   @Get()
   @UseGuards(JwtAuthGuard)
   findAll(@Request() req: AuthenticatedRequest) {
-    return this.conversationsService.findAll(req.user.userId);
+    return this.conversationsService.findAll(req.user.id);
   }
 
   @Post()
@@ -32,7 +32,7 @@ export class ConversationsController {
   ) {
     return this.conversationsService.createConversation({
       createConversationDTO,
-      initiatorId: req.user.userId,
+      initiatorId: req.user.id,
     });
   }
 

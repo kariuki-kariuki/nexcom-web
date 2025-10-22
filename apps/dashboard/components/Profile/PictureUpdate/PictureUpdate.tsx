@@ -70,7 +70,7 @@ const PictureUpdate = ({ image }: { image: string }) => {
         </Stack>
 
         <Group my={'md'}>
-          <Button onClick={handleSubmit}>Save</Button>
+          <Button onClick={handleSubmit}>Update</Button>
           {value ? (
             <Button color="red" onClick={() => setValue(null)}>
               Clear

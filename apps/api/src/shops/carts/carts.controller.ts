@@ -25,13 +25,13 @@ export class CartsController {
     @Body() createCartDto: CreateCartDto,
     @Request() req: AuthenticatedRequest,
   ) {
-    return this.cartsService.create({ createCartDto, userId: req.user.userId });
+    return this.cartsService.create({ createCartDto, userId: req.user.id });
   }
 
   @Get()
   @UseGuards(JwtAuthGuard)
   findAll(@Request() req: AuthenticatedRequest) {
-    return this.cartsService.findAll({ userId: req.user.userId });
+    return this.cartsService.findAll({ userId: req.user.id });
   }
 
   @Get(':id')
@@ -50,7 +50,7 @@ export class CartsController {
     return this.cartsService.update({
       id,
       updateCartDto,
-      userId: req.user.userId,
+      userId: req.user.id,
     });
   }
 

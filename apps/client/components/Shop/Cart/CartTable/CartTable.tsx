@@ -17,7 +17,6 @@ import {
 import classes from './CartTable.module.css';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
 import { CartItem } from '@/lib/@types/shop';
-import { useColorScheme } from '@mantine/hooks';
 import { datasource } from '@/lib/common/datasource';
 
 interface IProps {

@@ -1,3 +1,4 @@
+import { User } from '../users/entities/user.entity';
 import { Payload } from './chat/chat';
 
 export type ProjectIdType = string;
@@ -8,6 +9,8 @@ export enum OrderState {
   CANCELED = 'canceled',
   PENDING = 'pending',
 }
+
+export const SESSION_COOKIE_KEY = 'Authentication';
 
 export interface DarajaTypes {
   MerchantRequestID: string;
@@ -54,7 +57,7 @@ export type stkCallbackFailure = {
 };
 
 export interface AuthenticatedRequest extends Request {
-  user: Payload;
+  user: User;
 }
 
 export interface BrowserInfo {

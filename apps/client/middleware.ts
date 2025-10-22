@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { decodeJwt } from 'jose';
-import { url } from 'inspector';
 import { APP_URL, AUTH_URL } from './lib/common/constants';
 
 // Define protected and public routes

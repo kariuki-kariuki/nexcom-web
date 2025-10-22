@@ -21,6 +21,8 @@ import { ProductComment } from '../../product-comments/entities/product-comment.
 import { Cart } from '../../shops/carts/entities/cart.entity';
 import { Image } from '../../shops/product_images/entities/image.entity';
 
+export type Provider = 'google' | 'local';
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
@@ -60,6 +62,14 @@ export class User {
   @Column({ nullable: true })
   @Exclude()
   password: string;
+
+  @Column()
+  @Column({ nullable: false, default: 'local' })
+  provider: Provider;
+
+  @Exclude()
+  @Column({ nullable: true })
+  providerId: string;
 
   @Exclude()
   @Column({ nullable: true, type: 'text' })

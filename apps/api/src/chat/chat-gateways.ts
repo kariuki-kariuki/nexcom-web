@@ -224,6 +224,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @MessageBody() data: { file?: Express.Multer.File; status: string },
   ) {
     const { userId } = client.user;
+    this.logger.log('Update profile called');
     try {
       const res = await this.chatService.updateProfile(
         userId,

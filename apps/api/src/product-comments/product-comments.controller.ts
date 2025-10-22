@@ -29,7 +29,7 @@ export class ProductCommentsController {
   ) {
     return this.productCommentsService.create(
       createProductCommentDto,
-      req.user.userId,
+      req.user.id,
     );
   }
 

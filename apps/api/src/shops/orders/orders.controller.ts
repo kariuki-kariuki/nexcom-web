@@ -25,13 +25,13 @@ export class OrdersController {
     @Body() createOrderDto: CreateOrderDto,
     @Request() req: AuthenticatedRequest,
   ) {
-    return this.ordersService.create(createOrderDto, req.user.userId);
+    return this.ordersService.create(createOrderDto, req.user.id);
   }
 
   @Get()
   @UseGuards(JwtAuthGuard)
   findAll(@Request() req: AuthenticatedRequest) {
-    return this.ordersService.findAll(req.user.userId);
+    return this.ordersService.findAll(req.user.id);
   }
 
   @Get(':id')
@@ -55,6 +55,6 @@ export class OrdersController {
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string, @Request() req: AuthenticatedRequest) {
-    return this.ordersService.remove(+id, req.user.userId);
+    return this.ordersService.remove(+id, req.user.id);
   }
 }

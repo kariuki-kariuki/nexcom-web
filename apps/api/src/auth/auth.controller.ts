@@ -6,7 +6,6 @@ import {
   Post,
   Req,
   Request,
-  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -28,7 +27,6 @@ import { CreateShopDto } from '../shops/dto/create-shop.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthenticatedRequest } from '../@types/types';
 import { User } from '../users/entities/user.entity';
-import { useContainer } from 'class-validator';
 
 @ApiBearerAuth()
 @Controller('auth')
@@ -61,9 +59,9 @@ export class AuthController {
     @UploadedFile() file: Express.Multer.File,
     @Req() req: AuthenticatedRequest,
   ) {
-    console.log("Email", req.user.email)
-    const {email, userId} = req.user;
-    return this.authService.createShop(createShopDto, email, userId, file);
+    console.log('Email', req.user.email);
+    const { email, id } = req.user;
+    return this.authService.createShop(createShopDto, email, id, file);
   }
 
   @Get('me')
@@ -77,7 +75,7 @@ export class AuthController {
   @Get('enable-2fa')
   @UseGuards(JwtAuthGuard)
   enable2FA(@Request() req) {
-    return this.authService.enable2FA(req.user.userId);
+    return this.authService.enable2FA(req.user.id);
   }
 
   @Post('validate-2fa')
@@ -86,13 +84,13 @@ export class AuthController {
     @Request() req,
     @Body() tokenDTO: ValidateTokenDTO,
   ): Promise<{ verified: boolean }> {
-    return this.authService.validate2FAToken(req.user.userId, tokenDTO.token);
+    return this.authService.validate2FAToken(req.user.id, tokenDTO.token);
   }
 
   @Get('disable-2fa')
   @UseGuards(JwtAuthGuard)
   disable2FA(@Request() req: AuthenticatedRequest): Promise<UpdateResult> {
-    return this.authService.disable2FA(req.user.userId);
+    return this.authService.disable2FA(req.user.id);
   }
 
   @Get('profile')
@@ -103,16 +101,5 @@ export class AuthController {
       msg: 'authenticated with api key',
       user: req.user,
     };
-  }
-
-  @Get('google')
-  @UseGuards(AuthGuard('google'))
-  async googlelogin() {}
-
-  @Get('/google/callback')
-  @UseGuards(AuthGuard('google'))
-  async callback(@Req() req, @Res() res) {
-    const { token } = await this.authService.loginWithGoogle(req);
-    res.redirect(`${process.env.CALLBACK_URL}/callback/${token}`);
   }
 }

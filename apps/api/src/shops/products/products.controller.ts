@@ -42,7 +42,7 @@ export class ProductsController {
     return this.productsService.create(
       createProductDto,
       files,
-      req.user.shopId,
+      req.user.shop?.id,
     );
   }
 
@@ -79,7 +79,7 @@ export class ProductsController {
     @Body() updateProductDto: UpdateProductDto,
     @Req() req: AuthenticatedRequest,
   ) {
-    return this.productsService.update(id, updateProductDto, req.user.shopId);
+    return this.productsService.update(id, updateProductDto, req.user.shop?.id);
   }
 
   @Roles(UserRoles.SHOP_ADMIN)
@@ -87,6 +87,6 @@ export class ProductsController {
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string, @Req() req: AuthenticatedRequest) {
-    return this.productsService.remove(id, req.user.shopId);
+    return this.productsService.remove(id, req.user.shop?.id);
   }
 }

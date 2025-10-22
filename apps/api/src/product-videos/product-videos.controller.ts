@@ -42,7 +42,7 @@ export class ProductVideosController {
   ) {
     return this.productVideosService.create({
       createProductVideoDto,
-      payload: req.user,
+      user: req.user,
       file,
     });
   }

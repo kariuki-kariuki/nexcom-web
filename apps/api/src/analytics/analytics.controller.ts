@@ -14,6 +14,6 @@ export class AnalyticsController {
   @UseGuards(JwtAuthGuard)
   @Get()
   findAll(@Request() req: AuthenticatedRequest) {
-    return this.analyticsService.findAll({ shopId: req.user.shopId });
+    return this.analyticsService.findAll({ shopId: req.user.shop?.id });
   }
 }

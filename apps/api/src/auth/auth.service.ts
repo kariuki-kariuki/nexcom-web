@@ -16,6 +16,7 @@ export interface GoogleUser {
   firstName: string;
   email: string;
   lastName: string;
+  providerId: string;
 }
 @Injectable()
 export class AuthService {
@@ -54,36 +55,6 @@ export class AuthService {
 
   async getMe(email: string): Promise<User> {
     return await this.userService.getMe(email);
-  }
-
-  async loginWithGoogle(req: any) {
-    const email = req.user.emails[0].value;
-    const user: User = await this.userService.findOne(email);
-    if (!user) {
-      const guser: GoogleUser = {
-        firstName: req.user.name.givenName,
-        lastName: req.user.name.familyName,
-        email,
-      };
-
-      const res = await this.userService.createGoogle(guser);
-      if (res) {
-        const payload: Payload = { email: res.email, userId: res.id };
-        return this.signedPayLoad(payload);
-      }
-    }
-
-    if (user) {
-      const payload: Payload = {
-        email: user.email,
-        userId: user.id,
-      };
-
-      if (user.shop) {
-        payload.shopId = user.shop.id;
-      }
-      return this.signedPayLoad(payload);
-    }
   }
 
   async login(loginDto: LoginDto) {

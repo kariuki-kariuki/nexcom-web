@@ -32,7 +32,7 @@ export class ProductSizesController {
   ) {
     return this.productSizesService.create(
       createProductSizeDto,
-      request.user.userId,
+      request.user.id,
     );
   }
 
@@ -57,7 +57,7 @@ export class ProductSizesController {
     return this.productSizesService.update(
       id,
       updateProductSizeDto,
-      request.user.shopId,
+      request.user.shop?.id,
     );
   }
 
@@ -66,6 +66,6 @@ export class ProductSizesController {
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string, @Request() req: AuthenticatedRequest) {
-    return this.productSizesService.remove(id, req.user.shopId);
+    return this.productSizesService.remove(id, req.user.shop?.id);
   }
 }

@@ -32,7 +32,7 @@ services:
           PGADMIN_DEFAULT_EMAIL: ${PG_EMAIL}
           PGADMIN_DEFAULT_PASSWORD: ${PG_PASSWORD}
       ports:
-          - "8080:80"
+          - "8040:80"
 
 volumes:
   redis_volume_data:

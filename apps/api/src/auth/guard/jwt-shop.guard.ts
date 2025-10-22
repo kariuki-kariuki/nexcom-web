@@ -18,7 +18,7 @@ export class JwtShopGuard extends AuthGuard('jwt') {
     if (err || !user) {
       throw err || new UnauthorizedException();
     }
-    if (user.shopId) {
+    if (user.shop?.id) {
       return user;
     }
     throw err || new UnauthorizedException();

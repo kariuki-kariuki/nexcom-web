@@ -50,7 +50,7 @@ export class UsersController {
     if (file) {
       console.log(file.mimetype);
       return await this.usersService.updateProfile(
-        req.user.userId,
+        req.user.id,
         body.status,
         file,
       );

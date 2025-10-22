@@ -27,7 +27,7 @@ export class FaqsController {
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   create(@Body() createFaqDto: CreateFaqDto, @Req() req: AuthenticatedRequest) {
-    return this.faqsService.create(createFaqDto, req.user.shopId);
+    return this.faqsService.create(createFaqDto, req.user.shop?.id);
   }
 
   @Get()
@@ -35,7 +35,7 @@ export class FaqsController {
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   findAll(@Req() req: AuthenticatedRequest) {
-    return this.faqsService.findAll(req.user.shopId);
+    return this.faqsService.findAll(req.user.shop?.id);
   }
 
   @Get(':id')
