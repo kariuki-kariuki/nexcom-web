@@ -55,10 +55,10 @@ function Login({ searchParams }: {searchParams: string}) {
       <LoadingOverlay visible={loading} />
       <Flex align="center" h="100vh" justify="end" className={classes.flex}>
         <Card withBorder w={{ base: "100%", xs: "70%", md: "35%", lg: "25%"}} shadow='lg' h='100%' radius="0" py="xl" className={classes.card}>
-          <Group justify="start" mb="lg" w='100%'>
+          <Stack justify='center' align='center' mb="lg" w='100%'>
             <Avatar size="lg" src="/logos/logo.png" />
-            <Text size='sm' py="sm">Login to manage<br />your account</Text>
-          </Group>
+            <Text size='sm' py="sm">Login to manage your account</Text>
+          </Stack>
           <Stack gap="lg" align="center">
             <InputWrapper label="" w="100%" error={error}>
               <Input
@@ -90,9 +90,12 @@ function Login({ searchParams }: {searchParams: string}) {
                 Login
               </Button>
             </Stack>
+            <Group w="100%" wrap='nowrap'>
+              <span className={classes.span}/><Text>Or</Text>
+              <span className={classes.span}/>
+            </Group>
 
             <Stack>
-              <Divider />
               <LoginButton />
             </Stack>
           </Stack>
