@@ -1,0 +1,15 @@
+.root {
+    background-color: light-dark(var(--mantine-color-white), rgba(0, 0, 0, 0));
+}
+
+.content {
+    background-color: light-dark(var(--mantine-color-white), rgba(0, 0, 0, .4));
+    min-height: 100vh;
+}
+
+.control {
+    &[data-active] {
+        background-color: var(--mantine-color-coco-5);
+        color: white;
+    }
+}

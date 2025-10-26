@@ -1,10 +1,11 @@
-import { Editor } from '@/components/Richtext/Editor';
+import CreateBlog from '@/components/Blogs/CreateBlog/CreateBlog';
+import Editor from '@/components/Blogs/Richtext/Editor';
 import React from 'react';
 
 function Page() {
   return (
     <div>
-      <Editor />
+      <CreateBlog />
     </div>
   );
 }

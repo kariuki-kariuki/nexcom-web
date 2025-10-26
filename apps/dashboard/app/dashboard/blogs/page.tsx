@@ -5,7 +5,7 @@ import { Button } from '@mantine/core';
 function Page() {
   return (
     <div>
-      <Link href="/blogs/create">
+      <Link href="/dashboard/blogs/create">
         <Button>New blog</Button>
       </Link>
     </div>
