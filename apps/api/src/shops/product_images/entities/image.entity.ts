@@ -17,9 +17,11 @@ export class Image {
   @PrimaryGeneratedColumn('uuid')
   id: ProjectIdType;
 
+  @Exclude()
   @Column({ nullable: true })
   name: string;
 
+  @Exclude()
   @Column()
   url: string;
 
@@ -28,6 +30,7 @@ export class Image {
   @Column({ nullable: true })
   altText: string;
 
+  @Exclude()
   @Column({ default: 'image/png' })
   mimeType: string;
 

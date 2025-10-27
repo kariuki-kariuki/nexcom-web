@@ -58,12 +58,11 @@ export class ImagesService {
   }
 
   async findAll() {
-    let images = await this.imageRepository.find({
+    const images = await this.imageRepository.find({
       relations: {
         product: true,
       },
     });
-    images = await this.awsService.getMultipleUrls(images);
 
     return images;
   }

@@ -15,7 +15,6 @@ import { ProductSizesModule } from './shops/product_sizes/product_sizes.module';
 import { FaqsModule } from './faqs/faqs.module';
 import { GalleriesModule } from './galleries/galleries.module';
 import { BlogsModule } from './blogs/blogs.module';
-import { BlogImagesModule } from './blog-images/blog-images.module';
 import { JobsModule } from './jobs/jobs.module';
 import { ResourceFilesModule } from './resource-files/resource-files.module';
 import { TendersModule } from './tenders/tenders.module';
@@ -71,7 +70,6 @@ import { UserAgentMiddleware } from '../utils/middlewares/user-agent.middleware'
     FaqsModule,
     GalleriesModule,
     BlogsModule,
-    BlogImagesModule,
     JobsModule,
     ResourceFilesModule,
     TendersModule,

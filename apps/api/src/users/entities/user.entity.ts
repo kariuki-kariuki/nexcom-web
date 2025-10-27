@@ -20,6 +20,7 @@ import { ProjectIdType, UserRoles } from '../../@types/types';
 import { ProductComment } from '../../product-comments/entities/product-comment.entity';
 import { Cart } from '../../shops/carts/entities/cart.entity';
 import { Image } from '../../shops/product_images/entities/image.entity';
+import { Blog } from '../../blogs/entities/blog.entity';
 
 export type Provider = 'google' | 'local';
 
@@ -49,6 +50,9 @@ export class User {
   @Exclude()
   @Column({ default: UserRoles.USER })
   role: UserRoles;
+
+  @OneToMany(() => Blog, (blog) => blog.author)
+  blogs: Blog[];
 
   @Expose()
   get fullName() {

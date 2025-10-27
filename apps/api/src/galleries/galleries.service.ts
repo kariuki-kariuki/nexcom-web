@@ -25,13 +25,7 @@ export class GalleriesService {
       },
     });
 
-    const galleryImages = await Promise.all(
-      galleries.map(async (gallery) => {
-        gallery.images = await this.awsService.getMultipleUrls(gallery.images);
-        return gallery;
-      }),
-    );
-    return galleryImages;
+    return galleries;
   }
 
   async findOne(id: number) {

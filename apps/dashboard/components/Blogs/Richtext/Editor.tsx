@@ -34,8 +34,9 @@ function InsertImageControl() {
 }
 export interface EditorProps {
   content: string
+  onChange: (value: string) => void;
 }
-export default function Editor({ content }: EditorProps) {
+export default function Editor({ content, onChange }: EditorProps) {
   const editor = useEditor({
     shouldRerenderOnTransaction: true,
     immediatelyRender: false,
@@ -49,6 +50,10 @@ export default function Editor({ content }: EditorProps) {
       Image
     ],
     content,
+    onUpdate: ({ editor }) => {
+      onChange(editor.getHTML())
+    }
+    
   });
 
   return (

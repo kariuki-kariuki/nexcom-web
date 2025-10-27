@@ -1,0 +1,7 @@
+BadRequestException: Bad Request Exception
+    at ValidationPipe.exceptionFactory (/home/emkay/Projects/OpenSource/nexcom-web/node_modules/.pnpm/@nestjs+common@10.4.18_class-transformer@0.5.1_class-validator@0.14.2_reflect-metadata@0.2.2_rxjs@7.8.2/node_modules/@nestjs/common/pipes/validation.pipe.js:101:20)
+    at ValidationPipe.transform (/home/emkay/Projects/OpenSource/nexcom-web/node_modules/.pnpm/@nestjs+common@10.4.18_class-transformer@0.5.1_class-validator@0.14.2_reflect-metadata@0.2.2_rxjs@7.8.2/node_modules/@nestjs/common/pipes/validation.pipe.js:74:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async resolveParamValue (/home/emkay/Projects/OpenSource/nexcom-web/node_modules/.pnpm/@nestjs+core@10.4.18_@nestjs+common@10.4.18_class-transformer@0.5.1_class-validator@0.1_835d5a0ec02bf8a502846b71d108301a/node_modules/@nestjs/core/router/router-execution-context.js:148:23)
+    at async Promise.all (index 0)
+    at async pipesFn (/home/e... (truncated)

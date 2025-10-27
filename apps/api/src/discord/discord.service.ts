@@ -22,6 +22,11 @@ export class DiscordService {
     try {
       // Ensure stack trace isn't too long
       const stackTrace = error.stack || 'No stack trace available';
+
+      if (process.env.NODE_ENV === 'development') {
+        this.logger.error('Stack Trace: ', stackTrace);
+      }
+
       const truncatedStack =
         stackTrace.length > 1000
           ? stackTrace.substring(0, 1000) + '... (truncated)'
