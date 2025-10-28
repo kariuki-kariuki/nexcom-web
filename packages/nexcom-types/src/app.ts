@@ -163,3 +163,21 @@ export interface Order {
   cartItems: CartItem[]
   user: GlobalUser
 }
+
+// Blogs
+export type BlogStatus = "Published" | "Draft" | "Archive"
+export interface BlogInterface {
+  id: string;
+  author: GlobalUser;
+  title: string;
+  description: string;
+  status: BlogStatus;
+  featuredImage: ImageInterface;
+}
+
+export interface BlogResultInterFace {
+  blogs: BlogInterface[];
+  total: number;
+  page: string;
+  limit: string;
+}

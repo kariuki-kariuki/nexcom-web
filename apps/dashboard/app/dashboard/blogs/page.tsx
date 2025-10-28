@@ -1,14 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
-import { Button } from '@mantine/core';
+import { Button, Container, Flex } from '@mantine/core';
+import { get } from '@repo/shared-logic';
+import { BlogInterface, BlogResultInterFace } from '@repo/nexcom-types';
+import { BlogCardVertical } from '@/components/Blogs/BlogCard/BlogVerticalCard';
+import Blogs from '@/components/Blogs/Blogs';
 
-function Page() {
+async function Page() {
+  const res = await get<BlogResultInterFace>('blogs/my?limit=10')
   return (
-    <div>
-      <Link href="/dashboard/blogs/create">
-        <Button>New blog</Button>
-      </Link>
-    </div>
+    <Blogs items={res} />
   );
 }
 

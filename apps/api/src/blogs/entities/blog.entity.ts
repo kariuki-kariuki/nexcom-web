@@ -8,7 +8,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
 import { Image } from '../../shops/product_images/entities/image.entity';
 import { User } from '../../users/entities/user.entity';
 
@@ -41,11 +40,9 @@ export class Blog {
   author: User;
 
   // Special columns
-  @Exclude()
   @CreateDateColumn()
   created_at: Date;
 
-  @Exclude()
   @UpdateDateColumn()
   updated_at: Date;
 }

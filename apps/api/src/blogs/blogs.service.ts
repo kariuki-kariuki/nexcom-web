@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { AwsService } from '../aws/aws.service';
 import { Image } from '../shops/product_images/entities/image.entity';
 import { User } from '../users/entities/user.entity';
+import { FindPublicBlogsDto } from './dto/find-public-blog.dto';
 
 @Injectable()
 export class BlogsService {
@@ -29,12 +30,68 @@ export class BlogsService {
     return this.blogRepo.save(blog);
   }
 
-  findAll() {
-    return this.blogRepo.find();
+  async findAllPublic(dto: FindPublicBlogsDto) {
+    const { page = '1', limit = '10' } = dto;
+    console.log('DTO', dto);
+    const qb = this.blogRepo
+      .createQueryBuilder('blog')
+      .leftJoinAndSelect('blog.featuredImage', 'featuredImage')
+      .leftJoinAndSelect('blog.author', 'author')
+      .leftJoinAndSelect('author.avatar', 'avatar')
+      .where('blog.status = :status', { status: 'Published' })
+      .orderBy('blog.created_at', 'DESC');
+
+    // pagination example
+    const pageX = +page;
+    const limitX = +limit;
+    console.log(`page ${pageX} limit: ${limitX}`);
+    qb.skip((pageX - 1) * limitX).take(limitX);
+
+    const [items, total] = await qb.getManyAndCount();
+    return { blogs: items, total, page, limit };
   }
 
-  findOne(id: string) {
-    return this.blogRepo.findOneByOrFail({ id });
+  async findMyBlogs(userId: string, dto: FindPublicBlogsDto) {
+    const { page = '1', limit = '5' } = dto;
+    const qb = this.blogRepo
+      .createQueryBuilder('blog')
+      .leftJoinAndSelect('blog.featuredImage', 'featuredImage')
+      .leftJoinAndSelect('blog.author', 'author')
+      .leftJoinAndSelect('author.avatar', 'avatar')
+      .where('blog.author.id = :userId', { userId })
+      .orderBy('blog.created_at', 'DESC');
+
+    // pagination example
+    const pageX = +page;
+    const limitX = +limit;
+    console.log(`page ${pageX} limit: ${limitX}`);
+    qb.skip((pageX - 1) * limitX).take(limitX);
+
+    const [items, total] = await qb.getManyAndCount();
+    return { blogs: items, total, page, limit };
+  }
+
+  async findOnePublic(id: string) {
+    const blog = await this.blogRepo.findOne({
+      where: {
+        id,
+        status: 'Published',
+      },
+    });
+    return blog;
+  }
+
+  async findOneEditable(id: string, userId: string) {
+    const blog = await this.blogRepo.findOne({
+      where: {
+        id,
+        status: 'Published',
+        author: {
+          id: userId,
+        },
+      },
+    });
+    return blog;
   }
 
   update(id: string, updateBlogDto: UpdateBlogDto) {
