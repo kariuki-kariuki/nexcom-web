@@ -17,6 +17,7 @@ import { ProductStatus } from '../../@types/product-status';
 import { ProjectIdType, BrowserInfo } from '../../@types/types';
 import { Analytic } from '../../analytics/entity/analytic.entity';
 import { WeaviateService } from '../../weaviate/weaviate.service';
+import { ProductQueryDto } from './dto/product-query.dto';
 
 @Injectable()
 export class ProductsService {
@@ -76,18 +77,23 @@ export class ProductsService {
     return newproduct;
   }
 
-  async findAll() {
-    const products = await this.productRespository.find({
-      relations: {
-        shop: {
-          user: true,
-        },
-      },
-      where: {
-        status: ProductStatus.PUBLISHED,
-      },
-    });
-    return products;
+  async findAll(dto: ProductQueryDto) {
+    const { page = '1', limit = '10' } = dto;
+    const qb = this.productRespository
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.images', 'images') // Join product images
+      .leftJoinAndSelect('product.product_sizes', 'products_sizes') // Join product images
+      .leftJoinAndSelect('product.shop', 'shop') // Join analytics
+      .leftJoinAndSelect('shop.user', 'user') // Join analytics
+      .leftJoinAndSelect('user.avatar', 'avatar') // Join analytics
+      .where('product.status = :status', { status: ProductStatus.PUBLISHED });
+
+    const pageX = +page;
+    const limitX = +limit;
+    qb.skip((pageX - 1) * limitX).take(limitX);
+    const [items, total] = await qb.getManyAndCount();
+
+    return { products: items, total, page, limit };
   }
   async findTrending() {
     const products = await this.productRespository

@@ -51,6 +51,13 @@ export type Product = {
   updated_at: string;
 };
 
+export interface ProductResultType {
+  products: Product[]
+  total: number;
+  limit: string;
+  page: string;
+} 
+
 
 export type ShopProduct = {
   id: string;

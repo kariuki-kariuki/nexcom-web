@@ -28,6 +28,7 @@
     "@material-tailwind/react": "^2.1.10",
     "@nestjs/mapped-types": "*",
     "@next/bundle-analyzer": "^15.1.4",
+    "@repo/nexcom-types": "workspace:*",
     "@tabler/icons-react": "^3.2.0",
     "axios": "^1.9.0",
     "clsx": "^2.1.1",

@@ -173,6 +173,8 @@ export interface BlogInterface {
   description: string;
   status: BlogStatus;
   featuredImage: ImageInterface;
+  tags: string[]
+  created_at: Date;
 }
 
 export interface BlogResultInterFace {

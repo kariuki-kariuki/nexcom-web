@@ -11,8 +11,6 @@ import { useGlobalStore } from '@repo/shared-logic';
 function Profile({ userClicked }: { userClicked: GlobalUser }) {
   const user = useGlobalStore((state) => state.user);
   const active = userClicked.id === user?.id;
-  console.log(user)
-
   return (
     <Card h={'100%'} bg="none" className={classes.profile} radius={0} pb={'lg'}>
       <CardSection py="xl" mb="xs" classNames={{ section: classes.sections }}>

@@ -10,23 +10,7 @@ const Page = async () => {
   const products = await get<Product[]>('shops/myshop');
   return (
     <div>
-      {!products && (
-        <>
-          <Group justify="space-between">
-            <Text>No Products Yet</Text>
-            <Link href="/dashboard/products/create">
-              <Button
-                variant="default"
-                mx="sm"
-                leftSection={<IconCirclePlusFilled color="teal" />}
-              >
-                New Product
-              </Button>
-            </Link>
-          </Group>
-        </>
-      )}
-      {products && <ProductsTable products={products} />}
+      <ProductsTable products={products || []} />
     </div>
   );
 };

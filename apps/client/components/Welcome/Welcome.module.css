@@ -32,7 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: light-dark(rgba(255, 255, 255, .01), rgba(0, 0, 0, .3));
+  background-color: light-dark(rgba(255, 255, 255, .5), rgba(0, 0, 0, .5));
   flex: 1;
   padding-left: var(--mantine-spacing-xl);
 }

@@ -22,6 +22,7 @@ const data = [
   { link: '/dashboard', label: 'Analytics', icon: IconGraph },
   { link: '/dashboard/products', label: 'Products', icon: IconShoppingBag },
   { link: '/dashboard/orders', label: 'Orders', icon: IconMenuOrder },
+  { link: '/dashboard/blogs', label: 'Blogs', icon: IconListDetails },
   { link: '/dashboard/jobs', label: 'Jobs', icon: IconFileCvFilled },
   { link: '#', label: 'Notifications', icon: IconBellRinging },
   { link: '/dashboard/faq', label: 'FAQs', icon: IconFilter2Question },

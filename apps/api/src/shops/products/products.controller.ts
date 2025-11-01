@@ -11,6 +11,7 @@ import {
   UseGuards,
   Req,
   UploadedFile,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -24,6 +25,7 @@ import {
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { RolesGuard } from '../../auth/roles/roles.guard';
 import { Roles } from '../../../utils/roles.decorator';
+import { ProductQueryDto } from './dto/product-query.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -53,8 +55,8 @@ export class ProductsController {
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  findAll(@Query() dto: ProductQueryDto) {
+    return this.productsService.findAll(dto);
   }
 
   @Get(':id')

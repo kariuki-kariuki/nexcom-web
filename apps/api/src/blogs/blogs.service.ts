@@ -32,7 +32,6 @@ export class BlogsService {
 
   async findAllPublic(dto: FindPublicBlogsDto) {
     const { page = '1', limit = '10' } = dto;
-    console.log('DTO', dto);
     const qb = this.blogRepo
       .createQueryBuilder('blog')
       .leftJoinAndSelect('blog.featuredImage', 'featuredImage')

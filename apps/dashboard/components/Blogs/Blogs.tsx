@@ -1,6 +1,6 @@
 'use client';
 import { Container, Button, Flex, useMantineTheme, Group, SegmentedControl } from '@mantine/core';
-import { BlogInterface, BlogResultInterFace } from '@repo/nexcom-types'
+import { BlogResultInterFace } from '@repo/nexcom-types'
 import Link from 'next/link';
 import React, { useState } from 'react'
 import { BlogCardVertical } from './BlogCard/BlogVerticalCard';

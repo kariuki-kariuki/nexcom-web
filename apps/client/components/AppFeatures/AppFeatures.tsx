@@ -50,14 +50,16 @@ const appFeatures: AppFeaturesCardProps[] = [
 
 const AppFeatures = () => {
     return (
-        <Paper className={classes.features} p="sm">
-        <header>
-            <Title ta="center" py="md" c="coco.5" className={classes.title}>Features</Title>
-            <Text ta="center" mb="xl">What we offer on the go!</Text>
-        </header>
-        <Flex direction={{ base: "column", sm: "row" }} wrap="wrap" justify={"space-between"}>
-            {appFeatures.map((feature) => <AppFeaturesCard key={feature.title} props={feature} />)}
-        </Flex>
+        <Paper  className={classes.features} p="sm">
+            <Container size="xl">
+                <header>
+                    <Title py="md" c="coco.5" className={classes.title}>Features</Title>
+                    <Text mb="xl">What we offer on the go!</Text>
+                </header>
+                <Flex direction={{ base: "column", sm: "row" }} wrap="wrap" justify={"space-between"}>
+                    {appFeatures.map((feature) => <AppFeaturesCard key={feature.title} props={feature} />)}
+                </Flex>
+            </Container>
         </Paper>
     )
 }

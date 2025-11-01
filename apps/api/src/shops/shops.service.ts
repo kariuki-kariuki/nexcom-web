@@ -70,7 +70,7 @@ export class ShopsService {
         await this.usersRepository.save(user);
       }
 
-      user.shop = myShop
+      user.shop = myShop;
       await this.usersRepository.save(user);
 
       return myShop;
@@ -145,17 +145,20 @@ export class ShopsService {
   }
 
   async findMyShop(id: string) {
-    const products = await this.productRepository
-      .createQueryBuilder('product')
-      .leftJoinAndSelect('product.shop', 'shop')
-      .leftJoinAndSelect('product.images', 'images')
-      .leftJoinAndSelect('product.product_sizes', 'product_sizes')
-      .leftJoinAndSelect('product.analytics', 'analytics')
-      .leftJoinAndSelect('product.cartItems', 'cartItems')
-      .leftJoinAndSelect('cartItems.size', 'size')
-      .where('shop.id = :id', { id })
-      .getMany();
-    return products || [];
+    const products = await this.productRepository.find({
+      where: {
+        shop: {
+          user: {
+            id,
+          },
+        },
+      },
+      relations: {
+        analytics: true,
+        cartItems: true,
+      },
+    });
+    return products;
   }
 
   async update(id: string, updateShopDto: UpdateShopDto, userId: string) {
