@@ -13,7 +13,7 @@ const BlogCard = ({ blog }: BlogCardInterface) => {
     const createdAt = new Date(blog.created_at);
     return (
         <Card className={classes.card} bg="none" py="xl">
-            <Flex w="100%">
+            <Flex w="100%" wrap="wrap">
                 <Paper bg="none" w={{ base: '100%', sm: "30%" }}>
                     <Text c="dimmed">{`${createdAt.getDate()}/${createdAt.getMonth()}/${createdAt.getFullYear()}`}</Text>
                 </Paper>

@@ -8,14 +8,16 @@ import {
   Stack,
   Flex,
   Avatar,
-  Paper
+  Paper,
+  AspectRatio,
+  Image
 } from '@mantine/core';
 import { Product, ProductWithShop, ShopProduct } from '@/lib/@types/shop';
 import classes from './ProductCard.module.css';
 import { useMediaQuery } from '@mantine/hooks';
 import Link from 'next/link';
 import ProductRating from '../ProductRating/ProductRating';
-import {MotionWrapper} from '@/components/ui/MotionWrapper';
+import { MotionWrapper } from '@/components/ui/MotionWrapper';
 interface Iprops {
   product: ProductWithShop | ShopProduct | Product;
 }
@@ -29,10 +31,12 @@ function ProductCard({ product }: Iprops) {
       <Card p={0}>
         <Link href={`/business/product/${product.id}`} className={classes.link}>
           <Flex direction={{ base: 'row', sm: 'column' }}>
-            <Paper bg="none" w={{ base: '30%', sm: '100%' }}>
-              <Avatar radius={0} src={product.images[0]?.signedUrl} className={classes.image} name={product.name} />
+            <Paper bg="none" w={{ base: '50%', sm: '100%' }}>
+              <AspectRatio ratio={1080 / 1080} h="100%">
+                <Image radius={0} src={product.images[0]?.signedUrl} name={product.name} />
+              </AspectRatio>
             </Paper>
-            <Stack align='center' justify='space-around' className={classes.info} gap={2} p="sm" w={{ base: '70%', sm: '100%' }}>
+            <Stack align='center' justify='space-around' className={classes.info} gap={2} p="sm" w={{ base: '50%', sm: '100%' }}>
               <Text
                 fw={{ base: 200, sm: 500 }}
                 fz={{ base: 'sm', sm: 'lg' }}
