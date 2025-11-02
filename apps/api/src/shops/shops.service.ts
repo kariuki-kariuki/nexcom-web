@@ -144,13 +144,11 @@ export class ShopsService {
     }
   }
 
-  async findMyShop(id: string) {
+  async findMyShopProducts(id: string) {
     const products = await this.productRepository.find({
       where: {
         shop: {
-          user: {
-            id,
-          },
+          id,
         },
       },
       relations: {

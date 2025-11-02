@@ -38,7 +38,7 @@ export class ShopsController {
   @UseGuards(JwtAuthGuard)
   @Get('myshop')
   getMyShop(@Req() req: AuthenticatedRequest) {
-    return this.shopsService.findMyShop(req.user.shop?.id);
+    return this.shopsService.findMyShopProducts(req.user.shop.id);
   }
 
   @Roles(UserRoles.SHOP_ADMIN)
