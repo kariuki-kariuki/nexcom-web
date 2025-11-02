@@ -1,4 +1,6 @@
 import {
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -10,6 +12,7 @@ import {
 } from 'typeorm';
 import { Image } from '../../shops/product_images/entities/image.entity';
 import { User } from '../../users/entities/user.entity';
+import { BadRequestException } from '@nestjs/common';
 
 export type BlogStatus = 'Published' | 'Draft' | 'Archive';
 @Entity()
@@ -26,7 +29,7 @@ export class Blog {
   @Column({ nullable: false })
   content: string;
 
-  @Column({ nullable: false, type: 'simple-array' })
+  @Column('text', { nullable: false, array: true, default: ['Latest'] })
   tags: string[];
 
   @Column({ default: 'Draft' })
@@ -45,4 +48,15 @@ export class Blog {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  // Validation
+  @BeforeInsert()
+  @BeforeUpdate()
+  validateTags() {
+    // Optional: trim & lowercase
+    this.tags = this.tags.map((t) => t.trim().toLowerCase()).filter(Boolean);
+    if (this.tags.length === 0) {
+      throw new BadRequestException('Blog must have at least one valid tag.');
+    }
+  }
 }

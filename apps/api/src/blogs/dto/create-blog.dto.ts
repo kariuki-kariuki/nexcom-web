@@ -1,4 +1,3 @@
-import { Transform } from 'class-transformer';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateBlogDto {
@@ -11,12 +10,7 @@ export class CreateBlogDto {
 
   @IsNotEmpty()
   @IsString()
-  @Transform(({ value }) => {
-    const res = JSON.parse(value);
-    console.log('Parsed Response', res);
-    return res;
-  })
-  tags: string[];
+  tags: string;
 
   @IsString()
   @IsNotEmpty()

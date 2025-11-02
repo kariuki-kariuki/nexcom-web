@@ -1,4 +1,4 @@
-import { IsOptional, IsNumberString } from 'class-validator';
+import { IsOptional, IsNumberString, IsString } from 'class-validator';
 
 export class FindPublicBlogsDto {
   @IsOptional()
@@ -8,4 +8,8 @@ export class FindPublicBlogsDto {
   @IsOptional()
   @IsNumberString()
   limit: string;
+
+  @IsOptional()
+  @IsString()
+  tag: string;
 }

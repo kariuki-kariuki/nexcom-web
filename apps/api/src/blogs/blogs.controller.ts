@@ -33,7 +33,6 @@ export class BlogsController {
     @UploadedFile() featuredImage: Express.Multer.File,
     @Req() req: AuthenticatedRequest,
   ) {
-    console.log('Featured Image', featuredImage);
     return this.blogsService.create(createBlogDto, featuredImage, req.user.id);
   }
   @Get('public/:id')

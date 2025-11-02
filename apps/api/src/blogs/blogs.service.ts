@@ -23,15 +23,19 @@ export class BlogsService {
   ) {
     const featuredImage = new Image();
     featuredImage.altText = `${createBlogDto.title} featured Image`;
-    featuredImage.url = await this.awsService.uploadFile(file, 'blogs');
-    const blog = this.blogRepo.create({ ...createBlogDto, featuredImage });
     const user = await this.usersRepo.findOneByOrFail({ id: userId });
-    blog.author = user;
+    featuredImage.url = await this.awsService.uploadFile(file, 'blogs');
+    const blog = this.blogRepo.create({
+      ...createBlogDto,
+      featuredImage,
+      author: user,
+      tags: createBlogDto.tags.split(',').map((tag) => tag.toLocaleLowerCase()),
+    });
     return this.blogRepo.save(blog);
   }
 
   async findAllPublic(dto: FindPublicBlogsDto) {
-    const { page = '1', limit = '10' } = dto;
+    const { page = '1', limit = '10', tag = 'all' } = dto;
     const qb = this.blogRepo
       .createQueryBuilder('blog')
       .leftJoinAndSelect('blog.featuredImage', 'featuredImage')
@@ -40,10 +44,15 @@ export class BlogsService {
       .where('blog.status = :status', { status: 'Published' })
       .orderBy('blog.created_at', 'DESC');
 
+    if (tag.toLocaleLowerCase() !== 'all') {
+      qb.andWhere('LOWER(:tag) = ANY(blog.tags)', {
+        tag,
+      });
+    }
+
     // pagination example
     const pageX = +page;
     const limitX = +limit;
-    console.log(`page ${pageX} limit: ${limitX}`);
     qb.skip((pageX - 1) * limitX).take(limitX);
 
     const [items, total] = await qb.getManyAndCount();
