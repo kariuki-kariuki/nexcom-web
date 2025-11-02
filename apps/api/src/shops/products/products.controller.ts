@@ -81,7 +81,7 @@ export class ProductsController {
     @Body() updateProductDto: UpdateProductDto,
     @Req() req: AuthenticatedRequest,
   ) {
-    return this.productsService.update(id, updateProductDto, req.user.shop?.id);
+    return this.productsService.update(id, updateProductDto, req.user.shop.id);
   }
 
   @Roles(UserRoles.SHOP_ADMIN)
