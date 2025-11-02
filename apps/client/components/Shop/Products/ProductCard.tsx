@@ -33,7 +33,7 @@ function ProductCard({ product }: Iprops) {
           <Flex direction={{ base: 'row', sm: 'column' }}>
             <Paper bg="none" w={{ base: '50%', sm: '100%' }}>
               <AspectRatio ratio={1080 / 1080} h="100%">
-                <Image radius={0} src={product.images[0]?.signedUrl} name={product.name} />
+                <Image radius={0} src={product.images[0]?.signedUrl} />
               </AspectRatio>
             </Paper>
             <Stack align='center' justify='space-around' className={classes.info} gap={2} p="sm" w={{ base: '50%', sm: '100%' }}>

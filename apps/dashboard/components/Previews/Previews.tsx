@@ -39,10 +39,10 @@ function Previews({ files, setFiles }: Props) {
   return (
     <>
       {files.length > 0 &&
-        <Carousel slidesToScroll={1}
+        <Carousel
           slideSize={{ base: '33%', sm: '50%' }}
           slideGap={{ base: rem(5), sm: 'lg' }}
-          loop
+          emblaOptions={{ loop: true, slidesToScroll: 1}}
         >
           {previews}
         </Carousel>

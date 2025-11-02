@@ -275,7 +275,7 @@ function EditJob({ jobdb }: { jobdb: JobDto | null }) {
             error={errors.deadline}
             labelProps={{ fw: 600 }}
           >
-            <DatePickerInput
+            {/* <DatePickerInput
               value={value}
               onChange={setValue}
               size="lg"
@@ -285,7 +285,7 @@ function EditJob({ jobdb }: { jobdb: JobDto | null }) {
               minDate={new Date()}
               error={!!errors.deadline}
               variant="filled"
-            />
+            /> */}
           </InputWrapper>
 
           <Group justify="space-between" mt="md">

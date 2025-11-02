@@ -39,11 +39,9 @@ function MessageImagePreviews({ files, setFiles }: Props) {
   return (
     <Paper mx="md" radius='lg' className={classes.paper}>
       <Carousel
-        slidesToScroll={1}
         slideSize={{ base: '33%', sm: '33%' }}
         slideGap={{ base: rem(5), sm: 'sm' }}
-        align="start"
-        loop
+        emblaOptions={{ loop: true, slidesToScroll: 1, align: 'start' }}
       >
         {previews}
       </Carousel>

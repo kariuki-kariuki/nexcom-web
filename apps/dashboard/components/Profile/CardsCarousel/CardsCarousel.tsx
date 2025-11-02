@@ -74,9 +74,7 @@ export function CardsCarousel({ userClicked }: { userClicked: GlobalUser }) {
           <Carousel
             slideSize={{ base: '50%', sm: '50%' }}
             slideGap={{ base: rem(2), sm: 'md' }}
-            align="start"
-            loop
-            slidesToScroll={mobile ? 1 : 1}
+            emblaOptions={{ align: 'start', loop: true, slidesToScroll: mobile ? 1 : 1}}
             classNames={{control: classes.control}}
           >
             {slides}

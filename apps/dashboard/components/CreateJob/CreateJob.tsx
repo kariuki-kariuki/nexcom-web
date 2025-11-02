@@ -224,7 +224,7 @@ function CreateJob() {
             error={errors.deadline}
             labelProps={{ fw: 600 }}
           >
-            <DatePickerInput
+            {/* <DatePickerInput
               value={value}
               onChange={setValue}
               size="lg"
@@ -234,7 +234,7 @@ function CreateJob() {
               minDate={new Date()}
               error={!!errors.deadline}
               variant="filled"
-            />
+            /> */}
           </InputWrapper>
         </Box>
 
