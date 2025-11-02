@@ -14,16 +14,7 @@ export function Welcome() {
       <div className={classes.main}>
         <section className={classes.section}>
           <Title c="coco.5" className={classes.title} ta="center" mt={100}>
-            Welcome to{' '}
-            <Text
-              inherit
-              variant="gradient"
-              component="span"
-              gradient={{ from: 'orange', to: 'yellow' }}
-            >
-              Nex
-            </Text>
-            com 
+            Nexcom Social
           </Title>
           <Text ta="center" size="lg" className={classes.description} maw={580} mx="auto" mt="xl">
             The Future of Connected Commerce.
@@ -34,7 +25,7 @@ export function Welcome() {
                 Start Shopping
               </Button>
             </Link>
-             <Link href='/chat'>
+            <Link href='/chat'>
               <Button size="lg" color="coco.4" radius="xl" fw="bold" onClick={() => play()}>
                 Start Charting
               </Button>
