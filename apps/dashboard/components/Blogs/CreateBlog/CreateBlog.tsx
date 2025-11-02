@@ -36,7 +36,7 @@ const CreateBlog = () => {
     formData.append('title', title)
     formData.append('content', content)
     formData.append('description', description)
-    formData.append('tags', JSON.stringify(tags));
+    formData.append('tags', tags.join(','));
 
     const { error, data } = await datasource.post({ formData, path: 'blogs', contentType: false })
     if (error) {
@@ -74,8 +74,8 @@ const CreateBlog = () => {
         <Card bg="none" flex={1}>
           <BackgroundImage src={imageURL ? imageURL : '/images/blog-holder.png'} h="50vh">
             <Stack align='center' justify='center' className={classes.title}>
-              <Title>{title || "Article Title"}</Title>
-              <Text size='lg' c="teal.5" variant=''>{description || "Article Description"}</Text>
+              <Title ta="center">{title || "Article Title"}</Title>
+              <Text size='lg' ta="center" c="teal.5" variant=''>{description || "Article Description"}</Text>
               <Text c="dimmed" size='xs'>{user?.fullName} @ {`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</Text>
               <Text c="teal.5" size='xs'>{tags.join(" | ")}</Text>
               <BlogHeaderEditor
