@@ -1,6 +1,6 @@
 'use client';
 
-import { Paper, Button, Menu, rem, useMantineColorScheme, Group, Text, ButtonGroup } from '@mantine/core';
+import { Paper, Button, Menu, rem, useMantineColorScheme, ButtonGroup } from '@mantine/core';
 import {
   IconMessageCircle,
   IconTrash,
@@ -18,19 +18,17 @@ import classes from './MenuDrop.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import Dashboard from '../Profile/ProfileDashboard';
 import Link from 'next/link';
-import logout from '@/utils/logout';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { APP_URL, AUTH_URL, DASHBOARD_URL } from '@/lib/common/constants';
+import logout from '@repo/shared-logic/src/utils/logout';
 
 
 export default function MenuDrop() {
   const [opened, { toggle }] = useDisclosure();
   const user = useGlobalStore(state => state.user)
-  const setUser = useGlobalStore(state => state.setUser)
   const path = usePathname()
-  const router = useRouter()
   return (
     <Paper bg={'none'} px={'md'} className={classes.menu}>
       {user ?
@@ -38,7 +36,7 @@ export default function MenuDrop() {
         :
         <ButtonGroup>
           <Link href={`${AUTH_URL}/login?redirect=${APP_URL}${path}`} referrerPolicy='origin-when-cross-origin' >
-            <Button leftSection={<IconLogin size={18} />} size='md' color='teal.5'>
+            <Button leftSection={<IconLogin size={22}  />} size='md' color='teal.5'>
               Login
             </Button>
           </Link>
@@ -68,7 +66,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
         <Link href={`/business`}>
           <Menu.Item
             leftSection={
-              <IconShoppingBag style={{ width: rem(14), height: rem(14) }} />
+              <IconShoppingBag size={22} />
             }
           >
             Business
@@ -78,7 +76,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
           onClick={toggle}
           leftSection={
             <IconLayoutDashboardFilled
-              style={{ width: rem(14), height: rem(14) }}
+              size={22}
             />
           }
         >
@@ -88,7 +86,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
           <Menu.Item
             leftSection={
               <IconMessageCircle
-                style={{ width: rem(14), height: rem(14) }}
+                size={22}
               />
             }
           >
@@ -96,7 +94,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
           </Menu.Item>
         </Link>
         <Menu.Item leftSection={colorScheme === 'dark' ? (
-          <IconSunFilled className={classes.linkIcon} style={{ width: rem(14), height: rem(14) }} />
+          <IconSunFilled className={classes.linkIcon} size={22} />
         ) : (
           <IconSunMoon className={classes.linkIcon} stroke={1.5} />
         )}
@@ -108,7 +106,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
           <Link href={`${DASHBOARD_URL}/dashboard`}>
             <Menu.Item
               leftSection={
-                <IconDiamond style={{ width: rem(14), height: rem(14) }} />
+                <IconDiamond size={22} />
               }
             >
               Admin
@@ -129,7 +127,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
                 setUser(null);
               }}
               leftSection={
-                <IconLogout style={{ width: rem(14), height: rem(14) }} />
+                <IconLogout size={22} />
               }
             >
               Logout
@@ -138,7 +136,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
             <Menu.Item
               leftSection={
                 <IconArrowsLeftRight
-                  style={{ width: rem(14), height: rem(14) }}
+                  size={22}
                 />
               }
             >
@@ -147,7 +145,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
             <Menu.Item
               color="red"
               leftSection={
-                <IconTrash style={{ width: rem(14), height: rem(14) }} />
+                <IconTrash size={22} />
               }
             >
               Delete my account

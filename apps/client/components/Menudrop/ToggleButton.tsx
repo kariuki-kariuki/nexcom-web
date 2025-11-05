@@ -15,7 +15,7 @@ const ToggleButton = () => {
           </Text>
         </Stack>
         <IconChevronRight
-          style={{ width: rem(14), height: rem(14) }}
+          size={22}
           stroke={1.5}
         />
       </Group>

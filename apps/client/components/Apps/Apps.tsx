@@ -1,6 +1,5 @@
 'use client';
 
-import logout from '@/utils/logout';
 import { Paper, Menu, rem, ButtonGroup, Button, useMantineColorScheme } from '@mantine/core';
 import { IconShoppingBag, IconLayoutDashboardFilled, IconSunFilled, IconSunMoon, IconDiamond, IconLogout, IconArrowsLeftRight, IconTrash, IconUserCircle } from '@tabler/icons-react';
 import Link from 'next/link';
@@ -9,6 +8,7 @@ import Dashboard from '../Profile/ProfileDashboard';
 import classes from './Apps.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
+import logout from '@repo/shared-logic/src/utils/logout';
 
 const Apps = () => {
   const [opened, { toggle }] = useDisclosure();

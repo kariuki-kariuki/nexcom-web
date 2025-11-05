@@ -1,15 +1,15 @@
 'use client';
-import { Box, Avatar, Stack, useMantineColorScheme, useMantineTheme, Indicator, Paper, Divider } from '@mantine/core';
-import { IconSunFilled, IconSunMoon, IconLogout, IconListTree, IconBriefcaseFilled, IconMessageCircleFilled, IconShoppingCartFilled, IconShoppingBagPlus, IconLogin, IconDiamondFilled } from '@tabler/icons-react';
+import { Avatar, Stack, useMantineColorScheme, useMantineTheme, Indicator, Paper, Divider } from '@mantine/core';
+import { IconSunFilled, IconSunMoon, IconLogout, IconListTree, IconBriefcaseFilled, IconMessageCircleFilled, IconShoppingCartFilled, IconShoppingBagPlus, IconLogin } from '@tabler/icons-react';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
 import classes from './styles.module.css';
-import logout from '@/utils/logout';
 import Dashboard from '../Profile/ProfileDashboard';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 import { usePathname, useRouter } from 'next/navigation';
 import { MessageState } from '@/lib/common/common';
+import logout from '@repo/shared-logic/src/utils/logout';
 
 const defaultLinks = [
   { label: 'Chats', link: '/chat', icon: IconMessageCircleFilled },

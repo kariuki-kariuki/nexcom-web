@@ -93,7 +93,7 @@ function GalleryImage({ image, setGalleries }: Iprops) {
           <Button onClick={handleUpdate}>Update</Button>
           <Button
             color="red.7"
-            leftSection={<IconTrashXFilled size={18} />}
+            leftSection={<IconTrashXFilled size={22}  />}
             onClick={handleDelete}
           >
             Delete

@@ -25,7 +25,7 @@ const OrderNavbar = () => {
             <Group justify="space-between" mb="sm">
                 <Title order={4}>Order list</Title>
                 <ActionIcon variant="transparent" color="blue" aria-label="Add new order">
-                    <IconListDetails size={18} />
+                    <IconListDetails size={22}  />
                 </ActionIcon>
             </Group>
             <SegmentedControl

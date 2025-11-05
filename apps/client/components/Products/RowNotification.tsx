@@ -124,7 +124,7 @@ export function RowNotification({ prd, setProducts,index }: IRow) {
                 >
                   <MenuItem
                     leftSection={
-                      <IconPencil style={{ width: rem(14), height: rem(14) }} />
+                      <IconPencil size={22} />
                     }
                   >
                     Edit
@@ -134,7 +134,7 @@ export function RowNotification({ prd, setProducts,index }: IRow) {
                   <MenuItem
                     leftSection={
                       <IconCheckbox
-                        style={{ width: rem(14), height: rem(14) }}
+                        size={22}
                       />
                     }
                     onClick={() => handleUpdate(ProductStatus.PUBLISHED)}
@@ -146,7 +146,7 @@ export function RowNotification({ prd, setProducts,index }: IRow) {
                   <MenuItem
                     leftSection={
                       <IconArchive
-                        style={{ width: rem(14), height: rem(14) }}
+                        size={22}
                       />
                     }
                     onClick={() => handleUpdate(ProductStatus.ARCHIVED)}
@@ -159,7 +159,7 @@ export function RowNotification({ prd, setProducts,index }: IRow) {
                   <MenuItem
                     leftSection={
                       <IconNotesOff
-                        style={{ width: rem(14), height: rem(14) }}
+                        size={22}
                       />
                     }
                     onClick={() => handleUpdate(ProductStatus.DRAFT)}
@@ -172,7 +172,7 @@ export function RowNotification({ prd, setProducts,index }: IRow) {
                 <MenuItem
                   color="red"
                   leftSection={
-                    <IconTrash style={{ width: rem(14), height: rem(14) }} />
+                    <IconTrash size={22} />
                   }
                   onClick={async () => handleDelete(product.id)}
                 >

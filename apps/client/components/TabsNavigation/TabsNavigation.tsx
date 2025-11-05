@@ -7,8 +7,8 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 import classes from './TabsNavigation.module.css'
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
-import logout from '@/utils/logout';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
+import logout from '@repo/shared-logic/src/utils/logout';
 
 function TabsNavigation() {
     const user = useGlobalStore((state) => state.user);

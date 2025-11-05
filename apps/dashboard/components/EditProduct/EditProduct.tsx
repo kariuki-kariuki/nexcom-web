@@ -149,7 +149,7 @@ function EditProduct({
                 <Button
                   color="coco.4"
                   size='lg'
-                  leftSection={<IconImageInPicture size={18} color="white" />}
+                  leftSection={<IconImageInPicture size={22}  color="white" />}
                   onClick={toggle}
                 >
                   Add Image

@@ -165,7 +165,7 @@ function PriceSize({ product, setProduct }: IProps) {
               <Button
                 color="blue"
                 variant="outline"
-                rightSection={<IconPencil size={18} />}
+                rightSection={<IconPencil size={22}  />}
                 onClick={() => {
                   setEditSize(prdSize);
                   open();

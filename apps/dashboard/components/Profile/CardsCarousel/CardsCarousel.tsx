@@ -54,7 +54,7 @@ export function CardsCarousel({ userClicked }: { userClicked: GlobalUser }) {
           <Button
             radius="md"
             variant="default"
-            leftSection={<IconCirclePlusFilled size={18} color="white" />}
+            leftSection={<IconCirclePlusFilled size={22}  color="white" />}
             bg="coco.4"
             c='white'
           >

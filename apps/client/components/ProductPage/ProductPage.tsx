@@ -128,7 +128,7 @@ const ProductPage = ({ product }: { product: Product }) => {
                         size={mobile ? 'md' : 'lg'}
                         tw="200"
                         fullWidth
-                        rightSection={<IconPencil size={18} color="white" />}
+                        rightSection={<IconPencil size={22}  color="white" />}
                       >
                         Edit
                       </Button>

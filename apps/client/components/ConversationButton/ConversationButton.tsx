@@ -134,7 +134,7 @@ export function ConversationButton({ conversation }: Props) {
                 ''
               )}
               <Group>
-                {lastMessage?.files && lastMessage.files.length > 0 && <IconPhoto stroke={1.5} size={18} />}
+                {lastMessage?.files && lastMessage.files.length > 0 && <IconPhoto stroke={1.5} size={22}  />}
                 <Text c={active ? '' : 'dimmed'} size="xs" lineClamp={1}>
                   {lastMessage?.message}
                 </Text>

@@ -13,7 +13,7 @@ const CreateBlog = () => {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [tags, setTags] = useState(["React", "StartUp"])
-  const [content, setContent] = useState("") 
+  const [content, setContent] = useState("")
   const [featuredImage, setFeaturedImage] = useState<File | null>(null)
   const date = new Date()
   const [imageURL, setImageURL] = useState<string | null>(null)
@@ -72,24 +72,24 @@ const CreateBlog = () => {
     <Container size="xl">
       <Flex w="100%">
         <Card bg="none" flex={1}>
+          <Stack align='center' justify='center' className={classes.title}>
+            <Title ta="center">{title || "Article Title"}</Title>
+            <Text size='lg' ta="center" c="teal.5" variant=''>{description || "Article Description"}</Text>
+            <Text c="dimmed" size='xs'>{user?.fullName} @ {`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</Text>
+            <Text c="teal.5" size='xs'>{tags.join(" | ")}</Text>
+            <BlogHeaderEditor
+              title={title}
+              description={description}
+              setTitle={setTitle}
+              setDescription={setDescription}
+              tags={tags}
+              setTags={setTags}
+              onSetFeaturedImage={handleFeaturedImage}
+            />
+          </Stack>
           <BackgroundImage src={imageURL ? imageURL : '/images/blog-holder.png'} h="50vh">
-            <Stack align='center' justify='center' className={classes.title}>
-              <Title ta="center">{title || "Article Title"}</Title>
-              <Text size='lg' ta="center" c="teal.5" variant=''>{description || "Article Description"}</Text>
-              <Text c="dimmed" size='xs'>{user?.fullName} @ {`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</Text>
-              <Text c="teal.5" size='xs'>{tags.join(" | ")}</Text>
-              <BlogHeaderEditor
-                title={title}
-                description={description}
-                setTitle={setTitle}
-                setDescription={setDescription}
-                tags={tags}
-                setTags={setTags}
-                onSetFeaturedImage={handleFeaturedImage}
-              />
-            </Stack>
           </BackgroundImage>
-          <Editor content={content} onChange={setContent}/>
+          <Editor content={content} onChange={setContent} />
         </Card>
         <Card w={{ base: '100%', md: '20%' }} bg="none">
           <Button size='lg' onClick={handleSubmit}>Create Blog</Button>

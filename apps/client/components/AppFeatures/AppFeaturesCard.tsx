@@ -30,7 +30,7 @@ const AppFeaturesCard = ({ props }: { props: AppFeaturesCardProps }) => {
                     <List spacing="xs"
                         size='sm'
                         icon={
-                            <ThemeIcon color='coco.5' size={28} radius="xl">
+                            <ThemeIcon color='coco.5' size={22}  radius="xl">
                                 <IconCircleCheck size={16} />
                             </ThemeIcon>
                         }

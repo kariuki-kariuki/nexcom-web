@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { API_URL, WS_URL } from './constants';
+import { API_URL, AUTHENTICATION_COOKIE, WS_URL } from './constants';
 import { io, Socket } from 'socket.io-client';
 
 enum CRUDMETHODS {
@@ -86,7 +86,7 @@ class DataSource {
   }
 
   getJwtToken() {
-    const token = Cookies.get('Authentication');
+    const token = Cookies.get(AUTHENTICATION_COOKIE);
     return token;
   }
 

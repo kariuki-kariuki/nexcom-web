@@ -1,6 +1,4 @@
 import { User } from '../users/entities/user.entity';
-import { Payload } from './chat/chat';
-
 export type ProjectIdType = string;
 
 export enum OrderState {
@@ -10,7 +8,7 @@ export enum OrderState {
   PENDING = 'pending',
 }
 
-export const SESSION_COOKIE_KEY = 'Authentication';
+export const SESSION_COOKIE_KEY = 'session';
 
 export interface DarajaTypes {
   MerchantRequestID: string;

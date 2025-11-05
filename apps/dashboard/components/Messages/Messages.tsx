@@ -91,7 +91,7 @@ const Rows = ({ message, handleUpdate }: IRow) => {
                 <MenuItem
                   color="red"
                   leftSection={
-                    <IconTrash style={{ width: rem(14), height: rem(14) }} />
+                    <IconTrash size={22} />
                   }
                 >
                   Delete
@@ -162,7 +162,7 @@ const NotificationRows = ({ message, handleUpdate }: IRow) => {
                   <MenuItem
                     color="red"
                     leftSection={
-                      <IconTrash style={{ width: rem(14), height: rem(14) }} />
+                      <IconTrash size={22} />
                     }
                   >
                     Delete

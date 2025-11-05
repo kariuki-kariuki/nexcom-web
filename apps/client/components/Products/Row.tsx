@@ -127,7 +127,7 @@ export function Row({ prd, setProducts }: IRow) {
             >
               <MenuItem
                 leftSection={
-                  <IconPencil style={{ width: rem(14), height: rem(14) }} />
+                  <IconPencil size={22} />
                 }
               >
                 Edit
@@ -136,7 +136,7 @@ export function Row({ prd, setProducts }: IRow) {
             {!(product.status === ProductStatus.PUBLISHED) && (
               <MenuItem
                 leftSection={
-                  <IconCheckbox style={{ width: rem(14), height: rem(14) }} />
+                  <IconCheckbox size={22} />
                 }
                 onClick={() => handleUpdate(ProductStatus.PUBLISHED)}
               >
@@ -146,7 +146,7 @@ export function Row({ prd, setProducts }: IRow) {
             {!(product.status === ProductStatus.ARCHIVED) && (
               <MenuItem
                 leftSection={
-                  <IconArchive style={{ width: rem(14), height: rem(14) }} />
+                  <IconArchive size={22} />
                 }
                 onClick={() => handleUpdate(ProductStatus.ARCHIVED)}
               >
@@ -157,7 +157,7 @@ export function Row({ prd, setProducts }: IRow) {
               product.status === ProductStatus.ARCHIVED) && (
                 <MenuItem
                   leftSection={
-                    <IconNotesOff style={{ width: rem(14), height: rem(14) }} />
+                    <IconNotesOff size={22} />
                   }
                   onClick={() => handleUpdate(ProductStatus.DRAFT)}
                 >
@@ -169,7 +169,7 @@ export function Row({ prd, setProducts }: IRow) {
             <MenuItem
               color="red"
               leftSection={
-                <IconTrash style={{ width: rem(14), height: rem(14) }} />
+                <IconTrash size={22} />
               }
               onClick={async () => handleDelete(product.id)}
             >

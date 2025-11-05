@@ -8,7 +8,7 @@ const Logout = () => {
     const user = useGlobalStore((state) => state.user);
     return (
         <>
-            {user && <Button leftSection={<IconLogout size={28} color="white" />} size="lg" color="red" onClick={() => logout()}>
+            {user && <Button leftSection={<IconLogout size={22}  color="white" />} size="lg" color="red" onClick={() => logout()}>
                 Logout
                      </Button>
             }

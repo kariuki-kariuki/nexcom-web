@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 import { API_URL, WS_URL } from './constants';
 import { io, Socket } from 'socket.io-client';
+import { AUTHENTICATION_COOKIE } from '@repo/shared-logic';
 
 enum CRUDMETHODS {
   GET = 'GET',
@@ -86,7 +87,7 @@ class DataSource {
   }
 
   getJwtToken() {
-    const token = Cookies.get('Authentication');
+    const token = Cookies.get(AUTHENTICATION_COOKIE);
     return token;
   }
 

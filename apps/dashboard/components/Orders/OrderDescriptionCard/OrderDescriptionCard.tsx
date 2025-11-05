@@ -74,7 +74,7 @@ const OrderDescriptionCard = ({ id }: OrderDescriptionCardProps) => {
                 fullWidth
                 color="orange"
                 radius="md"
-                leftSection={<IconCheck size={18} />}
+                leftSection={<IconCheck size={22}  />}
             >
                 Accept order
             </Button>

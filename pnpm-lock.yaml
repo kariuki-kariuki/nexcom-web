@@ -331,6 +331,9 @@ importers:
       '@repo/nexcom-types':
         specifier: workspace:*
         version: link:../../packages/nexcom-types
+      '@repo/shared-logic':
+        specifier: workspace:*
+        version: link:../../packages/shared-logic
       '@tabler/icons-react':
         specifier: ^3.2.0
         version: 3.33.0(react@19.1.0)

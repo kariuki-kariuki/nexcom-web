@@ -40,7 +40,7 @@ const CreateComment = ({ productId, setComments }: IProps ) => {
   }
   return (
     <div>
-      <IconTextPlus size={28} color='orange' onClick={toggle}/>
+      <IconTextPlus size={22}  color='orange' onClick={toggle}/>
       <Dialog opened={opened} withCloseButton onClose={toggle} size="lg" radius="md">
         <Text size="sm" mb="xs" fw={500}>
           Add Comment

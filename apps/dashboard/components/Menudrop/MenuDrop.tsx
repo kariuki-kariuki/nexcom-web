@@ -35,7 +35,7 @@ export default function MenuDrop() {
         <DropDown toggle={toggle} />
         :
         <ButtonGroup>
-          <Button onClick={() => router.push(`${AUTH_URL}/login`)} leftSection={<IconLogin size={18} />} size='md' color='coco.4'>
+          <Button onClick={() => router.push(`${AUTH_URL}/login`)} leftSection={<IconLogin size={22}  />} size='md' color='coco.4'>
             Login
           </Button>
           <ColorSchemeToggle />
@@ -64,7 +64,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
         <Link href={`${APP_URL}/business/product/tags/all`}>
           <Menu.Item
             leftSection={
-              <IconShoppingBag color='#FF79C6' size={18} />
+              <IconShoppingBag color='#FF79C6' size={22}  />
             }
           >
             Shop
@@ -74,7 +74,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
           onClick={toggle}
           leftSection={
             <IconLayoutDashboardFilled
-             color='#FF79C6' size={18}
+             color='#FF79C6' size={22} 
             />
           }
         >
@@ -84,7 +84,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
           <Menu.Item
             leftSection={
               <IconMessageCircle
-               color='#FF79C6' size={18}
+               color='#FF79C6' size={22} 
               />
             }
           >
@@ -92,9 +92,9 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
           </Menu.Item>
         </Link>
         <Menu.Item leftSection={colorScheme === 'dark' ? (
-          <IconSunFilled className={classes.linkIcon} size={18} />
+          <IconSunFilled className={classes.linkIcon} size={22}  />
         ) : (
-          <IconSunMoon className={classes.linkIcon} size={18} />
+          <IconSunMoon className={classes.linkIcon} size={22}  />
         )}
           onClick={toggleColorScheme} >
 
@@ -104,7 +104,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
           <Link href="/dashboard">
             <Menu.Item
               leftSection={
-                <IconDiamond color='#FF79C6' size={18} />
+                <IconDiamond color='#FF79C6' size={22}  />
               }
             >
               Admin
@@ -125,7 +125,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
                 setUser(null);
               }}
               leftSection={
-                <IconLogout  size={18} />
+                <IconLogout  size={22}  />
               }
             >
               Logout
@@ -134,7 +134,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
             <Menu.Item
               leftSection={
                 <IconArrowsLeftRight
-                  size={18}
+                  size={22} 
                 />
               }
             >
@@ -143,7 +143,7 @@ const DropDown = ({ toggle }: { toggle: () => void }) => {
             <Menu.Item
               color="red"
               leftSection={
-                <IconTrash size={18} />
+                <IconTrash size={22}  />
               }
             >
               Delete my account

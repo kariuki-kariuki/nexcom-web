@@ -16,9 +16,9 @@ import classes from './NavbarSearch.module.css';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Avatar, Divider, Group, Paper, Text } from '@mantine/core';
+import logout from '@repo/shared-logic/src/utils/logout';
 
 const data = [
-
   { link: '/dashboard', label: 'Analytics', icon: IconGraph },
   { link: '/dashboard/products', label: 'Products', icon: IconShoppingBag },
   { link: '/dashboard/orders', label: 'Orders', icon: IconMenuOrder },
@@ -61,7 +61,7 @@ export function NavbarSearch() {
           <span>Change account</span>
         </Link>
 
-        <Link href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+        <Link href="#" className={classes.link} onClick={(event) => {event.preventDefault(); logout()}}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
         </Link>

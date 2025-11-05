@@ -3,8 +3,9 @@
 import { jwtDecode } from 'jwt-decode';
 import { cookies } from 'next/headers';
 import { getErrorMessage } from '../../utils/errors';
-import { API_URL, AUTHENTICATION_COOKIE } from './constants';
+import { API_URL } from './constants';
 import { datasource } from './datasource';
+import { AUTHENTICATION_COOKIE } from '@repo/shared-logic';
 
 
 interface FormResponse {

@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { decodeJwt } from 'jose';
-import { APP_URL } from '@repo/shared-logic';
+import { APP_URL, AUTHENTICATION_COOKIE } from '@repo/shared-logic';
 
 
 const publicRoutes = ['/auth/login', '/auth/signup'];
@@ -13,7 +13,7 @@ export default async function middleware(req: NextRequest) {
   // console.log("Referrer Middleware: ", referrer)
   // Extract cookies asynchronously
   const cookieStore = cookies();
-  const token = (await cookieStore).get('Authentication')?.value;
+  const token = (await cookieStore).get(AUTHENTICATION_COOKIE)?.value;
 
   // Attempt to decrypt the session token
   const claims = await decrypt(token);

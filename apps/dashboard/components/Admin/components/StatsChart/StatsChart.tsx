@@ -36,7 +36,7 @@ const StatsChart = () => {
         <div>
           <Group justify="space-between" mb={'md'}>
             <Text fz={'sm'}>{data.label}</Text>
-            <data.icon size={18} />
+            <data.icon size={22}  />
           </Group>
           <Group justify="space-between">
             <div>
