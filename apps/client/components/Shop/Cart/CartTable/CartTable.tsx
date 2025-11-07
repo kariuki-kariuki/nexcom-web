@@ -17,7 +17,7 @@ import {
 import classes from './CartTable.module.css';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
 import { CartItem } from '@/lib/@types/shop';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 
 interface IProps {
   cartItems: CartItem[];

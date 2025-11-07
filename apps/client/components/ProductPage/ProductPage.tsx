@@ -1,6 +1,6 @@
 'use client';
 
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 import { useMantineTheme, LoadingOverlay, Card, Flex, Box, Group, Button, Text, SegmentedControl, ScrollArea, useMantineColorScheme, Paper, Affix } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';

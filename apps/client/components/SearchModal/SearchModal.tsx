@@ -22,7 +22,7 @@ import { IconCirclePlusFilled, IconMessageCirclePlus, IconSearch, IconUsersGroup
 import { useState } from 'react';
 import classes from './SearchModal.module.css';
 import { ConvsersationType, GlobalUser } from '@/lib/@types/app';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 import { notifications } from '@mantine/notifications';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 import { useRouter } from 'next/navigation';

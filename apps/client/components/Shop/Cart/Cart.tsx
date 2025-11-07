@@ -27,7 +27,7 @@ import { IconEyeDollar } from '@tabler/icons-react';
 import { useState } from 'react';
 import SimpleHeader from '@/components/SimpleHeader/SimpleHeader';
 import { notifications } from '@mantine/notifications';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 import OrderTable from './OrderTable/OrderTable';
 
 const CartComponent = ({ cartItems }: { cartItems: CartItem[] | null }) => {

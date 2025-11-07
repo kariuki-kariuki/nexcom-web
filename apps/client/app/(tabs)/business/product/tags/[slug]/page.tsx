@@ -1,7 +1,7 @@
 import BusinessPage from '@/components/BusinessPage/BusinessPage';
 import HeroPage from '@/components/Shop/Products/HeroPage';
 import { CategoryWithProducts, ProductWithShop, Shop } from '@/lib/@types/shop';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 import { Text } from '@mantine/core';
 import React from 'react';
 

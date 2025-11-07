@@ -4,7 +4,7 @@ import { Card, Group, Avatar, Text, Modal, InputWrapper, Input, Title, Flex, Pap
 import { ConvsersationType, GlobalUser } from '../../lib/@types/app';
 import classes from './GroupModal.module.css'
 import { FileWithPath } from '@mantine/dropzone';
-import { datasource } from '../../lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 import { notifications } from '@mantine/notifications';
 import { useSocketContext } from '../../lib/hooks/useSocket';
 

@@ -1,6 +1,6 @@
 import ProductPage from '@/components/ProductPage/ProductPage'
 import { Product } from '@/lib/@types/shop'
-import { datasource } from '@/lib/common/datasource'
+import { datasource } from '@repo/shared-logic'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import React from 'react'

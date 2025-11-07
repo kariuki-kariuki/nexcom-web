@@ -3,7 +3,7 @@ import { Avatar, Button, Container, FileInput, Flex, Group, Input, InputWrapper,
 import { FileWithPath } from '@mantine/dropzone'
 import React, { useState } from 'react'
 import classes from './CreateShop.module.css';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 import setToken from '@/utils/setToken';
 import { useRouter } from 'next/navigation';
 import { useGlobalStore } from '@/lib/context/global-store.provider';

@@ -1,6 +1,6 @@
 'use client';
 import { Socket } from 'socket.io-client';
-import { datasource } from '../common/datasource'
+import { datasource } from '@repo/shared-logic'
 import React, { useContext } from 'react';
 
 export const SocketContext = React.createContext<Socket | null>(null);

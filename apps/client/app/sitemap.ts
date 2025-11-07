@@ -1,5 +1,5 @@
 import { Product } from '@/lib/@types/shop'
-import { datasource } from '@/lib/common/datasource'
+import { datasource } from '@repo/shared-logic'
 import { siteMetadata } from '@/lib/data/siteMetadata'
 import { url } from 'inspector'
 import type { MetadataRoute } from 'next'

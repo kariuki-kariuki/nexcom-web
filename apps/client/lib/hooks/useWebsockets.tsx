@@ -2,7 +2,7 @@
 import React, { useEffect, useCallback, ReactNode, createContext, useState, useContext, useMemo } from "react";
 import { AddUserInGroup, AddUsersToGroupDTO, ChatState, ConversationProps, GlobalUser, NewMessage, PayloadMessage, UpdateGroupProfile, UpdateProfile, UserActionDTO } from "../@types/app";
 import { useSocketContext } from "./useSocket";
-import { datasource } from "../common/datasource";
+import { datasource } from "@repo/shared-logic";
 import { useGlobalStore } from "../context/global-store.provider";
 import useSound from "use-sound"
 import { usePathname } from "next/navigation";

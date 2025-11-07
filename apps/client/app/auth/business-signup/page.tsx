@@ -1,6 +1,6 @@
 import CreateShop from '@/components/Shop/Create/CreateShop'
 import { Category } from '@/lib/@types/shop'
-import { datasource } from '@/lib/common/datasource'
+import { datasource } from '@repo/shared-logic'
 import { Text } from '@mantine/core'
 import React from 'react'
 

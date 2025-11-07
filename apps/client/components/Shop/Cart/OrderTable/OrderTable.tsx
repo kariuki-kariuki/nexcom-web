@@ -3,7 +3,7 @@ import classes from "./OrderTable.module.css"
 import { TableScrollContainer, Table, useMantineColorScheme, Avatar, Button } from '@mantine/core'
 import { useGlobalStore } from '@/lib/context/global-store.provider';
 import { Order, OrderState } from '@/lib/@types/app';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 const OrderTable = () => {
   const { colorScheme } = useMantineColorScheme();
   const user = useGlobalStore((state) => state.user);

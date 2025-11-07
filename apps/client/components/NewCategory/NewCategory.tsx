@@ -4,7 +4,7 @@ import { notifications } from '@mantine/notifications';
 import classes from './NewCategory.module.css'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { Category } from '@/lib/@types/shop';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 
 interface Props {
   setCategories: (updater: (categories: Category[]) => Category[]) => void;

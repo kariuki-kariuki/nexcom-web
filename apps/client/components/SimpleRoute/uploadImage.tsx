@@ -1,6 +1,6 @@
+import { datasource } from '@repo/shared-logic';
 import { API_URL } from '../../lib/common/constants';
 import { getErrorMessage } from '../../utils/errors';
-import { getAuthToken } from '../../utils/token';
 
 interface Props {
   resource: string;
@@ -10,7 +10,7 @@ export async function UploadImage<T>({
   resource,
   formData
 }: Props): Promise<T | string> {
-  const token = getAuthToken();
+  const token = datasource.getJwtToken();
   try {
     const res = await fetch(`${API_URL}/${resource}`, {
       method: 'PATCH',
@@ -33,7 +33,7 @@ export async function PostFile<T>({
   resource,
   formData
 }: Props): Promise<T | string> {
-  const token = getAuthToken();
+  const token = datasource.getJwtToken();
   try {
     const res = await fetch(`${API_URL}/${resource}`, {
       method: 'POST',

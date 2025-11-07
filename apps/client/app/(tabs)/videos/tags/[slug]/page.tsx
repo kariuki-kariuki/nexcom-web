@@ -1,7 +1,7 @@
 import VideoPlayer from '@/components/Videos/MiniPlayer/MiniPlayer'
 import Videos from '@/components/Videos/Videos'
 import { ProductVideo } from '@/lib/@types/shop'
-import { datasource } from '@/lib/common/datasource'
+import { datasource } from '@repo/shared-logic'
 import React from 'react'
 
 interface Params {

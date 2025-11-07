@@ -1,6 +1,6 @@
 'use client';
 import { ProductComment } from '@/lib/@types/shop'
-import { datasource } from '@/lib/common/datasource'
+import { datasource } from '@repo/shared-logic'
 import { Button, Dialog, Divider, Group, Input, InputWrapper, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { notifications } from '@mantine/notifications';

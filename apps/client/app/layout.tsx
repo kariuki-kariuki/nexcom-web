@@ -69,7 +69,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  console.log("Rerender")
   return (
     <html lang="en">
       <head>

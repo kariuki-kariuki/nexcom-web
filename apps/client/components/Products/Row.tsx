@@ -25,7 +25,7 @@ import {
 import { notifications } from '@mantine/notifications';
 import { Product, ProductStatus } from '../../lib/@types/shop';
 import classes from './Products.module.css';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 import StatusButton from './StatusButton/StatusButton';
 
 interface IRow {

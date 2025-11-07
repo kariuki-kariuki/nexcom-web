@@ -7,7 +7,7 @@ import { IconCirclePlusFilled } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 import { GlobalUser } from '@/lib/@types/app';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 import { notifications } from '@mantine/notifications';
 import Link from 'next/link';
 import { useGlobalStore } from '@/lib/context/global-store.provider';

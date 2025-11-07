@@ -1,6 +1,6 @@
 import VideoPage from '@/components/Videos/VideoPage.tsx/VideoPage'
 import { ProductVideo } from '@/lib/@types/shop'
-import { datasource } from '@/lib/common/datasource'
+import { datasource } from '@repo/shared-logic'
 import { ParsedUrlQuery } from 'querystring'
 import React from 'react'
 

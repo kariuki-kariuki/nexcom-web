@@ -20,7 +20,7 @@ import { IconBasketPlus, IconTool } from '@tabler/icons-react';
 import classes from './ProductModal.module.css';
 import { useMediaQuery } from '@mantine/hooks';
 import { GlobalUser } from '@/lib/@types/app';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 import { notifications } from '@mantine/notifications';
 import Link from 'next/link';
 import ContactSeller from '@/components/ContactSeller/ContactSeller';

@@ -2,7 +2,6 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { decodeJwt } from 'jose';
 import { APP_URL, AUTH_URL } from './lib/common/constants';
-import { AUTHENTICATION_COOKIE } from '@repo/shared-logic';
 
 // Define protected and public routes
 const protectedRoutes = [
@@ -27,7 +26,7 @@ export default async function middleware(req: NextRequest) {
 
   // Extract cookies asynchronously
   const cookieStore = cookies();
-  const token = cookieStore.get(AUTHENTICATION_COOKIE)?.value;
+  const token = cookieStore.get('session')?.value;
 
   // Attempt to decrypt the session token
   const claims = await decrypt(token);

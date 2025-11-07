@@ -12,7 +12,7 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { Product, ImageInterface } from '../../lib/@types/shop';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 
 interface Iprops {
   image: ImageInterface;

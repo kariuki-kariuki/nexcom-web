@@ -7,7 +7,7 @@ import ReactPlayer from 'react-player'
 import classes from './createvideo.module.css';
 import { Product } from '@/lib/@types/shop';
 import { notifications } from '@mantine/notifications';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 
 const CreateVideo = ({ product }: { product: Product }) => {
   const [opened, { toggle }] = useDisclosure(false);

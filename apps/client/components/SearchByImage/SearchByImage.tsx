@@ -1,6 +1,6 @@
 'use client';
 import { ImageInterface } from '@/lib/@types/shop';
-import { datasource } from '@/lib/common/datasource';
+import { datasource } from '@repo/shared-logic';
 import { Button, FileInput, Group, Image, LoadingOverlay, Modal, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
