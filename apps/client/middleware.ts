@@ -49,10 +49,6 @@ export default async function middleware(req: NextRequest) {
   // Allow access to the root route '/' for everyone
   
   if (path === '/') {
-    if (isAuthenticated) {
-      return NextResponse.redirect(new URL('/chat', req.nextUrl));
-
-    }
     return NextResponse.next();
   }
 

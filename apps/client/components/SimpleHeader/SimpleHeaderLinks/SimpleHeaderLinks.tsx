@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
-import { IconMessageCircle, IconShoppingBag, IconShoppingCart } from '@tabler/icons-react'
+import { IconHome2, IconMessageCircle, IconShoppingBag, IconShoppingCart } from '@tabler/icons-react'
 import { Avatar, Burger, Drawer, Group, Paper, Stack, Text } from '@mantine/core'
 import DashboardLink, { LoginLink } from './DashboardLink'
 import classes from './SimpleHeaderLinks.module.css';
@@ -9,10 +9,11 @@ import { useDisclosure } from '@mantine/hooks'
 import MenuDrop from '@/components/Menudrop/MenuDrop'
 
 const links = [
-  // { label: 'Videos', link: '/videos', icon: IconVideoFilled },
+  { label: 'Home', link: '/', icon: IconHome2 },
   { label: 'Chats', link: '/chat', icon: IconMessageCircle },
   { label: 'Business', link: '/business', icon: IconShoppingBag },
   { label: 'Products', link: '/business/product/tags/all', icon: IconShoppingCart },
+  { label: 'Blogs', link: '/blogs/tags/all', icon: IconShoppingCart },
 ]
 
 const SimpleHeaderLinks = () => {
