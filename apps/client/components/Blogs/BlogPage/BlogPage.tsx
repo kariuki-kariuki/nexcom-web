@@ -1,3 +1,4 @@
+'use client';
 import { Avatar, Card, CardSection, Container, Flex, Group, Paper, Stack, Text, Title } from '@mantine/core'
 import { BlogInterface } from '@repo/nexcom-types'
 import createDOMPurify from 'dompurify'
