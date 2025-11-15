@@ -33,13 +33,13 @@ type SanitizedData = {
 @Injectable()
 export class PaymentsService {
   private logger = new Logger(PaymentsService.name);
-  private readonly darajaSecret = process.env.DA_SECRET_KEY;
-  private readonly darajaConsumer = process.env.DA_CONSUMER_KEY;
-  private readonly darajaAuthUrl = process.env.DA_AUTH_URL;
-  private readonly darajaPassKey = process.env.DA_PASS_KEY;
-  private readonly darajaStkUrl = process.env.DA_STK_URL;
-  private readonly darajaCallBackURL = process.env.DA_CALLBACK_URL;
-  private readonly darajaShortCode = process.env.DA_SHORT_CODE;
+  private readonly darajaSecret = process.env.DARAJA_API_SECRET_KEY;
+  private readonly darajaConsumer = process.env.DARAJA_API_CONSUMER_KEY;
+  private readonly darajaAuthUrl = process.env.DARAJA_API_AUTH_URL;
+  private readonly darajaPassKey = process.env.DARAJA_API_PASS_KEY;
+  private readonly darajaStkUrl = process.env.DARAJA_API_STK_URL;
+  private readonly darajaCallBackURL = process.env.DARAJA_API_CALLBACK_URL;
+  private readonly darajaShortCode = process.env.DARAJA_API_SHORT_CODE;
   private readonly buffer = Buffer.from(
     `${this.darajaConsumer}:${this.darajaSecret}`,
   ).toString('base64');
@@ -315,7 +315,7 @@ export class PaymentsService {
   async requestStatus(id: string): Promise<string> {
     const rqBody = {
       Initiator: 'testapi',
-      SecurityCredential: process.env.DA_SECURITY_CREDENTIAL, // Use environment variable
+      SecurityCredential: process.env.DARAJA_API_SECURITY_CREDENTIAL, // Use environment variable
       CommandID: 'TransactionStatusQuery',
       TransactionID: id,
       PartyA: this.darajaShortCode,
