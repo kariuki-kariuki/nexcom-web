@@ -1,0 +1,15 @@
+p {
+    margin-bottom: 10;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 20;
+    margin-bottom: 10;
+    color: #FF79C6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin: 10 0;
+}

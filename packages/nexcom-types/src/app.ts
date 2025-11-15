@@ -175,6 +175,7 @@ export interface BlogInterface {
   featuredImage: ImageInterface;
   tags: string[]
   created_at: Date;
+  content: string;
 }
 
 export interface BlogResultInterFace {

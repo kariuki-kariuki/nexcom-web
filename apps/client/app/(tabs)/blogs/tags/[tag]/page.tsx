@@ -1,4 +1,6 @@
+import BlogCard from '@/components/Blogs/BlogCard/BlogCard';
 import get from '@/utils/fetch';
+import { Container, Title } from '@mantine/core';
 import { BlogResultInterFace } from '@repo/nexcom-types';
 import React from 'react'
 
@@ -8,9 +10,12 @@ interface Params {
   }
 }
 const page = async ({params}: Params) => {
-  const blogs = await get<BlogResultInterFace>(`blogs/public?tag=${params.tag}`)
+  const results = await get<BlogResultInterFace>(`blogs/public?tag=${params.tag}`)
   return ( 
-    <div>page</div>
+    <Container size="xl" my="md">
+      <Title my='xl'>{params.tag.toUpperCase()}</Title>
+      {results && results.blogs.map((blog) => <BlogCard blog={blog} key={blog.id} />)}
+    </Container>
   )
 }
 

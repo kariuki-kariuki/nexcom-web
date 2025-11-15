@@ -45,7 +45,7 @@ export class BlogsService {
       .orderBy('blog.created_at', 'DESC');
 
     if (tag.toLocaleLowerCase() !== 'all') {
-      qb.andWhere('LOWER(:tag) = ANY(blog.tags)', {
+      qb.andWhere(':tag = ANY(blog.tags)', {
         tag,
       });
     }
