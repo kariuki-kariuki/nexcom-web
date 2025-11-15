@@ -30,5 +30,8 @@ dist-ssr
 .VSCodeCounter
 
 .turbo
-.env*
+.env
+.env.local
+.env.*.local
+.env.test
 /routes
