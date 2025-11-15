@@ -346,9 +346,6 @@ importers:
       dayjs:
         specifier: ^1.11.12
         version: 1.11.13
-      dompurify:
-        specifier: ^3.3.0
-        version: 3.3.0
       embla-carousel-autoplay:
         specifier: ^7.1.0
         version: 7.1.0(embla-carousel@7.1.0)
@@ -358,15 +355,15 @@ importers:
       emoji-picker-react:
         specifier: ^4.11.1
         version: 4.12.2(react@19.1.0)
+      isomorphic-dompurify:
+        specifier: ^2.32.0
+        version: 2.32.0
       jose:
         specifier: ^5.9.6
         version: 5.10.0
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
-      jsdom:
-        specifier: ^27.2.0
-        version: 27.2.0
       jwt-decode:
         specifier: ^4.0.0
         version: 4.0.0
@@ -5278,6 +5275,10 @@ packages:
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
+
+  isomorphic-dompurify@2.32.0:
+    resolution: {integrity: sha512-4i6G4ICY57wQpiaNd6WcwhHUAqGDAJGWRlfWKLunBchJjtF2HV4eUeJtUupoEddbnnxYUiRhqfd9e4aDYR7ROA==}
+    engines: {node: '>=20.19.5'}
 
   istanbul-lib-coverage@3.2.2:
     resolution: {integrity: sha512-O8dpsF+r0WV/8MNRKfnmrtCWhuKjxrq2w+jpzBL5UZKTi2LeVWnWOmWRxFlesJONmc+wLAGvKQZEOanko0LFTg==}
@@ -13420,6 +13421,16 @@ snapshots:
   isarray@2.0.5: {}
 
   isexe@2.0.0: {}
+
+  isomorphic-dompurify@2.32.0:
+    dependencies:
+      dompurify: 3.3.0
+      jsdom: 27.2.0
+    transitivePeerDependencies:
+      - bufferutil
+      - canvas
+      - supports-color
+      - utf-8-validate
 
   istanbul-lib-coverage@3.2.2: {}
 

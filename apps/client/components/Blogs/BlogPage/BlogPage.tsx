@@ -1,11 +1,10 @@
-'use client';
-import { Avatar, Card, CardSection, Container, Flex, Group, Paper, Stack, Text, Title } from '@mantine/core'
+'use client'
+import { Avatar, Container, Flex, Group, Paper, Stack, Text, Title } from '@mantine/core'
 import { BlogInterface } from '@repo/nexcom-types'
-import createDOMPurify from 'dompurify'
-import { JSDOM } from 'jsdom'
+import DOMPurify from "isomorphic-dompurify";
 import React from 'react'
 import './styles.css'
-import { IconHeart, IconHeartPlus } from '@tabler/icons-react'
+import { IconHeartPlus } from '@tabler/icons-react'
 import Link from 'next/link'
 
 interface BlogPageProps {
@@ -13,16 +12,14 @@ interface BlogPageProps {
 }
 const BlogPage = ({ blog }: BlogPageProps) => {
     const date = new Date(blog.created_at);
-    const window = new JSDOM('').window;
-    const DOMPurify = createDOMPurify(window);
-    const sanitizedContent = DOMPurify.sanitize(blog.content);
+    const content = DOMPurify.sanitize(blog.content);
     return (
         <Container size="md" mt='xl'>
             <Flex direction={{ base: 'column-reverse', md: 'row' }}>
                 <Paper w={{ base: '100%', sm: '20%' }} bg="none">
                     <Stack align="start" mb="md">
-                        {blog.tags.map((tag) => (
-                            <Link href={`/blogs/tags/${tag}`}><Text key={tag} c='coco.5'>{tag}</Text></Link>
+                        {blog.tags.map((tag, idx) => (
+                            <Link key={idx} href={`/blogs/tags/${tag}`}><Text key={tag} c='coco.5'>{tag}</Text></Link>
                         ))}
                     </Stack>
                 </Paper>
@@ -37,7 +34,7 @@ const BlogPage = ({ blog }: BlogPageProps) => {
                         <Text>{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`}</Text>
                         <IconHeartPlus color='red' />
                     </Group>
-                    <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+                    <div dangerouslySetInnerHTML={{ __html: content }} />
                 </section>
             </Flex>
         </Container>
