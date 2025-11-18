@@ -27,6 +27,8 @@ export class GoogleOauthController {
       sameSite: 'lax',
       path: '/',
     });
-    return res.redirect('http://localhost:3500');
+    return res.redirect(
+      process.env.GOOGLE_AUTH_REDIRECT_URL || 'https://nexcom.site',
+    );
   }
 }

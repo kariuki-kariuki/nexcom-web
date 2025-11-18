@@ -24,7 +24,7 @@ interface PageProps {
 
 export default function RootLayout({ children }: PageProps) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <head>
         <meta charSet="UTF-8" />
         {/* <link rel="icon" href="/favicon.ico" /> */}

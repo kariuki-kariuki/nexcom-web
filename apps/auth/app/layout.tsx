@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
          <meta charSet="UTF-8" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
@@ -43,7 +43,7 @@ export default function RootLayout({
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <MantineProvider theme={theme}>
           {children}
         </MantineProvider>

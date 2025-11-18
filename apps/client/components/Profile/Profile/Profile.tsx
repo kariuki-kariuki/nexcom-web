@@ -6,6 +6,7 @@ import { GlobalUser } from '@/lib/@types/app';
 import Link from 'next/link';
 import { IconArrowsLeftRight } from '@tabler/icons-react';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
+import { AUTH_URL } from '@repo/shared-logic';
 
 
 function Profile({ userClicked }: { userClicked: GlobalUser }) {
@@ -45,7 +46,7 @@ function Profile({ userClicked }: { userClicked: GlobalUser }) {
 
       {active ? (
         <CardSection p="md" className={classes.sections}>
-          <Group justify="center">{!user?.shop && <Link href="/auth/business-signup"><Button my="md" variant='light' color="teal.7" leftSection={<IconArrowsLeftRight />}>Switch to Business</Button></Link>}</Group>
+          <Group justify="center">{!user?.shop && <Link href={`${AUTH_URL}/auth/business-signup`}><Button my="md" variant='light' color="teal.7" leftSection={<IconArrowsLeftRight />}>Switch to Business</Button></Link>}</Group>
         </CardSection>
       ) : (
         ''

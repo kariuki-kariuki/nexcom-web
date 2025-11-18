@@ -7,7 +7,7 @@ import { IconCirclePlusFilled } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 import { GlobalUser } from '@/lib/@types/app';
-import { datasource } from '@repo/shared-logic';
+import { DASHBOARD_URL, datasource } from '@repo/shared-logic';
 import { notifications } from '@mantine/notifications';
 import Link from 'next/link';
 import { useGlobalStore } from '@/lib/context/global-store.provider';
@@ -50,8 +50,7 @@ export function CardsCarousel({ userClicked }: { userClicked: GlobalUser }) {
     <Card className={classes.card} bg="none">
       {user?.id === userClicked.id ? (
         <Group justify="center">
-          <Link href='/dashboard/products/create'>
-
+          <Link href={`${DASHBOARD_URL}/dashboard/products/create`}>
           <Button
             radius="md"
             variant="default"

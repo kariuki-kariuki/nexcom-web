@@ -3,7 +3,7 @@ import { Avatar, Container, Flex, Group, Paper, Stack, Text, Title } from '@mant
 import { BlogInterface } from '@repo/nexcom-types'
 import DOMPurify from "isomorphic-dompurify";
 import React from 'react'
-import './styles.css'
+import '@/styles/blog-page.css';
 import { IconHeartPlus } from '@tabler/icons-react'
 import Link from 'next/link'
 

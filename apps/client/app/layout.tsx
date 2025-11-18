@@ -1,4 +1,3 @@
-import { theme } from '@/theme';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import React from 'react';
 import '@mantine/core/styles.css';
@@ -16,6 +15,7 @@ import { Metadata } from 'next';
 import { WebSocketProvider } from '@/lib/hooks/useWebsockets';
 import { GlobalStoreProvider } from '@/lib/context/global-store.provider';
 import classes from './styles.module.css';
+import { theme } from '@repo/shared-logic';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
