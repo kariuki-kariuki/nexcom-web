@@ -70,6 +70,9 @@ The following environment variables are required for the project:
 NEXT_PUBLIC_URL=http://localhost:4000 
 NEXT_PUBLIC_WS_URL=http://localhost:4000 
 ```
+### Detailed Project Setup
+For complete step-by-step installation, configuration, and deployment instructions, see the **[PROJECT_SETUP.md](https://github.com/kariuki-kariuki/nexcom-web/blob/master/PROJECT_SETUP.md)** guide.
+
 ---
 ## Contributing
 Contributions are currently not open. For inquiries, please contact the project owner.
